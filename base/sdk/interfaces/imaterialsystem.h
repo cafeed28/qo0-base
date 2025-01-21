@@ -128,7 +128,7 @@ enum ECSMQualityMode : int
 };
 #pragma endregion
 
-using MaterialHandle_t = std::uint16_t;
+using MaterialHandle_t = uint16_t;
 
 #pragma pack(push, 4)
 // @source: master/public/materialsystem/materialsystem_config.h
@@ -154,9 +154,9 @@ struct MaterialSystemConfig_t
 	int nForceAnisotropicLevel; // 0x28
 	int iSkipMipLevels; // 0x2C
 	int nDxSupportLevel; // 0x30
-	std::uint32_t uFlags; // 0x34
+	uint32_t uFlags; // 0x34
 	bool bEditMode; // 0x38
-	std::uint8_t nProxiesTestMode; // 0x39
+	uint8_t nProxiesTestMode; // 0x39
 	bool bCompressedTextures; // 0x3A
 	bool bFilterLightmaps; // 0x3B
 	bool bFilterTextures; // 0x3C
@@ -168,18 +168,18 @@ struct MaterialSystemConfig_t
 	bool bNoTransparency; // 0x42
 	bool bSoftwareLighting; // 0x43
 	bool bAllowCheats; // 0x44
-	std::int8_t nShowMipLevels; // 0x45
+	int8_t nShowMipLevels; // 0x45
 	bool bShowLowResImage; // 0x46
 	bool bShowNormalMap; // 0x47
 	bool bMipMapTextures; // 0x48
-	std::uint8_t uFullbright; // 0x49
+	uint8_t uFullbright; // 0x49
 	bool bFastNoBump; // 0x4A
 	bool bSuppressRendering; // 0x4B
 	bool bDrawGray; // 0x4C
 	bool bShowSpecular; // 0x4D
 	bool bShowDiffuse; // 0x4E
-	std::uint32_t uWindowedSizeLimitWidth; // 0x50
-	std::uint32_t uWindowedSizeLimitHeight; // 0x54
+	uint32_t uWindowedSizeLimitWidth; // 0x50
+	uint32_t uWindowedSizeLimitHeight; // 0x54
 	int nAAQuality; // 0x58
 	bool bShadowDepthTexture; // 0x5C
 	bool bMotionBlur; // 0x5D

@@ -316,7 +316,7 @@ void FunctionName();
         3\. if none of the conditions are met, prefix with 'p' overriding any other data type prefix.
 
         ```cpp
-        std::uint32_t* pName = &uAddress;
+        uint32_t* pName = &uAddress;
         ```
 
     - function:
@@ -357,19 +357,19 @@ void FunctionName();
         1\. if the variable supposed to indicate index/count/size/mode/type, prefix becomes 'n' regardless the data type.
 
         ```cpp
-        std::ptrdiff_t nNameIndex = arrName.find(...);
-        std::size_t nNameSize = arrName.size();
-        std::ptrdiff_t nNameCount = arrName.size() - arrInvalidName.size();
+        ptrdiff_t nNameIndex = arrName.find(...);
+        size_t nNameSize = arrName.size();
+        ptrdiff_t nNameCount = arrName.size() - arrInvalidName.size();
         ENameMode nNameMode = NAME_MODE_FIRST;
         ```
 
         2\. if the variable is unsigned, prefix becomes 'u' regardless the data type, except `long` qualifiers, where it must be appended instead.
 
         ```cpp
-        std::uint8_t uNameByte = 0U;
-        std::uint16_t uNameShort = 0U;
-        std::uint32_t uNameInt = 0U;
-        std::uint64_t ullNameLongLongInt = 0ULL;
+        uint8_t uNameByte = 0U;
+        uint16_t uNameShort = 0U;
+        uint32_t uNameInt = 0U;
+        uint64_t ullNameLongLongInt = 0ULL;
         ```
 
         3\. if none of the conditions are met.

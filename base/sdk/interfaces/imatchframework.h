@@ -13,12 +13,12 @@
 class IPlayer : protected ROP::VirtualCallable_t<ROP::ClientGadget_t>
 {
 public:
-	std::uint64_t GetXUID()
+	uint64_t GetXUID()
 	{
 #ifdef Q_ALLOW_VIRTUAL_REBUILD
 		return ullXUID;
 #else
-		return CallVFunc<std::uint64_t, 0U>(this);
+		return CallVFunc<uint64_t, 0U>(this);
 #endif
 	}
 
@@ -44,7 +44,7 @@ private:
 	void* pVTableIPlayer; // 0x00
 	void* pVTablePlayer; // 0x04
 public:
-	std::uint64_t ullXUID; // 0x08
+	uint64_t ullXUID; // 0x08
 	int iController; // 0x10
 	int nOnlineState; // 0x14
 	char szName[MAX_PLAYER_NAME_LENGTH]; // 0x18

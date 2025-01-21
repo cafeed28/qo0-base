@@ -195,7 +195,7 @@ static void Destroy()
 	 * decrement thread count to prevent max thread limit assertion trigger
 	 * @xref: "Exceeded maximum number of unique threads (%d) attempting to access datacache.\n"
 	 */
-	std::uint8_t* pResourceAccessControl = *reinterpret_cast<std::uint8_t**>(MEM::FindPattern(DATACACHE_DLL, Q_XOR("83 C4 18 B8")) + 0x4);
+	uint8_t* pResourceAccessControl = *reinterpret_cast<uint8_t**>(MEM::FindPattern(DATACACHE_DLL, Q_XOR("83 C4 18 B8")) + 0x4);
 	if (int& nThreadCount = *reinterpret_cast<int*>(pResourceAccessControl + 0x98); nThreadCount >= 15)
 		--nThreadCount;
 #endif

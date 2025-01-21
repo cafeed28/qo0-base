@@ -5,7 +5,7 @@
 // used: stringcompare
 #include "../../utilities/crt.h"
 
-using FNV1A_t = std::uint32_t;
+using FNV1A_t = uint32_t;
 
 /*
  * 32-BIT FNV1A HASH
@@ -30,9 +30,9 @@ namespace FNV1A
 	/// @returns: calculated at run-time hash of given string
 	inline FNV1A_t Hash(const char* szString, FNV1A_t uKey = ullBasis) noexcept
 	{
-		const std::size_t nLength = CRT::StringLength(szString);
+		const size_t nLength = CRT::StringLength(szString);
 
-		for (std::size_t i = 0U; i < nLength; ++i)
+		for (size_t i = 0U; i < nLength; ++i)
 		{
 			uKey ^= szString[i];
 			uKey *= ullPrime;

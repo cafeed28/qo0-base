@@ -192,7 +192,7 @@ public:
 	[[nodiscard]] Matrix3x4a_t ConcatTransforms(const Matrix3x4a_t& matOther) const
 	{
 		Matrix3x4a_t matOutput;
-		Q_ASSERT((reinterpret_cast<std::uintptr_t>(this) & 15U) == 0 && (reinterpret_cast<std::uintptr_t>(&matOther) & 15U) == 0 && (reinterpret_cast<std::uintptr_t>(&matOutput) & 15U) == 0); // matrices aren't aligned
+		Q_ASSERT((reinterpret_cast<uintptr_t>(this) & 15U) == 0 && (reinterpret_cast<uintptr_t>(&matOther) & 15U) == 0 && (reinterpret_cast<uintptr_t>(&matOutput) & 15U) == 0); // matrices aren't aligned
 
 		__m128 thisRow0 = _mm_load_ps(this->arrData[0]);
 		__m128 thisRow1 = _mm_load_ps(this->arrData[1]);
@@ -207,7 +207,7 @@ public:
 		__m128 outRow2 = _mm_add_ps(_mm_mul_ps(_mm_shuffle_ps(thisRow2, thisRow2, _MM_SHUFFLE(0, 0, 0, 0)), otherRow0), _mm_add_ps(_mm_mul_ps(_mm_shuffle_ps(thisRow2, thisRow2, _MM_SHUFFLE(1, 1, 1, 1)), otherRow1), _mm_mul_ps(_mm_shuffle_ps(thisRow2, thisRow2, _MM_SHUFFLE(2, 2, 2, 2)), otherRow2)));
 
 		// add in translation vector
-		constexpr std::uint32_t arrComponentMask[4] = { 0x0, 0x0, 0x0, 0xFFFFFFFF };
+		constexpr uint32_t arrComponentMask[4] = { 0x0, 0x0, 0x0, 0xFFFFFFFF };
 		outRow0 = _mm_add_ps(outRow0, _mm_and_ps(thisRow0, std::bit_cast<__m128>(arrComponentMask)));
 		outRow1 = _mm_add_ps(outRow1, _mm_and_ps(thisRow1, std::bit_cast<__m128>(arrComponentMask)));
 		outRow2 = _mm_add_ps(outRow2, _mm_and_ps(thisRow2, std::bit_cast<__m128>(arrComponentMask)));
@@ -291,9 +291,9 @@ struct ViewMatrix_t
 
 	constexpr ViewMatrix_t& operator+=(const ViewMatrix_t& matAdd)
 	{
-		for (std::uint8_t c = 0U; c < 4U; c++)
+		for (uint8_t c = 0U; c < 4U; c++)
 		{
-			for (std::uint8_t r = 0U; r < 4U; r++)
+			for (uint8_t r = 0U; r < 4U; r++)
 				arrData[c][r] += matAdd[c][r];
 		}
 
@@ -302,9 +302,9 @@ struct ViewMatrix_t
 
 	constexpr ViewMatrix_t& operator-=(const ViewMatrix_t& matSubtract)
 	{
-		for (std::uint8_t c = 0U; c < 4U; c++)
+		for (uint8_t c = 0U; c < 4U; c++)
 		{
-			for (std::uint8_t r = 0U; r < 4U; r++)
+			for (uint8_t r = 0U; r < 4U; r++)
 				arrData[c][r] -= matSubtract[c][r];
 		}
 
@@ -323,9 +323,9 @@ struct ViewMatrix_t
 
 	constexpr void Identity()
 	{
-		for (std::uint8_t c = 0U; c < 4U; c++)
+		for (uint8_t c = 0U; c < 4U; c++)
 		{
-			for (std::uint8_t r = 0U; r < 4U; r++)
+			for (uint8_t r = 0U; r < 4U; r++)
 				arrData[c][r] = (c == r) ? 1.0f : 0.0f;
 		}
 	}

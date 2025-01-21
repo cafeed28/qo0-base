@@ -44,11 +44,11 @@ namespace C::JSON
 		}
 		case FNV1A::HashConst("bool[]"):
 		{
-			const std::size_t nArraySize = variable.nStorageSize / sizeof(bool);
+			const size_t nArraySize = variable.nStorageSize / sizeof(bool);
 			const auto& arrValues = *variable.GetStorage<bool[], false>();
 
 			std::vector<bool> vecBools(nArraySize);
-			for (std::size_t i = 0U; i < nArraySize; i++)
+			for (size_t i = 0U; i < nArraySize; i++)
 				vecBools[i] = arrValues[i];
 
 			entry = vecBools;
@@ -56,11 +56,11 @@ namespace C::JSON
 		}
 		case FNV1A::HashConst("int[]"):
 		{
-			const std::size_t nArraySize = variable.nStorageSize / sizeof(int);
+			const size_t nArraySize = variable.nStorageSize / sizeof(int);
 			const auto& arrValues = *variable.GetStorage<int[], false>();
 
 			std::vector<int> vecInts(nArraySize);
-			for (std::size_t i = 0U; i < nArraySize; i++)
+			for (size_t i = 0U; i < nArraySize; i++)
 				vecInts[i] = arrValues[i];
 
 			entry = vecInts;
@@ -68,11 +68,11 @@ namespace C::JSON
 		}
 		case FNV1A::HashConst("unsigned int[]"):
 		{
-			const std::size_t nArraySize = variable.nStorageSize / sizeof(unsigned int);
+			const size_t nArraySize = variable.nStorageSize / sizeof(unsigned int);
 			const auto& arrValues = *variable.GetStorage<unsigned int[], false>();
 
 			std::vector<unsigned int> vecUInts(nArraySize);
-			for (std::size_t i = 0U; i < nArraySize; i++)
+			for (size_t i = 0U; i < nArraySize; i++)
 				vecUInts[i] = arrValues[i];
 
 			entry = vecUInts;
@@ -80,11 +80,11 @@ namespace C::JSON
 		}
 		case FNV1A::HashConst("float[]"):
 		{
-			const std::size_t nArraySize = variable.nStorageSize / sizeof(float);
+			const size_t nArraySize = variable.nStorageSize / sizeof(float);
 			const auto& arrValues = *variable.GetStorage<float[], false>();
 
 			std::vector<float> vecFloats(nArraySize);
-			for (std::size_t i = 0U; i < nArraySize; i++)
+			for (size_t i = 0U; i < nArraySize; i++)
 				vecFloats[i] = arrValues[i];
 
 			entry = vecFloats;
@@ -108,7 +108,7 @@ namespace C::JSON
 		default:
 		{
 			[[maybe_unused]] bool bFoundUserType = false;
-			//const std::uint8_t* pVariableStorage = variable.GetStorage<const std::uint8_t, false>();
+			//const uint8_t* pVariableStorage = variable.GetStorage<const uint8_t, false>();
 
 			// lookup for user-defined data type
 			for (const UserDataType_t& userType : vecUserTypes)
@@ -178,8 +178,8 @@ namespace C::JSON
 		case FNV1A::HashConst("Color_t"):
 		{
 			Color_t colValue;
-			for (std::uint8_t i = 0U; i < entry.size(); i++)
-				colValue[i] = entry[i].get<std::uint8_t>();
+			for (uint8_t i = 0U; i < entry.size(); i++)
+				colValue[i] = entry[i].get<uint8_t>();
 
 			variable.SetStorage(&colValue);
 			break;
@@ -197,7 +197,7 @@ namespace C::JSON
 			Q_ASSERT(vecBools.size() * sizeof(bool) <= variable.nStorageSize); // source size is bigger than destination size
 
 			bool* arrValues = *variable.GetStorage<bool*, false>();
-			for (std::size_t i = 0U; i < vecBools.size(); i++)
+			for (size_t i = 0U; i < vecBools.size(); i++)
 				arrValues[i] = vecBools[i];
 
 			break;
@@ -208,7 +208,7 @@ namespace C::JSON
 			Q_ASSERT(vecInts.size() * sizeof(int) <= variable.nStorageSize); // source size is bigger than destination size
 
 			int* arrValues = *variable.GetStorage<int*, false>();
-			for (std::size_t i = 0U; i < vecInts.size(); i++)
+			for (size_t i = 0U; i < vecInts.size(); i++)
 				arrValues[i] = vecInts[i];
 
 			break;
@@ -219,7 +219,7 @@ namespace C::JSON
 			Q_ASSERT(vecUInts.size() * sizeof(unsigned int) <= variable.nStorageSize); // source size is bigger than destination size
 
 			unsigned int* arrValues = *variable.GetStorage<unsigned int*, false>();
-			for (std::size_t i = 0U; i < vecUInts.size(); i++)
+			for (size_t i = 0U; i < vecUInts.size(); i++)
 				arrValues[i] = vecUInts[i];
 
 			break;
@@ -230,7 +230,7 @@ namespace C::JSON
 			Q_ASSERT(vecFloats.size() * sizeof(float) <= variable.nStorageSize); // source size is bigger than destination size
 
 			float* arrValues = *variable.GetStorage<float*, false>();
-			for (std::size_t i = 0U; i < vecFloats.size(); i++)
+			for (size_t i = 0U; i < vecFloats.size(); i++)
 				arrValues[i] = vecFloats[i];
 
 			break;
@@ -254,7 +254,7 @@ namespace C::JSON
 		default:
 		{
 			[[maybe_unused]] bool bFoundUserType = false;
-			//std::uint8_t* pVariableStorage = variable.GetStorage<std::uint8_t, false>();
+			//uint8_t* pVariableStorage = variable.GetStorage<uint8_t, false>();
 
 			// lookup for user-defined data type
 			for (const UserDataType_t& userType : vecUserTypes)
@@ -262,7 +262,7 @@ namespace C::JSON
 				if (userType.uTypeHash == variable.uTypeHash)
 				{
 					// read size
-					const std::size_t nSourceSerializationSize = entry[Q_XOR("size")].get<std::size_t>();
+					const size_t nSourceSerializationSize = entry[Q_XOR("size")].get<size_t>();
 
 					nlohmann::json members = entry[Q_XOR("members")];
 

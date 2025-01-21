@@ -131,7 +131,7 @@ struct vcollide_t;
 struct virtualmodel_t;
 struct studiohdr_t;
 
-using MDLHandle_t = std::uint16_t;
+using MDLHandle_t = uint16_t;
 
 #pragma pack(push, 4)
 struct BrushData_t
@@ -242,9 +242,9 @@ public:
 		return CallVFunc<virtualmodel_t*, 26U>(this, pStudioHdr);
 	}
 
-	[[nodiscard]] std::uint8_t* GetAnimBlock(const studiohdr_t* pStudioHdr, int iBlock) const
+	[[nodiscard]] uint8_t* GetAnimBlock(const studiohdr_t* pStudioHdr, int iBlock) const
 	{
-		return CallVFunc<std::uint8_t*, 27U>(this, pStudioHdr, iBlock);
+		return CallVFunc<uint8_t*, 27U>(this, pStudioHdr, iBlock);
 	}
 
 	[[nodiscard]] bool HasAnimBlockBeenPreloaded(const studiohdr_t* pStudioHdr, int iBlock) const

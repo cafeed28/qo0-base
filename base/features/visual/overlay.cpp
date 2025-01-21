@@ -44,7 +44,7 @@ ImVec2 OVERLAY::CBaseDirectionalComponent::GetBasePosition(const ImVec4& box) co
 	}
 
 	if (this->nSide != SIDE_RIGHT && this->nDirection != DIR_RIGHT)
-		vecBasePosition.x -= this->vecSize.x * ((static_cast<std::uint8_t>(this->nDirection) == static_cast<std::uint8_t>(this->nSide) && (this->nSide & 1U) == 1U) ? 0.5f : 1.0f);
+		vecBasePosition.x -= this->vecSize.x * ((static_cast<uint8_t>(this->nDirection) == static_cast<uint8_t>(this->nSide) && (this->nSide & 1U) == 1U) ? 0.5f : 1.0f);
 
 	if (this->nSide == SIDE_TOP || this->nDirection == DIR_TOP)
 		vecBasePosition.y -= this->vecSize.y;
@@ -184,7 +184,7 @@ void OVERLAY::Context_t::AddBoxComponent(const ImVec4& vecBox, const VisualOverl
 			{ ImVec2(vecBox[SIDE_RIGHT], vecBox[SIDE_BOTTOM] - flCornerHeight) - vecThicknessOffset, ImVec2(vecBox[SIDE_RIGHT], vecBox[SIDE_BOTTOM]) - vecThicknessOffset, ImVec2(vecBox[SIDE_RIGHT] - flCornerWidth, vecBox[SIDE_BOTTOM]) - vecThicknessOffset }
 		};
 
-		for (std::size_t i = 0U; i < Q_ARRAYSIZE(arrCornerPoints); i++)
+		for (size_t i = 0U; i < Q_ARRAYSIZE(arrCornerPoints); i++)
 		{
 			const auto& arrLinePoints = arrCornerPoints[i];
 			const ImVec2 vecHalfPixelOffset = ((i & 1U) == 1U ? ImVec2(-0.5f, -0.5f) : ImVec2(0.5f, 0.5f));
@@ -256,10 +256,10 @@ void OVERLAY::Context_t::AddComponent(CBaseComponent* pComponent)
 		pComponent->vecOffset[pDirectionalComponent->nSide & 1U] += ((pDirectionalComponent->nSide < 2U) ? -flSidePadding : flSidePadding);
 
 		// check if the component is in the same direction as the side and it's the first component in this direction
-		if (static_cast<std::uint8_t>(pDirectionalComponent->nDirection) == static_cast<std::uint8_t>(pDirectionalComponent->nSide) && arrDirectionPaddings[pDirectionalComponent->nDirection] == 0.0f)
+		if (static_cast<uint8_t>(pDirectionalComponent->nDirection) == static_cast<uint8_t>(pDirectionalComponent->nSide) && arrDirectionPaddings[pDirectionalComponent->nDirection] == 0.0f)
 		{
 			// accumulate paddings for sub-directions
-			for (std::uint8_t nSubDirection = DIR_LEFT; nSubDirection < DIR_MAX; nSubDirection++)
+			for (uint8_t nSubDirection = DIR_LEFT; nSubDirection < DIR_MAX; nSubDirection++)
 			{
 				/*
 				 * exclude conflicting sub-directions
@@ -308,7 +308,7 @@ ImVec2 OVERLAY::Context_t::GetTotalDirectionalSize(const EAlignSide nSide) const
 
 	// @todo: we should peek max of bottom + side or top directions at horizontal sides
 	const float(&arrDirectionPaddings)[DIR_MAX] = this->arrSideDirectionPaddings[nSide];
-	for (std::uint8_t nSubDirection = DIR_LEFT; nSubDirection < DIR_MAX; nSubDirection++)
+	for (uint8_t nSubDirection = DIR_LEFT; nSubDirection < DIR_MAX; nSubDirection++)
 		vecSideSize[nSubDirection & 1U] += arrDirectionPaddings[nSubDirection];
 
 	return vecSideSize;
@@ -331,7 +331,7 @@ void OVERLAY::Context_t::Render(const ImVec4& vecBox) const
 				const float(&arrDirectionPaddings)[DIR_MAX] = this->arrSideDirectionPaddings[pComponent->nSide];
 
 				// check if the component has horizontal direction
-				if (static_cast<std::uint8_t>(pDirectionalComponent->nDirection) != static_cast<std::uint8_t>(pDirectionalComponent->nSide))
+				if (static_cast<uint8_t>(pDirectionalComponent->nDirection) != static_cast<uint8_t>(pDirectionalComponent->nSide))
 					// add centering offset to the component's offset
 					pDirectionalComponent->vecOffset.x += (arrDirectionPaddings[DIR_LEFT] - arrDirectionPaddings[DIR_RIGHT]) * 0.5f;
 				// otherwise check if it's the first component in direction as side
@@ -543,7 +543,7 @@ bool OVERLAY::GetEntityBoundingBox(CBaseEntity* pEntity, ImVec4* pvecBox)
 
 	// get screen points position
 	ImVec2 arrScreen[8] = {};
-	for (std::size_t i = 0U; i < 8U; i++)
+	for (size_t i = 0U; i < 8U; i++)
 	{
 		if (!D::WorldToScreen(arrPoints[i].Transform(matTransformed), &arrScreen[i]))
 			return false;
@@ -688,7 +688,7 @@ void OVERLAY::Player(CCSPlayer* pLocal, CCSPlayer* pPlayer, const float flDistan
 		char szDistanceBuffer[CRT::IntegerToString_t<int, 10>::MaxCount() + 1U];
 		char* szDistance = CRT::IntegerToString(iDistance, szDistanceBuffer, Q_ARRAYSIZE(szDistanceBuffer), 10);
 
-		const std::size_t nDistanceLength = szDistanceBuffer + sizeof(szDistanceBuffer) - szDistance - 1U;
+		const size_t nDistanceLength = szDistanceBuffer + sizeof(szDistanceBuffer) - szDistance - 1U;
 		szDistance = static_cast<char*>(CRT::MemoryMove(szDistance - 1U, szDistance, nDistanceLength)); // @note: this relies on current 'CRT::IntegerToString' behaviour, be careful
 		szDistance[nDistanceLength] = 'M';
 
@@ -705,7 +705,7 @@ void OVERLAY::Player(CCSPlayer* pLocal, CCSPlayer* pPlayer, const float flDistan
 
 	if (C::Get<bool>(Vars.bVisualOverlayPlayerMoney))
 	{
-		char szMoneyBuffer[CRT::IntegerToString_t<std::uint16_t, 10>::MaxCount() + 1U];
+		char szMoneyBuffer[CRT::IntegerToString_t<uint16_t, 10>::MaxCount() + 1U];
 		char* szMoney = CRT::IntegerToString(pPlayer->GetMoney(), szMoneyBuffer, Q_ARRAYSIZE(szMoneyBuffer), 10);
 		*--szMoney = '$'; // @note: this relies on current 'CRT::IntegerToString' behaviour, be careful
 
@@ -913,7 +913,7 @@ void OVERLAY::DroppedWeapon(CBaseCombatWeapon* pWeapon, const float flDistance)
 			char szDistanceBuffer[CRT::IntegerToString_t<int, 10>::MaxCount() + 1U];
 			char* szDistance = CRT::IntegerToString(iDistance, szDistanceBuffer, Q_ARRAYSIZE(szDistanceBuffer), 10);
 
-			const std::size_t nDistanceLength = szDistanceBuffer + sizeof(szDistanceBuffer) - szDistance - 1U;
+			const size_t nDistanceLength = szDistanceBuffer + sizeof(szDistanceBuffer) - szDistance - 1U;
 			szDistance = static_cast<char*>(CRT::MemoryMove(szDistance - 1U, szDistance, nDistanceLength)); // @note: this relies on current 'CRT::IntegerToString' behaviour, be careful
 			szDistance[nDistanceLength] = 'M';
 

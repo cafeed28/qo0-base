@@ -13,10 +13,10 @@
 // master/game/shared/cstrike15/cstrike15_item_system.h
 // master/game/shared/cstrike15/cstrike15_item_schema.h
 
-using ItemID_t = std::uint64_t;
-using ItemDefinitionIndex_t = std::uint16_t;
-using AttributeDefinitionIndex_t = std::uint16_t;
-using AttributeValue_t = std::uint32_t;
+using ItemID_t = uint64_t;
+using ItemDefinitionIndex_t = uint16_t;
+using AttributeDefinitionIndex_t = uint16_t;
+using AttributeValue_t = uint32_t;
 
 #pragma region econitemsystem_definitions
 // @source: master/game/shared/econ/econ_item_constants.h
@@ -224,8 +224,8 @@ struct ItemListEntry_t
 	int nPaintKit; // 0x04
 	int iPaintKitSeed; // 0x08
 	float flPaintKitWear; // 0x0C
-	std::uint32_t nStickerKit; // 0x10
-	std::uint32_t nMusicKit; // 0x14
+	uint32_t nStickerKit; // 0x10
+	uint32_t nMusicKit; // 0x14
 	bool bIsNestedList; // 0x18
 	bool bIsUnusualList; // 0x19
 	mutable bool bAlreadyUsedInRecursiveCreation; // 0x1A
@@ -255,7 +255,7 @@ class CEconItemQualityDefinition
 public:
 	int nValue; // 0x00
 	CUtlConstString strName; // 0x04
-	std::uint32_t nWeight; // 0x08
+	uint32_t nWeight; // 0x08
 	bool bExplicitMatchesOnly; // 0x0C
 	bool bCanSupportSet; // 0xD
 	CUtlConstString strHexColor; // 0x10
@@ -412,14 +412,14 @@ private:
 	void* pVTable; // 0x00
 public:
 	CKeyValues* pKVAttribute; // 0x04 // the raw keyvalues for this attribute definition
-	std::uint16_t nDefinitionIndex; // 0x08
+	uint16_t nDefinitionIndex; // 0x08
 	const void* pAttributeType; // 0x0C
 	bool bHidden; // 0x10 // if true, this attribute isn't shown in the item description
 	bool bWebSchemaOutputForced; // 0x11 // if true, this attribute's description is always output in web api calls regardless of the hidden flag
 	bool bStoredAsInteger; // 0x12 // whether or not the value is stored as an integer in the DB
 	bool bInstanceData; // 0x13 // if true, the attribute is counted as "instance" data for purposes of asset class in the Steam Economy. non-instance properties are considered things that can differentiate items at a fundamental level (ie., definition index, quality); instance properties are more things like additional customizations -- score for strange items, paint color, etc
 	int nAssetClassAttrExportRule; // 0x14
-	std::uint32_t nAssetClassBucket; // 0x18 // if this is set then attribute value is bucketed when exported for asset class
+	uint32_t nAssetClassBucket; // 0x18 // if this is set then attribute value is bucketed when exported for asset class
 	EAttributeEffectTypes nEffectType; // 0x1C // overall positive/negative effect. used to color the attribute
 	int iDescriptionFormat; // 0x20 // contains the description format & string for this attribute
 	const char* szDescriptionString; // 0x24
@@ -595,9 +595,9 @@ public:
 		return CallVFunc<int, 11U>(this);
 	}
 
-	[[nodiscard]] std::uint8_t GetRarity() const
+	[[nodiscard]] uint8_t GetRarity() const
 	{
-		return CallVFunc<std::uint8_t, 12U>(this);
+		return CallVFunc<uint8_t, 12U>(this);
 	}
 
 	[[nodiscard]] const CUtlVector<int>& GetItemSets() const
@@ -731,7 +731,7 @@ public:
 		return CallVFunc<int, 18U>(this);
 	}
 
-	[[nodiscard]] const char* GetQualityName(std::uint8_t iQuality)
+	[[nodiscard]] const char* GetQualityName(uint8_t iQuality)
 	{
 		return CallVFunc<const char*, 19U>(this, iQuality);
 	}
@@ -746,22 +746,22 @@ public:
 		return CallVFunc<int, 21U>(this);
 	}
 
-	[[nodiscard]] const char* GetRarityName(std::uint8_t iRarity)
+	[[nodiscard]] const char* GetRarityName(uint8_t iRarity)
 	{
 		return CallVFunc<const char*, 22U>(this, iRarity);
 	}
 
-	[[nodiscard]] const char* GetRarityLocKey(std::uint8_t iRarity)
+	[[nodiscard]] const char* GetRarityLocKey(uint8_t iRarity)
 	{
 		return CallVFunc<const char*, 23U>(this, iRarity);
 	}
 
-	[[nodiscard]] const char* GetRarityColor(std::uint8_t iRarity)
+	[[nodiscard]] const char* GetRarityColor(uint8_t iRarity)
 	{
 		return CallVFunc<const char*, 24U>(this, iRarity);
 	}
 
-	[[nodiscard]] const char* GetRarityLootList(std::uint8_t iRarity)
+	[[nodiscard]] const char* GetRarityLootList(uint8_t iRarity)
 	{
 		return CallVFunc<const char*, 25U>(this, iRarity);
 	}
@@ -842,7 +842,7 @@ public:
 	std::byte pad2[0x48]; // 0x0130
 	CUtlMap<int, const char*, int, CDefLess<int>> mapRevolvingLootLists; // 0x0178
 	std::byte pad3[0x80]; // 0x019C
-	CUtlMap<std::uint64_t, AlternateIconData_t, int, CDefLess<std::uint64_t>> mapAlternateIcons; // 0x021C // @ida: client.dll -> ["8B 83 ? ? ? ? 8B 75 10 83 C0 18" + 0x2] - 0x4 @xref: "Duplicate alternate icon definition '%s' (%llu)"
+	CUtlMap<uint64_t, AlternateIconData_t, int, CDefLess<uint64_t>> mapAlternateIcons; // 0x021C // @ida: client.dll -> ["8B 83 ? ? ? ? 8B 75 10 83 C0 18" + 0x2] - 0x4 @xref: "Duplicate alternate icon definition '%s' (%llu)"
 	std::byte pad4[0x48]; // 0x0240
 	CUtlMap<int, CPaintKit*, int, CDefLess<int>> mapPaintKits; // 0x0288
 	CUtlMap<int, CStickerKit*, int, CDefLess<int>> mapStickerKits; // 0x02AC // @ida: client.dll -> ["50 8D 8F ? ? ? ? E8 ? ? ? ? 8D 0C 40" + 0x3] @xref: "Duplicate sticker kit ID %d"

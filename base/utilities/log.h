@@ -25,7 +25,7 @@
 #pragma endregion
 
 #pragma region log_enumerations
-enum ELogLevel : std::uint8_t
+enum ELogLevel : uint8_t
 {
 	LOG_NONE = 0,
 	LOG_INFO,
@@ -33,7 +33,7 @@ enum ELogLevel : std::uint8_t
 	LOG_ERROR
 };
 
-using LogModeFlags_t = std::uint16_t;
+using LogModeFlags_t = uint16_t;
 enum ELogModeFlags : LogModeFlags_t
 {
 	LOG_MODE_NONE = 0U,
@@ -64,7 +64,7 @@ enum ELogModeFlags : LogModeFlags_t
 	LOG_MODE_REMOVE = (1U << 15U)
 };
 
-using LogColorFlags_t = std::uint16_t;
+using LogColorFlags_t = uint16_t;
 enum ELogColorFlags : LogColorFlags_t
 {
 	LOG_COLOR_FORE_BLUE = FOREGROUND_BLUE,
@@ -105,10 +105,10 @@ namespace L
 	namespace DETAIL
 	{
 		// @todo: constructs string per-byte in the stack, how do we can optimize this?
-		template <std::size_t N>
+		template <size_t N>
 		struct FileBlockStorage_t
 		{
-			template <std::size_t... I1, std::size_t... I2>
+			template <size_t... I1, size_t... I2>
 			consteval explicit FileBlockStorage_t(const char* szFileName, const char* szLineNumber, std::index_sequence<I1...>, std::index_sequence<I2...>) :
 				szStorage{ '[', szFileName[I1]..., ':', szLineNumber[I2]..., ']', ' ', '\0' }
 			{ }
@@ -136,7 +136,7 @@ namespace L
 		}
 
 		// helper to generate file info block for logging message at compile-time
-		template <std::size_t N1, std::size_t N2>
+		template <size_t N1, size_t N2>
 		consteval auto MakeFileBlock(const char* szFileName, const char* szFileNumber) noexcept
 		{
 			return FileBlockStorage_t<N1 + N2>(szFileName, szFileNumber, std::make_index_sequence<N1>{}, std::make_index_sequence<N2>{});
@@ -153,7 +153,7 @@ namespace L
 	// close logging output file
 	void CloseFile();
 	// write message to the file or/and console
-	void WriteMessage(const char* szMessage, const std::size_t nMessageLength);
+	void WriteMessage(const char* szMessage, const size_t nMessageLength);
 
 	// alternative of C++ 'std::cout' and other STL-like streams logging scheme
 	// @todo: is it faster to constantly call 'WriteMessage' instead of concatenating all of the output and print once? i dont think so, due to additional allocations, thread-safe requirements, conditions when we still should call print due to color/etc changes | but generally this should lead to better inlining and less complicated compiled code
@@ -209,7 +209,7 @@ namespace L
 			}
 
 			// @todo: LOG_MODE_NUM_UPPERCASE not handled
-			char szIntegerBuffer[CRT::IntegerToString_t<std::int64_t, 2U>::MaxCount() + 2U];
+			char szIntegerBuffer[CRT::IntegerToString_t<int64_t, 2U>::MaxCount() + 2U];
 			char* szInteger = CRT::IntegerToString(value, szIntegerBuffer + 2U, sizeof(szIntegerBuffer) - 2U, iBase);
 
 			// @todo: after int2str rework could be simplified | or completely replaced with strformat
@@ -225,7 +225,7 @@ namespace L
 					*--szInteger = '+';
 			}
 
-			const std::size_t nIntegerLength = szIntegerBuffer + sizeof(szIntegerBuffer) - szInteger - 1;
+			const size_t nIntegerLength = szIntegerBuffer + sizeof(szIntegerBuffer) - szInteger - 1;
 			WriteMessage(szInteger, nIntegerLength);
 #endif
 			return *this;

@@ -11,7 +11,7 @@
  */
 namespace F::VISUAL::OVERLAY
 {
-	enum EAlignSide : std::uint8_t
+	enum EAlignSide : uint8_t
 	{
 		SIDE_LEFT = 0U,
 		SIDE_TOP,
@@ -20,7 +20,7 @@ namespace F::VISUAL::OVERLAY
 		SIDE_MAX
 	};
 
-	enum EAlignDirection : std::uint8_t
+	enum EAlignDirection : uint8_t
 	{
 		DIR_LEFT = 0U,
 		DIR_TOP,

@@ -16,14 +16,14 @@ protected:
 	struct BlockHeader_t
 	{
 		BlockHeader_t* pNext;
-		std::intptr_t nBlockSize;
+		intptr_t nBlockSize;
 	};
 
 public:
 	class Iterator_t
 	{
 	public:
-		Iterator_t(BlockHeader_t* pBlockHeader, const std::intptr_t nIndex) :
+		Iterator_t(BlockHeader_t* pBlockHeader, const intptr_t nIndex) :
 			pBlockHeader(pBlockHeader),
 			nIndex(nIndex)
 		{ }
@@ -39,7 +39,7 @@ public:
 		}
 
 		BlockHeader_t* pBlockHeader;
-		std::intptr_t nIndex;
+		intptr_t nIndex;
 	};
 
 	CUtlFixedMemory(const int nGrowSize = 0, const int nInitAllocationCount = 0) :
@@ -68,25 +68,25 @@ public:
 		return nullptr;
 	}
 
-	T& operator[](std::intptr_t nIndex)
+	T& operator[](intptr_t nIndex)
 	{
 		Q_ASSERT(IsValidIndex(nIndex));
 		return *reinterpret_cast<T*>(nIndex);
 	}
 
-	const T& operator[](std::intptr_t nIndex) const
+	const T& operator[](intptr_t nIndex) const
 	{
 		Q_ASSERT(IsValidIndex(nIndex));
 		return *reinterpret_cast<T*>(nIndex);
 	}
 
-	[[nodiscard]] T& Element(const std::intptr_t nIndex)
+	[[nodiscard]] T& Element(const intptr_t nIndex)
 	{
 		Q_ASSERT(IsValidIndex(nIndex));
 		return *reinterpret_cast<T*>(nIndex);
 	}
 
-	[[nodiscard]] const T& Element(const std::intptr_t nIndex) const
+	[[nodiscard]] const T& Element(const intptr_t nIndex) const
 	{
 		Q_ASSERT(IsValidIndex(nIndex));
 		return *reinterpret_cast<T*>(nIndex);
@@ -110,15 +110,15 @@ public:
 		return (pHeader->pNext != nullptr ? Iterator_t(pHeader->pNext, InvalidIndex()) : InvalidIterator());
 	}
 
-	[[nodiscard]] std::intptr_t GetIndex(const Iterator_t& it) const
+	[[nodiscard]] intptr_t GetIndex(const Iterator_t& it) const
 	{
 		if (!IsValidIterator(it))
 			return InvalidIndex();
 
-		return reinterpret_cast<std::intptr_t>(HeaderToBlock(it.pBlockHeader) + it.nIndex);
+		return reinterpret_cast<intptr_t>(HeaderToBlock(it.pBlockHeader) + it.nIndex);
 	}
 
-	[[nodiscard]] bool IsIndexAfter(std::intptr_t nIndex, const Iterator_t& it) const
+	[[nodiscard]] bool IsIndexAfter(intptr_t nIndex, const Iterator_t& it) const
 	{
 		if (!IsValidIterator(it))
 			return false;
@@ -145,12 +145,12 @@ public:
 		return Iterator_t(nullptr, InvalidIndex());
 	}
 
-	[[nodiscard]] bool IsValidIndex(const std::intptr_t nIndex) const
+	[[nodiscard]] bool IsValidIndex(const intptr_t nIndex) const
 	{
 		return nIndex != InvalidIndex();
 	}
 
-	[[nodiscard]] static std::intptr_t InvalidIndex()
+	[[nodiscard]] static intptr_t InvalidIndex()
 	{
 		return 0;
 	}
@@ -213,7 +213,7 @@ public:
 	}
 
 protected:
-	[[nodiscard]] bool IsInBlock(std::intptr_t nIndex, BlockHeader_t* pBlockHeader) const
+	[[nodiscard]] bool IsInBlock(intptr_t nIndex, BlockHeader_t* pBlockHeader) const
 	{
 		T* pCurrent = reinterpret_cast<T*>(nIndex);
 		const T* pStart = HeaderToBlock(pBlockHeader);

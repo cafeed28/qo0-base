@@ -25,17 +25,17 @@ struct PropertyObject_t
 {
 	FNV1A_t uHash = 0U;
 	RecvProp_t* pRecvProp = nullptr;
-	std::uintptr_t uOffset = 0U;
+	uintptr_t uOffset = 0U;
 };
 
 static std::vector<PropertyObject_t> vecProperties = {};
-static std::size_t nTablesCount = 0U;
+static size_t nTablesCount = 0U;
 
 // recursively go through table and child tables properties and store their offsets
 static void StoreTableProperties(const RecvTable_t* pRecvTable, const FNV1A_t uTableHash)
 {
 	// get the count of already stored properties
-	const std::size_t nLastPropertiesCount = vecProperties.size();
+	const size_t nLastPropertiesCount = vecProperties.size();
 
 	// reserve memory for the all properties of the current table
 	vecProperties.resize(nLastPropertiesCount + pRecvTable->nPropCount);
@@ -46,7 +46,7 @@ static void StoreTableProperties(const RecvTable_t* pRecvTable, const FNV1A_t uT
 	for (int i = 0; i < pRecvTable->nPropCount; i++)
 	{
 		RecvProp_t* const pCurrentProp = &pRecvTable->vecProps[i];
-		const std::uintptr_t uOffset = static_cast<std::uintptr_t>(pCurrentProp->iOffset);
+		const uintptr_t uOffset = static_cast<uintptr_t>(pCurrentProp->iOffset);
 
 		// concat variable name to our netvar format just by hash
 		const FNV1A_t uVariableHash = FNV1A::Hash(pCurrentProp->szVarName, uDelimiterHash);
@@ -57,7 +57,7 @@ static void StoreTableProperties(const RecvTable_t* pRecvTable, const FNV1A_t uT
 			static_assert(std::endian::native == std::endian::little, "following code assume little-endian");
 
 			// check is child table aren't empty and have "DT" prefix
-			if (const RecvTable_t* pChildTable = pCurrentProp->pDataTable; pChildTable->nPropCount > 0 && *reinterpret_cast<std::uint16_t*>(pChildTable->szNetTableName) == 0x5444)
+			if (const RecvTable_t* pChildTable = pCurrentProp->pDataTable; pChildTable->nPropCount > 0 && *reinterpret_cast<uint16_t*>(pChildTable->szNetTableName) == 0x5444)
 				// recursively get properties from it, if it has no base use parent table name
 				// @note: we don't accumulate offset! follow parent base variable to properly get child offsets
 				StoreTableProperties(pChildTable, uOffset == 0U ? uTableHash : FNV1A::Hash(pChildTable->szNetTableName));
@@ -122,7 +122,7 @@ static void DumpTableProperties(HANDLE hFileOut, const RecvTable_t* pRecvTable, 
 	for (int i = static_cast<int>(bHasBaseClass); i < pRecvTable->nPropCount; i++)
 	{
 		const RecvProp_t* pCurrentProp = &vecPropsSorted[i];
-		const std::uintptr_t uOffset = static_cast<std::uintptr_t>(pCurrentProp->iOffset);
+		const uintptr_t uOffset = static_cast<uintptr_t>(pCurrentProp->iOffset);
 
 		// check if the property is a child data table
 		if (pCurrentProp->nRecvType == DPT_DATATABLE)
@@ -130,7 +130,7 @@ static void DumpTableProperties(HANDLE hFileOut, const RecvTable_t* pRecvTable, 
 			static_assert(std::endian::native == std::endian::little, "following code assume little-endian");
 
 			// check is child table aren't empty, doesn't have base offset and have "DT" prefix
-			if (const RecvTable_t* pChildTable = pCurrentProp->pDataTable; pChildTable->nPropCount > 0 && uOffset == 0U && *reinterpret_cast<std::uint16_t*>(pChildTable->szNetTableName) == 0x5444)
+			if (const RecvTable_t* pChildTable = pCurrentProp->pDataTable; pChildTable->nPropCount > 0 && uOffset == 0U && *reinterpret_cast<uint16_t*>(pChildTable->szNetTableName) == 0x5444)
 			{
 				// add child table properties to the copied table buffer
 				vecPropsSorted = static_cast<RecvProp_t*>(MEM::HeapRealloc(vecPropsSorted, (nSortedPropertiesCount + pChildTable->nPropCount) * sizeof(RecvProp_t)));
@@ -150,7 +150,7 @@ static void DumpTableProperties(HANDLE hFileOut, const RecvTable_t* pRecvTable, 
 	for (int i = static_cast<int>(bHasBaseClass); i < nSortedPropertiesCount; i++)
 	{
 		const RecvProp_t* pCurrentProp = &vecPropsSorted[i];
-		const std::uintptr_t uOffset = static_cast<std::uintptr_t>(pCurrentProp->iOffset);
+		const uintptr_t uOffset = static_cast<uintptr_t>(pCurrentProp->iOffset);
 
 		// check if the property is a child data table
 		if (pCurrentProp->nRecvType == DPT_DATATABLE)
@@ -158,7 +158,7 @@ static void DumpTableProperties(HANDLE hFileOut, const RecvTable_t* pRecvTable, 
 			static_assert(std::endian::native == std::endian::little, "following code assume little-endian");
 
 			// check is child table aren't empty, have base offset and have "DT" prefix
-			if (const RecvTable_t* pChildTable = pCurrentProp->pDataTable; pChildTable->nPropCount > 0 && uOffset != 0U && *reinterpret_cast<std::uint16_t*>(pChildTable->szNetTableName) == 0x5444)
+			if (const RecvTable_t* pChildTable = pCurrentProp->pDataTable; pChildTable->nPropCount > 0 && uOffset != 0U && *reinterpret_cast<uint16_t*>(pChildTable->szNetTableName) == 0x5444)
 				// recursively get properties from it
 				DumpTableProperties(hFileOut, pChildTable, iDepth + 1);
 		}
@@ -186,7 +186,7 @@ static void DumpTableProperties(HANDLE hFileOut, const RecvTable_t* pRecvTable, 
 		szVariableEnd = CRT::StringCopy(CRT::StringCopy(szVariableEnd, pCurrentProp->szVarName), " = 0x");
 
 		// insert variable offset
-		char szPropertyOffsetBuffer[CRT::IntegerToString_t<std::uintptr_t, 16U>::MaxCount()];
+		char szPropertyOffsetBuffer[CRT::IntegerToString_t<uintptr_t, 16U>::MaxCount()];
 		szVariableEnd = CRT::StringCopy(szVariableEnd, CRT::IntegerToString(uOffset, szPropertyOffsetBuffer, Q_ARRAYSIZE(szPropertyOffsetBuffer), 16));
 		*szVariableEnd++ = ';';
 		*szVariableEnd++ = '\n';
@@ -234,7 +234,7 @@ void NETVAR::Dump(const wchar_t* wszFileName)
 	localtime_s(&timePoint, &time);
 
 	char szInfoBuffer[64];
-	const std::size_t nInfoSize = CRT::TimeToString(szInfoBuffer, sizeof(szInfoBuffer), "[%d-%m-%Y %T] qo0 | netvars dump\n\n", &timePoint);
+	const size_t nInfoSize = CRT::TimeToString(szInfoBuffer, sizeof(szInfoBuffer), "[%d-%m-%Y %T] qo0 | netvars dump\n\n", &timePoint);
 
 	// write current date, time and info
 	::WriteFile(hFileOut, szInfoBuffer, nInfoSize, nullptr, nullptr);
@@ -247,7 +247,7 @@ void NETVAR::Dump(const wchar_t* wszFileName)
 
 #pragma region netvar_get
 // @todo: dump, but cuz we can get it only when localplayer is valid makes things harder | either dump with memory scanner or just mess with entity listener and ensure its called once
-std::uintptr_t NETVAR::FindInDataMap(const DataMap_t* pMap, const FNV1A_t uFieldHash)
+uintptr_t NETVAR::FindInDataMap(const DataMap_t* pMap, const FNV1A_t uFieldHash)
 {
 	while (pMap != nullptr)
 	{
@@ -325,7 +325,7 @@ void NETVAR::GetPropertyType(const RecvProp_t* pRecvProp, char* szOutBuffer)
 		const RecvTable_t* pChildTable = pRecvProp->pDataTable;
 
 		// check if the child table starts with 'DT' prefix
-		if (const char* szChildTableName = pChildTable->szNetTableName; *reinterpret_cast<const std::uint16_t*>(szChildTableName) == 0x5444)
+		if (const char* szChildTableName = pChildTable->szNetTableName; *reinterpret_cast<const uint16_t*>(szChildTableName) == 0x5444)
 		{
 			// convert data table name to class name with pointer, e.g. "DT_CSPlayer" -> "C_CSPlayer*"
 			char* szOutBufferBegin = szOutBuffer;
@@ -344,13 +344,13 @@ void NETVAR::GetPropertyType(const RecvProp_t* pRecvProp, char* szOutBuffer)
 			// get the array size
 			char szArraySizeBuffer[CRT::IntegerToString_t<int, 10U>::MaxCount()];
 			const char* szArraySize = CRT::IntegerToString(pChildTable->nPropCount, szArraySizeBuffer, Q_ARRAYSIZE(szArraySizeBuffer), 10);
-			const std::size_t nArraySizeLength = szArraySizeBuffer + sizeof(szArraySizeBuffer) - szArraySize;
+			const size_t nArraySizeLength = szArraySizeBuffer + sizeof(szArraySizeBuffer) - szArraySize;
 
 			// check if the property has sub-array size
 			if (char* szSubArraySize = CRT::StringChar(szOutBuffer, '['); szSubArraySize != nullptr)
 			{
 				// move sub-array size to put array size before it to follow C-style formatting
-				const std::size_t nSubArraySizeLength = CRT::StringLength(szSubArraySize) + 1U;
+				const size_t nSubArraySizeLength = CRT::StringLength(szSubArraySize) + 1U;
 				CRT::MemoryMove(szSubArraySize + nArraySizeLength + 1U, szSubArraySize, nSubArraySizeLength);
 
 				// note that in this case string is already zero-terminated
@@ -388,7 +388,7 @@ RecvProp_t* NETVAR::GetProperty(const FNV1A_t uFieldHash)
 	return nullptr;
 }
 
-std::uintptr_t NETVAR::GetOffset(const FNV1A_t uFieldHash)
+uintptr_t NETVAR::GetOffset(const FNV1A_t uFieldHash)
 {
 	if (const auto it = std::ranges::lower_bound(vecProperties, uFieldHash, std::ranges::less{}, &PropertyObject_t::uHash); it != vecProperties.end() && it->uHash == uFieldHash)
 		return it->uOffset;
@@ -397,12 +397,12 @@ std::uintptr_t NETVAR::GetOffset(const FNV1A_t uFieldHash)
 	return 0U;
 }
 
-std::size_t NETVAR::GetTablesCount()
+size_t NETVAR::GetTablesCount()
 {
 	return nTablesCount;
 }
 
-std::size_t NETVAR::GetPropertiesCount()
+size_t NETVAR::GetPropertiesCount()
 {
 	return vecProperties.size();
 }

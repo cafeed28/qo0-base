@@ -102,7 +102,7 @@ public:
 		fnDestructor(this);
 	}
 
-	void* operator new(const std::size_t nSize)
+	void* operator new(const size_t nSize)
 	{
 		return I::MemAlloc->Alloc(nSize);
 	}
@@ -121,8 +121,8 @@ public:
 	void AddDependencies(mstudioseqdesc_t& sequenceDescription, int iSequence, float flCycle, const float* arrPoseParameters, float flWeight = 1.0f)
 	{
 		static auto fnAddDependencies = MEM::FindPattern(CLIENT_DLL, Q_XOR("55 8B EC 81 EC ? ? ? ? 53 56 57 8B F9 0F"));
-		std::uintptr_t uAddDependencies = reinterpret_cast<std::uintptr_t>(fnAddDependencies); // @todo: clang compiles direct (E8) call instead of indirect (FF 15) without this
-		std::uintptr_t uSequenceDescription = reinterpret_cast<std::uintptr_t>(&sequenceDescription); // clang mess with registers without this
+		uintptr_t uAddDependencies = reinterpret_cast<uintptr_t>(fnAddDependencies); // @todo: clang compiles direct (E8) call instead of indirect (FF 15) without this
+		uintptr_t uSequenceDescription = reinterpret_cast<uintptr_t>(&sequenceDescription); // clang mess with registers without this
 
 		__asm
 		{
@@ -205,7 +205,7 @@ public:
 	void CalcAutoplaySequences(BoneVector_t* arrBonesPosition, BoneQuaternion_t* arrBonesRotation, float flRealTime, CIKContext* pIKContext)
 	{
 		static auto fnCalcAutoplaySequences = MEM::FindPattern(CLIENT_DLL, Q_XOR("55 8B EC 83 EC 10 53 56 57 8B 7D 10"));
-		std::uintptr_t uCalcAutoplaySequences = reinterpret_cast<std::uintptr_t>(fnCalcAutoplaySequences); // @todo: clang compiles direct (E8) call instead of indirect (FF 15) without this
+		uintptr_t uCalcAutoplaySequences = reinterpret_cast<uintptr_t>(fnCalcAutoplaySequences); // @todo: clang compiles direct (E8) call instead of indirect (FF 15) without this
 
 		__asm
 		{
@@ -224,7 +224,7 @@ public:
 		static auto fnCalcBoneAdj = MEM::FindPattern(CLIENT_DLL, Q_XOR("55 8B EC 83 E4 F8 81 EC ? ? ? ? 8B C1 89"));
 
 #ifdef Q_COMPILER_CLANG
-		std::uintptr_t uCalcBoneAdj = reinterpret_cast<std::uintptr_t>(fnCalcBoneAdj); // @todo: clang compiles direct (E8) call instead of indirect (FF 15) without this
+		uintptr_t uCalcBoneAdj = reinterpret_cast<uintptr_t>(fnCalcBoneAdj); // @todo: clang compiles direct (E8) call instead of indirect (FF 15) without this
 		const CStudioHdr* pSelfStudioHdr = pStudioHdr;
 		int nSelfBoneMask = nBoneMask;
 
@@ -334,7 +334,7 @@ inline void Studio_BuildMatrices(const CStudioHdr* pStudioHdr, const QAngle_t& a
 		*reinterpret_cast<Vector_t*>(matRotation[2]) *= flScale;
 	}
 
-	Q_ASSERT((reinterpret_cast<std::uintptr_t>(arrBonesToWorld) & 0xF) == 0); // bone matrices aren't 16 byte aligned
+	Q_ASSERT((reinterpret_cast<uintptr_t>(arrBonesToWorld) & 0xF) == 0); // bone matrices aren't 16 byte aligned
 
 	// [side change] simplified loop
 	while (nChainLength-- > 0)

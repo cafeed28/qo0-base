@@ -89,7 +89,7 @@ CRC32_t CRC32::GetTableEntry(const unsigned int nSlot)
 
 void CRC32::ProcessBuffer(CRC32_t* pulCRC, const void* pBuffer, int nBufferSize)
 {
-	const std::uint8_t* pCurrentByte = static_cast<const std::uint8_t*>(pBuffer);
+	const uint8_t* pCurrentByte = static_cast<const uint8_t*>(pBuffer);
 	CRC32_t ulCRC = *pulCRC;
 
 	while (nBufferSize--)

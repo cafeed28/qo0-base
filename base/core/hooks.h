@@ -35,7 +35,7 @@ namespace VTABLE
 
 	namespace DXDEVICE
 	{
-		enum : std::size_t
+		enum : size_t
 		{
 			RESET = 16U,
 			ENDSCENE = 42U,
@@ -45,7 +45,7 @@ namespace VTABLE
 
 	namespace CLIENT
 	{
-		enum : std::size_t
+		enum : size_t
 		{
 			CREATEMOVE = 22U,
 			FRAMESTAGENOTIFY = 37U
@@ -54,7 +54,7 @@ namespace VTABLE
 
 	namespace CLIENTMODE
 	{
-		enum : std::size_t
+		enum : size_t
 		{
 			OVERRIDEVIEW = 18U,
 			OVERRIDEMOUSEINPUT = 23U,
@@ -66,7 +66,7 @@ namespace VTABLE
 
 	namespace ENGINE
 	{
-		enum : std::size_t
+		enum : size_t
 		{
 			ISCONNECTED = 27U,
 			ISHLTV = 93U
@@ -75,7 +75,7 @@ namespace VTABLE
 
 	namespace SPATIALQUERY
 	{
-		enum : std::size_t
+		enum : size_t
 		{
 			LISTLEAVESINBOX = 6U
 		};
@@ -83,7 +83,7 @@ namespace VTABLE
 
 	namespace NETCHANNEL
 	{
-		enum : std::size_t
+		enum : size_t
 		{
 			SENDNETMSG = 40U,
 			SENDDATAGRAM = 46U
@@ -92,7 +92,7 @@ namespace VTABLE
 
 	namespace PREDICTION
 	{
-		enum : std::size_t
+		enum : size_t
 		{
 			RUNCOMMAND = 19U
 		};
@@ -100,7 +100,7 @@ namespace VTABLE
 
 	namespace SURFACE
 	{
-		enum : std::size_t
+		enum : size_t
 		{
 			LOCKCURSOR = 67U
 		};
@@ -108,7 +108,7 @@ namespace VTABLE
 
 	namespace INPUT
 	{
-		enum : std::size_t
+		enum : size_t
 		{
 			CAM_TOFIRSTPERSON = 36U
 		};
@@ -116,7 +116,7 @@ namespace VTABLE
 
 	namespace VIEWRENDER
 	{
-		enum : std::size_t
+		enum : size_t
 		{
 			RENDERVIEW = 6U,
 			RENDERSMOKEOVERLAY = 41U
@@ -125,7 +125,7 @@ namespace VTABLE
 
 	namespace STUDIORENDER
 	{
-		enum : std::size_t
+		enum : size_t
 		{
 			DRAWMODEL = 29U
 		};
@@ -133,7 +133,7 @@ namespace VTABLE
 
 	namespace STEAMGAMECOORDINATOR
 	{
-		enum : std::size_t
+		enum : size_t
 		{
 			SENDMESSAGE = 0U,
 			RETRIEVEMESSAGE = 2U
@@ -142,7 +142,7 @@ namespace VTABLE
 
 	namespace CLIENTRENDERABLE
 	{
-		enum : std::size_t
+		enum : size_t
 		{
 			SETUPBONES = 13U
 		};
@@ -152,7 +152,7 @@ namespace VTABLE
 	{
 		using namespace CLIENTRENDERABLE;
 
-		enum : std::size_t
+		enum : size_t
 		{
 			EYEANGLES = 170U
 		};
@@ -162,7 +162,7 @@ namespace VTABLE
 	{
 		using namespace BASEPLAYER;
 
-		enum : std::size_t
+		enum : size_t
 		{
 			UPDATECLIENTSIDEANIMATION = 224U,
 			CALCVIEW = 277U
@@ -198,8 +198,8 @@ namespace H
 	void Q_FASTCALL RenderView(IViewRender* thisptr, void* edx, const CViewSetup* pViewSetup, const CViewSetup* pViewSetupHUD, int nClearFlags, int nWhatToDraw);
 	void Q_FASTCALL RenderSmokeOverlay(IViewRender* thisptr, void* edx, bool bPreViewModel);
 	void Q_FASTCALL DrawModel(IStudioRender* thisptr, void* edx, DrawModelResults_t* pResults, const DrawModelInfo_t* pInfo, Matrix3x4_t* pBoneToWorld, float* flFlexWeights, float* flFlexDelayedWeights, const Vector_t* pvecModelOrigin, int nFlags);
-	int Q_FASTCALL SendMessage(ISteamGameCoordinator* thisptr, void* edx, std::uint32_t uMessageHeader, const void* pData, std::uint32_t nDataSize);
-	int Q_FASTCALL RetrieveMessage(ISteamGameCoordinator* thisptr, void* edx, std::uint32_t* pMessageHeader, void* pDestination, std::uint32_t nDestinationSize, std::uint32_t* pnMessageSize);
+	int Q_FASTCALL SendMessage(ISteamGameCoordinator* thisptr, void* edx, uint32_t uMessageHeader, const void* pData, uint32_t nDataSize);
+	int Q_FASTCALL RetrieveMessage(ISteamGameCoordinator* thisptr, void* edx, uint32_t* pMessageHeader, void* pDestination, uint32_t nDestinationSize, uint32_t* pnMessageSize);
 	void Q_FASTCALL ModifyEyePosition(CCSGOPlayerAnimState* thisptr, void* edx, Vector_t* pvecInputEyePosition);
 	bool Q_FASTCALL SetupBones(IClientRenderable* thisptr, void* edx, Matrix3x4a_t* arrBonesToWorld, int iMaxBones, int nBoneMask, float flCurrentTime);
 	void Q_FASTCALL FireBullet(CCSPlayer* thisptr, void* edx, Vector_t vecSource, const QAngle_t* pangShootView, float flDistance, float flPenetration, int nPenetrationCount, int nBulletType, int iDamage, float flRangeModifier, CBaseEntity* pAttacker, bool bDoEffects, float flSpreadX, float flSpreadY);

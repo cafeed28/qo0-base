@@ -16,13 +16,13 @@
 #include "../utilities/memory.h"
 
 #pragma region config_definitions
-#define C_ADD_VARIABLE(TYPE, NAME, DEFAULT) const std::size_t NAME = C::AddVariable<TYPE>(FNV1A::HashConst(#NAME), FNV1A::HashConst(#TYPE), DEFAULT);
+#define C_ADD_VARIABLE(TYPE, NAME, DEFAULT) const size_t NAME = C::AddVariable<TYPE>(FNV1A::HashConst(#NAME), FNV1A::HashConst(#TYPE), DEFAULT);
 
-#define C_ADD_VARIABLE_ARRAY(TYPE, SIZE, NAME, DEFAULT) const std::size_t NAME = C::AddVariableArray<TYPE[SIZE]>(FNV1A::HashConst(#NAME), FNV1A::HashConst(#TYPE "[]"), DEFAULT);
+#define C_ADD_VARIABLE_ARRAY(TYPE, SIZE, NAME, DEFAULT) const size_t NAME = C::AddVariableArray<TYPE[SIZE]>(FNV1A::HashConst(#NAME), FNV1A::HashConst(#TYPE "[]"), DEFAULT);
 
-#define C_ADD_VARIABLE_ARRAY_ARRAY(TYPE, SIZE, SUBSIZE, NAME, DEFAULT) const std::size_t NAME = C::AddVariableArray<TYPE[SIZE][SUBSIZE]>(FNV1A::HashConst(#NAME), FNV1A::HashConst(#TYPE "[][]"), DEFAULT);
+#define C_ADD_VARIABLE_ARRAY_ARRAY(TYPE, SIZE, SUBSIZE, NAME, DEFAULT) const size_t NAME = C::AddVariableArray<TYPE[SIZE][SUBSIZE]>(FNV1A::HashConst(#NAME), FNV1A::HashConst(#TYPE "[][]"), DEFAULT);
 
-#define C_INVALID_VARIABLE static_cast<std::size_t>(-1)
+#define C_INVALID_VARIABLE static_cast<size_t>(-1)
 #pragma endregion
 
 enum class EKeyBindMode : int
@@ -60,7 +60,7 @@ namespace C
 			uNameHash(uNameHash),
 			uTypeHash(uTypeHash),
 			nDataSize(sizeof(std::remove_pointer_t<T>)),
-			uBaseOffset(reinterpret_cast<std::size_t>(std::addressof(static_cast<C*>(nullptr)->*pMember)))
+			uBaseOffset(reinterpret_cast<size_t>(std::addressof(static_cast<C*>(nullptr)->*pMember)))
 		{ } // @test: 'Q_OFFSETOF' must expand to the same result but for some reason it doesn't
 
 		// hash of custom variable name
@@ -68,15 +68,15 @@ namespace C
 		// hash of custom variable type
 		FNV1A_t uTypeHash = 0U;
 		// data size of custom variable type
-		std::size_t nDataSize = 0U;
+		size_t nDataSize = 0U;
 		// offset to the custom variable from the base of class
-		std::size_t uBaseOffset = 0U;
+		size_t uBaseOffset = 0U;
 	};
 
 	// user-defined custom serialization structure
 	struct UserDataType_t
 	{
-		[[nodiscard]] std::size_t GetSerializationSize() const;
+		[[nodiscard]] size_t GetSerializationSize() const;
 
 		FNV1A_t uTypeHash = 0U;
 		std::vector<UserDataMember_t> vecMembers = {};
@@ -244,7 +244,7 @@ namespace C
 		// replace variable contained value
 		void SetStorage(const void* pValue);
 		/// @returns: the size of the data to be serialized/de-serialized into/from the configuration file
-		[[nodiscard]] std::size_t GetSerializationSize() const;
+		[[nodiscard]] size_t GetSerializationSize() const;
 
 		// hash of variable name
 		FNV1A_t uNameHash = 0x0;
@@ -255,12 +255,12 @@ namespace C
 		const std::type_info* pTypeInfo = nullptr;
 #endif
 		// value storage size in bytes
-		std::size_t nStorageSize = 0U;
+		size_t nStorageSize = 0U;
 		// value storage
 		union
 		{
 			void* pHeap;
-			std::uint8_t uLocal[sizeof(std::uintptr_t)]; // @test: expand local storage size to fit max possible size of trivial type so we can minimize heap allocations count
+			uint8_t uLocal[sizeof(uintptr_t)]; // @test: expand local storage size to fit max possible size of trivial type so we can minimize heap allocations count
 		} storage = { nullptr };
 	};
 
@@ -275,14 +275,14 @@ namespace C
 	void AddUserType(const FNV1A_t uTypeHash, std::initializer_list<UserDataMember_t> vecUserMembers);
 	/// write/re-write single variable to existing configuration file
 	/// @returns: true if variable has been found or created and successfully written, false otherwise
-	bool SaveFileVariable(const std::size_t nFileIndex, const VariableObject_t& variable);
+	bool SaveFileVariable(const size_t nFileIndex, const VariableObject_t& variable);
 	/// read single variable from existing configuration file
 	/// @remarks: when the version of cheat is greater than version of the configuration file and @a'variable' wasn't found, this function saves it and updates the version to the current one, note that it doesn't affect to return value
 	/// @returns: true if variable has been found and successfully read, false otherwise
-	bool LoadFileVariable(const std::size_t nFileIndex, VariableObject_t& variable);
+	bool LoadFileVariable(const size_t nFileIndex, VariableObject_t& variable);
 	/// erase single variable from existing configuration file
 	/// @returns: true if variable did not exist or was successfully removed, false otherwise
-	bool RemoveFileVariable(const std::size_t nFileIndex, const VariableObject_t& variable);
+	bool RemoveFileVariable(const size_t nFileIndex, const VariableObject_t& variable);
 	/// create a new configuration file and save it
 	/// @param[in] wszFileName file name of configuration file to save and write in
 	/// @returns: true if file has been successfully created and all variables were written to it, false otherwise
@@ -290,14 +290,14 @@ namespace C
 	/// serialize variables into the configuration file
 	/// @param[in] nFileIndex index of the exist configuration file name
 	/// @returns: true if all variables were successfully written to the file, false otherwise
-	bool SaveFile(const std::size_t nFileIndex);
+	bool SaveFile(const size_t nFileIndex);
 	/// de-serialize variables from the configuration file
 	/// @param[in] nFileIndex index of the exist configuration file name
 	/// @returns: true if all variables were successfully loaded from the file, false otherwise
-	bool LoadFile(const std::size_t nFileIndex);
+	bool LoadFile(const size_t nFileIndex);
 	/// remove configuration file
 	/// @param[in] nFileIndex index of the exist configuration file name
-	void RemoveFile(const std::size_t nFileIndex);
+	void RemoveFile(const size_t nFileIndex);
 
 	/* @section: values */
 	// all user configuration filenames
@@ -309,11 +309,11 @@ namespace C
 
 	/* @section: get */
 	/// @returns: index of variable with given name hash if it exist, 'C_INVALID_VARIABLE' otherwise
-	[[nodiscard]] std::size_t GetVariableIndex(const FNV1A_t uNameHash);
+	[[nodiscard]] size_t GetVariableIndex(const FNV1A_t uNameHash);
 	/// @tparam T type of variable we're going to get, must be exactly the same as when registered
 	/// @returns: variable value at given index
 	template <typename T>
-	[[nodiscard]] T& Get(const std::size_t nIndex)
+	[[nodiscard]] T& Get(const size_t nIndex)
 	{
 		return *vecVariables[nIndex].GetStorage<T>();
 	}
@@ -322,7 +322,7 @@ namespace C
 	/// add new configuration variable
 	/// @returns: index of added variable
 	template <typename T> requires (!std::is_array_v<T>)
-	std::size_t AddVariable(const FNV1A_t uNameHash, const FNV1A_t uTypeHash, const T& valueDefault)
+	size_t AddVariable(const FNV1A_t uNameHash, const FNV1A_t uTypeHash, const T& valueDefault)
 	{
 		vecVariables.emplace_back(uNameHash, uTypeHash, valueDefault);
 		return vecVariables.size() - 1U;
@@ -331,12 +331,12 @@ namespace C
 	/// add new configuration array variable initialized by single value
 	/// @returns: index of added array variable
 	template <typename T> requires (std::is_array_v<T>)
-	std::size_t AddVariableArray(const FNV1A_t uNameHash, const FNV1A_t uTypeHash, const std::remove_pointer_t<std::decay_t<T>> valueDefault)
+	size_t AddVariableArray(const FNV1A_t uNameHash, const FNV1A_t uTypeHash, const std::remove_pointer_t<std::decay_t<T>> valueDefault)
 	{
 		using BaseType_t = std::remove_pointer_t<std::decay_t<T>>;
 
 		T arrValueDefault;
-		for (std::size_t i = 0U; i < sizeof(T) / sizeof(BaseType_t); i++)
+		for (size_t i = 0U; i < sizeof(T) / sizeof(BaseType_t); i++)
 			arrValueDefault[i] = valueDefault;
 
 		vecVariables.emplace_back(uNameHash, uTypeHash, arrValueDefault);
@@ -346,7 +346,7 @@ namespace C
 	/// add new configuration array variable with multiple values initialized
 	/// @returns: index of added array variable
 	template <typename T> requires (std::is_array_v<T>)
-	std::size_t AddVariableArray(const FNV1A_t uNameHash, const FNV1A_t uTypeHash, std::initializer_list<std::remove_pointer_t<std::decay_t<T>>> vecValuesDefault)
+	size_t AddVariableArray(const FNV1A_t uNameHash, const FNV1A_t uTypeHash, std::initializer_list<std::remove_pointer_t<std::decay_t<T>>> vecValuesDefault)
 	{
 		using BaseType_t = std::remove_pointer_t<std::decay_t<T>>;
 
@@ -358,7 +358,7 @@ namespace C
 		return vecVariables.size() - 1U;
 	}
 
-	inline void RemoveVariable(const std::size_t nIndex)
+	inline void RemoveVariable(const size_t nIndex)
 	{
 		vecVariables.erase(vecVariables.begin() + nIndex);
 	}

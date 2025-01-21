@@ -44,11 +44,11 @@ namespace C::TOML
 		}
 		case FNV1A::HashConst("bool[]"):
 		{
-			const std::size_t nArraySize = variable.nStorageSize / sizeof(bool);
+			const size_t nArraySize = variable.nStorageSize / sizeof(bool);
 			const auto& arrValues = *variable.GetStorage<bool[], false>();
 
 			toml::array arrBools;
-			for (std::size_t i = 0U; i < nArraySize; i++)
+			for (size_t i = 0U; i < nArraySize; i++)
 				arrBools.push_back(arrValues[i]);
 
 			entry = arrBools;
@@ -56,11 +56,11 @@ namespace C::TOML
 		}
 		case FNV1A::HashConst("int[]"):
 		{
-			const std::size_t nArraySize = variable.nStorageSize / sizeof(int);
+			const size_t nArraySize = variable.nStorageSize / sizeof(int);
 			const auto& arrValues = *variable.GetStorage<int[], false>();
 
 			toml::array arrInts;
-			for (std::size_t i = 0U; i < nArraySize; i++)
+			for (size_t i = 0U; i < nArraySize; i++)
 				arrInts.push_back(arrValues[i]);
 
 			entry = arrInts;
@@ -68,11 +68,11 @@ namespace C::TOML
 		}
 		case FNV1A::HashConst("unsigned int[]"):
 		{
-			const std::size_t nArraySize = variable.nStorageSize / sizeof(unsigned int);
+			const size_t nArraySize = variable.nStorageSize / sizeof(unsigned int);
 			const auto& arrValues = *variable.GetStorage<unsigned int[], false>();
 
 			toml::array arrUInts;
-			for (std::size_t i = 0U; i < nArraySize; i++)
+			for (size_t i = 0U; i < nArraySize; i++)
 				arrUInts.push_back(arrValues[i]);
 
 			entry = arrUInts;
@@ -80,11 +80,11 @@ namespace C::TOML
 		}
 		case FNV1A::HashConst("float[]"):
 		{
-			const std::size_t nArraySize = variable.nStorageSize / sizeof(float);
+			const size_t nArraySize = variable.nStorageSize / sizeof(float);
 			const auto& arrValues = *variable.GetStorage<float[], false>();
 
 			toml::array arrFloats;
-			for (std::size_t i = 0U; i < nArraySize; i++)
+			for (size_t i = 0U; i < nArraySize; i++)
 				arrFloats.push_back(arrValues[i]);
 
 			entry = arrFloats;
@@ -144,8 +144,8 @@ namespace C::TOML
 			const auto& arrColor = entry.as_array();
 
 			Color_t colValue;
-			for (std::uint8_t i = 0U; i < arrColor.size(); i++)
-				colValue[i] = toml::get<std::uint8_t>(arrColor[i]);
+			for (uint8_t i = 0U; i < arrColor.size(); i++)
+				colValue[i] = toml::get<uint8_t>(arrColor[i]);
 
 			variable.SetStorage(&colValue);
 			break;
@@ -163,7 +163,7 @@ namespace C::TOML
 			Q_ASSERT(arrBools.size() * sizeof(bool) <= variable.nStorageSize); // source size is bigger than destination size
 
 			bool* arrValues = *variable.GetStorage<bool*, false>();
-			for (std::size_t i = 0U; i < arrBools.size(); i++)
+			for (size_t i = 0U; i < arrBools.size(); i++)
 				arrValues[i] = toml::get<bool>(arrBools[i]);
 
 			break;
@@ -174,7 +174,7 @@ namespace C::TOML
 			Q_ASSERT(arrInts.size() * sizeof(int) <= variable.nStorageSize); // source size is bigger than destination size
 
 			int* arrValues = *variable.GetStorage<int*, false>();
-			for (std::size_t i = 0U; i < arrInts.size(); i++)
+			for (size_t i = 0U; i < arrInts.size(); i++)
 				arrValues[i] = toml::get<int>(arrInts[i]);
 
 			break;
@@ -185,7 +185,7 @@ namespace C::TOML
 			Q_ASSERT(arrUInts.size() * sizeof(unsigned int) <= variable.nStorageSize); // source size is bigger than destination size
 
 			unsigned int* arrValues = *variable.GetStorage<unsigned int*, false>();
-			for (std::size_t i = 0U; i < arrUInts.size(); i++)
+			for (size_t i = 0U; i < arrUInts.size(); i++)
 				arrValues[i] = toml::get<unsigned int>(arrUInts[i]);
 
 			break;
@@ -196,7 +196,7 @@ namespace C::TOML
 			Q_ASSERT(arrFloats.size() * sizeof(float) <= variable.nStorageSize); // source size is bigger than destination size
 
 			float* arrValues = *variable.GetStorage<float*, false>();
-			for (std::size_t i = 0U; i < arrFloats.size(); i++)
+			for (size_t i = 0U; i < arrFloats.size(); i++)
 				arrValues[i] = toml::get<float>(arrFloats[i]);
 
 			break;

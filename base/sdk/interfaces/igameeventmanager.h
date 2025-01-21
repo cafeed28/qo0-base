@@ -30,7 +30,7 @@
 class CGameEventCallback
 {
 public:
-	void* operator new(const std::size_t nSize)
+	void* operator new(const size_t nSize)
 	{
 		return I::MemAlloc->Alloc(nSize);
 	}
@@ -94,18 +94,18 @@ public:
 
 	[[nodiscard]] int GetInt(const char* szKeyName = nullptr, int iDefault = 0) const
 	{
-		// @ida: engine.dll -> U8["68 ? ? ? ? FF 50 ? F3 0F 10 47" + 0x7] / sizeof(std::uintptr_t) @xref: "target2"
+		// @ida: engine.dll -> U8["68 ? ? ? ? FF 50 ? F3 0F 10 47" + 0x7] / sizeof(uintptr_t) @xref: "target2"
 		return CallVFunc<int, 6U>(this, szKeyName, iDefault);
 	}
 
-	[[nodiscard]] std::uint64_t GetUint64(const char* szKeyName = nullptr, std::uint64_t ullDefault = 0ULL) const
+	[[nodiscard]] uint64_t GetUint64(const char* szKeyName = nullptr, uint64_t ullDefault = 0ULL) const
 	{
-		return CallVFunc<std::uint64_t, 7U>(this, szKeyName, ullDefault);
+		return CallVFunc<uint64_t, 7U>(this, szKeyName, ullDefault);
 	}
 
 	[[nodiscard]] float GetFloat(const char* szKeyName = nullptr, float flDefault = 0.f) const
 	{
-		// @ida: engine.dll -> U8["8B 40 ? FF D0 F3 0F 10 47 ? D9 5F 58" + 0x2] / sizeof(std::uintptr_t) @xref: "theta"
+		// @ida: engine.dll -> U8["8B 40 ? FF D0 F3 0F 10 47 ? D9 5F 58" + 0x2] / sizeof(uintptr_t) @xref: "theta"
 		return CallVFunc<float, 8U>(this, szKeyName, flDefault);
 	}
 
@@ -134,7 +134,7 @@ public:
 		CallVFunc<void, 13U>(this, szKeyName, iValue);
 	}
 
-	void SetUint64(const char* szKeyName, std::uint64_t ullValue)
+	void SetUint64(const char* szKeyName, uint64_t ullValue)
 	{
 		CallVFunc<void, 14U>(this, szKeyName, ullValue);
 	}
@@ -302,15 +302,15 @@ public:
 	{
 		// @ida CGameEventManager::GetEventDescriptor(): engine.dll -> "55 8B EC 83 EC 08 53 8B 5D 08 56 8B F1 89"
 
-		constexpr std::uint32_t uCookieBit = 0x80000000;
-		constexpr std::uint32_t uCookieMask = ~uCookieBit;
+		constexpr uint32_t uCookieBit = 0x80000000;
+		constexpr uint32_t uCookieMask = ~uCookieBit;
 
 		if (szEventName == nullptr || szEventName[0] == '\0')
 			return nullptr;
 
 		if (pCookie != nullptr && *pCookie != 0)
 		{
-			const int nGameEventIndex = static_cast<int>(static_cast<std::uint32_t>(*pCookie) & uCookieMask);
+			const int nGameEventIndex = static_cast<int>(static_cast<uint32_t>(*pCookie) & uCookieMask);
 
 			if (CGameEventDescriptor* pDescriptor = &vecGameEvents[nGameEventIndex]; !CRT::StringCompareI(szEventName, mapEvents.GetElementName(pDescriptor->nElementIndex)))
 				return pDescriptor;
@@ -324,7 +324,7 @@ public:
 		const int nGameEventIndex = mapEvents[nEventMapIndex];
 
 		if (pCookie != nullptr)
-			*pCookie = static_cast<int>(static_cast<std::uint32_t>(nGameEventIndex) | uCookieBit);
+			*pCookie = static_cast<int>(static_cast<uint32_t>(nGameEventIndex) | uCookieBit);
 
 		return &vecGameEvents[nGameEventIndex];
 	}

@@ -107,7 +107,7 @@ struct LightDesc_t
 	float flThetaDot; // 0x44
 	float flPhiDot; // 0x48
 	float flOneOverThetaDotMinusPhiDot; // 0x4C
-	std::uint32_t nFlags; // 0x50
+	uint32_t nFlags; // 0x50
 	float flRangeSquared; // 0x54
 };
 static_assert(sizeof(LightDesc_t) == 0x58);
@@ -158,8 +158,8 @@ struct ShaderStencilState_t
 	EShaderStencilOp iPassOperation; // 0x0C
 	EShaderStencilFunc iCompareFunction; // 0x10
 	int nReferenceValue; // 0x14
-	std::uint32_t uTestMask; // 0x18
-	std::uint32_t uWriteMask; // 0x1C
+	uint32_t uTestMask; // 0x18
+	uint32_t uWriteMask; // 0x1C
 };
 static_assert(sizeof(ShaderStencilState_t) == 0x20);
 
@@ -269,19 +269,19 @@ public:
 
 	void PushRenderTargetAndViewport()
 	{
-		// @ida: (CRender::ViewDrawFade) engine.dll -> ["FF 90 ? ? ? ? 8B 06 8B CE 6A 00 53" + 0x2] / sizeof(std::uintptr_t)
+		// @ida: (CRender::ViewDrawFade) engine.dll -> ["FF 90 ? ? ? ? 8B 06 8B CE 6A 00 53" + 0x2] / sizeof(uintptr_t)
 		CallVFunc<void, 119U>(this);
 	}
 
 	void PopRenderTargetAndViewport()
 	{
-		// @ida: (CRender::ViewDrawFade) engine.dll -> ["FF 90 ? ? ? ? 8B 8C 24" + 0x2] / sizeof(std::uintptr_t)
+		// @ida: (CRender::ViewDrawFade) engine.dll -> ["FF 90 ? ? ? ? 8B 8C 24" + 0x2] / sizeof(uintptr_t)
 		CallVFunc<void, 120U>(this);
 	}
 
 	void SetStencilState(const ShaderStencilState_t& state)
 	{
-		// @ida: (CGlowObjectManager::ApplyEntityGlowEffects) client.dll -> ["FF 90 ? ? ? ? 8B 0F 03 CE E8 ? ? ? ? 8B" + 0x2] / sizeof(std::uintptr_t)
+		// @ida: (CGlowObjectManager::ApplyEntityGlowEffects) client.dll -> ["FF 90 ? ? ? ? 8B 0F 03 CE E8 ? ? ? ? 8B" + 0x2] / sizeof(uintptr_t)
 		CallVFunc<void, 128U>(this, &state);
 	}
 

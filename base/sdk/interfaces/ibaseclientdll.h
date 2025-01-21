@@ -11,7 +11,7 @@ class IClientNetworkable;
 
 using CreateClientClassFn_t = IClientNetworkable*(Q_CDECL*)(int, int);
 using CreateEventFn_t = IClientNetworkable*(Q_CDECL*)();
-using DemoCustomDataCallbackFn_t = void(Q_CDECL*)(unsigned char*, std::size_t);
+using DemoCustomDataCallbackFn_t = void(Q_CDECL*)(unsigned char*, size_t);
 
 #pragma pack(push, 4)
 // @source: master/public/client_class.h

@@ -70,7 +70,7 @@ enum EEconItemRarity : int
 	ECON_ITEM_RARITY_IMMORTAL
 };
 
-enum EEconItemFlags : std::uint8_t
+enum EEconItemFlags : uint8_t
 {
 	ECON_ITEM_FLAG_CANNOT_TRADE = (1 << 0),
 	ECON_ITEM_FLAG_CANNOT_BE_USED_IN_CRAFTING = (1 << 1),
@@ -90,20 +90,20 @@ enum EStickerAttributeType
 };
 #pragma endregion
 
-using RTime32_t = std::uint32_t;
+using RTime32_t = uint32_t;
 
 // forward declarations
 class IEconItemAttributeDefinition;
 
 struct Attribute_t
 {
-	std::uint16_t nDefinitionIndex; // 0x00
+	uint16_t nDefinitionIndex; // 0x00
 
 	union
 	{
 		float flValue;
-		std::uint32_t uValue;
-		std::uint8_t* pValue;
+		uint32_t uValue;
+		uint8_t* pValue;
 	}; // 0x04
 };
 static_assert(sizeof(Attribute_t) == 0x8); // size verify @ida: client.dll -> U8["83 C6 ? 3B F3 72 EE 5F 5E 5B" + 0x2]
@@ -112,20 +112,20 @@ struct CustomDataOptimizedObject_t
 {
 	Q_CLASS_NO_INITIALIZER(CustomDataOptimizedObject_t);
 
-	Q_INLINE Attribute_t* GetAttribute(const std::uint32_t nIndex)
+	Q_INLINE Attribute_t* GetAttribute(const uint32_t nIndex)
 	{
 		return (reinterpret_cast<Attribute_t*>(this + 1)) + nIndex;
 	}
 
-	Q_INLINE const Attribute_t* GetAttribute(const std::uint32_t nIndex) const
+	Q_INLINE const Attribute_t* GetAttribute(const uint32_t nIndex) const
 	{
 		return (reinterpret_cast<const Attribute_t*>(this + 1)) + nIndex;
 	}
 
-	std::uint16_t uEquipInstanceSlot1 : 6; // 0x00 // equip instance slot
-	std::uint16_t uEquipInstanceClass1 : 3; // 0x00 // equip instance class
-	std::uint16_t uEquipInstanceClass2Bit : 1; // 0x01 // whether the item is equipped for complementary class
-	std::uint16_t nAttributeCount : 6; // 0x01 // length of following attributes
+	uint16_t uEquipInstanceSlot1 : 6; // 0x00 // equip instance slot
+	uint16_t uEquipInstanceClass1 : 3; // 0x00 // equip instance class
+	uint16_t uEquipInstanceClass2Bit : 1; // 0x01 // whether the item is equipped for complementary class
+	uint16_t nAttributeCount : 6; // 0x01 // length of following attributes
 };
 static_assert(sizeof(CustomDataOptimizedObject_t) == 0x2);
 
@@ -158,9 +158,9 @@ public:
 		return CallVFunc<float, 4U>(this, nSlotIndex, nType, flDefault);
 	}
 
-	[[nodiscard]] std::uint32_t GetStickerAttributeBySlotIndexInt(int nSlotIndex, EStickerAttributeType nType, std::uint32_t uDefault) const
+	[[nodiscard]] uint32_t GetStickerAttributeBySlotIndexInt(int nSlotIndex, EStickerAttributeType nType, uint32_t uDefault) const
 	{
-		return CallVFunc<std::uint32_t, 5U>(this, nSlotIndex, nType, uDefault);
+		return CallVFunc<uint32_t, 5U>(this, nSlotIndex, nType, uDefault);
 	}
 
 	[[nodiscard]] bool IsTradable() const
@@ -203,9 +203,9 @@ public:
 		return CallVFunc<const GameItemDefinition_t*, 11U>(this);
 	}
 
-	[[nodiscard]] std::uint32_t GetAccountID() const
+	[[nodiscard]] uint32_t GetAccountID() const
 	{
-		return CallVFunc<std::uint32_t, 12U>(this);
+		return CallVFunc<uint32_t, 12U>(this);
 	}
 
 	[[nodiscard]] ItemID_t GetItemID() const
@@ -213,19 +213,19 @@ public:
 		return CallVFunc<ItemID_t, 13U>(this);
 	}
 
-	[[nodiscard]] std::int32_t GetQuality() const
+	[[nodiscard]] int32_t GetQuality() const
 	{
-		return CallVFunc<std::int32_t, 14U>(this);
+		return CallVFunc<int32_t, 14U>(this);
 	}
 
-	[[nodiscard]] std::int32_t GetRarity() const
+	[[nodiscard]] int32_t GetRarity() const
 	{
-		return CallVFunc<std::int32_t, 15U>(this);
+		return CallVFunc<int32_t, 15U>(this);
 	}
 
-	[[nodiscard]] std::uint8_t GetFlags() const
+	[[nodiscard]] uint8_t GetFlags() const
 	{
-		return CallVFunc<std::uint8_t, 16U>(this);
+		return CallVFunc<uint8_t, 16U>(this);
 	}
 
 	[[nodiscard]] EEconItemOrigin GetOrigin() const
@@ -233,14 +233,14 @@ public:
 		return CallVFunc<EEconItemOrigin, 17U>(this);
 	}
 
-	[[nodiscard]] std::uint16_t GetQuantity() const
+	[[nodiscard]] uint16_t GetQuantity() const
 	{
-		return CallVFunc<std::uint16_t, 18U>(this);
+		return CallVFunc<uint16_t, 18U>(this);
 	}
 
-	[[nodiscard]] std::uint32_t GetItemLevel() const
+	[[nodiscard]] uint32_t GetItemLevel() const
 	{
-		return CallVFunc<std::uint32_t, 19U>(this);
+		return CallVFunc<uint32_t, 19U>(this);
 	}
 
 	/// @returns: true if this item in use somewhere in the backend (ie., cross-game trading), false otherwise
@@ -286,7 +286,7 @@ public:
 		fnConstructor(this);
 	}
 
-	void* operator new(const std::size_t nSize)
+	void* operator new(const size_t nSize)
 	{
 		return I::MemAlloc->Alloc(nSize);
 	}
@@ -333,16 +333,16 @@ public:
 	ItemID_t ullIndex; // 0x0008
 	ItemID_t ullOriginalIndex; // 0x0010
 	CustomDataOptimizedObject_t* pCustomDataOptimizedObject; // 0x0018
-	std::uint32_t nAccountID; // 0x001C
-	std::uint32_t uInventory; // 0x0020
-	std::uint16_t nDefinitionIndex; // 0x0024
-	std::uint16_t uOrigin : 5; // 0x0026
-	std::uint16_t uQuality : 4; // 0x0027
-	std::uint16_t uLevel : 2; // 0x0027
-	std::uint16_t uRarity : 4; // 0x0028
-	std::uint16_t bInUse : 1; // 0x0028
-	mutable std::int16_t nItemSet; // 0x002A
+	uint32_t nAccountID; // 0x001C
+	uint32_t uInventory; // 0x0020
+	uint16_t nDefinitionIndex; // 0x0024
+	uint16_t uOrigin : 5; // 0x0026
+	uint16_t uQuality : 4; // 0x0027
+	uint16_t uLevel : 2; // 0x0027
+	uint16_t uRarity : 4; // 0x0028
+	uint16_t bInUse : 1; // 0x0028
+	mutable int16_t nItemSet; // 0x002A
 	mutable int iSOUpdateFrame; // 0x002C
-	std::uint8_t nFlags; // 0x0030
+	uint8_t nFlags; // 0x0030
 };
 static_assert(sizeof(CEconItem) == 0x38); // size verify @ida: [stack allocated] client.dll -> U8["8B 55 0C 83 EC ? 53 8B 5D 08 8B C3" + 0x5] - 0x14 | client.dll -> U8[["55 8B EC 83 EC 1C 8D 45 E4 C7 45" + 0x14] + 0x6]

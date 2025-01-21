@@ -6,7 +6,7 @@
 
 #pragma region weaponsystem_enumerations
 // @ida CCSWeaponData::WeaponIdFromString(): client.dll -> ABS["E8 ? ? ? ? 8B 75 F8 3B 35 ? ? ? ?" + 0x1]
-using ItemDefinitionIndex_t = std::uint16_t;
+using ItemDefinitionIndex_t = uint16_t;
 enum EWeaponIndex : ItemDefinitionIndex_t
 {
 	WEAPON_NONE = 0U,

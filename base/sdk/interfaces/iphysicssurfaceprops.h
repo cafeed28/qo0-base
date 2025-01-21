@@ -59,35 +59,35 @@ static_assert(sizeof(surfaceaudioparams_t) == 0x24);
 
 struct surfacesoundnames_t
 {
-	std::uint16_t uWalkStepLeft; // 0x00
-	std::uint16_t uWalkStepRight; // 0x02
-	std::uint16_t uRunStepLeft; // 0x04
-	std::uint16_t uRunStepRight; // 0x06
-	std::uint16_t uImpactSoft; // 0x08
-	std::uint16_t uImpactHard; // 0x0A
-	std::uint16_t uScrapeSmooth; // 0x0C
-	std::uint16_t uScrapeRough; // 0x0E
-	std::uint16_t uBulletImpact; // 0x10
-	std::uint16_t uRolling; // 0x12
-	std::uint16_t uBreakSound; // 0x14
-	std::uint16_t uStrainSound; // 0x16
+	uint16_t uWalkStepLeft; // 0x00
+	uint16_t uWalkStepRight; // 0x02
+	uint16_t uRunStepLeft; // 0x04
+	uint16_t uRunStepRight; // 0x06
+	uint16_t uImpactSoft; // 0x08
+	uint16_t uImpactHard; // 0x0A
+	uint16_t uScrapeSmooth; // 0x0C
+	uint16_t uScrapeRough; // 0x0E
+	uint16_t uBulletImpact; // 0x10
+	uint16_t uRolling; // 0x12
+	uint16_t uBreakSound; // 0x14
+	uint16_t uStrainSound; // 0x16
 };
 static_assert(sizeof(surfacesoundnames_t) == 0x18);
 
 struct surfacesoundhandles_t
 {
-	std::uint16_t uWalkStepLeft; // 0x00
-	std::uint16_t uWalkStepRight; // 0x02
-	std::uint16_t uRunStepLeft; // 0x04
-	std::uint16_t uRunStepRight; // 0x06
-	std::uint16_t uImpactSoft; // 0x08
-	std::uint16_t uImpactHard; // 0x0A
-	std::uint16_t uScrapeSmooth; // 0x0C
-	std::uint16_t uScrapeRough; // 0x0E
-	std::uint16_t uBulletImpact; // 0x10
-	std::uint16_t uRolling; // 0x12
-	std::uint16_t uBreakSound; // 0x14
-	std::uint16_t uStrainSound; // 0x16
+	uint16_t uWalkStepLeft; // 0x00
+	uint16_t uWalkStepRight; // 0x02
+	uint16_t uRunStepLeft; // 0x04
+	uint16_t uRunStepRight; // 0x06
+	uint16_t uImpactSoft; // 0x08
+	uint16_t uImpactHard; // 0x0A
+	uint16_t uScrapeSmooth; // 0x0C
+	uint16_t uScrapeRough; // 0x0E
+	uint16_t uBulletImpact; // 0x10
+	uint16_t uRolling; // 0x12
+	uint16_t uBreakSound; // 0x14
+	uint16_t uStrainSound; // 0x16
 };
 static_assert(sizeof(surfacesoundhandles_t) == 0x18);
 

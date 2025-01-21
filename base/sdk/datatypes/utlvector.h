@@ -331,7 +331,7 @@ class CUtlVectorAligned : public CUtlVector<T, CUtlMemoryAligned<T, alignof(T)>>
 };
 
 //a array class with a fixed allocation scheme
-template <class T, std::size_t MAX_SIZE>
+template <class T, size_t MAX_SIZE>
 class CUtlVectorFixed : public CUtlVector<T, CUtlMemoryFixed<T, MAX_SIZE>>
 {
 	using CBaseClass = CUtlVector<T, CUtlMemoryFixed<T, MAX_SIZE>>;

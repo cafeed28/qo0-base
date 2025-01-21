@@ -4,7 +4,7 @@
 
 #include "../../common.h"
 
-using CRC32_t = std::uint32_t;
+using CRC32_t = uint32_t;
 
 namespace CRC32
 {

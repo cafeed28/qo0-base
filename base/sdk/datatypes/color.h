@@ -20,8 +20,8 @@ enum
 
 struct ColorRGBExp32
 {
-	std::uint8_t r, g, b;
-	std::int8_t iExponent;
+	uint8_t r, g, b;
+	int8_t iExponent;
 };
 static_assert(sizeof(ColorRGBExp32) == 0x4);
 
@@ -30,7 +30,7 @@ struct Color_t
 	Color_t() = default;
 
 	// 8-bit color constructor (in: [0 .. 255])
-	constexpr Color_t(const std::uint8_t r, const std::uint8_t g, const std::uint8_t b, const std::uint8_t a = 255) :
+	constexpr Color_t(const uint8_t r, const uint8_t g, const uint8_t b, const uint8_t a = 255) :
 		r(r),
 		g(g),
 		b(b),
@@ -39,14 +39,14 @@ struct Color_t
 
 	// 8-bit color constructor (in: [0 .. 255])
 	constexpr Color_t(const int r, const int g, const int b, const int a = 255) :
-		r(static_cast<std::uint8_t>(r)),
-		g(static_cast<std::uint8_t>(g)),
-		b(static_cast<std::uint8_t>(b)),
-		a(static_cast<std::uint8_t>(a))
+		r(static_cast<uint8_t>(r)),
+		g(static_cast<uint8_t>(g)),
+		b(static_cast<uint8_t>(b)),
+		a(static_cast<uint8_t>(a))
 	{ }
 
 	// 8-bit array color constructor (in: [0.0 .. 1.0])
-	explicit constexpr Color_t(const std::uint8_t arrColor[4]) :
+	explicit constexpr Color_t(const uint8_t arrColor[4]) :
 		r(arrColor[COLOR_R]),
 		g(arrColor[COLOR_G]),
 		b(arrColor[COLOR_B]),
@@ -55,18 +55,18 @@ struct Color_t
 
 	// 32-bit packed color constructor (in: 0x00000000 - 0xFFFFFFFF)
 	explicit constexpr Color_t(const ImU32 uPackedColor) :
-		r(static_cast<std::uint8_t>((uPackedColor >> IM_COL32_R_SHIFT) & 0xFF)),
-		g(static_cast<std::uint8_t>((uPackedColor >> IM_COL32_G_SHIFT) & 0xFF)),
-		b(static_cast<std::uint8_t>((uPackedColor >> IM_COL32_B_SHIFT) & 0xFF)),
-		a(static_cast<std::uint8_t>((uPackedColor >> IM_COL32_A_SHIFT) & 0xFF))
+		r(static_cast<uint8_t>((uPackedColor >> IM_COL32_R_SHIFT) & 0xFF)),
+		g(static_cast<uint8_t>((uPackedColor >> IM_COL32_G_SHIFT) & 0xFF)),
+		b(static_cast<uint8_t>((uPackedColor >> IM_COL32_B_SHIFT) & 0xFF)),
+		a(static_cast<uint8_t>((uPackedColor >> IM_COL32_A_SHIFT) & 0xFF))
 	{ }
 
 	// 32-bit color constructor (in: [0.0 .. 1.0])
 	constexpr Color_t(const float r, const float g, const float b, const float a = 1.0f) :
-		r(static_cast<std::uint8_t>(r * 255.f)),
-		g(static_cast<std::uint8_t>(g * 255.f)),
-		b(static_cast<std::uint8_t>(b * 255.f)),
-		a(static_cast<std::uint8_t>(a * 255.f))
+		r(static_cast<uint8_t>(r * 255.f)),
+		g(static_cast<uint8_t>(g * 255.f)),
+		b(static_cast<uint8_t>(b * 255.f)),
+		a(static_cast<uint8_t>(a * 255.f))
 	{ }
 
 	/// @returns: 32-bit packed integer representation of color
@@ -75,31 +75,31 @@ struct Color_t
 		return IM_COL32(r, g, b, a * flAlphaMultiplier);
 	}
 
-	std::uint8_t& operator[](const std::uint8_t nIndex)
+	uint8_t& operator[](const uint8_t nIndex)
 	{
 		Q_ASSERT(nIndex <= COLOR_A); // given index is out of range
-		return reinterpret_cast<std::uint8_t*>(this)[nIndex];
+		return reinterpret_cast<uint8_t*>(this)[nIndex];
 	}
 
-	const std::uint8_t& operator[](const std::uint8_t nIndex) const
+	const uint8_t& operator[](const uint8_t nIndex) const
 	{
 		Q_ASSERT(nIndex <= COLOR_A); // given index is out of range
-		return reinterpret_cast<const std::uint8_t*>(this)[nIndex];
+		return reinterpret_cast<const uint8_t*>(this)[nIndex];
 	}
 
 	bool operator==(const Color_t& colSecond) const
 	{
-		return (std::bit_cast<std::uint32_t>(*this) == std::bit_cast<std::uint32_t>(colSecond));
+		return (std::bit_cast<uint32_t>(*this) == std::bit_cast<uint32_t>(colSecond));
 	}
 
 	bool operator!=(const Color_t& colSecond) const
 	{
-		return (std::bit_cast<std::uint32_t>(*this) != std::bit_cast<std::uint32_t>(colSecond));
+		return (std::bit_cast<uint32_t>(*this) != std::bit_cast<uint32_t>(colSecond));
 	}
 
 	/// @returns: copy of color with certain R/G/B/A component changed to given value
-	template <std::size_t N>
-	[[nodiscard]] Color_t Set(const std::uint8_t nValue) const
+	template <size_t N>
+	[[nodiscard]] Color_t Set(const uint8_t nValue) const
 	{
 		static_assert(N >= COLOR_R && N <= COLOR_A, "color component index is out of range");
 
@@ -109,18 +109,18 @@ struct Color_t
 	}
 
 	/// @returns: copy of color with certain R/G/B/A component multiplied by given value
-	template <std::size_t N>
+	template <size_t N>
 	[[nodiscard]] Color_t Multiplier(const float flValue) const
 	{
 		static_assert(N >= COLOR_R && N <= COLOR_A, "color component index is out of range");
 
 		Color_t colCopy = *this;
-		colCopy[N] = static_cast<std::uint8_t>(static_cast<float>(colCopy[N]) * flValue);
+		colCopy[N] = static_cast<uint8_t>(static_cast<float>(colCopy[N]) * flValue);
 		return colCopy;
 	}
 
 	/// @returns: copy of color with certain R/G/B/A component divided by given value
-	template <std::size_t N>
+	template <size_t N>
 	[[nodiscard]] Color_t Divider(const int iValue) const
 	{
 		static_assert(N >= COLOR_R && N <= COLOR_A, "color component index is out of range");
@@ -131,11 +131,11 @@ struct Color_t
 	}
 
 	/// @returns: certain R/G/B/A float value (in: [0 .. 255], out: [0.0 .. 1.0])
-	template <std::size_t N>
+	template <size_t N>
 	[[nodiscard]] float Base() const
 	{
 		static_assert(N >= COLOR_R && N <= COLOR_A, "color component index is out of range");
-		return reinterpret_cast<const std::uint8_t*>(this)[N] / 255.f;
+		return reinterpret_cast<const uint8_t*>(this)[N] / 255.f;
 	}
 
 	/// @param[out] arrBase output array of R/G/B color components converted to float (in: [0 .. 255], out: [0.0 .. 1.0])
@@ -241,5 +241,5 @@ struct Color_t
 		return { flRed, flGreen, flBlue, flAlpha };
 	}
 
-	std::uint8_t r = 0U, g = 0U, b = 0U, a = 0U;
+	uint8_t r = 0U, g = 0U, b = 0U, a = 0U;
 };

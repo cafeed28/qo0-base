@@ -109,13 +109,13 @@ void SCREEN::HitMarker(const Color_t& colLines, const Color_t& colDamage)
 
 	// draw marker cross
 	for (constexpr float arrSideDirections[4][2] = { { -1.0f, -1.0f }, { 1.0f, 1.0f }, { -1.0f, 1.0f }, { 1.0f, -1.0f } }; const float(&arrDirection)[2] : arrSideDirections)
-		D::AddDrawListLine(nullptr, ImVec2(vecScreenSize.x * 0.5f + C::Get<int>(Vars.iVisualScreenHitMarkerGap) * arrDirection[0], vecScreenSize.y * 0.5f + C::Get<int>(Vars.iVisualScreenHitMarkerGap) * arrDirection[1]), ImVec2(vecScreenSize.x * 0.5f + C::Get<int>(Vars.iVisualScreenHitMarkerLength) * arrDirection[0], vecScreenSize.y * 0.5f + C::Get<int>(Vars.iVisualScreenHitMarkerLength) * arrDirection[1]), colLines.Set<COLOR_A>(static_cast<std::uint8_t>(CRT::Min(flMaxLinesAlpha, flLastDelta / C::Get<float>(Vars.flVisualScreenHitMarkerTime)) * 255.f)));
+		D::AddDrawListLine(nullptr, ImVec2(vecScreenSize.x * 0.5f + C::Get<int>(Vars.iVisualScreenHitMarkerGap) * arrDirection[0], vecScreenSize.y * 0.5f + C::Get<int>(Vars.iVisualScreenHitMarkerGap) * arrDirection[1]), ImVec2(vecScreenSize.x * 0.5f + C::Get<int>(Vars.iVisualScreenHitMarkerLength) * arrDirection[0], vecScreenSize.y * 0.5f + C::Get<int>(Vars.iVisualScreenHitMarkerLength) * arrDirection[1]), colLines.Set<COLOR_A>(static_cast<uint8_t>(CRT::Min(flMaxLinesAlpha, flLastDelta / C::Get<float>(Vars.flVisualScreenHitMarkerTime)) * 255.f)));
 
 	if (C::Get<bool>(Vars.bVisualScreenHitMarkerDamage))
 	{
 		const float flMaxDamageAlpha = colDamage.Base<COLOR_A>();
 
-		for (std::size_t i = 0U; i < vecHitMarks.size(); i++)
+		for (size_t i = 0U; i < vecHitMarks.size(); i++)
 		{
 			const HitMarkerObject_t& hitMarker = vecHitMarks[i];
 
@@ -140,7 +140,7 @@ void SCREEN::HitMarker(const Color_t& colLines, const Color_t& colDamage)
 				const char* szDealtDamage = CRT::IntegerToString(hitMarker.iDamage, szDamageBuffer, Q_ARRAYSIZE(szDamageBuffer));
 
 				// draw dealt damage
-				D::AddDrawListText(nullptr, FONT::pVisual, 24.f, ImVec2(vecScreen.x, vecScreen.y - flRatio * flDistance), szDealtDamage, colDamage.Set<COLOR_A>(static_cast<std::uint8_t>(iAlpha)), DRAW_TEXT_OUTLINE, Color_t(0, 0, 0, iAlpha));
+				D::AddDrawListText(nullptr, FONT::pVisual, 24.f, ImVec2(vecScreen.x, vecScreen.y - flRatio * flDistance), szDealtDamage, colDamage.Set<COLOR_A>(static_cast<uint8_t>(iAlpha)), DRAW_TEXT_OUTLINE, Color_t(0, 0, 0, iAlpha));
 			}
 		}
 	}

@@ -105,7 +105,7 @@ public:
 	float flSideMove; // 0x28
 	float flUpMove; // 0x2C
 	int nButtons; // 0x30
-	std::uint8_t uImpulse; // 0x34
+	uint8_t uImpulse; // 0x34
 	int iWeaponSelect; // 0x38
 	int iWeaponSubType; // 0x3C
 	int iRandomSeed; // 0x40

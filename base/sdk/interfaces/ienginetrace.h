@@ -63,8 +63,8 @@ class CBaseEntity;
 struct BrushSideInfo_t
 {
 	VectorAligned_t vecPlane; // 0x00
-	std::uint16_t uBevel; // 0x1C
-	std::uint16_t uThin; // 0x1E
+	uint16_t uBevel; // 0x1C
+	uint16_t uThin; // 0x1E
 };
 static_assert(sizeof(BrushSideInfo_t) == 0x20);
 
@@ -74,8 +74,8 @@ struct CPlane_t
 
 	Vector_t vecNormal = {}; // 0x00
 	float flDistance = 0.0f; // 0x0C
-	std::uint8_t nType = 0U; // 0x10
-	std::uint8_t uSignBits = 0U; // 0x11
+	uint8_t nType = 0U; // 0x10
+	uint8_t uSignBits = 0U; // 0x11
 };
 static_assert(sizeof(CPlane_t) == 0x14);
 
@@ -85,7 +85,7 @@ struct CSurface_t
 
 	const char* szName = nullptr; // 0x00
 	short nSurfaceProps = 0; // 0x04
-	std::uint16_t uFlags = 0U; // 0x06
+	uint16_t uFlags = 0U; // 0x06
 };
 static_assert(sizeof(CSurface_t) == 0x8);
 
@@ -99,7 +99,7 @@ public:
 	CPlane_t plane = {}; // 0x18 // surface normal at impact
 	float flFraction = 0.0f; // 0x2C // time completed, 1.0 = didn't hit anything
 	int iContents = 0; // 0x30 // contents on other side of surface hit
-	std::uint16_t uDispFlags = 0U; // 0x34 // displacement flags for marking surfaces with data
+	uint16_t uDispFlags = 0U; // 0x34 // displacement flags for marking surfaces with data
 	bool bAllSolid = false; // 0x36 // if true, plane is not valid
 	bool bStartSolid = false; // 0x37 // if true, the initial point was in a solid area
 };
@@ -114,7 +114,7 @@ public:
 	CSurface_t surface = {}; // 0x04
 	int iHitGroup = 0; // 0x0C
 	short shPhysicsBoneHit = 0; // 0x10
-	std::uint16_t nWorldSurfaceIndex = 0U; // 0x12
+	uint16_t nWorldSurfaceIndex = 0U; // 0x12
 	CBaseEntity* pHitEntity = nullptr; // 0x14
 	int iHitBox = 0; // 0x18
 

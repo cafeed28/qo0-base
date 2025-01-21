@@ -60,13 +60,13 @@ namespace CRT
 		static_assert(sizeof(long double) == 8, "CRT rebuild doesn't support binary128 format");
 
 		// bit equivalent integer type for given floating point type
-		using BitEquivalent_t = std::conditional_t<std::is_same_v<T, double> || std::is_same_v<T, long double>, std::uint64_t, std::uint32_t>;
+		using BitEquivalent_t = std::conditional_t<std::is_same_v<T, double> || std::is_same_v<T, long double>, uint64_t, uint32_t>;
 
-		static constexpr std::uint32_t MANTISSA_WIDTH = ((sizeof(T) == sizeof(double)) ? 52U : 23U);
-		static constexpr std::uint32_t EXPONENT_WIDTH = ((sizeof(T) == sizeof(double)) ? 11U : 8U);
-		static constexpr std::uint32_t SIGN_WIDTH = 1U;
-		static constexpr std::uint32_t TOTAL_WIDTH = MANTISSA_WIDTH + EXPONENT_WIDTH + SIGN_WIDTH;
-		static constexpr std::uint32_t EXPONENT_BIAS = (1U << (EXPONENT_WIDTH - 1U)) - 1U;
+		static constexpr uint32_t MANTISSA_WIDTH = ((sizeof(T) == sizeof(double)) ? 52U : 23U);
+		static constexpr uint32_t EXPONENT_WIDTH = ((sizeof(T) == sizeof(double)) ? 11U : 8U);
+		static constexpr uint32_t SIGN_WIDTH = 1U;
+		static constexpr uint32_t TOTAL_WIDTH = MANTISSA_WIDTH + EXPONENT_WIDTH + SIGN_WIDTH;
+		static constexpr uint32_t EXPONENT_BIAS = (1U << (EXPONENT_WIDTH - 1U)) - 1U;
 
 		static constexpr BitEquivalent_t MANTISSA_MASK = (BitEquivalent_t(1U) << MANTISSA_WIDTH) - 1U;
 		static constexpr BitEquivalent_t SIGN_MASK = (BitEquivalent_t(1U) << (EXPONENT_WIDTH + MANTISSA_WIDTH));
@@ -98,17 +98,17 @@ namespace CRT
 		"C0C1C2C3C4C5C6C7C8C9CACBCCCDCECFD0D1D2D3D4D5D6D7D8D9DADBDCDDDEDF"
 		"E0E1E2E3E4E5E6E7E8E9EAEBECEDEEEFF0F1F2F3F4F5F6F7F8F9FAFBFCFDFEFF";
 
-	template <typename T, std::size_t BASE> requires (std::is_integral_v<T> && BASE > 0U && BASE <= _NUMBER_MAX_BASE)
+	template <typename T, size_t BASE> requires (std::is_integral_v<T> && BASE > 0U && BASE <= _NUMBER_MAX_BASE)
 	struct IntegerToString_t
 	{
 		// maximum count of characters, including terminating null and negative sign where appropriate, needed for integer-to-string conversion
-		static consteval std::size_t MaxCount()
+		static consteval size_t MaxCount()
 		{
-			std::size_t nDigitsCount = 0U;
+			size_t nDigitsCount = 0U;
 
-			constexpr std::uint64_t ullNegativeMax = (std::is_unsigned_v<T> ? (std::numeric_limits<T>::max)() : (static_cast<std::uint64_t>((std::numeric_limits<T>::max)()) + 1ULL));
+			constexpr uint64_t ullNegativeMax = (std::is_unsigned_v<T> ? (std::numeric_limits<T>::max)() : (static_cast<uint64_t>((std::numeric_limits<T>::max)()) + 1ULL));
 
-			for (std::uint64_t nShift = ullNegativeMax; nShift > 0ULL; nShift /= BASE)
+			for (uint64_t nShift = ullNegativeMax; nShift > 0ULL; nShift /= BASE)
 				nDigitsCount++;
 
 			return (nDigitsCount + (std::is_signed_v<T> && BASE == 10U ? 1U : 0U) + 1U);
@@ -190,10 +190,10 @@ namespace CRT
 	/// compare bytes in two buffers, alternative of 'memcmp()'
 	/// @remarks: compares the first count bytes of @a'pFirstBuffer' and @a'pRightBuffer' and return a value that indicates their relationship, performs unsigned character comparison
 	/// @returns: <0 - if @a'pFirstBuffer' less than @a'pRightBuffer', 0 - if @a'pFirstBuffer' identical to @a'pRightBuffer', >0 - if @a'pFirstBuffer' greater than @a'pRightBuffer'
-	Q_INLINE int MemoryCompare(const void* pLeftBuffer, const void* pRightBuffer, std::size_t nCount)
+	Q_INLINE int MemoryCompare(const void* pLeftBuffer, const void* pRightBuffer, size_t nCount)
 	{
-		auto pLeftByte = static_cast<const std::uint8_t*>(pLeftBuffer);
-		auto pRightByte = static_cast<const std::uint8_t*>(pRightBuffer);
+		auto pLeftByte = static_cast<const uint8_t*>(pLeftBuffer);
+		auto pRightByte = static_cast<const uint8_t*>(pRightBuffer);
 
 		while (nCount--)
 		{
@@ -207,7 +207,7 @@ namespace CRT
 	/// compare bytes in two buffers, alternative of 'wmemcmp()'
 	/// @remarks: compares the first count characters of @a'pwLeftBuffer' and @a'pwRightBuffer' and return a value that indicates their relationship, performs signed character comparison
 	/// @returns: <0 - if @a'pwLeftBuffer' less than @a'pwRightBuffer', 0 - if @a'pwLeftBuffer' identical to @a'pwRightBuffer', >0 - if @a'pwLeftBuffer' greater than @a'pwRightBuffer'
-	Q_INLINE int MemoryCompareW(const wchar_t* pwLeftBuffer, const wchar_t* pwRightBuffer, std::size_t nCount)
+	Q_INLINE int MemoryCompareW(const wchar_t* pwLeftBuffer, const wchar_t* pwRightBuffer, size_t nCount)
 	{
 		while (nCount--)
 		{
@@ -221,14 +221,14 @@ namespace CRT
 	/// find character in a buffer, alternative of 'memchr()'
 	/// @remarks: look for the first occurrence of @a'uSearch' character in the first @a'nCount' characters of buffer, performs unsigned comparison for elements
 	/// @returns: pointer to the found character on success, null otherwise
-	Q_INLINE void* MemoryChar(const void* pBuffer, const std::uint8_t uSearch, std::size_t nCount)
+	Q_INLINE void* MemoryChar(const void* pBuffer, const uint8_t uSearch, size_t nCount)
 	{
-		auto pByte = static_cast<const std::uint8_t*>(pBuffer);
+		auto pByte = static_cast<const uint8_t*>(pBuffer);
 
 		while (nCount--)
 		{
 			if (*pByte == uSearch)
-				return const_cast<std::uint8_t*>(pByte);
+				return const_cast<uint8_t*>(pByte);
 
 			++pByte;
 		}
@@ -239,7 +239,7 @@ namespace CRT
 	/// find wide character in a buffer, alternative of 'wmemchr()'
 	/// @remarks: look for the first occurrence of @a'wSearch' character in the first @a'nCount' wide characters of buffer, performs signed comparison for elements
 	/// @returns: pointer to the found wide character on success, null otherwise
-	Q_INLINE wchar_t* MemoryCharW(wchar_t* pwBuffer, const wchar_t wSearch, std::size_t nCount)
+	Q_INLINE wchar_t* MemoryCharW(wchar_t* pwBuffer, const wchar_t wSearch, size_t nCount)
 	{
 		while (nCount--)
 		{
@@ -255,11 +255,11 @@ namespace CRT
 	/// set a buffer to a specified byte, alternative of 'memset()'
 	/// @remarks: sets the first @a'nCount' bytes of @a'pDestination' to the @a'uByte'
 	/// @returns: pointer to the @a'pDestination'
-	Q_INLINE void* MemorySet(void* pDestination, const std::uint8_t uByte, std::size_t nCount)
+	Q_INLINE void* MemorySet(void* pDestination, const uint8_t uByte, size_t nCount)
 	{
 #ifdef Q_COMPILER_MSC
 		// @test: clang always tries to detect 'memset' like instructions and replace them with CRT's function call
-		if (const std::size_t nCountAlign = (nCount & 3U); nCountAlign == 0U)
+		if (const size_t nCountAlign = (nCount & 3U); nCountAlign == 0U)
 		{
 			auto pDestinationLong = static_cast<unsigned long*>(pDestination);
 			__stosd(pDestinationLong, static_cast<unsigned long>(uByte) * 0x01010101, nCount >> 2U);
@@ -275,7 +275,7 @@ namespace CRT
 			__stosb(pDestinationByte, uByte, nCount);
 		}
 #else
-		auto pDestinationByte = static_cast<std::uint8_t*>(pDestination);
+		auto pDestinationByte = static_cast<uint8_t*>(pDestination);
 
 		while (nCount--)
 			*pDestinationByte++ = uByte;
@@ -287,11 +287,11 @@ namespace CRT
 	/// copy one buffer to another, alternative of 'memcpy()'
 	/// @remarks: copies @a'nCount' bytes from @a'pSource' to @a'pDestination'. if the source and destination regions overlap, the behavior is undefined
 	/// @returns: pointer to the @a'pDestination'
-	Q_INLINE void* MemoryCopy(void* pDestination, const void* pSource, std::size_t nCount)
+	Q_INLINE void* MemoryCopy(void* pDestination, const void* pSource, size_t nCount)
 	{
 #ifdef Q_COMPILER_MSC
 		// @test: clang always tries to detect 'memcpy' like instructions and replace them with CRT's function call
-		if (const std::size_t nCountAlign = (nCount & 3U); nCountAlign == 0U)
+		if (const size_t nCountAlign = (nCount & 3U); nCountAlign == 0U)
 		{
 			auto pDestinationLong = static_cast<unsigned long*>(pDestination);
 			auto pSourceLong = static_cast<const unsigned long*>(pSource);
@@ -310,8 +310,8 @@ namespace CRT
 			__movsb(pDestinationByte, pSourceByte, nCount);
 		}
 #else
-		auto pDestinationByte = static_cast<std::uint8_t*>(pDestination);
-		auto pSourceByte = static_cast<const std::uint8_t*>(pSource);
+		auto pDestinationByte = static_cast<uint8_t*>(pDestination);
+		auto pSourceByte = static_cast<const uint8_t*>(pSource);
 
 		while (nCount--)
 			*pDestinationByte++ = *pSourceByte++;
@@ -323,10 +323,10 @@ namespace CRT
 	/// move one buffer to another, alternative of 'memmove()'
 	/// @remarks: copies @a'nCount' bytes from @a'pSource' to @a'pDestination'. if some portions of the source and the destination regions overlap, both functions ensure that the original source bytes in the overlapping region are copied before being overwritten
 	/// @returns: pointer to the @a'pDestination'
-	Q_INLINE void* MemoryMove(void* pDestination, const void* pSource, std::size_t nCount)
+	Q_INLINE void* MemoryMove(void* pDestination, const void* pSource, size_t nCount)
 	{
-		auto pDestinationByte = static_cast<std::uint8_t*>(pDestination);
-		auto pSourceByte = static_cast<const std::uint8_t*>(pSource);
+		auto pDestinationByte = static_cast<uint8_t*>(pDestination);
+		auto pSourceByte = static_cast<const uint8_t*>(pSource);
 
 		// perform copy when source greater than destination
 		if (pDestinationByte < pSourceByte)
@@ -342,8 +342,8 @@ namespace CRT
 		// inverse copy otherwise
 		else
 		{
-			std::uint8_t* pLastDestinationByte = pDestinationByte + (nCount - 1U);
-			const std::uint8_t* pLastSourceByte = pSourceByte + (nCount - 1U);
+			uint8_t* pLastDestinationByte = pDestinationByte + (nCount - 1U);
+			const uint8_t* pLastSourceByte = pSourceByte + (nCount - 1U);
 
 			while (nCount--)
 				*pLastDestinationByte-- = *pLastSourceByte--;
@@ -360,84 +360,84 @@ namespace CRT
 #pragma region crt_characters
 	/// alternative of 'iscntrl()', @todo: 'iswcntrl()'
 	/// @returns: true if given character is a control character, false otherwise
-	[[nodiscard]] constexpr bool IsControl(const std::uint8_t uChar)
+	[[nodiscard]] constexpr bool IsControl(const uint8_t uChar)
 	{
 		return (uChar <= 0x1F || uChar == 0x7F);
 	}
 
 	/// alternative of 'isdigit()', @todo: 'iswdigit()'
 	/// @returns: true if given character is decimal digit, false otherwise
-	[[nodiscard]] constexpr bool IsDigit(const std::uint8_t uChar)
+	[[nodiscard]] constexpr bool IsDigit(const uint8_t uChar)
 	{
 		return (uChar >= '0' && uChar <= '9');
 	}
 
 	/// alternative of 'isxdigit()', @todo: 'iswxdigit()'
 	/// @returns: true if given character is hexadecimal digit, false otherwise
-	[[nodiscard]] constexpr bool IsHexDigit(const std::uint8_t uChar)
+	[[nodiscard]] constexpr bool IsHexDigit(const uint8_t uChar)
 	{
 		return ((uChar >= '0' && uChar <= '9') || (uChar >= 'A' && uChar <= 'F') || (uChar >= 'a' && uChar <= 'f'));
 	}
 
 	/// alternative of 'isblank()', @todo: 'iswblank()'
 	/// @returns: true if given character is blank, false otherwise
-	[[nodiscard]] constexpr bool IsBlank(const std::uint8_t uChar)
+	[[nodiscard]] constexpr bool IsBlank(const uint8_t uChar)
 	{
 		return (uChar == '\t' || uChar == ' ');
 	}
 
 	/// alternative of 'isspace()', @todo: 'iswspace()'
 	/// @returns: true if given character is whitespace, false otherwise
-	[[nodiscard]] constexpr bool IsSpace(const std::uint8_t uChar)
+	[[nodiscard]] constexpr bool IsSpace(const uint8_t uChar)
 	{
 		return ((uChar >= '\t' && uChar <= '\r') || uChar == ' ');
 	}
 
 	/// alternative of 'isalpha()', @todo: 'iswalpha()'
 	/// @returns: true if given character is alphabetic, false otherwise
-	[[nodiscard]] constexpr bool IsAlpha(const std::uint8_t uChar)
+	[[nodiscard]] constexpr bool IsAlpha(const uint8_t uChar)
 	{
 		return ((uChar >= 'A' && uChar <= 'Z') || (uChar >= 'a' && uChar <= 'z'));
 	}
 
 	/// alternative of 'isalnum()', @todo: 'iswalnum()'
 	/// @returns: true if given character is alphabetic or numeric, false otherwise
-	[[nodiscard]] constexpr bool IsAlphaNum(const std::uint8_t uChar)
+	[[nodiscard]] constexpr bool IsAlphaNum(const uint8_t uChar)
 	{
 		return ((uChar >= '0' && uChar <= '9') || (uChar >= 'A' && uChar <= 'Z') || (uChar >= 'a' && uChar <= 'z'));
 	}
 
 	/// alternative of 'isprint()', @todo: 'iswprint()'
 	/// @returns: true if given character is printable, false otherwise
-	[[nodiscard]] constexpr bool IsPrint(const std::uint8_t uChar)
+	[[nodiscard]] constexpr bool IsPrint(const uint8_t uChar)
 	{
 		return (uChar >= ' ' && uChar <= '~');
 	}
 
 	/// alternative of 'isgraph()', @todo: 'iswgraph()'
 	/// @returns: true if given character is graphic (has a graphical representation), false otherwise
-	[[nodiscard]] constexpr bool IsGraph(const std::uint8_t uChar)
+	[[nodiscard]] constexpr bool IsGraph(const uint8_t uChar)
 	{
 		return (uChar >= '!' && uChar <= '~');
 	}
 
 	/// alternative of 'ispunct()', @todo: 'iswpunct()'
 	/// @returns: true if given character is a punctuation character, false otherwise
-	[[nodiscard]] constexpr bool IsPunct(const std::uint8_t uChar)
+	[[nodiscard]] constexpr bool IsPunct(const uint8_t uChar)
 	{
 		return ((uChar >= '!' && uChar <= '/') || (uChar >= ':' && uChar <= '@') || (uChar >= '[' && uChar <= '`') || (uChar >= '{' && uChar <= '~'));
 	}
 
 	/// alternative of 'isupper()', @todo: 'iswupper()'
 	/// @returns: true if given alphabetic character is uppercase, false otherwise
-	[[nodiscard]] constexpr bool IsUpper(const std::uint8_t uChar)
+	[[nodiscard]] constexpr bool IsUpper(const uint8_t uChar)
 	{
 		return (uChar >= 'A' && uChar <= 'Z');
 	}
 
 	/// alternative of 'islower()', @todo: 'iswlower()'
 	/// @returns: true if given alphabetic character is lowercase, false otherwise
-	[[nodiscard]] constexpr bool IsLower(const std::uint8_t uChar)
+	[[nodiscard]] constexpr bool IsLower(const uint8_t uChar)
 	{
 		return (uChar >= 'a' && uChar <= 'z');
 	}
@@ -447,27 +447,27 @@ namespace CRT
 #pragma region crt_character_conversion
 	/// convert single digit character to integer
 	/// @returns: converted value if character is digit, 0 otherwise
-	[[nodiscard]] constexpr std::int32_t CharToInt(const std::uint8_t uChar)
+	[[nodiscard]] constexpr int32_t CharToInt(const uint8_t uChar)
 	{
 		return IsDigit(uChar) ? (uChar - '0') : 0;
 	}
 
 	/// convert single hex digit character to integer
 	/// @returns: converted value if character is hex digit, 0 otherwise
-	[[nodiscard]] constexpr std::uint32_t CharToHexInt(const std::uint8_t uChar)
+	[[nodiscard]] constexpr uint32_t CharToHexInt(const uint8_t uChar)
 	{
-		const std::uint8_t uCharLower = (uChar | ('a' ^ 'A'));
+		const uint8_t uCharLower = (uChar | ('a' ^ 'A'));
 		return ((uCharLower >= 'a' && uCharLower <= 'f') ? (uCharLower - 'a' + 0xA) : (IsDigit(uChar) ? (uChar - '0') : 0x0));
 	}
 
 	// convert single character to uppercase, alternative of 'toupper()', @todo: 'towupper()'
-	[[nodiscard]] constexpr char CharToUpper(const std::uint8_t uChar)
+	[[nodiscard]] constexpr char CharToUpper(const uint8_t uChar)
 	{
 		return static_cast<char>(IsLower(uChar) ? (uChar & ~('a' ^ 'A')) : uChar);
 	}
 
 	// convert single character to lowercase, alternative of 'tolower()', @todo: 'towlower()'
-	[[nodiscard]] constexpr char CharToLower(const std::uint8_t uChar)
+	[[nodiscard]] constexpr char CharToLower(const uint8_t uChar)
 	{
 		return static_cast<char>(IsUpper(uChar) ? (uChar | ('a' ^ 'A')) : uChar);
 	}
@@ -482,7 +482,7 @@ namespace CRT
 	/// get the length of a string, alternative of 'strlen()', 'wcslen()'
 	/// @returns: number of characters in the string, not including the terminating null character
 	template <typename C> requires (std::is_same_v<C, char> || std::is_same_v<C, wchar_t>)
-	constexpr std::size_t StringLength(const C* tszSource)
+	constexpr size_t StringLength(const C* tszSource)
 	{
 		const C* tszSourceEnd = tszSource;
 
@@ -495,9 +495,9 @@ namespace CRT
 	/// get the length of a string limited by max length, alternative of 'strnlen()', 'wcsnlen()'
 	/// @returns: number of characters in the string, not including the terminating null character. if there is no null terminator within the first @a'nMaxLength' bytes of the string, then @a'nMaxLength' is returned to indicate the error condition
 	template <typename C> requires (std::is_same_v<C, char> || std::is_same_v<C, wchar_t>)
-	constexpr std::size_t StringLengthN(const C* tszSource, const std::size_t nMaxLength)
+	constexpr size_t StringLengthN(const C* tszSource, const size_t nMaxLength)
 	{
-		std::size_t i = 0U;
+		size_t i = 0U;
 
 		while (tszSource[i] != C('\0') && i < nMaxLength)
 			++i;
@@ -511,7 +511,7 @@ namespace CRT
 	template <typename C> requires (std::is_same_v<C, char> || std::is_same_v<C, wchar_t>)
 	constexpr int StringCompare(const C* tszLeft, const C* tszRight)
 	{
-		using ComparisonType_t = std::conditional_t<std::is_same_v<C, char>, std::uint8_t, std::conditional_t<sizeof(wchar_t) == 2U, std::int16_t, std::int32_t>>;
+		using ComparisonType_t = std::conditional_t<std::is_same_v<C, char>, uint8_t, std::conditional_t<sizeof(wchar_t) == 2U, int16_t, int32_t>>;
 
 		ComparisonType_t nLeft, nRight;
 		do
@@ -531,11 +531,11 @@ namespace CRT
 	/// @returns: <0 - if @a'szLeft' less than @a'szRight', 0 - if @a'szLeft' is identical to @a'szRight', >0 - if @a'szLeft' greater than @a'szRight'
 	constexpr int StringCompareI(const char* szLeft, const char* szRight)
 	{
-		std::uint8_t uLeft, uRight;
+		uint8_t uLeft, uRight;
 		do
 		{
-			uLeft = static_cast<std::uint8_t>(CharToLower(static_cast<std::uint8_t>(*szLeft++)));
-			uRight = static_cast<std::uint8_t>(CharToLower(static_cast<std::uint8_t>(*szRight++)));
+			uLeft = static_cast<uint8_t>(CharToLower(static_cast<uint8_t>(*szLeft++)));
+			uRight = static_cast<uint8_t>(CharToLower(static_cast<uint8_t>(*szRight++)));
 
 			if (uLeft == '\0')
 				break;
@@ -548,9 +548,9 @@ namespace CRT
 	/// @remarks: performs a signed/unsigned character comparison depending on the string type
 	/// @returns: <0 - if @a'tszLeft' less than @a'tszRight', 0 - if 'tszLeft' is identical to @a'tszRight', >0 - if @a'tszLeft' greater than @a'tszRight'
 	template <typename C> requires (std::is_same_v<C, char> || std::is_same_v<C, wchar_t>)
-	constexpr int StringCompareN(const C* tszLeft, const C* tszRight, std::size_t nCount)
+	constexpr int StringCompareN(const C* tszLeft, const C* tszRight, size_t nCount)
 	{
-		using ComparisonType_t = std::conditional_t<std::is_same_v<C, char>, std::uint8_t, std::conditional_t<sizeof(wchar_t) == 2U, std::int16_t, std::int32_t>>;
+		using ComparisonType_t = std::conditional_t<std::is_same_v<C, char>, uint8_t, std::conditional_t<sizeof(wchar_t) == 2U, int16_t, int32_t>>;
 
 		ComparisonType_t nLeft, nRight;
 		while (nCount--)
@@ -632,7 +632,7 @@ namespace CRT
 	{
 		while (*szSource != '\0')
 		{
-			while (*szSearch != '\0' && CharToLower(static_cast<std::uint8_t>(*szSource)) == CharToLower(static_cast<std::uint8_t>(*szSearch)))
+			while (*szSearch != '\0' && CharToLower(static_cast<uint8_t>(*szSource)) == CharToLower(static_cast<uint8_t>(*szSearch)))
 			{
 				++szSource;
 				++szSearch;
@@ -664,7 +664,7 @@ namespace CRT
 	/// @remarks: copies the initial @a'nCount' characters of @a'tszSource' to @a'tszDestination'. if count is less than or equal to the length of @a'tszSource', a null character is not appended automatically to the copied string. if @a'nCount' is greater than the length of @a'tszSource', the destination string is padded with null characters up to length count. the behavior is undefined if the source and destination strings overlap
 	/// @returns: pointer to @a'tszDestination' + @a'nCount'
 	template <typename C> requires (std::is_same_v<C, char> || std::is_same_v<C, wchar_t>)
-	constexpr C* StringCopyN(C* tszDestination, const C* tszSource, std::size_t nCount)
+	constexpr C* StringCopyN(C* tszDestination, const C* tszSource, size_t nCount)
 	{
 		while (nCount--)
 			*tszDestination++ = (*tszSource != C('\0') ? *tszSource++ : C('\0'));
@@ -692,7 +692,7 @@ namespace CRT
 	/// @remarks: appends, at most, the first @a'nCount' characters of @a'tszSource' to @a'tszDestination'. the initial character of @a'tszSource' overwrites the terminating null character of @a'tszDestination'. if a null character appears in @a'tszSource' before @a'nCount' characters are appended, function appends all characters from @a'tszSource', up to the null character. if count is greater than the length of @a'tszSource', the length of @a'tszSource' is used in place of count. in all cases, the resulting string is terminated with a null character. if copying takes place between strings that overlap, the behavior is undefined
 	/// @returns: pointer to the terminating null in @a'tszDestination'
 	template <typename C> requires (std::is_same_v<C, char> || std::is_same_v<C, wchar_t>)
-	constexpr C* StringCatN(C* tszDestination, const C* tszSource, std::size_t nCount)
+	constexpr C* StringCatN(C* tszDestination, const C* tszSource, size_t nCount)
 	{
 		while (*tszDestination != C('\0'))
 			++tszDestination;
@@ -762,10 +762,10 @@ namespace CRT
 	/// write formatted data to a string up to the specified count of characters, alternative of 'snprintf'
 	/// @remarks: format and store @a'nCount' or fewer characters in @a'szBuffer'. always store a terminating null character, truncating the output if necessary. if copying occurs between strings that overlap, the behavior is undefined
 	/// @returns: if the buffer size specified by @a'nCount' isn't sufficiently large to contain the output specified by @a'szFormat', the return value is the number of characters that would be written, not including the terminating null character, if @a'nCount' were sufficiently large. if the return value is greater than @a'nCount' - 1, the output has been truncated. a return value of -1 indicates that an encoding error has occurred
-	inline Q_CRT_FORMAT_STRING_ATTRIBUTE(printf, 3, 4) int StringPrintN(char* szBuffer, std::size_t nCount, const char* const szFormat, ...)
+	inline Q_CRT_FORMAT_STRING_ATTRIBUTE(printf, 3, 4) int StringPrintN(char* szBuffer, size_t nCount, const char* const szFormat, ...)
 	{
 		// @todo: because i dont have time so yeah, will rebuild it some time
-		static auto fn_snprintf = reinterpret_cast<int(Q_CDECL*)(char*, std::size_t, const char* const, ...)>(MEM::GetAbsoluteAddress(MEM::FindPattern(CLIENT_DLL, Q_XOR("E8 ? ? ? ? C6 45 F7 00")) + 0x1));
+		static auto fn_snprintf = reinterpret_cast<int(Q_CDECL*)(char*, size_t, const char* const, ...)>(MEM::GetAbsoluteAddress(MEM::FindPattern(CLIENT_DLL, Q_XOR("E8 ? ? ? ? C6 45 F7 00")) + 0x1));
 
 		va_list argList;
 		va_start(argList, szFormat);
@@ -791,7 +791,7 @@ namespace CRT
 		char* szDestinationOut = szDestination;
 
 		while (*szDestinationOut++ != '\0')
-			*szDestinationOut = CharToUpper(static_cast<std::uint8_t>(*szDestinationOut));
+			*szDestinationOut = CharToUpper(static_cast<uint8_t>(*szDestinationOut));
 
 		return szDestination;
 	}
@@ -803,7 +803,7 @@ namespace CRT
 		char* szDestinationOut = szDestination;
 
 		while (*szDestinationOut++ != '\0')
-			*szDestinationOut = CharToLower(static_cast<std::uint8_t>(*szDestinationOut));
+			*szDestinationOut = CharToLower(static_cast<uint8_t>(*szDestinationOut));
 
 		return szDestination;
 	}
@@ -813,7 +813,7 @@ namespace CRT
 	/// @param[in] iBase numeric base to use to represent number in range [2 .. 36]
 	/// @returns: pointer to the begin of converted integer in the buffer
 	template <typename T> requires std::is_integral_v<T>
-	char* IntegerToString(const T value, char* szDestination, const std::size_t nDestinationLength, int iBase = 10)
+	char* IntegerToString(const T value, char* szDestination, const size_t nDestinationLength, int iBase = 10)
 	{
 		if (iBase < 0 || iBase == 1 || iBase > _NUMBER_MAX_BASE)
 		{
@@ -890,7 +890,7 @@ namespace CRT
 	/// convert the floating point to a string, alternative of 'to_string'
 	/// @returns:
 	template <typename T> requires std::is_floating_point_v<T>
-	char* FloatToString(const T value, char* szDestination, const std::size_t nDestinationSize, int iPrecision = std::numeric_limits<T>::digits10)
+	char* FloatToString(const T value, char* szDestination, const size_t nDestinationSize, int iPrecision = std::numeric_limits<T>::digits10)
 	{
 		// @todo: because i dont have time so yeah, would rebuild it some time
 		StringPrintN(szDestination, nDestinationSize, "%.*f", iPrecision, value);
@@ -940,7 +940,7 @@ namespace CRT
 	 * @returns: the number of characters placed in @a'szDestination' not including the terminating null, if the total number of characters, including the terminating null, is more than @a'nDestinationSize', returns 0 and the contents of @a'szDestination' are indeterminate
 	 **/
 	template <typename C> requires (std::is_same_v<C, char> || std::is_same_v<C, wchar_t>)
-	std::size_t TimeToString(C* tszDestination, const std::size_t nDestinationSize, const C* tszFormat, const std::tm* pTime)
+	size_t TimeToString(C* tszDestination, const size_t nDestinationSize, const C* tszFormat, const std::tm* pTime)
 	{
 		// full names of weekdays
 		constexpr const char* arrWeekdayNames[7] = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
@@ -962,7 +962,7 @@ namespace CRT
 			*tszDestinationOut++ = *tszFormat++;
 		}
 
-		std::size_t nWroteCount = tszDestinationOut - tszDestination;
+		size_t nWroteCount = tszDestinationOut - tszDestination;
 
 		// check do we have nothing to format
 		if (tszFormatCurrent == nullptr)
@@ -991,7 +991,7 @@ namespace CRT
 				{
 					const char* szWeekdayName = arrWeekdayNames[pTime->tm_wday];
 
-					std::size_t i = 3U;
+					size_t i = 3U;
 					while (i-- > 0U)
 						*tszDestinationOut++ = static_cast<C>(szWeekdayName[i]);
 
@@ -1011,7 +1011,7 @@ namespace CRT
 				{
 					const char* szMonthName = arrMonthNames[pTime->tm_mon];
 
-					std::size_t i = 3U;
+					size_t i = 3U;
 					while (i-- > 0U)
 						*tszDestinationOut++ = static_cast<C>(szMonthName[i]);
 
@@ -1389,12 +1389,12 @@ namespace CRT
 			// a decimal number is defined as beginning "with a nonzero digit and consisting of a sequence of decimal digits" (C standard 6.4.4.1)
 			iBase = 10;
 
-		constexpr std::uint64_t ullNegativeMax = (bIsUnsigned ? (std::numeric_limits<T>::max)() : (static_cast<std::uint64_t>((std::numeric_limits<T>::max)()) + 1ULL));
-		const std::uint64_t ullAbsoluteMax = (bIsPositive ? (std::numeric_limits<T>::max)() : ullNegativeMax);
-		const std::uint64_t ullAbsoluteMaxOfBase = ullAbsoluteMax / iBase;
+		constexpr uint64_t ullNegativeMax = (bIsUnsigned ? (std::numeric_limits<T>::max)() : (static_cast<uint64_t>((std::numeric_limits<T>::max)()) + 1ULL));
+		const uint64_t ullAbsoluteMax = (bIsPositive ? (std::numeric_limits<T>::max)() : ullNegativeMax);
+		const uint64_t ullAbsoluteMaxOfBase = ullAbsoluteMax / iBase;
 
 		bool bIsNumber = false;
-		std::uint64_t ullResult = 0ULL;
+		uint64_t ullResult = 0ULL;
 
 		for (bool bIsDigit = false, bIsAlpha = false; ((bIsDigit = IsDigit(*szSourceCurrent))) || ((bIsAlpha = IsAlpha(*szSourceCurrent)));) // @note: looks slightly unsafe but have possibility to fast path, double parenthesis to suppress warnings
 		{
@@ -1466,10 +1466,10 @@ namespace CRT
 	/// @remarks: handles decoding error by skipping forward
 	/// @returns: the length in bytes of the converted character
 	template <typename C>
-	std::ptrdiff_t CharMultiByteToUTF32(const C* tszBegin, const C* tszEnd, std::uint32_t* puOutChar)
+	ptrdiff_t CharMultiByteToUTF32(const C* tszBegin, const C* tszEnd, uint32_t* puOutChar)
 	{
 		// index from the high 5 bits of the first byte in a sequence to the length of the sequence. imperative that 0 == invalid
-		constexpr std::uint8_t arrSequenceLength[32] = {
+		constexpr uint8_t arrSequenceLength[32] = {
 			1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // [ 0 .. 15] [00000 .. 01111]
 			0, 0, 0, 0, 0, 0, 0, 0, // [16 .. 23] [10000 .. 10111] - 10XXX is only legal as prefixes for continuation bytes
 			2, 2, 2, 2, // [24 .. 27] [11000 .. 11011]
@@ -1477,16 +1477,16 @@ namespace CRT
 			4, 0 // [30 .. 31] [11110 .. 11111]
 		};
 
-		constexpr std::uint8_t arrMask[] = { 0x00, 0x7F, 0x1F, 0x0F, 0x07 };
-		constexpr std::uint32_t arrStartCodePoint[] = { 0x400000, 0, 0x80, 0x800, 0x10000 };
-		constexpr std::uint8_t arrCharShift[] = { 0, 18, 12, 6, 0 };
-		constexpr std::uint8_t arrErrorShift[] = { 0, 6, 4, 2, 0 };
+		constexpr uint8_t arrMask[] = { 0x00, 0x7F, 0x1F, 0x0F, 0x07 };
+		constexpr uint32_t arrStartCodePoint[] = { 0x400000, 0, 0x80, 0x800, 0x10000 };
+		constexpr uint8_t arrCharShift[] = { 0, 18, 12, 6, 0 };
+		constexpr uint8_t arrErrorShift[] = { 0, 6, 4, 2, 0 };
 
-		const std::uint8_t nNextLength = arrSequenceLength[*reinterpret_cast<const std::uint8_t*>(tszBegin) >> 3U];
-		std::ptrdiff_t nLength = nNextLength + !nNextLength;
+		const uint8_t nNextLength = arrSequenceLength[*reinterpret_cast<const uint8_t*>(tszBegin) >> 3U];
+		ptrdiff_t nLength = nNextLength + !nNextLength;
 
 		unsigned char uString[4] = {};
-		const std::ptrdiff_t nSourceLength = tszEnd - tszBegin;
+		const ptrdiff_t nSourceLength = tszEnd - tszBegin;
 
 		// copy at most 'nLength' bytes, stop copying at 0 or past end iterator. branch predictor does a good job here, so it is fast even with excessive branching
 		uString[0] = nSourceLength > 0 ? tszBegin[0] : 0;
@@ -1495,10 +1495,10 @@ namespace CRT
 		uString[3] = nSourceLength > 3 ? tszBegin[3] : 0;
 
 		// assume a four-byte character and load four bytes. unused bits are shifted out
-		*puOutChar = static_cast<std::uint32_t>(uString[0] & arrMask[nNextLength]) << 18U;
-		*puOutChar |= static_cast<std::uint32_t>(uString[1] & 0x3F) << 12U;
-		*puOutChar |= static_cast<std::uint32_t>(uString[2] & 0x3F) << 6U;
-		*puOutChar |= static_cast<std::uint32_t>(uString[3] & 0x3F);
+		*puOutChar = static_cast<uint32_t>(uString[0] & arrMask[nNextLength]) << 18U;
+		*puOutChar |= static_cast<uint32_t>(uString[1] & 0x3F) << 12U;
+		*puOutChar |= static_cast<uint32_t>(uString[2] & 0x3F) << 6U;
+		*puOutChar |= static_cast<uint32_t>(uString[3] & 0x3F);
 		*puOutChar >>= arrCharShift[nNextLength];
 
 		// accumulate the various error conditions
@@ -1519,7 +1519,7 @@ namespace CRT
 			 * all available bytes (at most 'nLength' bytes) are consumed on incomplete/invalid second to last bytes
 			 * invalid or incomplete input may consume less bytes than wanted, therefore every byte has to be inspected in 'uString'
 			 */
-			nLength = Min(nLength, static_cast<std::ptrdiff_t>(!!uString[0] + !!uString[1] + !!uString[2] + !!uString[3]));
+			nLength = Min(nLength, static_cast<ptrdiff_t>(!!uString[0] + !!uString[1] + !!uString[2] + !!uString[3]));
 			*puOutChar = 0xFFFD;
 		}
 
@@ -1530,7 +1530,7 @@ namespace CRT
 	/// @credits: github.com/nothings/stb
 	/// @remarks: locale-independent
 	/// @returns: the length in bytes of the UTF-32 character. if UTF-32 character is invalid it returns 0
-	inline std::ptrdiff_t CharMultiByteFromUTF32(char* szOutBuffer, const std::size_t nOutBufferSize, const std::uint32_t uChar)
+	inline ptrdiff_t CharMultiByteFromUTF32(char* szOutBuffer, const size_t nOutBufferSize, const uint32_t uChar)
 	{
 		// utf-8
 		if (uChar < 0x80)
@@ -1577,7 +1577,7 @@ namespace CRT
 		// go through each character until terminating null up to end if given
 		while (*tszBegin != C('\0') && (tszEnd == nullptr || tszBegin < tszEnd))
 		{
-			if (const std::uint32_t uChar = static_cast<std::uint32_t>(*tszBegin++); uChar < 0x80)
+			if (const uint32_t uChar = static_cast<uint32_t>(*tszBegin++); uChar < 0x80)
 				nOctetCount += 1;
 			else if (uChar < 0x800)
 				nOctetCount += 2;
@@ -1596,7 +1596,7 @@ namespace CRT
 	{
 		int nCharCount = 0;
 
-		std::uint32_t uChar = 0U;
+		uint32_t uChar = 0U;
 		while (*tszBegin != C('\0') && tszBegin < tszEnd)
 		{
 			tszBegin += CharMultiByteToUTF32(tszBegin, tszEnd, &uChar);
@@ -1614,12 +1614,12 @@ namespace CRT
 	/// @remarks: locale-independent
 	/// @todo: param desc
 	/// @returns: length of converted UTF-X string
-	Q_INLINE std::ptrdiff_t StringMultiByteToUnicode(wchar_t* szOutBuffer, const std::size_t nOutBufferLength, const char* szBegin, const char* szEnd)
+	Q_INLINE ptrdiff_t StringMultiByteToUnicode(wchar_t* szOutBuffer, const size_t nOutBufferLength, const char* szBegin, const char* szEnd)
 	{
 		wchar_t* pBufferBegin = szOutBuffer;
 		const wchar_t* pBufferEnd = szOutBuffer + nOutBufferLength;
 
-		std::uint32_t uChar = 0U;
+		uint32_t uChar = 0U;
 		while (pBufferBegin < pBufferEnd - 1 && szBegin < szEnd && *szBegin != '\0')
 		{
 			szBegin += CharMultiByteToUTF32(szBegin, szEnd, &uChar);
@@ -1638,7 +1638,7 @@ namespace CRT
 	/// @remarks: locale-independent
 	/// @todo: param desc
 	/// @returns: length of converted multibyte UTF-8 string
-	Q_INLINE std::ptrdiff_t StringUnicodeToMultiByte(char* szOutBuffer, const std::size_t nOutBufferLength, const wchar_t* wszBegin, const wchar_t* wszEnd = nullptr)
+	Q_INLINE ptrdiff_t StringUnicodeToMultiByte(char* szOutBuffer, const size_t nOutBufferLength, const wchar_t* wszBegin, const wchar_t* wszEnd = nullptr)
 	{
 		char* pBufferBegin = szOutBuffer;
 		const char* pBufferEnd = szOutBuffer + nOutBufferLength;
@@ -1654,7 +1654,7 @@ namespace CRT
 	/// @returns: unicode string (UTF-16 on Windows and UTF-32 on POSIX) converted from UTF-X
 	Q_INLINE std::wstring StringMultiByteToUnicode(const std::string_view strMultiByte)
 	{
-		const std::size_t nLength = StringLengthUnicode(strMultiByte.data(), strMultiByte.data() + strMultiByte.size()) + 1U;
+		const size_t nLength = StringLengthUnicode(strMultiByte.data(), strMultiByte.data() + strMultiByte.size()) + 1U;
 		std::wstring wstrUnicodeOut(nLength, L'\0');
 
 		StringMultiByteToUnicode(wstrUnicodeOut.data(), nLength, strMultiByte.data(), strMultiByte.data() + strMultiByte.size());
@@ -1665,7 +1665,7 @@ namespace CRT
 	/// @returns: UTF-8 string converted from UTF-X
 	Q_INLINE std::string StringUnicodeToMultiByte(const std::wstring_view wstrUnicode)
 	{
-		const std::size_t nLength = StringLengthMultiByte(wstrUnicode.data(), wstrUnicode.data() + wstrUnicode.size()) + 1U;
+		const size_t nLength = StringLengthMultiByte(wstrUnicode.data(), wstrUnicode.data() + wstrUnicode.size()) + 1U;
 		std::string strMultiByteOut(nLength, '\0');
 
 		StringUnicodeToMultiByte(strMultiByteOut.data(), nLength, wstrUnicode.data(), wstrUnicode.data() + wstrUnicode.size());

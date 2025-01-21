@@ -42,7 +42,7 @@ enum EThinkMethod : int
 };
 
 // @credits: https://tf2b.com/itemlist.php?gid=730
-using ItemDefinitionIndex_t = std::uint16_t;
+using ItemDefinitionIndex_t = uint16_t;
 enum EItemDefinitionIndex : ItemDefinitionIndex_t
 {
 	ITEM_MUSIC_KIT = 58U,
@@ -108,9 +108,9 @@ class CBaseCombatWeapon;
 class CWeaponCSBaseGun;
 class CEconItemView;
 
-using ClientShadowHandle_t = std::uint16_t;
-using ClientRenderHandle_t = std::uint16_t;
-using ModelInstanceHandle_t = std::uint16_t;
+using ClientShadowHandle_t = uint16_t;
+using ClientRenderHandle_t = uint16_t;
+using ModelInstanceHandle_t = uint16_t;
 
 // @source: master/public/ihandleentity.h
 class IHandleEntity
@@ -151,7 +151,7 @@ class IClientAlphaProperty
 {
 public:
 	virtual IClientUnknown* GetIClientUnknown() = 0;
-	virtual void SetAlphaModulation(std::uint8_t uAlpha) = 0;
+	virtual void SetAlphaModulation(uint8_t uAlpha) = 0;
 	virtual void SetRenderFX(int nRenderFx, int nRenderMode, float flStartTime = FLT_MAX, float flDuration = 0.0f) = 0;
 	virtual void SetFade(float flGlobalFadeScale, float flDistFadeStart, float flDistFadeEnd) = 0;
 	virtual void SetDesyncOffset(int nOffset) = 0;
@@ -175,7 +175,7 @@ public:
 
 struct RenderableInstance_t
 {
-	std::uint8_t uAlpha;
+	uint8_t uAlpha;
 };
 
 class IClientModelRenderable
@@ -231,8 +231,8 @@ public:
 	virtual bool UsesFlexDelayedWeights() = 0;
 	virtual void RecordToolMessage() = 0;
 	virtual bool ShouldDrawForSplitScreenUser(int nSlot) = 0;
-	virtual std::uint8_t OverrideAlphaModulation(std::uint8_t uAlpha) = 0;
-	virtual std::uint8_t OverrideShadowAlphaModulation(std::uint8_t uAlpha) = 0;
+	virtual uint8_t OverrideAlphaModulation(uint8_t uAlpha) = 0;
+	virtual uint8_t OverrideShadowAlphaModulation(uint8_t uAlpha) = 0;
 	virtual IClientModelRenderable* GetClientModelRenderable() = 0;
 };
 
@@ -337,8 +337,8 @@ public:
 
 	[[nodiscard]] char& GetTakeDamage()
 	{
-		static const auto uTakeDamageOffset = *reinterpret_cast<std::uintptr_t*>(MEM::FindPattern(CLIENT_DLL, Q_XOR("80 BE ? ? ? ? ? 75 46 8B 86")) + 0x2);
-		return *reinterpret_cast<char*>(reinterpret_cast<std::uint8_t*>(this) + uTakeDamageOffset);
+		static const auto uTakeDamageOffset = *reinterpret_cast<uintptr_t*>(MEM::FindPattern(CLIENT_DLL, Q_XOR("80 BE ? ? ? ? ? 75 46 8B 86")) + 0x2);
+		return *reinterpret_cast<char*>(reinterpret_cast<uint8_t*>(this) + uTakeDamageOffset);
 	}
 
 	[[nodiscard]] Q_INLINE DataMap_t* GetDataDescMap()
@@ -348,19 +348,19 @@ public:
 
 	[[nodiscard]] Q_INLINE DataMap_t* GetPredictionDescMap()
 	{
-		// @ida: U8["FF 50 ? 50 8B 43 08 8D 4B 08 FF" + 0x2] / sizeof(std::uintptr_t) @xref: "C_BaseEntity::RestoreData", "C_BaseEntity::SaveData"
+		// @ida: U8["FF 50 ? 50 8B 43 08 8D 4B 08 FF" + 0x2] / sizeof(uintptr_t) @xref: "C_BaseEntity::RestoreData", "C_BaseEntity::SaveData"
 		return CallVFunc<DataMap_t*, 17U>(this);
 	}
 
 	Q_INLINE CBaseAnimating* GetBaseAnimating()
 	{
-		// @ida: (C_BaseViewModel::UpdateParticles) client.dll -> ["FF 90 ? ? ? ? 68 ? ? ? ? 8D 48" + 0x2] / sizeof(std::uintptr_t) @xref: "Wick"
+		// @ida: (C_BaseViewModel::UpdateParticles) client.dll -> ["FF 90 ? ? ? ? 68 ? ? ? ? 8D 48" + 0x2] / sizeof(uintptr_t) @xref: "Wick"
 		return CallVFunc<CBaseAnimating*, 44U>(this);
 	}
 
 	Q_INLINE CBaseAnimatingOverlay* GetBaseAnimatingOverlay()
 	{
-		// @ida: client.dll -> ["8B 80 ? ? ? ? FF D0 F3 0F 10 0D ? ? ? ? 8B 88" + 0x2] / sizeof(std::uintptr_t) @xref: "death_yaw"
+		// @ida: client.dll -> ["8B 80 ? ? ? ? FF D0 F3 0F 10 0D ? ? ? ? 8B 88" + 0x2] / sizeof(uintptr_t) @xref: "death_yaw"
 		return CallVFunc<CBaseAnimatingOverlay*, 45U>(this);
 	}
 
@@ -373,13 +373,13 @@ public:
 	{
 		// @ida CCollisionProperty::WorldSpaceCenter(): client.dll -> "56 57 8D B9 20 03 00 00 E8 ? ? ? ? 8B F0"
 
-		// @ida: client.dll -> ["8B 80 ? ? ? ? FF D0 8B 4D E8" + 0x2] / sizeof(std::uintptr_t)
+		// @ida: client.dll -> ["8B 80 ? ? ? ? FF D0 8B 4D E8" + 0x2] / sizeof(uintptr_t)
 		return CallVFunc<const Vector_t&, 79U>(this);
 	}
 
 	Q_INLINE void Think()
 	{
-		// @ida: client.dll -> ["FF 90 ? ? ? ? FF 35 ? ? ? ? 8B 4C" + 0x2] / sizeof(std::uintptr_t)
+		// @ida: client.dll -> ["FF 90 ? ? ? ? FF 35 ? ? ? ? 8B 4C" + 0x2] / sizeof(uintptr_t)
 		CallVFunc<void, 139U>(this);
 	}
 
@@ -387,7 +387,7 @@ public:
 	{
 		// @ida C_BaseEntity::GetClassname(): client.dll -> "56 8B F1 C6 05 ? ? ? ? ? 8B 46"
 
-		// @ida: client.dll -> ["8B 01 FF 90 ? ? ? ? 90" + 0x4] / sizeof(std::uintptr_t)
+		// @ida: client.dll -> ["8B 01 FF 90 ? ? ? ? 90" + 0x4] / sizeof(uintptr_t)
 		return CallVFunc<const char*, 143U>(this);
 	}
 
@@ -399,13 +399,13 @@ public:
 
 	[[nodiscard]] Q_INLINE bool IsAlive()
 	{
-		// @ida: client.dll -> ["8B 80 ? ? ? ? FF D0 84 C0 75 08 38 87 ? ? ? ? 74 72" + 0x2] / sizeof(std::uintptr_t)
+		// @ida: client.dll -> ["8B 80 ? ? ? ? FF D0 84 C0 75 08 38 87 ? ? ? ? 74 72" + 0x2] / sizeof(uintptr_t)
 		return CallVFunc<bool, 156U>(this);
 	}
 
 	[[nodiscard]] Q_INLINE bool IsPlayer() const
 	{
-		// @ida: client.dll -> ["8B 80 ? ? ? ? FF D0 84 C0 0F 84 ? ? ? ? 8B 44" + 0x2] / sizeof(std::uintptr_t)
+		// @ida: client.dll -> ["8B 80 ? ? ? ? FF D0 84 C0 0F 84 ? ? ? ? 8B 44" + 0x2] / sizeof(uintptr_t)
 		return CallVFunc<bool, 158U>(this);
 	}
 
@@ -494,7 +494,7 @@ public:
 	// incremented each frame in 'InvalidateModelBones()'. models compare this value to what it was last time they setup their bones to determine if they need to re-setup their bones
 	[[nodiscard]] static unsigned long& GetModelBoneCounter()
 	{
-		static std::uint8_t* uModelBoneCounterOffset = MEM::FindPattern(CLIENT_DLL, Q_XOR("3B 05 ? ? ? ? 0F 84 ? ? ? ? 8B 47")) + 0x2;
+		static uint8_t* uModelBoneCounterOffset = MEM::FindPattern(CLIENT_DLL, Q_XOR("3B 05 ? ? ? ? 0F 84 ? ? ? ? 8B 47")) + 0x2;
 		return *reinterpret_cast<unsigned long*>(uModelBoneCounterOffset);
 	}
 
@@ -519,20 +519,20 @@ public:
 
 	Q_INLINE void SetSequence(int iSequence)
 	{
-		// @ida: client.dll -> ["FF 90 ? ? ? ? 8B 07 8B CF FF 90 ? ? ? ? 8B CF" + 0x2] / sizeof(std::uintptr_t)
+		// @ida: client.dll -> ["FF 90 ? ? ? ? 8B 07 8B CF FF 90 ? ? ? ? 8B CF" + 0x2] / sizeof(uintptr_t)
 		CallVFunc<void, 219U>(this, iSequence);
 	}
 
 	Q_INLINE void StudioFrameAdvance()
 	{
-		// @ida: client.dll -> ["FF 90 ? ? ? ? 8B 07 8B CF FF 90 ? ? ? ? 8B CF" + 0xC] / sizeof(std::uintptr_t)
+		// @ida: client.dll -> ["FF 90 ? ? ? ? 8B 07 8B CF FF 90 ? ? ? ? 8B CF" + 0xC] / sizeof(uintptr_t)
 		CallVFunc<void, 220U>(this);
 	}
 
 	Q_INLINE void UpdateClientSideAnimation()
 	{
 		// @ida C_CSPlayer::UpdateClientSideAnimation(): client.dll -> "55 8B EC 51 56 8B F1 80 BE ? ? ? ? ? 74 36"
-		// @ida: client.dll -> ["FF 90 ? ? ? ? 46 3B F7 7C E4 8B" + 0x2] / sizeof(std::uintptr_t) @xref: "UpdateClientSideAnimations"
+		// @ida: client.dll -> ["FF 90 ? ? ? ? 46 3B F7 7C E4 8B" + 0x2] / sizeof(uintptr_t) @xref: "UpdateClientSideAnimations"
 		CallVFunc<void, 224U>(this);
 	}
 
@@ -626,8 +626,8 @@ public:
 	[[nodiscard]] CUtlVector<CAnimationLayer>& GetAnimationOverlays()
 	{
 		// @ida C_BaseAnimatingOverlay::GetAnimOverlay(): client.dll -> "55 8B EC 51 53 8B 5D 08 33 C0"
-		static const std::uintptr_t uAnimationOverlaysOffset = *reinterpret_cast<std::uintptr_t*>(MEM::FindPattern(CLIENT_DLL, Q_XOR("8B 89 ? ? ? ? 8D 0C D1")) + 0x2);
-		return *reinterpret_cast<CUtlVector<CAnimationLayer>*>(reinterpret_cast<std::uint8_t*>(this) + uAnimationOverlaysOffset);
+		static const uintptr_t uAnimationOverlaysOffset = *reinterpret_cast<uintptr_t*>(MEM::FindPattern(CLIENT_DLL, Q_XOR("8B 89 ? ? ? ? 8D 0C D1")) + 0x2);
+		return *reinterpret_cast<CUtlVector<CAnimationLayer>*>(reinterpret_cast<uint8_t*>(this) + uAnimationOverlaysOffset);
 	}
 
 	Q_INLINE bool UpdateDispatchLayer(CAnimationLayer* pLayer, CStudioHdr* pWeaponStudioHdr, int iSequence)
@@ -702,8 +702,8 @@ public:
 	N_ADD_VARIABLE(Vector_t, GetBaseVelocity, "DT_BasePlayer::m_vecBaseVelocity");
 	N_ADD_VARIABLE(float, GetFriction, "DT_BasePlayer::m_flFriction");
 	N_ADD_VARIABLE(CBaseHandle, GetGroundEntityHandle, "DT_BasePlayer::m_hGroundEntity");
-	N_ADD_VARIABLE(std::uint8_t, GetWaterLevel, "DT_BasePlayer::m_nWaterLevel");
-	N_ADD_VARIABLE(std::int8_t, GetLifeState, "DT_BasePlayer::m_lifeState");
+	N_ADD_VARIABLE(uint8_t, GetWaterLevel, "DT_BasePlayer::m_nWaterLevel");
+	N_ADD_VARIABLE(int8_t, GetLifeState, "DT_BasePlayer::m_lifeState");
 	N_ADD_VARIABLE(int, GetCoachingTeam, "DT_BasePlayer::m_iCoachingTeam");
 	N_ADD_VARIABLE(float, GetDuckAmount, "DT_BasePlayer::m_flDuckAmount");
 	N_ADD_VARIABLE(float, GetDuckSpeed, "DT_BasePlayer::m_flDuckSpeed");
@@ -733,8 +733,8 @@ public:
 
 	[[nodiscard]] CUserCmd& GetLastCommand()
 	{
-		static const std::uintptr_t uLastCommandOffset = *reinterpret_cast<std::uintptr_t*>(MEM::FindPattern(CLIENT_DLL, Q_XOR("8D 8E ? ? ? ? 89 5C 24 3C")) + 0x2);
-		return *reinterpret_cast<CUserCmd*>(reinterpret_cast<std::uint8_t*>(this) + uLastCommandOffset);
+		static const uintptr_t uLastCommandOffset = *reinterpret_cast<uintptr_t*>(MEM::FindPattern(CLIENT_DLL, Q_XOR("8D 8E ? ? ? ? 89 5C 24 3C")) + 0x2);
+		return *reinterpret_cast<CUserCmd*>(reinterpret_cast<uint8_t*>(this) + uLastCommandOffset);
 	}
 
 	Q_INLINE void PreThink()
@@ -744,7 +744,7 @@ public:
 
 	Q_INLINE void UpdateCollisionBounds()
 	{
-		// @ida: client.dll -> ["FF 90 ? ? ? ? 83 3D ? ? ? ? ? 7E" + 0x2] / sizeof(std::uintptr_t)
+		// @ida: client.dll -> ["FF 90 ? ? ? ? 83 3D ? ? ? ? ? 7E" + 0x2] / sizeof(uintptr_t)
 		CallVFunc<void, 340U>(this);
 	}
 
@@ -838,16 +838,16 @@ public:
 	Q_CLASS_NO_INITIALIZER(CEconEntity);
 
 	N_ADD_PVARIABLE(CAttributeManager, GetAttributeManager, "DT_EconEntity::m_AttributeManager");
-	N_ADD_VARIABLE(std::uint32_t, GetOriginalOwnerXuidLow, "DT_EconEntity::m_OriginalOwnerXuidLow");
-	N_ADD_VARIABLE(std::uint32_t, GetOriginalOwnerXuidHigh, "DT_EconEntity::m_OriginalOwnerXuidHigh");
+	N_ADD_VARIABLE(uint32_t, GetOriginalOwnerXuidLow, "DT_EconEntity::m_OriginalOwnerXuidLow");
+	N_ADD_VARIABLE(uint32_t, GetOriginalOwnerXuidHigh, "DT_EconEntity::m_OriginalOwnerXuidHigh");
 	N_ADD_VARIABLE(int, GetFallbackPaintKit, "DT_EconEntity::m_nFallbackPaintKit");
 	N_ADD_VARIABLE(int, GetFallbackSeed, "DT_EconEntity::m_nFallbackSeed");
 	N_ADD_VARIABLE(float, GetFallbackWear, "DT_EconEntity::m_flFallbackWear");
 	N_ADD_VARIABLE(int, GetFallbackStatTrak, "DT_EconEntity::m_nFallbackStatTrak");
 
-	[[nodiscard]] std::uint64_t GetOriginalOwnerXuid()
+	[[nodiscard]] uint64_t GetOriginalOwnerXuid()
 	{
-		return (static_cast<std::uint64_t>(this->GetOriginalOwnerXuidHigh()) << 32ULL) | this->GetOriginalOwnerXuidLow();
+		return (static_cast<uint64_t>(this->GetOriginalOwnerXuidHigh()) << 32ULL) | this->GetOriginalOwnerXuidLow();
 	}
 };
 
@@ -894,14 +894,14 @@ public:
 
 	[[nodiscard]] CUtlVector<IRefCounted*>& GetCustomMaterials()
 	{
-		static const std::uintptr_t uAddress = *reinterpret_cast<std::uintptr_t*>(MEM::FindPattern(CLIENT_DLL, Q_XOR("83 BE ? ? ? ? ? 7F 67")) + 0x2) - 0xC;
-		return *reinterpret_cast<CUtlVector<IRefCounted*>*>(reinterpret_cast<std::uint8_t*>(this) + uAddress);
+		static const uintptr_t uAddress = *reinterpret_cast<uintptr_t*>(MEM::FindPattern(CLIENT_DLL, Q_XOR("83 BE ? ? ? ? ? 7F 67")) + 0x2) - 0xC;
+		return *reinterpret_cast<CUtlVector<IRefCounted*>*>(reinterpret_cast<uint8_t*>(this) + uAddress);
 	}
 
 	[[nodiscard]] bool& IsCustomMaterialInitialized()
 	{
-		static const std::uintptr_t uAddress = *reinterpret_cast<std::uintptr_t*>(MEM::FindPattern(CLIENT_DLL, Q_XOR("C6 86 ? ? ? ? ? FF 50 04")) + 0x2);
-		return *reinterpret_cast<bool*>(reinterpret_cast<std::uint8_t*>(this) + uAddress);
+		static const uintptr_t uAddress = *reinterpret_cast<uintptr_t*>(MEM::FindPattern(CLIENT_DLL, Q_XOR("C6 86 ? ? ? ? ? FF 50 04")) + 0x2);
+		return *reinterpret_cast<bool*>(reinterpret_cast<uint8_t*>(this) + uAddress);
 	}
 
 	[[nodiscard]] Q_INLINE float GetInaccuracy() const
@@ -940,7 +940,7 @@ public:
 	Q_CLASS_NO_INITIALIZER(CTEFireBullets);
 
 	N_ADD_VARIABLE(int, GetPlayer, "DT_TEFireBullets::m_iPlayer");
-	N_ADD_VARIABLE(std::uint16_t, GetItemDefinitionIndex, "DT_TEFireBullets::m_nItemDefIndex");
+	N_ADD_VARIABLE(uint16_t, GetItemDefinitionIndex, "DT_TEFireBullets::m_nItemDefIndex");
 	N_ADD_VARIABLE(Vector_t, GetOrigin, "DT_TEFireBullets::m_vecOrigin");
 	N_ADD_VARIABLE(QAngle_t, GetAngles, "DT_TEFireBullets::m_vecAngles[0]");
 	N_ADD_VARIABLE(int, GetWeapon, "DT_TEFireBullets::m_weapon");
@@ -1077,10 +1077,10 @@ public:
 	Q_CLASS_NO_INITIALIZER(CEconItemView);
 
 	N_ADD_VARIABLE(ItemDefinitionIndex_t, GetItemDefinitionIndex, "DT_ScriptCreatedItem::m_iItemDefinitionIndex");
-	N_ADD_VARIABLE(std::uint32_t, GetEntityLevel, "DT_ScriptCreatedItem::m_iEntityLevel");
-	N_ADD_VARIABLE(std::uint32_t, GetItemIDHigh, "DT_ScriptCreatedItem::m_iItemIDHigh");
-	N_ADD_VARIABLE(std::uint32_t, GetItemIDLow, "DT_ScriptCreatedItem::m_iItemIDLow");
-	N_ADD_VARIABLE(std::uint32_t, GetAccountID, "DT_ScriptCreatedItem::m_iAccountID");
+	N_ADD_VARIABLE(uint32_t, GetEntityLevel, "DT_ScriptCreatedItem::m_iEntityLevel");
+	N_ADD_VARIABLE(uint32_t, GetItemIDHigh, "DT_ScriptCreatedItem::m_iItemIDHigh");
+	N_ADD_VARIABLE(uint32_t, GetItemIDLow, "DT_ScriptCreatedItem::m_iItemIDLow");
+	N_ADD_VARIABLE(uint32_t, GetAccountID, "DT_ScriptCreatedItem::m_iAccountID");
 	N_ADD_VARIABLE(int, GetEntityQuality, "DT_ScriptCreatedItem::m_iEntityQuality");
 	N_ADD_VARIABLE(int, IsInitialized, "DT_ScriptCreatedItem::m_bInitialized");
 	N_ADD_VARIABLE_OFFSET(CUtlVector<IVisualsDataProcessor*>, GetVisualsDataProcessors, "DT_ScriptCreatedItem::m_bInitialized", 0x1C); // @ida C_EconItemView::m_ppVisualsDataProcessors: client.dll -> ["81 C7 ? ? ? ? 8B 4F 0C 8B 57 04 89 4C" + 0x2] @xref: "Original material not found! Name: %s"

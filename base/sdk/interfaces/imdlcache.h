@@ -4,7 +4,7 @@
 
 // @source: master/public/datacache/imdlcache.h
 
-using MDLHandle_t = std::uint16_t;
+using MDLHandle_t = uint16_t;
 
 #pragma region mdlcache_enumerations
 

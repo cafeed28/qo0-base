@@ -42,17 +42,17 @@ enum ERenderViewInfo : int
 // @ida CBaseClient::FillUserInfo(): engine.dll -> "55 8B EC 83 EC 0C 56 57 8B 7D 08 8B F1 68"
 struct PlayerInfo_t
 {
-	std::uint64_t ullVersion; // 0x0000 // version for future compatibility
-	std::uint64_t ullXuid; // 0x0008 // network xuid
+	uint64_t ullVersion; // 0x0000 // version for future compatibility
+	uint64_t ullXuid; // 0x0008 // network xuid
 	char szName[128]; // 0x0010 // scoreboard information
 	int nUserID; // 0x0090 // local server user ID, unique while server is running
 	char szSteamID[33]; // 0x0094 // global unique player identifier
-	std::uint32_t nFriendsID; // 0x00B8 // friends identification number
+	uint32_t nFriendsID; // 0x00B8 // friends identification number
 	char szFriendsName[128]; // 0x00BC
 	bool bFakePlayer; // 0x013C // true if player is a bot
 	bool bIsHLTV; // 0x013D // true if player is the HLTV proxy
 	CRC32_t uCustomFiles[4]; // 0x0140 // custom files CRC for this player
-	std::uint8_t uFilesDownloaded; // 0x0150 // this counter increases each time the server downloaded a new file
+	uint8_t uFilesDownloaded; // 0x0150 // this counter increases each time the server downloaded a new file
 };
 static_assert(sizeof(PlayerInfo_t) == 0x158); // size verify @ida: engine.dll -> ["68 ? ? ? ? 85 C0 74 26" + 0x1] @xref: "userinfo"
 #pragma pack(pop)

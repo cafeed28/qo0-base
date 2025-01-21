@@ -23,7 +23,7 @@ public:
 		if (const MH_STATUS status = MH_CreateHook(pBaseFn, pReplaceFn, &pOriginalFn); status != MH_OK)
 		{
 #ifdef _DEBUG
-			L_PRINT(LOG_ERROR) << Q_XOR("failed to create hook, status: \"") << MH_StatusToString(status) << Q_XOR("\" with base address: ") << L::AddFlags(LOG_MODE_INT_SHOWBASE | LOG_MODE_INT_FORMAT_HEX) << reinterpret_cast<std::uintptr_t>(pBaseFn);
+			L_PRINT(LOG_ERROR) << Q_XOR("failed to create hook, status: \"") << MH_StatusToString(status) << Q_XOR("\" with base address: ") << L::AddFlags(LOG_MODE_INT_SHOWBASE | LOG_MODE_INT_FORMAT_HEX) << reinterpret_cast<uintptr_t>(pBaseFn);
 #else
 			L_PRINT(LOG_ERROR) << Q_XOR("failed to create hook");
 #endif
@@ -53,7 +53,7 @@ public:
 		if (const MH_STATUS status = MH_EnableHook(pBaseFn); status != MH_OK)
 		{
 #ifdef _DEBUG
-			L_PRINT(LOG_ERROR) << Q_XOR("failed to enable hook, status: \"") << MH_StatusToString(status) << Q_XOR("\" with base address: ") << L::AddFlags(LOG_MODE_INT_SHOWBASE | LOG_MODE_INT_FORMAT_HEX) << reinterpret_cast<std::uintptr_t>(pBaseFn);
+			L_PRINT(LOG_ERROR) << Q_XOR("failed to enable hook, status: \"") << MH_StatusToString(status) << Q_XOR("\" with base address: ") << L::AddFlags(LOG_MODE_INT_SHOWBASE | LOG_MODE_INT_FORMAT_HEX) << reinterpret_cast<uintptr_t>(pBaseFn);
 #else
 			L_PRINT(LOG_ERROR) << Q_XOR("failed to enable hook");
 #endif
@@ -78,7 +78,7 @@ public:
 		if (const MH_STATUS status = MH_RemoveHook(pBaseFn); status != MH_OK)
 		{
 #ifdef _DEBUG
-			L_PRINT(LOG_ERROR) << Q_XOR("failed to remove hook, status: \"") << MH_StatusToString(status) << Q_XOR("\" with base address: ") << L::AddFlags(LOG_MODE_INT_SHOWBASE | LOG_MODE_INT_FORMAT_HEX) << reinterpret_cast<std::uintptr_t>(pBaseFn);
+			L_PRINT(LOG_ERROR) << Q_XOR("failed to remove hook, status: \"") << MH_StatusToString(status) << Q_XOR("\" with base address: ") << L::AddFlags(LOG_MODE_INT_SHOWBASE | LOG_MODE_INT_FORMAT_HEX) << reinterpret_cast<uintptr_t>(pBaseFn);
 #else
 			L_PRINT(LOG_ERROR) << Q_XOR("failed to remove hook");
 #endif
@@ -101,7 +101,7 @@ public:
 		if (const MH_STATUS status = MH_DisableHook(pBaseFn); status != MH_OK)
 		{
 #ifdef _DEBUG
-			L_PRINT(LOG_ERROR) << Q_XOR("failed to restore hook, status: \"") << MH_StatusToString(status) << Q_XOR("\" with base address: ") << L::AddFlags(LOG_MODE_INT_SHOWBASE | LOG_MODE_INT_FORMAT_HEX) << reinterpret_cast<std::uintptr_t>(pBaseFn);
+			L_PRINT(LOG_ERROR) << Q_XOR("failed to restore hook, status: \"") << MH_StatusToString(status) << Q_XOR("\" with base address: ") << L::AddFlags(LOG_MODE_INT_SHOWBASE | LOG_MODE_INT_FORMAT_HEX) << reinterpret_cast<uintptr_t>(pBaseFn);
 #else
 			L_PRINT(LOG_ERROR) << Q_XOR("failed to restore hook");
 #endif

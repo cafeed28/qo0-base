@@ -146,13 +146,13 @@ void MENU::MainWindow(IDirect3DDevice9* pDevice)
 #pragma endregion
 
 #pragma region menu_tabs
-void T::Render(const char* szTabBar, const CTab* arrTabs, const std::size_t nTabsCount, int* nCurrentTab, const ImVec4& colActive, ImGuiTabBarFlags flags)
+void T::Render(const char* szTabBar, const CTab* arrTabs, const size_t nTabsCount, int* nCurrentTab, const ImVec4& colActive, ImGuiTabBarFlags flags)
 {
 	// set active tab color
 	ImGui::PushStyleColor(ImGuiCol_TabActive, colActive);
 	if (ImGui::BeginTabBar(szTabBar, flags))
 	{
-		for (std::size_t i = 0U; i < nTabsCount; i++)
+		for (size_t i = 0U; i < nTabsCount; i++)
 		{
 			// add tab
 			if (ImGui::BeginTabItem(arrTabs[i].szName))
@@ -514,7 +514,7 @@ void T::Visuals()
 
 void T::Miscellaneous()
 {
-	static const std::pair<const char*, const std::size_t> arrColors[] = {
+	static const std::pair<const char*, const size_t> arrColors[] = {
 		{ "[esp] box - enemies", Vars.colVisualOverlayBoxEnemies },
 		{ "[esp] box - enemies hidden", Vars.colVisualOverlayBoxEnemiesHidden },
 		{ "[esp] box - allies", Vars.colVisualOverlayBoxAllies },
@@ -613,7 +613,7 @@ void T::Miscellaneous()
 				if (nSelectedConfig == ~1U)
 				{
 					// set default configuration as selected on first use
-					for (std::size_t i = 0U; i < C::vecFileNames.size(); i++)
+					for (size_t i = 0U; i < C::vecFileNames.size(); i++)
 					{
 						if (CRT::StringCompare(C::vecFileNames[i], Q_XOR(Q_CONFIGURATION_DEFAULT_FILE_NAME Q_CONFIGURATION_FILE_EXTENSION)) == 0)
 							nSelectedConfig = i;
@@ -622,7 +622,7 @@ void T::Miscellaneous()
 
 				if (ImGui::ListBoxHeader(Q_XOR("##config.list"), C::vecFileNames.size(), 5))
 				{
-					for (std::size_t i = 0U; i < C::vecFileNames.size(); i++)
+					for (size_t i = 0U; i < C::vecFileNames.size(); i++)
 					{
 						// @todo: imgui cant work with wstring, wait for change to other gui
 						const wchar_t* wszFileName = C::vecFileNames[i];
@@ -646,7 +646,7 @@ void T::Miscellaneous()
 				if (ImGui::InputTextWithHint(Q_XOR("##config.file"), Q_XOR("create new..."), szConfigFile, sizeof(szConfigFile), ImGuiInputTextFlags_EnterReturnsTrue))
 				{
 					// check if the filename isn't empty
-					if (const std::size_t nConfigFileLength = CRT::StringLength(szConfigFile); nConfigFileLength > 0U)
+					if (const size_t nConfigFileLength = CRT::StringLength(szConfigFile); nConfigFileLength > 0U)
 					{
 						// @todo: imgui cant work with wstring, wait for change to other gui
 						wchar_t wszConfigFile[MAX_PATH] = {};
@@ -725,7 +725,7 @@ void T::Miscellaneous()
 
 			if (ImGui::ListBoxHeader(Q_XOR("##colors.select"), ImVec2(-1.0f, ImGui::GetContentRegionAvail().y - style.ItemSpacing.y - ImGui::GetFrameHeight())))
 			{
-				for (std::size_t i = 0U; i < Q_ARRAYSIZE(arrColors); i++)
+				for (size_t i = 0U; i < Q_ARRAYSIZE(arrColors); i++)
 				{
 					const char* szColorName = arrColors[i].first;
 

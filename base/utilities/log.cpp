@@ -73,7 +73,7 @@ void L::CloseFile()
 	::CloseHandle(hFileStream);
 }
 
-void L::WriteMessage(const char* szMessage, const std::size_t nMessageLength)
+void L::WriteMessage(const char* szMessage, const size_t nMessageLength)
 {
 #ifdef Q_LOG_CONSOLE
 	::WriteConsoleA(hConsoleStream, szMessage, nMessageLength, nullptr, nullptr);
@@ -139,7 +139,7 @@ L::Stream_t& L::Stream_t::operator()(const ELogLevel nLevel, const char* szFileB
 
 	// @todo: no new line at first use / ghetto af but cheap enough but still ghetto uhhh
 	char szTimeBuffer[32];
-	const std::size_t nTimeSize = CRT::TimeToString(szTimeBuffer, sizeof(szTimeBuffer), Q_XOR("\n[%d-%m-%Y %T] "), &timePoint) - bFirstPrint;
+	const size_t nTimeSize = CRT::TimeToString(szTimeBuffer, sizeof(szTimeBuffer), Q_XOR("\n[%d-%m-%Y %T] "), &timePoint) - bFirstPrint;
 
 #ifdef Q_LOG_CONSOLE
 	::SetConsoleTextAttribute(hConsoleStream, FOREGROUND_GREEN | FOREGROUND_INTENSITY);
@@ -235,7 +235,7 @@ L::Stream_t& L::Stream_t::operator<<(const wchar_t* wszMessage)
 	 *    thereafter, only the 'fwide()' or 'freopen()' functions can alter the orientation of a stream.
 	 *    byte input/output functions shall not be applied to a wide-oriented stream and wide-character input/output functions shall not be applied to a byte-oriented stream.
 	 */
-	const std::size_t nMessageLength = CRT::StringLengthMultiByte(wszMessage);
+	const size_t nMessageLength = CRT::StringLengthMultiByte(wszMessage);
 	char* szMessage = static_cast<char*>(MEM_STACKALLOC(nMessageLength + 1U));
 	CRT::StringUnicodeToMultiByte(szMessage, nMessageLength + 1U, wszMessage);
 
@@ -250,7 +250,7 @@ L::Stream_t& L::Stream_t::operator<<(const bool bValue)
 {
 #if defined(Q_LOG_CONSOLE) || defined(Q_LOG_FILE)
 	const char* szBoolean = ((this->nModeFlags & LOG_MODE_BOOL_ALPHA) ? (bValue ? "true" : "false") : (bValue ? "1" : "0"));
-	const std::size_t nBooleanLength = CRT::StringLength(szBoolean);
+	const size_t nBooleanLength = CRT::StringLength(szBoolean);
 
 	WriteMessage(szBoolean, nBooleanLength);
 #endif

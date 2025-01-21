@@ -103,8 +103,8 @@ public:
 
 public:
 	CConCommandBase* pNext; // 0x04
-	std::uint32_t bRegistered : 1; // 0x08 // @ida: engine.dll -> U8["8B 40 ? 83 E0 01 C3" + 0x2] | vstdlib.dll -> U8["83 4E ? 01 FF 50 18 85 C0 0F" + 0x2]
-	std::uint32_t nFlagsBackup : 31; // 0x08 // @note: used to detect convars modification, added since 21.10.2022 (version 1.38.4.5, build 1524)
+	uint32_t bRegistered : 1; // 0x08 // @ida: engine.dll -> U8["8B 40 ? 83 E0 01 C3" + 0x2] | vstdlib.dll -> U8["83 4E ? 01 FF 50 18 85 C0 0F" + 0x2]
+	uint32_t nFlagsBackup : 31; // 0x08 // @note: used to detect convars modification, added since 21.10.2022 (version 1.38.4.5, build 1524)
 	const char* szName; // 0x0C
 	const char* szHelpText; // 0x10
 	int nFlags; // 0x14
@@ -149,7 +149,7 @@ public:
 #ifdef Q_ALLOW_VIRTUAL_REBUILD
 		// @test: even not modified convars can trigger this ~valve
 		//Q_ASSERT(value.flValue == valueBackup.flValue && value.iValue == valueBackup.iValue && (nFlags ^ nFlagsBackup) == 0); // you've triggered possible detection vector; use virtual calls to set values instead of direct access
-		const std::uint32_t uObscure = std::bit_cast<std::uint32_t>(pParent->value.flValue) ^ reinterpret_cast<std::intptr_t>(this);
+		const uint32_t uObscure = std::bit_cast<uint32_t>(pParent->value.flValue) ^ reinterpret_cast<intptr_t>(this);
 		return std::bit_cast<float>(uObscure);
 #else
 		return CallVFunc<float, 12U>(this);
@@ -163,7 +163,7 @@ public:
 #ifdef Q_ALLOW_VIRTUAL_REBUILD
 		// @test: even not modified convars can trigger this ~valve
 		//Q_ASSERT(value.flValue == valueBackup.flValue && value.iValue == valueBackup.iValue && (nFlags ^ nFlagsBackup) == 0); // you've triggered possible detection vector; use virtual calls to set values instead of direct access
-		return (pParent->value.iValue ^ reinterpret_cast<std::intptr_t>(this));
+		return (pParent->value.iValue ^ reinterpret_cast<intptr_t>(this));
 #else
 		return CallVFunc<int, 13U>(this);
 #endif

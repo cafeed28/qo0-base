@@ -27,7 +27,7 @@ enum EFrustumPlane : int
 };
 
 using Frustum_t = ViewPlane_t[FRUSTUM_NUMPLANES];
-using LeafIndex_t = std::uint16_t;
+using LeafIndex_t = uint16_t;
 
 enum
 {

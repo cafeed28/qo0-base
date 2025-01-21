@@ -13,7 +13,7 @@ enum EGCResults : int
 class ISteamGameCoordinator
 {
 public:
-	virtual EGCResults SendMessageGC(std::uint32_t uMsgType, const void* pData, std::uint32_t uData) = 0;
-	virtual bool IsMessageAvailable(std::uint32_t* puMsgSize) = 0;
-	virtual EGCResults RetrieveMessageGC(std::uint32_t* puMsgType, void* pDest, std::uint32_t uDest, std::uint32_t* puMsgSize) = 0;
+	virtual EGCResults SendMessageGC(uint32_t uMsgType, const void* pData, uint32_t uData) = 0;
+	virtual bool IsMessageAvailable(uint32_t* puMsgSize) = 0;
+	virtual EGCResults RetrieveMessageGC(uint32_t* puMsgType, void* pDest, uint32_t uDest, uint32_t* puMsgSize) = 0;
 };

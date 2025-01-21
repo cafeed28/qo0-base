@@ -80,7 +80,7 @@ static_assert(false, "could not determine the target architecture, consider defi
 #if defined(_CRT_USE_BUILTIN_OFFSETOF) || Q_HAS_BUILTIN(__builtin_offsetof)
 #define Q_OFFSETOF(STRUCT, MEMBER) __builtin_offsetof(STRUCT, MEMBER)
 #else
-#define Q_OFFSETOF(STRUCT, MEMBER) reinterpret_cast<std::size_t>(std::addressof(static_cast<STRUCT*>(nullptr)->MEMBER))
+#define Q_OFFSETOF(STRUCT, MEMBER) reinterpret_cast<size_t>(std::addressof(static_cast<STRUCT*>(nullptr)->MEMBER))
 #endif
 
 #ifndef Q_NO_RTTI
@@ -187,6 +187,6 @@ static_assert(false, "it is expected you to define one of the available configur
 	Q_CLASS_NO_ASSIGNMENT(CLASS)
 
 // explicitly delete class heap allocator and deallocator, to prevent attempts on using class at heap memory
-#define Q_CLASS_NO_ALLOC()                                \
-	void* operator new(const std::size_t nSize) = delete; \
+#define Q_CLASS_NO_ALLOC()                           \
+	void* operator new(const size_t nSize) = delete; \
 	void operator delete(void* pMemory) = delete;

@@ -267,7 +267,7 @@ bool ImGui::MultiCombo(const char* szLabel, unsigned int* pFlags, const char* co
 
 	// fuck it, stl still haven't boost::join, fmt::join replacement
 	std::string strBuffer = {};
-	for (std::size_t i = 0U; i < vecActiveItems.size(); i++)
+	for (size_t i = 0U; i < vecActiveItems.size(); i++)
 	{
 		strBuffer.append(vecActiveItems[i]);
 
@@ -280,7 +280,7 @@ bool ImGui::MultiCombo(const char* szLabel, unsigned int* pFlags, const char* co
 	else
 	{
 		const char* szWrapPosition = g.Font->CalcWordWrapPositionA(GetCurrentWindow()->FontWindowScale, strBuffer.data(), strBuffer.data() + strBuffer.length(), flActiveWidth - style.FramePadding.x * 2.0f);
-		const std::size_t nWrapLength = szWrapPosition - strBuffer.data();
+		const size_t nWrapLength = szWrapPosition - strBuffer.data();
 
 		if (nWrapLength > 0U && nWrapLength < strBuffer.length())
 		{
@@ -332,7 +332,7 @@ bool ImGui::ColorEdit4(const char* szLabel, Color_t* pColor, ImGuiColorEditFlags
 // thread-safe draw data mutex
 static SRWLOCK drawLock = {};
 
-static void* __cdecl ImGuiAllocWrapper(const std::size_t nSize, [[maybe_unused]] void* pUserData = nullptr)
+static void* __cdecl ImGuiAllocWrapper(const size_t nSize, [[maybe_unused]] void* pUserData = nullptr)
 {
 	return MEM::HeapAlloc(nSize);
 }

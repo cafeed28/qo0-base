@@ -5,7 +5,7 @@
 // used: cenginerecipientfilter
 #include "irecipientfilter.h"
 
-using SerializedEntityHandle_t = std::intptr_t;
+using SerializedEntityHandle_t = intptr_t;
 #define SERIALIZED_ENTITY_HANDLE_INVALID static_cast<SerializedEntityHandle_t>(0)
 
 #pragma region clientstate_definitions
@@ -32,7 +32,7 @@ enum ESignonState
 
 // forward declarations
 class INetChannel;
-using CRC32_t = std::uint32_t;
+using CRC32_t = uint32_t;
 
 #pragma pack(push, 4)
 class CClockDriftMgr
@@ -84,7 +84,7 @@ public:
 	double dNextCmdTime; // 0x0110
 	int nServerCount; // 0x0118
 	int iCurrentSequence; // 0x011C
-	std::uint64_t ullGameServerSteamID; // 0x0120
+	uint64_t ullGameServerSteamID; // 0x0120
 	CClockDriftMgr clockDriftMgr; // 0x0128
 	int nDeltaTick; // 0x0174 // @ida: engine.dll -> ["83 BF ? ? ? ? ? 0F 84 ? ? ? ? 8D" + 0x2]
 	bool bPaused; // 0x0178

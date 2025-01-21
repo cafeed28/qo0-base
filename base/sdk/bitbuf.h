@@ -8,7 +8,7 @@
 // @source: master/public/tier1/bitbuf.h
 // master/tier1/newbitbuf.cpp
 
-constexpr std::uint32_t arrBitMaskTable[33] = {
+constexpr uint32_t arrBitMaskTable[33] = {
 	0U,
 	(1U << 1U) - 1U, (1U << 2U) - 1U, (1U << 3U) - 1U, (1U << 4U) - 1U,
 	(1U << 5U) - 1U, (1U << 6U) - 1U, (1U << 7U) - 1U, (1U << 8U) - 1U,
@@ -39,7 +39,7 @@ public:
 	const char* szDebugName = nullptr; // 0x00
 	bool bOverflow = false; // 0x04
 	int nDataBits = -1; // 0x08
-	std::size_t nDataBytes = 0; // 0x0C
+	size_t nDataBytes = 0; // 0x0C
 };
 static_assert(sizeof(CBitBuffer) == 0x10);
 
@@ -60,10 +60,10 @@ public:
 	void StartWriting(void* pWriteData, const int nBytes, const int iStartBit = 0, const int nBits = -1)
 	{
 		Q_ASSERT((nBytes & 3) == 0);
-		Q_ASSERT((reinterpret_cast<std::uintptr_t>(pWriteData) & 3U) == 0U);
+		Q_ASSERT((reinterpret_cast<uintptr_t>(pWriteData) & 3U) == 0U);
 		Q_ASSERT(iStartBit == 0);
 
-		pData = static_cast<std::uint32_t*>(pWriteData);
+		pData = static_cast<uint32_t*>(pWriteData);
 		pDataOut = pData;
 		nDataBytes = nBytes;
 
@@ -149,11 +149,11 @@ public:
 		nOutBitsAvail = 32;
 	}
 
-	Q_INLINE void WriteUBitLong(const std::uint32_t nData, const int nBits, const bool bCheckRange = true)
+	Q_INLINE void WriteUBitLong(const uint32_t nData, const int nBits, const bool bCheckRange = true)
 	{
 #ifdef _DEBUG
 		if (bCheckRange && nBits < 32)
-			Q_ASSERT(nData <= static_cast<std::uint32_t>(1 << nBits));
+			Q_ASSERT(nData <= static_cast<uint32_t>(1 << nBits));
 
 		Q_ASSERT(nBits >= 0 && nBits <= 32);
 #endif
@@ -179,20 +179,20 @@ public:
 		}
 	}
 
-	Q_INLINE void WriteSBitLong(const std::int32_t nData, const int nBits)
+	Q_INLINE void WriteSBitLong(const int32_t nData, const int nBits)
 	{
-		WriteUBitLong(static_cast<std::uint32_t>(nData), nBits, false);
+		WriteUBitLong(static_cast<uint32_t>(nData), nBits, false);
 	}
 
 	Q_INLINE void WriteFloat(const float flValue)
 	{
-		WriteUBitLong(std::bit_cast<std::uint32_t>(flValue), 32);
+		WriteUBitLong(std::bit_cast<uint32_t>(flValue), 32);
 	}
 
 	//bool WriteBits(const void* pInData, int nBits);
 	//void WriteBytes(const void* pBuf, int nBytes);
 
-	Q_INLINE void WriteLong(const std::int32_t iValue)
+	Q_INLINE void WriteLong(const int32_t iValue)
 	{
 		WriteSBitLong(iValue, 32);
 	}
@@ -202,9 +202,9 @@ public:
 		WriteSBitLong(chValue, sizeof(char) << 3);
 	}
 
-	Q_INLINE void WriteByte(const std::uint8_t uValue)
+	Q_INLINE void WriteByte(const uint8_t uValue)
 	{
-		WriteUBitLong(uValue, sizeof(std::uint8_t) << 3, false);
+		WriteUBitLong(uValue, sizeof(uint8_t) << 3, false);
 	}
 
 	Q_INLINE void WriteShort(const short shValue)
@@ -212,9 +212,9 @@ public:
 		WriteSBitLong(shValue, sizeof(short) << 3);
 	}
 
-	Q_INLINE void WriteWord(const std::uint16_t uValue)
+	Q_INLINE void WriteWord(const uint16_t uValue)
 	{
-		WriteUBitLong(uValue, sizeof(std::uint16_t) << 3);
+		WriteUBitLong(uValue, sizeof(uint16_t) << 3);
 	}
 
 	Q_INLINE bool WriteString(const char* szString)
@@ -230,14 +230,14 @@ public:
 	}
 
 	//bool WriteWString(const wchar_t* wszString);
-	//void WriteLongLong(std::int64_t llValue);
+	//void WriteLongLong(int64_t llValue);
 
 public:
-	std::uint32_t uOutBufferWord = 0U; // 0x10
+	uint32_t uOutBufferWord = 0U; // 0x10
 	int nOutBitsAvail = 0U; // 0x14
-	std::uint32_t* pDataOut = nullptr; // 0x18
-	std::uint32_t* pBufferEnd = nullptr; // 0x1C
-	std::uint32_t* pData = nullptr; // 0x20
+	uint32_t* pDataOut = nullptr; // 0x18
+	uint32_t* pBufferEnd = nullptr; // 0x1C
+	uint32_t* pData = nullptr; // 0x20
 	bool bFlushed = false; // 0x24
 };
 static_assert(sizeof(CBitWrite) == 0x28);
@@ -251,9 +251,9 @@ class CBitRead : public CBitBuffer
 
 	void StartReading(const void* pReadData, const int nBytes, const int iStartBit, const int nBits = -1)
 	{
-		Q_ASSERT((reinterpret_cast<std::uintptr_t>(pReadData) & 3U) == 0U);
+		Q_ASSERT((reinterpret_cast<uintptr_t>(pReadData) & 3U) == 0U);
 
-		pData = static_cast<const std::uint32_t*>(pReadData);
+		pData = static_cast<const uint32_t*>(pReadData);
 		pDataIn = pData;
 		nDataBytes = nBytes;
 
@@ -266,7 +266,7 @@ class CBitRead : public CBitBuffer
 		}
 
 		bOverflow = false;
-		pBufferEnd = reinterpret_cast<const std::uint32_t*>(reinterpret_cast<const std::uint8_t*>(pData) + nBytes);
+		pBufferEnd = reinterpret_cast<const uint32_t*>(reinterpret_cast<const uint8_t*>(pData) + nBytes);
 
 		if (pData)
 			Seek(iStartBit);
@@ -292,7 +292,7 @@ class CBitRead : public CBitBuffer
 		}
 		else
 		{
-			Q_ASSERT(reinterpret_cast<std::intptr_t>(pDataIn) + 3 < reinterpret_cast<std::intptr_t>(pBufferEnd));
+			Q_ASSERT(reinterpret_cast<intptr_t>(pDataIn) + 3 < reinterpret_cast<intptr_t>(pBufferEnd));
 			uInBufferWord = *pDataIn++;
 		}
 	}
@@ -320,7 +320,7 @@ class CBitRead : public CBitBuffer
 		if (const int nHead = static_cast<int>(nDataBytes & 3U); (nDataBytes < 4) || (nHead > 0 && (nPosition / 8) < nHead))
 		{
 			// partial first dword
-			const std::uint8_t* pPartial = reinterpret_cast<const std::uint8_t*>(pData);
+			const uint8_t* pPartial = reinterpret_cast<const uint8_t*>(pData);
 
 			if (pData != nullptr)
 			{
@@ -331,14 +331,14 @@ class CBitRead : public CBitBuffer
 					uInBufferWord |= (*pPartial++) << 16;
 			}
 
-			pDataIn = reinterpret_cast<const std::uint32_t*>(pPartial);
+			pDataIn = reinterpret_cast<const uint32_t*>(pPartial);
 			uInBufferWord >>= (nPosition & 31);
 			nInBitsAvail = (nHead << 3) - (nPosition & 31);
 		}
 		else
 		{
 			const int nAdjustPosition = nPosition - (nHead << 3);
-			pDataIn = reinterpret_cast<const std::uint32_t*>(reinterpret_cast<const std::uint8_t*>(pData) + ((nAdjustPosition / 32) << 2) + nHead);
+			pDataIn = reinterpret_cast<const uint32_t*>(reinterpret_cast<const uint8_t*>(pData) + ((nAdjustPosition / 32) << 2) + nHead);
 
 			if (pData != nullptr)
 			{
@@ -366,7 +366,7 @@ class CBitRead : public CBitBuffer
 		if (pData == nullptr)
 			return 0;
 
-		int nCurrentOffset = (reinterpret_cast<std::intptr_t>(pDataIn) - reinterpret_cast<std::intptr_t>(pData)) / 4 - 1;
+		int nCurrentOffset = (reinterpret_cast<intptr_t>(pDataIn) - reinterpret_cast<intptr_t>(pData)) / 4 - 1;
 		nCurrentOffset *= 32;
 		nCurrentOffset += (32 - nInBitsAvail);
 
@@ -379,11 +379,11 @@ class CBitRead : public CBitBuffer
 		return ((GetNumBitsRead() + 7) >> 3);
 	}
 
-	[[nodiscard]] Q_INLINE std::uint32_t ReadUBitLong(int nBits)
+	[[nodiscard]] Q_INLINE uint32_t ReadUBitLong(int nBits)
 	{
 		if (nInBitsAvail >= nBits)
 		{
-			const std::uint32_t nReturn = uInBufferWord & arrBitMaskTable[nBits];
+			const uint32_t nReturn = uInBufferWord & arrBitMaskTable[nBits];
 			nInBitsAvail -= nBits;
 
 			if (nInBitsAvail > 0)
@@ -395,7 +395,7 @@ class CBitRead : public CBitBuffer
 		}
 
 		// need to merge words
-		std::uint32_t nReturn = uInBufferWord;
+		uint32_t nReturn = uInBufferWord;
 		nBits -= nInBitsAvail;
 		GrabNextDWord(true);
 
@@ -415,14 +415,14 @@ class CBitRead : public CBitBuffer
 		return (nReturn << (32 - nBits)) >> (32 - nBits); // sign extend
 	}
 
-	[[nodiscard]] Q_INLINE std::int32_t ReadLong()
+	[[nodiscard]] Q_INLINE int32_t ReadLong()
 	{
-		return static_cast<int>(ReadUBitLong(sizeof(std::int32_t) << 3));
+		return static_cast<int>(ReadUBitLong(sizeof(int32_t) << 3));
 	}
 
 	[[nodiscard]] Q_INLINE float ReadFloat()
 	{
-		const std::uint32_t uValue = ReadUBitLong(sizeof(std::int32_t) << 3);
+		const uint32_t uValue = ReadUBitLong(sizeof(int32_t) << 3);
 		return std::bit_cast<float>(uValue);
 	}
 
@@ -431,9 +431,9 @@ class CBitRead : public CBitBuffer
 		return static_cast<char>(ReadSBitLong(sizeof(char) << 3));
 	}
 
-	[[nodiscard]] Q_INLINE std::uint8_t ReadByte()
+	[[nodiscard]] Q_INLINE uint8_t ReadByte()
 	{
-		return static_cast<std::uint8_t>(ReadUBitLong(sizeof(unsigned char) << 3));
+		return static_cast<uint8_t>(ReadUBitLong(sizeof(unsigned char) << 3));
 	}
 
 	[[nodiscard]] Q_INLINE short ReadShort()
@@ -441,9 +441,9 @@ class CBitRead : public CBitBuffer
 		return static_cast<short>(ReadSBitLong(sizeof(short) << 3));
 	}
 
-	[[nodiscard]] Q_INLINE std::uint16_t ReadWord()
+	[[nodiscard]] Q_INLINE uint16_t ReadWord()
 	{
-		return static_cast<std::uint16_t>(ReadUBitLong(sizeof(unsigned short) << 3));
+		return static_cast<uint16_t>(ReadUBitLong(sizeof(unsigned short) << 3));
 	}
 
 	[[nodiscard]] Q_INLINE bool ReadString(char* szStringOut, const int nMaxLength, const bool bLine, int* pOutCharCount = nullptr)
@@ -480,11 +480,11 @@ class CBitRead : public CBitBuffer
 	}
 
 public:
-	std::uint32_t uInBufferWord = 0U; // 0x10
+	uint32_t uInBufferWord = 0U; // 0x10
 	int nInBitsAvail = 0; // 0x14
-	const std::uint32_t* pDataIn = nullptr; // 0x18
-	const std::uint32_t* pBufferEnd = nullptr; // 0x1C
-	const std::uint32_t* pData = nullptr; // 0x20
+	const uint32_t* pDataIn = nullptr; // 0x18
+	const uint32_t* pBufferEnd = nullptr; // 0x1C
+	const uint32_t* pData = nullptr; // 0x20
 };
 static_assert(sizeof(CBitRead) == 0x24);
 

@@ -50,14 +50,14 @@ struct RenderableInfo_t
 	unsigned short uFirstShadow; // 0x10
 	unsigned short uLeafList; // 0x12
 	short shArea; // 0x14
-	std::uint16_t uFlags; // 0x16
-	std::uint16_t bRenderInFastReflection : 1; // 0x18
-	std::uint16_t bDisableShadowDepthRendering : 1; // 0x18
-	std::uint16_t bDisableCSMRendering : 1; // 0x18
-	std::uint16_t bDisableShadowDepthCaching : 1; // 0x18
-	std::uint16_t nSplitscreenEnabled : 2; // 0x18
-	std::uint16_t nTranslucencyType : 2; // 0x18 // ERenderableTranslucencyType
-	std::uint16_t nModelType : 8; // 0x19 // ERenderableModelType // @ida: client.dll -> ["8B 4E 24 8A 44 F9 ? 3C 04" + 0x7]
+	uint16_t uFlags; // 0x16
+	uint16_t bRenderInFastReflection : 1; // 0x18
+	uint16_t bDisableShadowDepthRendering : 1; // 0x18
+	uint16_t bDisableCSMRendering : 1; // 0x18
+	uint16_t bDisableShadowDepthCaching : 1; // 0x18
+	uint16_t nSplitscreenEnabled : 2; // 0x18
+	uint16_t nTranslucencyType : 2; // 0x18 // ERenderableTranslucencyType
+	uint16_t nModelType : 8; // 0x19 // ERenderableModelType // @ida: client.dll -> ["8B 4E 24 8A 44 F9 ? 3C 04" + 0x7]
 	Vector_t vecBloatedAbsMins; // 0x1C
 	Vector_t vecBloatedAbsMaxs; // 0x28
 	Vector_t vecAbsMins; // 0x34
@@ -69,12 +69,12 @@ static_assert(sizeof(RenderableInfo_t) == 0x4C);
 class IClientLeafSystem : ROP::VirtualCallable_t<ROP::ClientGadget_t>
 {
 public:
-	void CreateRenderableHandle(IClientRenderable* pRenderable, bool bRenderWithViewModels, ERenderableTranslucencyType nTranslucencyType, ERenderableModelType nModelType, std::uint32_t uSplitscreenEnabled = 0xFFFFFFFF)
+	void CreateRenderableHandle(IClientRenderable* pRenderable, bool bRenderWithViewModels, ERenderableTranslucencyType nTranslucencyType, ERenderableModelType nModelType, uint32_t uSplitscreenEnabled = 0xFFFFFFFF)
 	{
 		CallVFunc<void, 0U>(this, pRenderable, bRenderWithViewModels, nTranslucencyType, nModelType, uSplitscreenEnabled);
 	}
 
-	void AddRenderable(IClientRenderable* pRenderable, bool bIsStaticProp, ERenderableTranslucencyType nTranslucencyType, ERenderableModelType nModelType, std::uint32_t uSplitscreenEnabled = 0xFFFFFFFF)
+	void AddRenderable(IClientRenderable* pRenderable, bool bIsStaticProp, ERenderableTranslucencyType nTranslucencyType, ERenderableModelType nModelType, uint32_t uSplitscreenEnabled = 0xFFFFFFFF)
 	{
 		CallVFunc<void, 7U>(this, pRenderable, bIsStaticProp, nTranslucencyType, nModelType, uSplitscreenEnabled);
 	}

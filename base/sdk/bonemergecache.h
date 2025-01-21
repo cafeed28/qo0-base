@@ -15,7 +15,7 @@ public:
 		Init(nullptr);
 	}
 
-	void* operator new(const std::size_t nSize)
+	void* operator new(const size_t nSize)
 	{
 		return I::MemAlloc->Alloc(nSize);
 	}

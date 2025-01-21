@@ -271,7 +271,7 @@ bool Q_FASTCALL H::IsConnected(IEngineClient* thisptr, void* edx)
 	static const auto pLoadoutAllowedReturn = MEM::FindPattern(CLIENT_DLL, Q_XOR("84 C0 75 05 B0 01 5F"));
 
 	// check is called from 'CCSGameRules::IsLoadoutAllowed()' @credits: gavreel
-	if (const volatile auto pReturnAddress = static_cast<std::uint8_t*>(Q_RETURN_ADDRESS()); pReturnAddress == pLoadoutAllowedReturn && C::Get<bool>(Vars.bMiscUnlockInventory))
+	if (const volatile auto pReturnAddress = static_cast<uint8_t*>(Q_RETURN_ADDRESS()); pReturnAddress == pLoadoutAllowedReturn && C::Get<bool>(Vars.bMiscUnlockInventory))
 		return false;
 
 	return hkIsConnected.CallOriginal<ROP::EngineGadget_t>(thisptr, edx);
@@ -280,7 +280,7 @@ bool Q_FASTCALL H::IsConnected(IEngineClient* thisptr, void* edx)
 // call hierarchy: [engine.dll, client.dll, ...] ... -> [engine.dll] CEngineClient::IsHLTV()
 bool Q_FASTCALL H::IsHLTV(IEngineClient* thisptr, void* edx)
 {
-	const volatile auto pReturnAddress = static_cast<std::uint8_t*>(Q_RETURN_ADDRESS());
+	const volatile auto pReturnAddress = static_cast<uint8_t*>(Q_RETURN_ADDRESS());
 
 	if (static const auto pSetupVelocityReturn = MEM::FindPattern(CLIENT_DLL, Q_XOR("84 C0 75 38 8B 0D ? ? ? ? 8B 01 8B 80 ? ? ? ? FF D0"));
 		// force 'CCSGOPlayerAnimState::SetupVelocity()' to use 'C_CSPlayer::GetAbsVelocity()' instead of 'C_BaseEntity::EstimateAbsVelocity()'
@@ -297,14 +297,14 @@ int Q_FASTCALL H::ListLeavesInBox(void* thisptr, void* edx, const Vector_t* pvec
 	// occlusion getting updated on player movement/angle change, in 'CClientLeafSystem::RecomputeRenderableLeaves()'
 	static const auto pInsertIntoTreeReturn = MEM::FindPattern(CLIENT_DLL, Q_XOR("56 52 FF 50 18")) + 0x5; // @xref: "<unknown renderable>"
 
-	if (const volatile auto pReturnAddress = static_cast<std::uint8_t*>(Q_RETURN_ADDRESS());
+	if (const volatile auto pReturnAddress = static_cast<uint8_t*>(Q_RETURN_ADDRESS());
 		// check is called from 'CClientLeafSystem::InsertIntoTree()'
 		pReturnAddress != pInsertIntoTreeReturn)
 		return hkListLeavesInBox.CallOriginal<ROP::EngineGadget_t>(thisptr, edx, pvecMins, pvecMaxs, puList, nListMax);
 
 	if (C::Get<bool>(Vars.bVisual) && C::Get<bool>(Vars.bVisualChams) && C::Get<bool>(Vars.bVisualChamsEnemies))
 	{
-		const volatile auto pStackFrame = static_cast<std::uint8_t*>(Q_FRAME_ADDRESS());
+		const volatile auto pStackFrame = static_cast<uint8_t*>(Q_FRAME_ADDRESS());
 
 		// get current renderable info from the stack
 		if (const auto pInfo = *reinterpret_cast<RenderableInfo_t**>(pStackFrame + 0x14); pInfo != nullptr)
@@ -422,9 +422,9 @@ void Q_FASTCALL H::DrawModel(IStudioRender* thisptr, void* edx, DrawModelResults
 }
 
 // call hierarchy: @todo: [client.dll] ... -> GCSDK::CProtoBufMsgBase::BAsyncSendProto() -> ISteamGameCoordinator::SendMessage()
-int Q_FASTCALL H::SendMessage(ISteamGameCoordinator* thisptr, void* edx, std::uint32_t uMessageHeader, const void* pData, std::uint32_t nDataSize)
+int Q_FASTCALL H::SendMessage(ISteamGameCoordinator* thisptr, void* edx, uint32_t uMessageHeader, const void* pData, uint32_t nDataSize)
 {
-	const std::uint32_t nMessageType = (uMessageHeader & 0x7FFFFFFF);
+	const uint32_t nMessageType = (uMessageHeader & 0x7FFFFFFF);
 
 	/*
 	 * @note: prevent from sending 'k_EMsgGCCStrike15_v2_ClientVarValueNotificationInfo' (9144) message
@@ -444,14 +444,14 @@ int Q_FASTCALL H::SendMessage(ISteamGameCoordinator* thisptr, void* edx, std::ui
 }
 
 // call hierarchy: @todo: [client.dll] ... -> ISteamGameCoordinator::RetrieveMessage()
-int Q_FASTCALL H::RetrieveMessage(ISteamGameCoordinator* thisptr, void* edx, std::uint32_t* pMessageHeader, void* pDestination, std::uint32_t nDestinationSize, std::uint32_t* pnMessageSize)
+int Q_FASTCALL H::RetrieveMessage(ISteamGameCoordinator* thisptr, void* edx, uint32_t* pMessageHeader, void* pDestination, uint32_t nDestinationSize, uint32_t* pnMessageSize)
 {
 	const int iResult = hkRetrieveMessage.CallOriginal<ROP::ClientGadget_t>(thisptr, edx, pMessageHeader, pDestination, nDestinationSize, pnMessageSize);
 
 	if (iResult != EGCResultOK)
 		return iResult;
 
-	const std::uint32_t nMessageType = (*pMessageHeader & 0x7FFFFFFF);
+	const uint32_t nMessageType = (*pMessageHeader & 0x7FFFFFFF);
 	L_PRINT(LOG_NONE) << L::SetColor(LOG_COLOR_FORE_YELLOW | LOG_COLOR_FORE_INTENSITY) << Q_XOR("[->] message received from GC: ") << nMessageType;
 
 	// check for 'k_EMsgGCCStrike15_v2_GCToClientSteamdatagramTicket' message when we can accept the game

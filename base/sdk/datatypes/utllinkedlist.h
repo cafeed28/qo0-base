@@ -344,14 +344,14 @@ protected:
 };
 
 template <class T>
-class CUtlFixedLinkedList : public CUtlLinkedList<T, std::intptr_t, true, std::intptr_t, CUtlFixedMemory<UtlLinkedListElement_t<T, std::intptr_t>>>
+class CUtlFixedLinkedList : public CUtlLinkedList<T, intptr_t, true, intptr_t, CUtlFixedMemory<UtlLinkedListElement_t<T, intptr_t>>>
 {
 public:
 	CUtlFixedLinkedList(int nGrowSize = 0, int nInitAllocationCount = 0) :
-		CUtlLinkedList<T, std::intptr_t, true, std::intptr_t, CUtlFixedMemory<UtlLinkedListElement_t<T, std::intptr_t>>>(nGrowSize, nInitAllocationCount)
+		CUtlLinkedList<T, intptr_t, true, intptr_t, CUtlFixedMemory<UtlLinkedListElement_t<T, intptr_t>>>(nGrowSize, nInitAllocationCount)
 	{ }
 
-	[[nodiscard]] bool IsValidIndex(std::intptr_t nIndex) const
+	[[nodiscard]] bool IsValidIndex(intptr_t nIndex) const
 	{
 		if (!this->memory.IsIndexValid(nIndex))
 			return false;

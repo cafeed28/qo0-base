@@ -124,7 +124,7 @@ struct alignas(4) serializedstudioptr_t
 	}
 
 	T* pData;
-	std::int32_t iPadding;
+	int32_t iPadding;
 };
 #pragma pack(pop)
 
@@ -196,7 +196,7 @@ struct mstudiobone_t
 		if (iProcedureOffset == 0)
 			return nullptr;
 
-		return const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iProcedureOffset);
+		return const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iProcedureOffset);
 	}
 
 	Q_INLINE const char* GetSurfacePropName() const
@@ -284,7 +284,7 @@ struct mstudiobodyparts_t
 		if (nIndex < 0 || nIndex >= nModelCount)
 			return nullptr;
 
-		return reinterpret_cast<mstudiomodel_t*>(const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iModelOffset)) + nIndex;
+		return reinterpret_cast<mstudiomodel_t*>(const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iModelOffset)) + nIndex;
 	}
 
 	int iNameOffset; // 0x00
@@ -317,7 +317,7 @@ struct mstudiohitboxset_t
 		if (nIndex < 0 || nIndex >= nHitboxCount)
 			return nullptr;
 
-		return reinterpret_cast<mstudiobbox_t*>(const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iHitboxOffset)) + nIndex;
+		return reinterpret_cast<mstudiobbox_t*>(const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iHitboxOffset)) + nIndex;
 	}
 
 	int iNameOffset; // 0x00
@@ -389,7 +389,7 @@ struct mstudioseqdesc_t
 {
 	Q_INLINE studiohdr_t* GetStudioHdr() const
 	{
-		return reinterpret_cast<studiohdr_t*>(const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + nBaseStudio));
+		return reinterpret_cast<studiohdr_t*>(const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + nBaseStudio));
 	}
 
 	Q_INLINE const char* GetLabel() const
@@ -407,7 +407,7 @@ struct mstudioseqdesc_t
 		if (nIndex < 0 || nIndex >= nEventCount)
 			return nullptr;
 
-		return const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iEventOffset) + nIndex;
+		return const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iEventOffset) + nIndex;
 	}
 
 	Q_INLINE int GetAnimValue(int x, int y) const
@@ -419,7 +419,7 @@ struct mstudioseqdesc_t
 			y = iGroupSize[1] - 1;
 
 		const int iOffset = y * iGroupSize[0] + x;
-		const short* arrBlends = reinterpret_cast<short*>(const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iBlendOffset));
+		const short* arrBlends = reinterpret_cast<short*>(const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iBlendOffset));
 		return arrBlends[iOffset];
 	}
 
@@ -428,17 +428,17 @@ struct mstudioseqdesc_t
 		if (nIndex < 0 || nIndex >= nAutoLayerCount)
 			return nullptr;
 
-		return const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iAutoLayerOffset) + nIndex;
+		return const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iAutoLayerOffset) + nIndex;
 	}
 
 	Q_INLINE float* GetBoneWeight(const int nIndex) const
 	{
-		return reinterpret_cast<float*>(const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iWeightListOffset)) + nIndex;
+		return reinterpret_cast<float*>(const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iWeightListOffset)) + nIndex;
 	}
 
 	Q_INLINE float* GetPoseKey(const int iParameter, const int iAnimation) const
 	{
-		return reinterpret_cast<float*>(const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iPoseKeyOffset)) + iParameter * iGroupSize[0] + iAnimation;
+		return reinterpret_cast<float*>(const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iPoseKeyOffset)) + iParameter * iGroupSize[0] + iAnimation;
 	}
 
 	Q_INLINE void* GetIKLock(const int nIndex) const
@@ -446,7 +446,7 @@ struct mstudioseqdesc_t
 		if (nIndex < 0 || nIndex >= nIKLockCount)
 			return nullptr;
 
-		return const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iIKLockOffset) + nIndex;
+		return const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iIKLockOffset) + nIndex;
 	}
 
 	Q_INLINE const char* GetKeyValueText() const
@@ -601,7 +601,7 @@ struct studiohdr2_t
 		if (iNameOffset == 0)
 			return nullptr;
 
-		return reinterpret_cast<char*>(reinterpret_cast<std::uint8_t*>(this) + iNameOffset);
+		return reinterpret_cast<char*>(reinterpret_cast<uint8_t*>(this) + iNameOffset);
 	}
 
 	int nSrcBoneTransformCount;
@@ -654,7 +654,7 @@ struct studiohdr_t
 		if (nIndex < 0 || nIndex >= nBoneCount)
 			return nullptr;
 
-		return reinterpret_cast<mstudiobone_t*>(const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iBoneOffset)) + nIndex;
+		return reinterpret_cast<mstudiobone_t*>(const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iBoneOffset)) + nIndex;
 	}
 
 	Q_INLINE mstudiobonecontroller_t* GetBoneController(const int nIndex) const
@@ -662,7 +662,7 @@ struct studiohdr_t
 		if (nIndex < 0 || nIndex >= nBoneControllerCount)
 			return nullptr;
 
-		return reinterpret_cast<mstudiobonecontroller_t*>(const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iBoneControllerOffset)) + nIndex;
+		return reinterpret_cast<mstudiobonecontroller_t*>(const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iBoneControllerOffset)) + nIndex;
 	}
 
 	Q_INLINE mstudiohitboxset_t* GetHitboxSet(const int iSet) const
@@ -670,7 +670,7 @@ struct studiohdr_t
 		if (iSet < 0 || iSet >= nHitboxSetCount)
 			return nullptr;
 
-		return reinterpret_cast<mstudiohitboxset_t*>(const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iHitboxSetOffset)) + iSet;
+		return reinterpret_cast<mstudiohitboxset_t*>(const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iHitboxSetOffset)) + iSet;
 	}
 
 	Q_INLINE mstudiobbox_t* GetHitbox(const int iHitBox, const int iSet) const
@@ -698,7 +698,7 @@ struct studiohdr_t
 		if (nIndex < 0 || nIndex >= nLocalAnimationCount)
 			nIndex = 0;
 
-		return const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iLocalAnimationOffset) + nIndex;
+		return const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iLocalAnimationOffset) + nIndex;
 	}
 
 	Q_INLINE mstudioseqdesc_t* GetLocalSequenceDescription(int iSequence) const
@@ -706,7 +706,7 @@ struct studiohdr_t
 		if (iSequence < 0 || iSequence >= nLocalSequenceCount)
 			iSequence = 0;
 
-		return reinterpret_cast<mstudioseqdesc_t*>(const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iLocalSequenceOffset)) + iSequence;
+		return reinterpret_cast<mstudioseqdesc_t*>(const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iLocalSequenceOffset)) + iSequence;
 	}
 
 	Q_INLINE mstudioseqdesc_t& GetSequenceDescription(const int nSequence) const
@@ -733,7 +733,7 @@ struct studiohdr_t
 		if (nIndex < 0 || nIndex >= nTextureCount)
 			return nullptr;
 
-		return const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iTextureOffset) + nIndex;
+		return const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iTextureOffset) + nIndex;
 	}
 
 	Q_INLINE const char* GetCdTexture(const int nIndex) const
@@ -741,7 +741,7 @@ struct studiohdr_t
 		if (nIndex < 0 || nIndex >= nCdTextureCount)
 			return nullptr;
 
-		return reinterpret_cast<const char*>(this) + *(reinterpret_cast<int*>(const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iCdTextureOffset)) + nIndex);
+		return reinterpret_cast<const char*>(this) + *(reinterpret_cast<int*>(const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iCdTextureOffset)) + nIndex);
 	}
 
 	Q_INLINE short* GetSkinReference(const int nIndex) const
@@ -749,7 +749,7 @@ struct studiohdr_t
 		if (nIndex < 0 || nIndex >= nSkinReferenceCount)
 			return nullptr;
 
-		return reinterpret_cast<short*>(const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iSkinOffset)) + nIndex;
+		return reinterpret_cast<short*>(const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iSkinOffset)) + nIndex;
 	}
 
 	Q_INLINE mstudiobodyparts_t* GetBodyPart(const int nIndex) const
@@ -757,7 +757,7 @@ struct studiohdr_t
 		if (nIndex < 0 || nIndex >= nBodyPartCount)
 			return nullptr;
 
-		return reinterpret_cast<mstudiobodyparts_t*>(const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iBodyPartOffset)) + nIndex;
+		return reinterpret_cast<mstudiobodyparts_t*>(const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iBodyPartOffset)) + nIndex;
 	}
 
 	Q_INLINE void* GetAttachment(const int nIndex) const
@@ -765,15 +765,15 @@ struct studiohdr_t
 		if (nIndex < 0 || nIndex >= nAttachmentCount)
 			return nullptr;
 
-		return const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iAttachmentOffset) + nIndex;
+		return const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iAttachmentOffset) + nIndex;
 	}
 
-	Q_INLINE std::uint8_t* GetTransition(const int nIndex) const
+	Q_INLINE uint8_t* GetTransition(const int nIndex) const
 	{
 		if (nIndex < 0 || nIndex >= (nTransitionCount * nTransitionCount))
 			return nullptr;
 
-		return const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iTransitionOffset) + nIndex;
+		return const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iTransitionOffset) + nIndex;
 	}
 
 	Q_INLINE mstudioflexdesc_t* GetFlexDesc(const int nIndex) const
@@ -781,7 +781,7 @@ struct studiohdr_t
 		if (nIndex < 0 || nIndex >= nFlexDescCount)
 			return nullptr;
 
-		return reinterpret_cast<mstudioflexdesc_t*>(const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iFlexDescOffset)) + nIndex;
+		return reinterpret_cast<mstudioflexdesc_t*>(const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iFlexDescOffset)) + nIndex;
 	}
 
 	Q_INLINE mstudioflexcontroller_t* GetFlexController(const int nIndex) const
@@ -789,7 +789,7 @@ struct studiohdr_t
 		if (nIndex < 0 || nIndex >= nFlexControllerCount)
 			return nullptr;
 
-		return reinterpret_cast<mstudioflexcontroller_t*>(const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iFlexControllerOffset)) + nIndex;
+		return reinterpret_cast<mstudioflexcontroller_t*>(const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iFlexControllerOffset)) + nIndex;
 	}
 
 	Q_INLINE void* GetFlexRule(const int nIndex) const
@@ -797,7 +797,7 @@ struct studiohdr_t
 		if (nIndex < 0 || nIndex >= nFlexRuleCount)
 			return nullptr;
 
-		return const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iFlexRuleOffset) + nIndex;
+		return const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iFlexRuleOffset) + nIndex;
 	}
 
 	Q_INLINE mstudioikchain_t* GetIKChain(const int nIndex) const
@@ -805,7 +805,7 @@ struct studiohdr_t
 		if (nIndex < 0 || nIndex >= nIKChainCount)
 			return nullptr;
 
-		return reinterpret_cast<mstudioikchain_t*>(const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iIKChainOffset)) + nIndex;
+		return reinterpret_cast<mstudioikchain_t*>(const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iIKChainOffset)) + nIndex;
 	}
 
 	Q_INLINE void* GetMouth(const int nIndex) const
@@ -813,7 +813,7 @@ struct studiohdr_t
 		if (nIndex < 0 || nIndex >= nMouthCount)
 			return nullptr;
 
-		return const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iMouthOffset) + nIndex;
+		return const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iMouthOffset) + nIndex;
 	}
 
 	Q_INLINE void* GetPoseParameter(const int nIndex) const
@@ -821,7 +821,7 @@ struct studiohdr_t
 		if (nIndex < 0 || nIndex >= nLocalPoseParameterCount)
 			return nullptr;
 
-		return const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iLocalPoseParameterOffset) + nIndex;
+		return const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iLocalPoseParameterOffset) + nIndex;
 	}
 
 	Q_INLINE const char* GetSurfacePropName() const
@@ -845,7 +845,7 @@ struct studiohdr_t
 		if (nIndex < 0 || nIndex >= nIKAutoplayLockCount)
 			return nullptr;
 
-		return const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iIKAutoplayLockOffset) + nIndex;
+		return const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iIKAutoplayLockOffset) + nIndex;
 	}
 
 	Q_INLINE void* GetModelGroup(const int nIndex) const
@@ -853,7 +853,7 @@ struct studiohdr_t
 		if (nIndex < 0 || nIndex >= nIncludeModelCount)
 			return nullptr;
 
-		return const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iIncludeModelOffset) + nIndex;
+		return const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iIncludeModelOffset) + nIndex;
 	}
 
 	Q_INLINE const char* GetAnimBlockName() const
@@ -866,12 +866,12 @@ struct studiohdr_t
 		if (nIndex < 0 || nIndex >= nAnimBlockCount)
 			return nullptr;
 
-		return reinterpret_cast<std::uintptr_t*>(const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iAnimBlockOffset)) + nIndex;
+		return reinterpret_cast<uintptr_t*>(const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iAnimBlockOffset)) + nIndex;
 	}
 
-	Q_INLINE const std::uint8_t* GetBoneTableSortedByName() const
+	Q_INLINE const uint8_t* GetBoneTableSortedByName() const
 	{
-		return const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iBoneTableByNameOffset);
+		return const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iBoneTableByNameOffset);
 	}
 
 	Q_INLINE void* GetFlexControllerUI(const int nIndex) const
@@ -879,12 +879,12 @@ struct studiohdr_t
 		if (nIndex < 0 || nIndex >= nFlexControllerUICount)
 			return nullptr;
 
-		return reinterpret_cast<std::uintptr_t*>(const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iFlexControllerUIOffset)) + nIndex;
+		return reinterpret_cast<uintptr_t*>(const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iFlexControllerUIOffset)) + nIndex;
 	}
 
 	studiohdr2_t* GetStudioHdr2() const
 	{
-		return reinterpret_cast<studiohdr2_t*>(const_cast<std::uint8_t*>(reinterpret_cast<const std::uint8_t*>(this) + iStudioHdr2Offset));
+		return reinterpret_cast<studiohdr2_t*>(const_cast<uint8_t*>(reinterpret_cast<const uint8_t*>(this) + iStudioHdr2Offset));
 	}
 
 	void* GetVirtualModelHandle() const
@@ -996,9 +996,9 @@ struct studiohdr_t
 	int nVertexBase; // 0x0170
 	int nIndexBase; // 0x0174
 
-	std::uint8_t uDirectionalLightDot; // 0x0178
-	std::uint8_t uRootLOD; // 0x0179
-	std::uint8_t nAllowedRootLODs; // 0x017A
+	uint8_t uDirectionalLightDot; // 0x0178
+	uint8_t uRootLOD; // 0x0179
+	uint8_t nAllowedRootLODs; // 0x017A
 	std::byte unused0[0x5]; // 0x017B
 
 	int nFlexControllerUICount; // 0x0180

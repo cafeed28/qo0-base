@@ -103,14 +103,14 @@ public:
 	// average packet latency in seconds
 	[[nodiscard]] float GetAvgLatency(int iFlow) const
 	{
-		// @ida: engine.dll -> U8["8B 40 ? FF D0 D8 44" + 0x2] / sizeof(std::uintptr_t)
+		// @ida: engine.dll -> U8["8B 40 ? FF D0 D8 44" + 0x2] / sizeof(uintptr_t)
 		return CallVFunc<float, 10U>(this, iFlow);
 	}
 
 	// average packet loss in range [0.0 .. 1.0]
 	[[nodiscard]] float GetAvgLoss(int iFlow) const
 	{
-		// @ida: engine.dll -> U8["8B 40 ? D9 54 24 6C" + 0x2] / sizeof(std::uintptr_t)
+		// @ida: engine.dll -> U8["8B 40 ? D9 54 24 6C" + 0x2] / sizeof(uintptr_t)
 		return CallVFunc<float, 11U>(this, iFlow);
 	}
 
@@ -123,14 +123,14 @@ public:
 	// average data flow in bytes/sec
 	[[nodiscard]] float GetAvgData(int iFlow) const
 	{
-		// @ida: engine.dll -> U8["8B 40 ? D9 54 24 7C" + 0x2] / sizeof(std::uintptr_t)
+		// @ida: engine.dll -> U8["8B 40 ? D9 54 24 7C" + 0x2] / sizeof(uintptr_t)
 		return CallVFunc<float, 13U>(this, iFlow);
 	}
 
 	// average packets/sec
 	[[nodiscard]] float GetAvgPackets(int iFlow) const
 	{
-		// @ida: engine.dll -> U8["8B 40 ? D9 54 24 74" + 0x2] / sizeof(std::uintptr_t)
+		// @ida: engine.dll -> U8["8B 40 ? D9 54 24 74" + 0x2] / sizeof(uintptr_t)
 		return CallVFunc<float, 14U>(this, iFlow);
 	}
 
@@ -332,9 +332,9 @@ public:
 		return CallVFunc<const char*, 11U>(this);
 	}
 
-	[[nodiscard]] std::size_t GetSize() const
+	[[nodiscard]] size_t GetSize() const
 	{
-		return CallVFunc<std::size_t, 12U>(this);
+		return CallVFunc<size_t, 12U>(this);
 	}
 };
 

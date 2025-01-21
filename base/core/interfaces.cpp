@@ -15,10 +15,10 @@
 
 static CInterfaceRegister* GetRegisterList(const wchar_t* wszModuleName)
 {
-	std::uint8_t* pCreateInterface = nullptr;
+	uint8_t* pCreateInterface = nullptr;
 
 	if (const void* hModule = MEM::GetModuleBaseHandle(wszModuleName); hModule != nullptr)
-		pCreateInterface = static_cast<std::uint8_t*>(MEM::GetExportAddress(hModule, Q_XOR("CreateInterface")));
+		pCreateInterface = static_cast<uint8_t*>(MEM::GetExportAddress(hModule, Q_XOR("CreateInterface")));
 
 	if (pCreateInterface == nullptr)
 	{
@@ -41,7 +41,7 @@ static CInterfaceRegister* GetRegisterList(const wchar_t* wszModuleName)
 	 * 56                              push    esi
 	 * 8B 35 ?? ?? ?? ??               mov     esi, g_pInterfaceRegister ; module specific interface register
 	 */
-	std::uint8_t* pCreateInterfaceInternal = MEM::GetAbsoluteAddress(pCreateInterface + 0x5);
+	uint8_t* pCreateInterfaceInternal = MEM::GetAbsoluteAddress(pCreateInterface + 0x5);
 	return **reinterpret_cast<CInterfaceRegister***>(pCreateInterfaceInternal + 0x6);
 }
 
@@ -126,11 +126,11 @@ bool I::Setup()
 	if (KeyValuesSystem == nullptr)
 		return false;
 
-	ClientMode = **reinterpret_cast<IClientModeShared***>(MEM::GetVFunc<std::uint8_t*>(Client, 10U) + 0x5); // get it from CHLClient::HudProcessInput
+	ClientMode = **reinterpret_cast<IClientModeShared***>(MEM::GetVFunc<uint8_t*>(Client, 10U) + 0x5); // get it from CHLClient::HudProcessInput
 	if (ClientMode == nullptr)
 		return false;
 
-	Globals = **reinterpret_cast<IGlobalVarsBase***>(MEM::GetVFunc<std::uint8_t*>(Client, 11U) + 0xA); // get it from CHLClient::HudUpdate @xref: "(time_int)", "(time_float)"
+	Globals = **reinterpret_cast<IGlobalVarsBase***>(MEM::GetVFunc<uint8_t*>(Client, 11U) + 0xA); // get it from CHLClient::HudUpdate @xref: "(time_int)", "(time_float)"
 	if (Globals == nullptr)
 		return false;
 
@@ -179,7 +179,7 @@ T* I::Capture(const CInterfaceRegister* pModuleRegister, const char* szInterface
 {
 	for (const CInterfaceRegister* pRegister = pModuleRegister; pRegister != nullptr; pRegister = pRegister->pNext)
 	{
-		if (const std::size_t nInterfaceNameLength = CRT::StringLength(szInterfaceName);
+		if (const size_t nInterfaceNameLength = CRT::StringLength(szInterfaceName);
 			// found needed interface
 			CRT::StringCompareN(szInterfaceName, pRegister->szName, nInterfaceNameLength) == 0 &&
 			// and we've given full name with hardcoded digits
@@ -192,7 +192,7 @@ T* I::Capture(const CInterfaceRegister* pModuleRegister, const char* szInterface
 
 #ifdef _DEBUG
 			// log interface address
-			L_PRINT(LOG_NONE) << Q_XOR("captured \"") << pRegister->szName << Q_XOR("\" interface at address: ") << L::AddFlags(LOG_MODE_INT_SHOWBASE | LOG_MODE_INT_FORMAT_HEX) << reinterpret_cast<std::uintptr_t>(pInterface);
+			L_PRINT(LOG_NONE) << Q_XOR("captured \"") << pRegister->szName << Q_XOR("\" interface at address: ") << L::AddFlags(LOG_MODE_INT_SHOWBASE | LOG_MODE_INT_FORMAT_HEX) << reinterpret_cast<uintptr_t>(pInterface);
 #else
 			L_PRINT(LOG_NONE) << Q_XOR("captured \"") << pRegister->szName << Q_XOR("\" interface");
 #endif

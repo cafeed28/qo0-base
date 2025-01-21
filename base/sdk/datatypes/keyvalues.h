@@ -57,7 +57,7 @@ public:
 		}
 	}
 
-	void* operator new(const std::size_t nSize)
+	void* operator new(const size_t nSize)
 	{
 		return I::KeyValuesSystem->AllocKeyValuesMemory(static_cast<int>(nSize));
 	}
@@ -90,7 +90,7 @@ public:
 
 		uKeyName = hCaseInsensitiveKeyName;
 		uKeyNameCaseSensitive1 = hCaseSensitiveKeyName;
-		uKeyNameCaseSensitive2 = static_cast<std::uint16_t>(hCaseSensitiveKeyName >> 8);
+		uKeyNameCaseSensitive2 = static_cast<uint16_t>(hCaseSensitiveKeyName >> 8);
 	}
 
 	[[nodiscard]] static CKeyValues* FromString(const char* szName, const char* szBuffer, const char** pszEndOfParse = nullptr)
@@ -116,7 +116,7 @@ public:
 		static auto fnLoadFromBuffer = reinterpret_cast<bool(Q_THISCALL*)(CKeyValues*, const char*, const char*, void*, const char*, void*, void*)>(MEM::FindPattern(CLIENT_DLL, Q_XOR("55 8B EC 83 E4 F8 83 EC 34 53 8B 5D 0C 89"))); // @xref: "KeyValues::LoadFromBuffer(%s%s%s): Begin"
 
 #ifdef Q_COMPILER_CLANG
-		std::uintptr_t uLoadFromBuffer = reinterpret_cast<std::uintptr_t>(fnLoadFromBuffer);
+		uintptr_t uLoadFromBuffer = reinterpret_cast<uintptr_t>(fnLoadFromBuffer);
 		bool bReturn;
 
 		// @todo: still crashes sometimes, probably still messes with some reg
@@ -171,7 +171,7 @@ public:
 		if (bReturn)
 		{
 			// null terminate file as EOF (double NULL in case this is a unicode file)
-			*reinterpret_cast<std::uint16_t*>(&szBuffer[nFileSize]) = 0;
+			*reinterpret_cast<uint16_t*>(&szBuffer[nFileSize]) = 0;
 			bReturn = LoadFromBuffer(szResourceName, szBuffer, pBaseFileSystem, szPathID, pfnEvaluateSymbolProc);
 		}
 
@@ -265,9 +265,9 @@ public:
 		return fnGetInt(this, szKeyName, iDefaultValue);
 	}
 
-	[[nodiscard]] std::uint64_t GetUint64(const char* szKeyName, std::uint64_t ullDefaultValue)
+	[[nodiscard]] uint64_t GetUint64(const char* szKeyName, uint64_t ullDefaultValue)
 	{
-		static auto fnGetUint64 = reinterpret_cast<std::uint64_t(Q_THISCALL*)(CKeyValues*, const char*, std::uint64_t)>(MEM::FindPattern(CLIENT_DLL, Q_XOR("55 8B EC 83 E4 F8 83 EC 08 6A")));
+		static auto fnGetUint64 = reinterpret_cast<uint64_t(Q_THISCALL*)(CKeyValues*, const char*, uint64_t)>(MEM::FindPattern(CLIENT_DLL, Q_XOR("55 8B EC 83 E4 F8 83 EC 08 6A")));
 		return fnGetUint64(this, szKeyName, ullDefaultValue);
 	}
 
@@ -316,7 +316,7 @@ public:
 			szNewValue = "";
 
 		// allocate memory for the new value and copy it in
-		const std::size_t nLength = CRT::StringLength(szNewValue) + 1U;
+		const size_t nLength = CRT::StringLength(szNewValue) + 1U;
 		pSubKey->szValue = static_cast<char*>(I::MemAlloc->Alloc(nLength * sizeof(char)));
 		CRT::MemoryCopy(pSubKey->szValue, szNewValue, nLength * sizeof(char));
 
@@ -343,7 +343,7 @@ public:
 			wszNewValue = L"";
 
 		// allocate memory for the new value and copy it in
-		const std::size_t nLength = CRT::StringLength(wszNewValue) + 1U;
+		const size_t nLength = CRT::StringLength(wszNewValue) + 1U;
 		pSubKey->wszValue = static_cast<wchar_t*>(I::MemAlloc->Alloc(nLength * sizeof(wchar_t)));
 		CRT::MemoryCopy(pSubKey->wszValue, wszNewValue, nLength * sizeof(wchar_t));
 
@@ -376,7 +376,7 @@ public:
 		pSubKey->iDataType = TYPE_INT;
 	}
 
-	void SetUint64(const char* szKeyName, const std::uint64_t ullNewValue)
+	void SetUint64(const char* szKeyName, const uint64_t ullNewValue)
 	{
 		// @ida KeyValues::SetUint64(): client.dll -> "55 8B EC 56 6A 01 FF"
 
@@ -391,8 +391,8 @@ public:
 		I::MemAlloc->Free(pSubKey->wszValue);
 		pSubKey->wszValue = nullptr;
 
-		pSubKey->szValue = static_cast<char*>(I::MemAlloc->Alloc(sizeof(std::uint64_t)));
-		*reinterpret_cast<std::uint64_t*>(pSubKey->szValue) = ullNewValue;
+		pSubKey->szValue = static_cast<char*>(I::MemAlloc->Alloc(sizeof(uint64_t)));
+		*reinterpret_cast<uint64_t*>(pSubKey->szValue) = ullNewValue;
 		pSubKey->iDataType = TYPE_UINT64;
 	}
 
@@ -456,8 +456,8 @@ public:
 	}
 
 private:
-	std::uint32_t uKeyName : 24; // 0x00
-	std::uint32_t uKeyNameCaseSensitive1 : 8; // 0x3 // byte, explicitly specify bits due to packing
+	uint32_t uKeyName : 24; // 0x00
+	uint32_t uKeyNameCaseSensitive1 : 8; // 0x3 // byte, explicitly specify bits due to packing
 	char* szValue; // 0x04
 	wchar_t* wszValue; // 0x08
 
@@ -469,9 +469,9 @@ private:
 		Color_t colValue;
 	}; // 0x0C
 
-	std::int8_t iDataType; // 0x10
+	int8_t iDataType; // 0x10
 	bool bHasEscapeSequences; // 0x11
-	std::uint16_t uKeyNameCaseSensitive2; // 0x12
+	uint16_t uKeyNameCaseSensitive2; // 0x12
 	IKeyValuesSystem* pKeySystem; // 0x14 // why do valve store global ptr for each instance? | fuck lol i just released that them doing this to prevent allockeyvalues from hooking | even now when they moved retadr info to protos they didnt revert this... makes me think that valve just missed previous devs and the current ones are just doing this pointless shit
 	bool bIsSystemOwner; // 0x18 // if true, destructor will free current system
 	CKeyValues* pPeer; // 0x1C

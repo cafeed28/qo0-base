@@ -27,9 +27,9 @@
 static wchar_t wszConfigurationsPath[MAX_PATH];
 
 #pragma region config_user_data_type
-std::size_t C::UserDataType_t::GetSerializationSize() const
+size_t C::UserDataType_t::GetSerializationSize() const
 {
-	std::size_t nTotalDataSize = 0U;
+	size_t nTotalDataSize = 0U;
 
 	for (const UserDataMember_t& member : vecMembers)
 		nTotalDataSize += sizeof(FNV1A_t[2]) + member.nDataSize;
@@ -57,9 +57,9 @@ void C::VariableObject_t::SetStorage(const void* pValue)
 	}
 }
 
-std::size_t C::VariableObject_t::GetSerializationSize() const
+size_t C::VariableObject_t::GetSerializationSize() const
 {
-	std::size_t nSerializationSize = this->nStorageSize;
+	size_t nSerializationSize = this->nStorageSize;
 
 	// denote a custom serialization size when it different from the storage size
 	switch (this->uTypeHash)
@@ -71,7 +71,7 @@ std::size_t C::VariableObject_t::GetSerializationSize() const
 	case FNV1A::HashConst("float[]"):
 	case FNV1A::HashConst("char[][]"):
 		// arrays also serialize their size
-		nSerializationSize += sizeof(std::size_t);
+		nSerializationSize += sizeof(size_t);
 		break;
 	// lookup for user-defined data type
 	default:
@@ -80,7 +80,7 @@ std::size_t C::VariableObject_t::GetSerializationSize() const
 		{
 			if (userType.uTypeHash == this->uTypeHash)
 			{
-				nSerializationSize = sizeof(std::size_t) + userType.GetSerializationSize();
+				nSerializationSize = sizeof(size_t) + userType.GetSerializationSize();
 				break;
 			}
 		}
@@ -167,7 +167,7 @@ void C::AddUserType(const FNV1A_t uTypeHash, const std::initializer_list<UserDat
 	vecUserTypes.emplace_back(CRT::Move(userDataType));
 }
 
-bool C::SaveFileVariable(const std::size_t nFileIndex, const VariableObject_t& variable)
+bool C::SaveFileVariable(const size_t nFileIndex, const VariableObject_t& variable)
 {
 	const wchar_t* wszFileName = vecFileNames[nFileIndex];
 
@@ -188,7 +188,7 @@ bool C::SaveFileVariable(const std::size_t nFileIndex, const VariableObject_t& v
 	return false;
 }
 
-bool C::LoadFileVariable(const std::size_t nFileIndex, VariableObject_t& variable)
+bool C::LoadFileVariable(const size_t nFileIndex, VariableObject_t& variable)
 {
 	const wchar_t* wszFileName = vecFileNames[nFileIndex];
 
@@ -209,7 +209,7 @@ bool C::LoadFileVariable(const std::size_t nFileIndex, VariableObject_t& variabl
 	return false;
 }
 
-bool C::RemoveFileVariable(const std::size_t nFileIndex, const VariableObject_t& variable)
+bool C::RemoveFileVariable(const size_t nFileIndex, const VariableObject_t& variable)
 {
 	const wchar_t* wszFileName = vecFileNames[nFileIndex];
 
@@ -235,7 +235,7 @@ bool C::CreateFile(const wchar_t* wszFileName)
 	const wchar_t* wszFileExtension = CRT::StringCharR(wszFileName, L'.');
 
 	// get length of the given filename and strip out extension if there any
-	const std::size_t nFileNameLength = (wszFileExtension != nullptr ? wszFileExtension - wszFileName : CRT::StringLength(wszFileName));
+	const size_t nFileNameLength = (wszFileExtension != nullptr ? wszFileExtension - wszFileName : CRT::StringLength(wszFileName));
 	wchar_t* wszFullFileName = new wchar_t[nFileNameLength + CRT::StringLength(Q_CONFIGURATION_FILE_EXTENSION) + 1U];
 
 	// copy filename without extension
@@ -258,7 +258,7 @@ bool C::CreateFile(const wchar_t* wszFileName)
 	return false;
 }
 
-bool C::SaveFile(const std::size_t nFileIndex)
+bool C::SaveFile(const size_t nFileIndex)
 {
 	const wchar_t* wszFileName = vecFileNames[nFileIndex];
 
@@ -281,7 +281,7 @@ bool C::SaveFile(const std::size_t nFileIndex)
 	return false;
 }
 
-bool C::LoadFile(const std::size_t nFileIndex)
+bool C::LoadFile(const size_t nFileIndex)
 {
 	const wchar_t* wszFileName = vecFileNames[nFileIndex];
 
@@ -304,7 +304,7 @@ bool C::LoadFile(const std::size_t nFileIndex)
 	return false;
 }
 
-void C::RemoveFile(const std::size_t nFileIndex)
+void C::RemoveFile(const size_t nFileIndex)
 {
 	const wchar_t* wszFileName = vecFileNames[nFileIndex];
 
@@ -326,9 +326,9 @@ void C::RemoveFile(const std::size_t nFileIndex)
 #pragma endregion
 
 #pragma region config_get
-std::size_t C::GetVariableIndex(const FNV1A_t uNameHash)
+size_t C::GetVariableIndex(const FNV1A_t uNameHash)
 {
-	for (std::size_t i = 0U; i < vecVariables.size(); i++)
+	for (size_t i = 0U; i < vecVariables.size(); i++)
 	{
 		if (vecVariables[i].uNameHash == uNameHash)
 			return i;

@@ -15,7 +15,7 @@
  */
 namespace IPT
 {
-	using KeyState_t = std::uint8_t;
+	using KeyState_t = uint8_t;
 
 	enum EKeyState : KeyState_t
 	{
@@ -46,12 +46,12 @@ namespace IPT
 	/// @returns: true if keybind is active, false otherwise
 	bool GetBindState(KeyBind_t& keyBind);
 	/// @returns: true if key is being held, false otherwise
-	inline bool IsKeyDown(const std::uint32_t uButtonCode)
+	inline bool IsKeyDown(const uint32_t uButtonCode)
 	{
 		return arrKeyState[uButtonCode] == KEY_STATE_DOWN;
 	}
 	/// @returns: true if key has been just released, false otherwise
-	inline bool IsKeyReleased(const std::uint32_t uButtonCode)
+	inline bool IsKeyReleased(const uint32_t uButtonCode)
 	{
 		if (arrKeyState[uButtonCode] == KEY_STATE_RELEASED)
 		{

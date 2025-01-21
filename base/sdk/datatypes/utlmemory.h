@@ -80,7 +80,7 @@ public:
 		moveFrom.nGrowSize = 0;
 	}
 
-	void* operator new(const std::size_t nSize)
+	void* operator new(const size_t nSize)
 	{
 		return I::MemAlloc->Alloc(nSize);
 	}
@@ -337,7 +337,7 @@ public:
 	Q_CLASS_NO_INITIALIZER(CUtlMemoryAligned);
 };
 
-template <class T, std::size_t SIZE, class I = int>
+template <class T, size_t SIZE, class I = int>
 class CUtlMemoryFixedGrowable : public CUtlMemory<T, I>
 {
 	typedef CUtlMemory<T, I> BaseClass;
@@ -375,7 +375,7 @@ private:
 	T arrFixedMemory[SIZE];
 };
 
-template <typename T, std::size_t SIZE, int nAlignment = 0>
+template <typename T, size_t SIZE, int nAlignment = 0>
 class CUtlMemoryFixed
 {
 public:
@@ -406,7 +406,7 @@ public:
 		if (nAlignment == 0)
 			return reinterpret_cast<T*>(&pMemory[0]);
 
-		return reinterpret_cast<T*>((reinterpret_cast<std::uintptr_t>(&pMemory[0]) + nAlignment - 1) & ~(nAlignment - 1));
+		return reinterpret_cast<T*>((reinterpret_cast<uintptr_t>(&pMemory[0]) + nAlignment - 1) & ~(nAlignment - 1));
 	}
 
 	[[nodiscard]] const T* Base() const
@@ -414,7 +414,7 @@ public:
 		if (nAlignment == 0)
 			return reinterpret_cast<T*>(&pMemory[0]);
 
-		return reinterpret_cast<T*>((reinterpret_cast<std::uintptr_t>(&pMemory[0]) + nAlignment - 1) & ~(nAlignment - 1));
+		return reinterpret_cast<T*>((reinterpret_cast<uintptr_t>(&pMemory[0]) + nAlignment - 1) & ~(nAlignment - 1));
 	}
 
 	[[nodiscard]] T& operator[](int nIndex)

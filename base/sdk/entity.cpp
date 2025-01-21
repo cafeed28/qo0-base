@@ -29,7 +29,7 @@ int CBaseEntity::GetMaxHealth()
 	if (this->IsPlayer() && CONVAR::game_type->GetInt() == GAMETYPE_FREEFORALL)
 		return 120;
 
-	// @ida: client.dll -> ["8B 80 ? ? ? ? FF D0 66 0F 6E C0 0F 5B C0 0F" + 0x2] / sizeof(std::uintptr_t)
+	// @ida: client.dll -> ["8B 80 ? ? ? ? FF D0 66 0F 6E C0 0F 5B C0 0F" + 0x2] / sizeof(uintptr_t)
 	return CallVFunc<int, 123U>(this);
 }
 

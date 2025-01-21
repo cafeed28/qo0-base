@@ -106,7 +106,7 @@ void CONVAR::Dump(const wchar_t* wszFileName)
 	localtime_s(&timePoint, &time);
 
 	char szInfoBuffer[64];
-	const std::size_t nInfoSize = CRT::TimeToString(szInfoBuffer, sizeof(szInfoBuffer), "[%d-%m-%Y %T] qo0 | convars dump\n\n", &timePoint);
+	const size_t nInfoSize = CRT::TimeToString(szInfoBuffer, sizeof(szInfoBuffer), "[%d-%m-%Y %T] qo0 | convars dump\n\n", &timePoint);
 
 	// write current date, time and info
 	::WriteFile(hFileOut, szInfoBuffer, nInfoSize, nullptr, nullptr);

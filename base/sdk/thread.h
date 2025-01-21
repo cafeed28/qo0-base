@@ -25,16 +25,16 @@ public:
 
 	void Lock(const unsigned int uSpinSleepTime = 0U) volatile
 	{
-		if (const std::uint32_t nThreadID = ::GetCurrentThreadId(); TryLock(nThreadID))
+		if (const uint32_t nThreadID = ::GetCurrentThreadId(); TryLock(nThreadID))
 		{
 			_mm_pause();
 			Lock(nThreadID, uSpinSleepTime);
 		}
 	}
 
-	void Lock(const std::uint32_t nThreadID, const unsigned int uSpinSleepTime) volatile
+	void Lock(const uint32_t nThreadID, const unsigned int uSpinSleepTime) volatile
 	{
-		static auto fnThreadFastMutexLock = reinterpret_cast<void(Q_THISCALL*)(volatile void*, std::uint32_t, unsigned int)>(MEM::GetExportAddress(MEM::GetModuleBaseHandle(TIER0_DLL), Q_XOR("?Lock@CThreadFastMutex@@ACEXII@Z"))); // @test: "55 8B EC 83 7D 0C FF"
+		static auto fnThreadFastMutexLock = reinterpret_cast<void(Q_THISCALL*)(volatile void*, uint32_t, unsigned int)>(MEM::GetExportAddress(MEM::GetModuleBaseHandle(TIER0_DLL), Q_XOR("?Lock@CThreadFastMutex@@ACEXII@Z"))); // @test: "55 8B EC 83 7D 0C FF"
 		fnThreadFastMutexLock(this, nThreadID, uSpinSleepTime);
 	}
 
@@ -54,7 +54,7 @@ public:
 		const_cast<CThreadFastMutex*>(this)->Unlock();
 	}
 
-	[[nodiscard]] bool TryLock(const std::uint32_t nThreadID = ::GetCurrentThreadId()) volatile
+	[[nodiscard]] bool TryLock(const uint32_t nThreadID = ::GetCurrentThreadId()) volatile
 	{
 		if (nThreadID != nOwnerID && ::_InterlockedCompareExchange(reinterpret_cast<volatile long*>(&nOwnerID), static_cast<long>(nThreadID), 0L) != 0L)
 			return false;
@@ -70,7 +70,7 @@ public:
 	}
 
 private:
-	volatile std::uint32_t nOwnerID; // 0x00
+	volatile uint32_t nOwnerID; // 0x00
 	int iDepth; // 0x04
 };
 static_assert(sizeof(CThreadFastMutex) == 0x8);

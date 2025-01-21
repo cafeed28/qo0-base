@@ -26,7 +26,7 @@ enum EDrawModelFlags : int
 
 // @source: master/public/engine/ivmodelrender.h
 
-using ModelInstanceHandle_t = std::uint16_t;
+using ModelInstanceHandle_t = uint16_t;
 
 #pragma pack(push, 4)
 struct ModelRenderInfo_t

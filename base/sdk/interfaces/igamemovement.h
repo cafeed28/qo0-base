@@ -11,7 +11,7 @@ public:
 	bool bFirstRunOfFunctions : 1; // 0x00
 	bool bGameCodeMovedPlayer : 1; // 0x00
 	bool bNoAirControl : 1; // 0x00
-	std::uintptr_t hPlayerHandle; // 0x04
+	uintptr_t hPlayerHandle; // 0x04
 	int nImpulseCommand; // 0x08
 	QAngle_t angViewPoint; // 0x0C
 	QAngle_t angAbsViewPoint; // 0x18

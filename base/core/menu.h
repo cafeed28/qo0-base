@@ -38,7 +38,7 @@ namespace MENU
 namespace T
 {
 	/* @section: get */
-	void Render(const char* szTabBar, const CTab* arrTabs, const std::size_t nTabsCount, int* nCurrentTab, const ImVec4& colActive, ImGuiTabBarFlags flags = ImGuiTabBarFlags_Reorderable | ImGuiTabBarFlags_NoCloseWithMiddleMouseButton | ImGuiTabBarFlags_NoTooltip);
+	void Render(const char* szTabBar, const CTab* arrTabs, const size_t nTabsCount, int* nCurrentTab, const ImVec4& colActive, ImGuiTabBarFlags flags = ImGuiTabBarFlags_Reorderable | ImGuiTabBarFlags_NoCloseWithMiddleMouseButton | ImGuiTabBarFlags_NoTooltip);
 
 	/* @section: tabs */
 	void RageBot();
@@ -52,7 +52,7 @@ namespace T
 	// user-defined configuration filename in miscellaneous tab
 	inline char szConfigFile[MAX_PATH] = {};
 	// current selected configuration in miscellaneous tab
-	inline std::size_t nSelectedConfig = ~1U;
+	inline size_t nSelectedConfig = ~1U;
 	// current selected color setting in miscellaneous tab
-	inline std::size_t nSelectedColor = 0U;
+	inline size_t nSelectedColor = 0U;
 }

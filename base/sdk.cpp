@@ -22,7 +22,7 @@ bool SDK::DecodeVFONT(CUtlBuffer& bufferFont)
 	if (nTagIndex <= 0)
 		return false;
 
-	std::uint8_t* pBuffer = static_cast<std::uint8_t*>(bufferFont.Base());
+	uint8_t* pBuffer = static_cast<uint8_t*>(bufferFont.Base());
 
 	// compare valve font format header tag
 	if (CRT::MemoryCompare(pBuffer + nTagIndex, szTag, sizeof(szTag)) > 0)
@@ -56,7 +56,7 @@ void SDK::ClearHudWeaponIcons()
 	static auto fnClearHudWeaponIcon = ROP::MethodInvoker_t<int(Q_THISCALL*)(void*, int)>(MEM::FindPattern(CLIENT_DLL, Q_XOR("55 8B EC 51 53 56 8B 75 08 8B D9 57 6B"))); // @xref: "WeaponIcon--itemcount"
 
 	// get hud weapons
-	if (std::uint8_t* pHudWeapons = reinterpret_cast<std::uint8_t*>(I::Hud->FindElement(Q_XOR("CCSGO_HudWeaponSelection"))) - 0xA0; pHudWeapons != nullptr)
+	if (uint8_t* pHudWeapons = reinterpret_cast<uint8_t*>(I::Hud->FindElement(Q_XOR("CCSGO_HudWeaponSelection"))) - 0xA0; pHudWeapons != nullptr)
 	{
 		// go through all weapons
 		for (int i = 0; i < *reinterpret_cast<int*>(pHudWeapons + 0x80); i++) // @todo: use its class | size: 0x108 | 55 8B EC 56 57 FF 75 0C 8B F9 FF 75 08 E8 ? ? ? ? 57

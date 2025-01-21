@@ -3,7 +3,7 @@
 #include "../datatypes/keyvalues.h"
 #include "../datatypes/utlsymbol.h"
 
-using VertexFormat_t = std::uint64_t;
+using VertexFormat_t = uint64_t;
 
 #pragma region material_enumerations
 enum EMaterialVarFlags : int
@@ -264,11 +264,11 @@ public:
 	char* szValue; // 0x04
 	int iValue; // 0x08
 	Vector4D_t vecValue; // 0x0C // @ida: materialsystem.dll -> U8["F3 0F 10 43 ? 83" + 0x4]
-	std::uint8_t nType : 4; // 0x18
-	std::uint8_t nNumVectorComps : 3; // 0x18
-	std::uint8_t bFakeMaterialVar : 1; // 0x18
+	uint8_t nType : 4; // 0x18
+	uint8_t nNumVectorComps : 3; // 0x18
+	uint8_t bFakeMaterialVar : 1; // 0x18
 	// 0x19 // valve screwed up with those bitfields and made it even worse uhh.. leads to 4 byte padding
-	std::uint8_t nTempIndex; // 0x1D // @ida: materialsystem.dll -> U8["8A 43 ? 3C FF 74 21 0F B6 C0 B9" + 0x2]
+	uint8_t nTempIndex; // 0x1D // @ida: materialsystem.dll -> U8["8A 43 ? 3C FF 74 21 0F B6 C0 B9" + 0x2]
 	CUtlSymbol name; // 0x1E
 	IMaterial* pMaterialInternal; // 0x20 // owning material
 

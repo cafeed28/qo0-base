@@ -166,7 +166,7 @@ public:
 		*szKeyNameEnd = '\0';
 
 		// fix up keynames with trailing spaces
-		std::size_t nLength = CRT::StringLength(szKeyName);
+		size_t nLength = CRT::StringLength(szKeyName);
 		while (nLength > 0U && szKeyName[nLength - 1U] == ' ')
 		{
 			szKeyName[nLength - 1U] = '\0';

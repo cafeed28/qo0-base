@@ -1,9 +1,9 @@
 #pragma once
 // @credits: https://partner.steamgames.com/doc/sdk
 
-using HSteamPipe = std::int32_t;
-using HSteamUser = std::int32_t;
-using HSteamAPICall = std::int64_t;
+using HSteamPipe = int32_t;
+using HSteamUser = int32_t;
+using HSteamAPICall = int64_t;
 
 enum EAccountType : int
 {
@@ -32,12 +32,12 @@ public:
 		steamID.component.nUniverse = 0;
 	}
 
-	explicit CSteamID(const std::uint64_t ullSteamID)
+	explicit CSteamID(const uint64_t ullSteamID)
 	{
 		steamID.ullAll64Bits = ullSteamID;
 	}
 
-	[[nodiscard]] std::uint32_t GetAccountID() const
+	[[nodiscard]] uint32_t GetAccountID() const
 	{
 		return steamID.component.uAccountID;
 	}
@@ -47,13 +47,13 @@ private:
 	{
 		struct SteamIDComponent_t
 		{
-			std::uint32_t uAccountID : 32; // unique account identifier
+			uint32_t uAccountID : 32; // unique account identifier
 			unsigned int uAccountInstance : 20; // dynamic instance ID (used for multiseat type accounts only)
 			unsigned int nAccountType : 4; // type of account - can't show as EAccountType, due to signed / unsigned difference
 			int nUniverse : 8; // universe this account belongs to
 		} component;
 
-		std::uint64_t ullAll64Bits;
+		uint64_t ullAll64Bits;
 	} steamID;
 };
 
@@ -113,8 +113,8 @@ struct SteamAPIContext_t
 };
 
 using SteamAPIWarningMessageHook_t = void(Q_CDECL*)(int, const char*);
-using SteamAPI_PostAPIResultInProcess_t = void(Q_CDECL*)(HSteamAPICall hCall, void*, std::uint32_t unCallbackSize, int nCallbacks);
-using SteamAPI_CheckCallbackRegistered_t = std::uint32_t(Q_CDECL*)(int nCallbacks);
+using SteamAPI_PostAPIResultInProcess_t = void(Q_CDECL*)(HSteamAPICall hCall, void*, uint32_t unCallbackSize, int nCallbacks);
+using SteamAPI_CheckCallbackRegistered_t = uint32_t(Q_CDECL*)(int nCallbacks);
 
 class ISteamClient
 {

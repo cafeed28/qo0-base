@@ -160,7 +160,7 @@ public:
 		CallVFunc<void, 106U>(this, nCount, pVertices, bClipVertices);
 	}
 
-	void DrawFilledRectFade(int x0, int y0, int x1, int y1, std::uint32_t uAlpha0, std::uint32_t uAlpha1, bool bHorizontal)
+	void DrawFilledRectFade(int x0, int y0, int x1, int y1, uint32_t uAlpha0, uint32_t uAlpha1, bool bHorizontal)
 	{
 		CallVFunc<void, 123U>(this, x0, y0, x1, y1, uAlpha0, uAlpha1, bHorizontal);
 	}

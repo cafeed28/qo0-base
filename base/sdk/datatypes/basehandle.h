@@ -90,5 +90,5 @@ public:
 	}
 
 public:
-	std::uint32_t nIndex;
+	uint32_t nIndex;
 };

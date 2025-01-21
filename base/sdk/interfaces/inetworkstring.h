@@ -2,7 +2,7 @@
 // @source: master/public/networkstringtabledefs.h
 
 #define INVALID_STRING_TABLE (-1)
-#define INVALID_STRING_INDEX static_cast<std::uint16_t>(~0)
+#define INVALID_STRING_INDEX static_cast<uint16_t>(~0)
 
 class INetworkStringTable : ROP::VirtualCallable_t<ROP::EngineGadget_t>
 {

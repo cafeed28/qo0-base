@@ -37,7 +37,7 @@ struct DataVariant_t
 		char* szValue;
 		void* pValue;
 		Vector_t vecValue;
-		std::int64_t ullValue;
+		int64_t ullValue;
 	}; // 0x00
 
 	ESendPropType nType; // 0x0C
