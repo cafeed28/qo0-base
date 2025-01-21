@@ -81,7 +81,6 @@ target_sources("csgo" PRIVATE
 			"base/sdk/datatypes/vector.cpp"
 			# hash
 			"base/sdk/hash/crc32.cpp"
-			"base/sdk/hash/fnv1a.cpp"
 			"base/sdk/hash/md5.cpp"
 		"base/sdk/animation.cpp"
 		"base/sdk/entity.cpp"
@@ -90,7 +89,6 @@ target_sources("csgo" PRIVATE
 		"base/utilities/draw.cpp"
 		"base/utilities/inputsystem.cpp"
 		"base/utilities/log.cpp"
-		"base/utilities/math.cpp"
 		"base/utilities/memory.cpp"
 )
 
