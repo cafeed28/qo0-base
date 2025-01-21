@@ -15,13 +15,7 @@
 #include "../utilities/memory.h"
 
 // used: formatter implementation
-#if defined(Q_CONFIGURATION_BINARY)
 #include "../../extensions/binary.h"
-#elif defined(Q_CONFIGURATION_JSON)
-#include "../../extensions/json.h"
-#elif defined(Q_CONFIGURATION_TOML)
-#include "../../extensions/toml.h"
-#endif
 
 // default configurations working path
 static wchar_t wszConfigurationsPath[MAX_PATH];
@@ -174,13 +168,7 @@ bool C::SaveFileVariable(const size_t nFileIndex, const VariableObject_t& variab
 	wchar_t wszFilePath[MAX_PATH];
 	CRT::StringCat(CRT::StringCopy(wszFilePath, wszConfigurationsPath), wszFileName);
 
-#if defined(Q_CONFIGURATION_BINARY)
 	if (BIN::SaveVariable(wszFilePath, variable))
-#elif defined(Q_CONFIGURATION_JSON)
-	if (JSON::SaveVariable(wszFilePath, variable))
-#elif defined(Q_CONFIGURATION_TOML)
-	if (TOML::SaveVariable(wszFilePath, variable))
-#endif
 	{
 		return true;
 	}
@@ -195,13 +183,7 @@ bool C::LoadFileVariable(const size_t nFileIndex, VariableObject_t& variable)
 	wchar_t wszFilePath[MAX_PATH];
 	CRT::StringCat(CRT::StringCopy(wszFilePath, wszConfigurationsPath), wszFileName);
 
-#if defined(Q_CONFIGURATION_BINARY)
 	if (BIN::LoadVariable(wszFilePath, variable))
-#elif defined(Q_CONFIGURATION_JSON)
-	if (JSON::LoadVariable(wszFilePath, variable))
-#elif defined(Q_CONFIGURATION_TOML)
-	if (TOML::LoadVariable(wszFilePath, variable))
-#endif
 	{
 		return true;
 	}
@@ -216,13 +198,7 @@ bool C::RemoveFileVariable(const size_t nFileIndex, const VariableObject_t& vari
 	wchar_t wszFilePath[MAX_PATH];
 	CRT::StringCat(CRT::StringCopy(wszFilePath, wszConfigurationsPath), wszFileName);
 
-#if defined(Q_CONFIGURATION_BINARY)
 	if (BIN::RemoveVariable(wszFilePath, variable))
-#elif defined(Q_CONFIGURATION_JSON)
-	if (JSON::RemoveVariable(wszFilePath, variable))
-#elif defined(Q_CONFIGURATION_TOML)
-	if (TOML::RemoveVariable(wszFilePath, variable))
-#endif
 	{
 		return true;
 	}
@@ -265,13 +241,7 @@ bool C::SaveFile(const size_t nFileIndex)
 	wchar_t wszFilePath[MAX_PATH];
 	CRT::StringCat(CRT::StringCopy(wszFilePath, wszConfigurationsPath), wszFileName);
 
-#if defined(Q_CONFIGURATION_BINARY)
 	if (BIN::SaveFile(wszFilePath))
-#elif defined(Q_CONFIGURATION_JSON)
-	if (JSON::SaveFile(wszFilePath))
-#elif defined(Q_CONFIGURATION_TOML)
-	if (TOML::SaveFile(wszFilePath))
-#endif
 	{
 		L_PRINT(LOG_INFO) << Q_XOR("saved configuration file: \"") << wszFileName << Q_XOR("\"");
 		return true;
@@ -288,13 +258,7 @@ bool C::LoadFile(const size_t nFileIndex)
 	wchar_t wszFilePath[MAX_PATH];
 	CRT::StringCat(CRT::StringCopy(wszFilePath, wszConfigurationsPath), wszFileName);
 
-#if defined(Q_CONFIGURATION_BINARY)
 	if (BIN::LoadFile(wszFilePath))
-#elif defined(Q_CONFIGURATION_JSON)
-	if (JSON::LoadFile(wszFilePath))
-#elif defined(Q_CONFIGURATION_TOML)
-	if (TOML::LoadFile(wszFilePath))
-#endif
 	{
 		L_PRINT(LOG_INFO) << Q_XOR("loaded configuration file: \"") << wszFileName << Q_XOR("\"");
 		return true;

@@ -95,19 +95,11 @@
  */
 #define Q_ALLOW_VIRTUAL_REBUILD
 
-/*
- * define to overwrite configuration file formatter implementation
- * - see 'extensions' directory for more information
- */
-#define Q_CONFIGURATION_BINARY
-//#define Q_CONFIGURATION_JSON
-//#define Q_CONFIGURATION_TOML
-
 // name of the default configuration file
 #define Q_CONFIGURATION_DEFAULT_FILE_NAME L"default"
 
 // define to overwrite configuration file's extension, by default matched to selected formatter
-//#define Q_CONFIGURATION_FILE_EXTENSION ".custom"
+#define Q_CONFIGURATION_FILE_EXTENSION L".cfg"
 
 // define to force disable behavior based on "Run-Time Type Information", even if available
 //#define Q_NO_RTTI
