@@ -114,7 +114,7 @@ bool C::Setup(const wchar_t* wszDefaultFileName)
 	AddUserType(FNV1A::HashConst("KeyBind_t"),
 		{
 			UserDataMember_t{ FNV1A::HashConst("uKey"), FNV1A::HashConst("unsigned int"), &KeyBind_t::uKey },
-			UserDataMember_t{ FNV1A::HashConst("nMode"), FNV1A::HashConst("int"), &KeyBind_t::nMode }
+			UserDataMember_t{ FNV1A::HashConst("nMode"), FNV1A::HashConst("int"), &KeyBind_t::nMode },
 		});
 
 	// create default configuration
@@ -243,7 +243,7 @@ bool C::CreateFile(const wchar_t* wszFileName)
 	*wszFullFileNameEnd = L'\0';
 	// append correct extension to the filename
 	CRT::StringCat(wszFullFileNameEnd, Q_XOR(Q_CONFIGURATION_FILE_EXTENSION));
-	
+
 	// add filename to the list
 	vecFileNames.push_back(wszFullFileName);
 

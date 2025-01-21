@@ -18,7 +18,7 @@ static int* piPredictionRandomSeed = nullptr;
 // current predictable player
 static CBasePlayer** ppPredictionPlayer = nullptr;
 // encapsulated input parameters of player movement
-static CMoveData moveData = { };
+static CMoveData moveData = {};
 // saved client time measurement values
 static float flOldCurrentTime = 0.0f, flOldFrameTime = 0.0f;
 

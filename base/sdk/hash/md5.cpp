@@ -12,7 +12,7 @@
 
 // This is the central step in the MD5 algorithm.
 #define MD5STEP(f, w, x, y, z, data, s) \
-        ( w += f(x, y, z) + data,  w = w<<s | w>>(32-s),  w += x )
+	(w += f(x, y, z) + data, w = w << s | w >> (32 - s), w += x)
 
 //-----------------------------------------------------------------------------
 // Purpose: The core of the MD5 algorithm, this alters an existing MD5 hash to
@@ -22,7 +22,7 @@
 //			in[16] -
 // Output : static void
 //-----------------------------------------------------------------------------
-static void MD5Transform(unsigned int buf[4], unsigned int const in[16])
+static void MD5Transform(unsigned int buf[4], const unsigned int in[16])
 {
 	unsigned int a, b, c, d;
 
@@ -116,17 +116,17 @@ void MD5::Init(MD5Context_t* ctx)
 	ctx->bits[1] = 0;
 }
 
-void MD5::Update(MD5Context_t* ctx, unsigned char const* buf, unsigned int len)
+void MD5::Update(MD5Context_t* ctx, const unsigned char* buf, unsigned int len)
 {
 	unsigned int t;
 
 	/* Update bitcount */
 	t = ctx->bits[0];
 	if ((ctx->bits[0] = t + ((unsigned int)len << 3)) < t)
-		ctx->bits[1]++;         /* Carry from low to high */
+		ctx->bits[1]++; /* Carry from low to high */
 	ctx->bits[1] += len >> 29;
 
-	t = (t >> 3) & 0x3f;        /* Bytes already in shsInfo->data */
+	t = (t >> 3) & 0x3f; /* Bytes already in shsInfo->data */
 
 	/* Handle any leading odd-sized chunks */
 	if (t)
@@ -214,7 +214,7 @@ unsigned int MD5::PseudoRandom(unsigned int nSeed)
 	Update(&ctx, (const unsigned char*)&nSeed, sizeof(nSeed));
 	Final(digest, &ctx);
 
-	return *(unsigned int*)(digest + 6);	// use 4 middle bytes for random value
+	return *(unsigned int*)(digest + 6); // use 4 middle bytes for random value
 }
 
 void MD5::ProcessSingleBuffer(const void* p, int len, MD5Value_t& md5Result)

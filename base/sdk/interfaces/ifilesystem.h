@@ -20,7 +20,7 @@ public:
 		return CallVFunc<int, 0U>(this, pOutput, nSize, hFile);
 	}
 
-	int Write(void const* pInput, int nSize, FileHandle_t hFile)
+	int Write(const void* pInput, int nSize, FileHandle_t hFile)
 	{
 		return CallVFunc<int, 1U>(this, pInput, nSize, hFile);
 	}
@@ -70,12 +70,12 @@ public:
 		return CallVFunc<bool, 10U>(this, szFileName, szPathID);
 	}
 
-	bool IsFileWritable(char const* szFileName, const char* szPathID = nullptr)
+	bool IsFileWritable(const char* szFileName, const char* szPathID = nullptr)
 	{
 		return CallVFunc<bool, 11U>(this, szFileName, szPathID);
 	}
 
-	bool SetFileWritable(char const* szFileName, bool bWritable, const char* szPathID = nullptr)
+	bool SetFileWritable(const char* szFileName, bool bWritable, const char* szPathID = nullptr)
 	{
 		return CallVFunc<bool, 12U>(this, szFileName, bWritable, szPathID);
 	}

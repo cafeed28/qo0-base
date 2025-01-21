@@ -11,14 +11,14 @@ Standard: c++20
 # @todo: remove variables that equal defaults
 
 AccessModifierOffset: -4
-AlignAfterOpenBracket: DontAlign # @test: use false # @note: when set to 'DontAlign', dependent on 'ContinuationIndentWidth'
+AlignAfterOpenBracket: DontAlign # @note: when set to 'DontAlign', dependent on 'ContinuationIndentWidth'
 AlignArrayOfStructures: None
 AlignConsecutiveAssignments: None
 AlignConsecutiveBitFields: None
 AlignConsecutiveDeclarations: None
 AlignConsecutiveMacros: None
 AlignEscapedNewlines: Left
-AlignOperands: DontAlign # @test: use false # @note: when set to 'DontAlign', dependent on 'ContinuationIndentWidth'; when set to 'AlignAfterOperator', dependent on 'BreakBeforeBinaryOperators'
+AlignOperands: DontAlign # @note: when set to 'DontAlign', dependent on 'ContinuationIndentWidth'; when set to 'AlignAfterOperator', dependent on 'BreakBeforeBinaryOperators'
 AlignTrailingComments: false
 AllowAllArgumentsOnNextLine: false # @note: ignores 'BinPackArguments'
 AllowAllParametersOfDeclarationOnNextLine: false # @note: ignores 'BinPackArguments'
@@ -53,8 +53,8 @@ BraceWrapping:
   SplitEmptyFunction: false # @note: dependent on 'AfterFunction' and 'AllowShortFunctionsOnASingleLine'
   SplitEmptyRecord: false # @note: dependent on 'AfterClass'
   SplitEmptyNamespace: true # @note: dependent on 'AfterNamespace'
-#BreakAfterAttributes: Never # @todo: clan-format 16
-#BreakArrays: false # @todo: clang-format 16 # @note: supported only for JSON
+BreakAfterAttributes: Never
+BreakArrays: false # @note: supported only for JSON
 BreakBeforeBinaryOperators: None
 BreakBeforeBraces: Custom # @note: when set to 'Custom', dependent on 'BraceWrapping'
 BreakBeforeConceptDeclarations: Never
@@ -65,7 +65,7 @@ BreakStringLiterals: false
 ColumnLimit: 0
 CompactNamespaces: false # @test: what if i gonna use nested namespaces like Foo::Bar?
 #ConstructorInitializerIndentWidth: 0 # @test: tweak
-ContinuationIndentWidth: 0
+ContinuationIndentWidth: 4
 Cpp11BracedListStyle: false
 DerivePointerAlignment: false # @note: if true, 'PointerAlignment' is only used as a fallback if none can be derived
 EmptyLineAfterAccessModifier: Never # @note: when set to 'Leave' or 'Always', dependent on 'MaxEmptyLinesToKeep'
@@ -87,14 +87,14 @@ InsertBraces: false
 InsertTrailingCommas: None # @note: when set to 'Wrapped', conflicts with 'BinPackArguments'
 KeepEmptyLinesAtTheStartOfBlocks: false
 LambdaBodyIndentation: Signature
-#LineEnding: LF # @todo: clang-format 16
+LineEnding: LF
 MaxEmptyLinesToKeep: 1
 NamespaceIndentation: All
 PPIndentWidth: -1 # @note: when set to '-1', dependent on 'IndentWidth'
-PackConstructorInitializers: NextLine # @todo: after clang-format 16 set this to 'NextLineOnly'
+PackConstructorInitializers: NextLineOnly # @todo: after clang-format 16 set this to 'NextLineOnly'
 # @test: tweak
 # ---
-PenaltyBreakAssignment: 0 
+PenaltyBreakAssignment: 0
 PenaltyBreakBeforeFirstCallParameter: 0
 PenaltyBreakComment: 0
 PenaltyBreakFirstLessLess: 0
@@ -110,10 +110,10 @@ QualifierAlignment: Custom # @note: when set to 'Custom', dependent on 'Qualifie
 QualifierOrder: ['inline', 'static', 'constexpr', 'const', 'volatile', 'type', 'restrict']
 ReferenceAlignment: Pointer # @note: when set to 'Pointer', dependent on 'PointerAlignment'
 ReflowComments: false
-#RemoveSemicolon: false # @todo: clang-format 16 # @note: warning! setting this option to true could lead to incorrect code formatting
+RemoveSemicolon: true
 RequiresClausePosition: WithPreceding # @test: this doesn't seem to work correctly when 'AlwaysBreakTemplateDeclarations' is set
-#RequiresExpressionIndentation: OuterScope # @todo: clang-format 16
-SeparateDefinitionBlocks: Always # @todo: use 'Leave'?
+RequiresExpressionIndentation: OuterScope
+SeparateDefinitionBlocks: Leave
 ShortNamespaceLines: 0
 SortIncludes: Never # @test: CaseInsensitive
 SortUsingDeclarations: true # @todo: after clang-format 16 change to 'Lexicographic'
@@ -151,6 +151,5 @@ SpacesInLineCommentPrefix: # @note: dependent on 'ReflowComments'
 SpacesInParentheses: false
 SpacesInSquareBrackets: false
 #TabWidth: # @todo: tweak or leave it as it is
-UseCRLF: false # @todo: remove after clang-format 16
 UseTab: Always # @todo: tweak
 #WhitespaceSensitiveMacros: # @todo: tweak

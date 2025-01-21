@@ -194,7 +194,7 @@ namespace C::BIN
 		const FNV1A_t uNameTypeHash[2] = { variable.uNameHash, variable.uTypeHash };
 
 		// @todo: do we need to always go from the start of file and parse contents until needed variable due to binary format? if so then rework it and do not store type hash (currently it just used to have more explicit search)
-	#ifdef Q_PARANOID
+#ifdef Q_PARANOID
 		const std::vector<std::uint8_t*> vecVariableHeaders = MEM::FindPatternAllOccurrencesEx(pBufferStart, nBufferSize, reinterpret_cast<const std::uint8_t*>(uNameTypeHash), sizeof(FNV1A_t[2]));
 
 		if (!vecVariableHeaders.empty())
@@ -209,9 +209,9 @@ namespace C::BIN
 		}
 
 		return nullptr;
-	#else
+#else
 		return MEM::FindPatternEx(pBufferStart, nBufferSize, reinterpret_cast<const std::uint8_t*>(uNameTypeHash), sizeof(FNV1A_t[2]));
-	#endif
+#endif
 	}
 
 	/* @section: main */
@@ -369,7 +369,6 @@ namespace C::BIN
 			// truncate file size
 			if (::SetFilePointer(hFileInOut, -static_cast<LONG>(nVariableDataLength), nullptr, FILE_END) != INVALID_SET_FILE_POINTER)
 				bRemovedVariable = true;
-
 		}
 		::CloseHandle(hFileInOut);
 
@@ -403,7 +402,7 @@ namespace C::BIN
 		const std::uint8_t* pBufferEnd = pBuffer + nBufferSize;
 
 		std::uint8_t* pCurrentBuffer = pBuffer;
-		
+
 		// put current cheat build number
 		pCurrentBuffer += WriteBuffer(pBuffer, version);
 

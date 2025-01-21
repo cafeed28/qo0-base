@@ -109,7 +109,7 @@ bool H::Setup()
 
 	const void* pCCSPlayerVTable = MEM::FindVTable(CLIENT_DLL, Q_XOR("C_CSPlayer"));
 	// this comes from inherited 'C_CSPlayer : IClientRenderable' vtable
-	if (!hkSetupBones.Create(/*MEM::GetVFunc(pCSPlayerRenderableVTable, VTABLE::CSPLAYER::SETUPBONES)*/MEM::FindPattern(CLIENT_DLL, Q_XOR("55 8B EC 56 8B F1 51 8D")), reinterpret_cast<void*>(&SetupBones)))
+	if (!hkSetupBones.Create(/*MEM::GetVFunc(pCSPlayerRenderableVTable, VTABLE::CSPLAYER::SETUPBONES)*/ MEM::FindPattern(CLIENT_DLL, Q_XOR("55 8B EC 56 8B F1 51 8D")), reinterpret_cast<void*>(&SetupBones)))
 		return false;
 
 	if (!hkFireBullet.Create(MEM::FindPattern(CLIENT_DLL, Q_XOR("55 8B EC 83 E4 F0 81 EC ? ? ? ? F3 0F 7E")), reinterpret_cast<void*>(&FireBullet)))
@@ -157,7 +157,7 @@ long D3DAPI H::EndScene(IDirect3DDevice9* pDevice)
 
 	if (pGameOverlayReturnAddress == nullptr)
 	{
-		MEMORY_BASIC_INFORMATION memInfo = { };
+		MEMORY_BASIC_INFORMATION memInfo = {};
 		::VirtualQuery(pReturnAddress, &memInfo, sizeof(MEMORY_BASIC_INFORMATION));
 
 		// search for gameoverlay return address
@@ -318,7 +318,7 @@ int Q_FASTCALL H::ListLeavesInBox(void* thisptr, void* edx, const Vector_t* pvec
 				{
 					// @test: seems like valve fixed render order themselves or somewhat else and now chams draw perfect through decals w/o any fixes
 
-					// @test: since just 'constexpr' without 'static' doesn't guarantee it gonna be inside rdata, is it ok to pass pointer to stack vars here? check original method 
+					// @test: since just 'constexpr' without 'static' doesn't guarantee it gonna be inside rdata, is it ok to pass pointer to stack vars here? check original method
 					constexpr Vector_t vecUnlimitedMins = { -MAX_COORD_FLOAT, -MAX_COORD_FLOAT, -MAX_COORD_FLOAT };
 					constexpr Vector_t vecUnlimitedMaxs = { MAX_COORD_FLOAT, MAX_COORD_FLOAT, MAX_COORD_FLOAT };
 					return hkListLeavesInBox.CallOriginal<ROP::EngineGadget_t>(thisptr, edx, &vecUnlimitedMins, &vecUnlimitedMaxs, puList, nListMax);
@@ -599,7 +599,7 @@ bool Q_FASTCALL H::SetupBones(IClientRenderable* thisptr, void* edx, Matrix3x4a_
 	BoneQuaternionAligned_t arrBonesRotation[MAXSTUDIOBONES];
 #endif
 
-	CBoneBitList arrBonesComputed = { };
+	CBoneBitList arrBonesComputed = {};
 
 	// [side change] removed 'CBaseAnimating::CanSkipAnimation()' branch (PVS optimization for NPC's)
 	if (CIKContext* pIKContext = pPlayer->GetIKContext(); pIKContext != nullptr)

@@ -24,11 +24,11 @@
 #include "features/visual.h"
 
 // movement correction angles
-static QAngle_t angCorrectionView = { };
+static QAngle_t angCorrectionView = {};
 // final client angles of the local player view that will guaranteed match to actual angles on the server
-static QAngle_t angServerView = { };
+static QAngle_t angServerView = {};
 // final client angles of the local player view that may differ from the actual angles on the server
-static QAngle_t angClientView = { };
+static QAngle_t angClientView = {};
 
 static void ValidateUserCommand(CUserCmd* pCmd, const CUserCmd* pPreviousCmd)
 {
@@ -46,7 +46,7 @@ static void ValidateUserCommand(CUserCmd* pCmd, const CUserCmd* pPreviousCmd)
 	}
 	else
 	{
-		pCmd->angViewPoint = { };
+		pCmd->angViewPoint = {};
 		L_PRINT(LOG_WARNING) << Q_XOR("view angles have a NaN component, the value is reset");
 	}
 
@@ -275,7 +275,7 @@ void F::OnPlayerDeleted(CCSPlayer* pPlayer)
 #pragma region features_get
 void F::MovementCorrection(CUserCmd* pCmd, const QAngle_t& angDesiredViewPoint)
 {
-	Vector_t vecForward = { }, vecRight = { }, vecUp = { };
+	Vector_t vecForward = {}, vecRight = {}, vecUp = {};
 	angDesiredViewPoint.ToDirections(&vecForward, &vecRight, &vecUp);
 
 	// we don't attempt on forward/right roll, and on up pitch/yaw
@@ -285,7 +285,7 @@ void F::MovementCorrection(CUserCmd* pCmd, const QAngle_t& angDesiredViewPoint)
 	vecRight.NormalizeInPlace();
 	vecUp.NormalizeInPlace();
 
-	Vector_t vecOldForward = { }, vecOldRight = { }, vecOldUp = { };
+	Vector_t vecOldForward = {}, vecOldRight = {}, vecOldUp = {};
 	pCmd->angViewPoint.ToDirections(&vecOldForward, &vecOldRight, &vecOldUp);
 
 	// we don't attempt on forward/right roll, and on up pitch/yaw

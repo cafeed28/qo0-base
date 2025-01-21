@@ -118,13 +118,13 @@ namespace C::JSON
 					// write size
 					entry[Q_XOR("size")] = variable.GetSerializationSize();
 
-					nlohmann::json members = { };
+					nlohmann::json members = {};
 
 					// write data
 					// @todo: it would be so fucking neatful if we could rework this to proceed recursive call instead
 					for (const UserDataMember_t& userMember : userType.vecMembers)
 					{
-						nlohmann::json currentMember = { };
+						nlohmann::json currentMember = {};
 						currentMember[Q_XOR("name")] = userMember.uNameHash;
 						currentMember[Q_XOR("type")] = userMember.uTypeHash;
 
@@ -312,11 +312,11 @@ namespace C::JSON
 		nlohmann::json root = nlohmann::json::parse(hFileStream);
 		::fclose(hFileStream);
 
-		char szKeyBuffer[CRT::IntegerToString_t<FNV1A_t, 16U>::MaxCount()] = { };
+		char szKeyBuffer[CRT::IntegerToString_t<FNV1A_t, 16U>::MaxCount()] = {};
 		const char* szVariableHash = CRT::IntegerToString(variable.uNameHash, szKeyBuffer, sizeof(szKeyBuffer), 16);
 
 		WriteBuffer(root[szVariableHash], variable);
-		
+
 		// write re-serialized configuration to file
 		const std::string strSerialized = root.dump(4);
 		const BOOL bWritten = ::WriteFile(hFileOut, strSerialized.data(), strSerialized.size(), nullptr, nullptr);
@@ -335,7 +335,7 @@ namespace C::JSON
 
 		nlohmann::json root = nlohmann::json::parse(hFileStream, nullptr, false);
 
-		char szHashBuffer[CRT::IntegerToString_t<FNV1A_t, 16U>::MaxCount()] = { };
+		char szHashBuffer[CRT::IntegerToString_t<FNV1A_t, 16U>::MaxCount()] = {};
 		const char* szVariableHash = CRT::IntegerToString(variable.uNameHash, szHashBuffer, sizeof(szHashBuffer), 16);
 
 		if (root.contains(szVariableHash))
@@ -367,7 +367,7 @@ namespace C::JSON
 		if (hFileOut == INVALID_HANDLE_VALUE)
 			return false;
 
-		char szHashBuffer[_MAX_ULTOSTR_BASE16_COUNT] = { };
+		char szHashBuffer[_MAX_ULTOSTR_BASE16_COUNT] = {};
 		const char* szVariableHash = CRT::IntegerToString(FNV1A::HashConst("version"), szHashBuffer, sizeof(szHashBuffer), 16);
 
 		nlohmann::json root;
@@ -402,7 +402,7 @@ namespace C::JSON
 
 		// @todo: implement version adaptation mechanism like so: if file has variable but src doesn't - remove from file, if src has variable but file doesn't - add it to file + probably with menu notification and ask for this
 
-		char szHashBuffer[CRT::IntegerToString_t<FNV1A_t, 16U>::MaxCount()] = { };
+		char szHashBuffer[CRT::IntegerToString_t<FNV1A_t, 16U>::MaxCount()] = {};
 		const char* szVariableHash = CRT::IntegerToString(FNV1A::HashConst("version"), szHashBuffer, sizeof(szHashBuffer), 16);
 
 		// get cheat version at time when configuration has been saved

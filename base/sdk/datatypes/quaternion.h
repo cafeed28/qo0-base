@@ -3,7 +3,11 @@
 struct Quaternion_t
 {
 	constexpr Quaternion_t(const float x = 0.0f, const float y = 0.0f, const float z = 0.0f, const float w = 0.0f) :
-		x(x), y(y), z(z), w(w) { }
+		x(x),
+		y(y),
+		z(z),
+		w(w)
+	{ }
 
 	[[nodiscard]] bool IsValid() const
 	{
@@ -12,7 +16,7 @@ struct Quaternion_t
 
 	/// @param[in] vecOrigin [optional] translation for converted matrix
 	/// @returns: matrix converted from quaternion
-	[[nodiscard]] Matrix3x4_t ToMatrix(const Vector_t& vecOrigin = { }) const
+	[[nodiscard]] Matrix3x4_t ToMatrix(const Vector_t& vecOrigin = {}) const
 	{
 		Q_ASSERT(this->IsValid());
 

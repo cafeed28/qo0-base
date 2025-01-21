@@ -24,11 +24,11 @@ struct AnimationUpdateObject_t
 	// last spawn time index, used to detect player re-spawn and reset needed data
 	float flSpawnTimeIndex = 0.0f;
 	// cache of animation layers since last animation update with server data
-	CAnimationLayer arrAnimationLayers[MAX_OVERLAYS] = { };
+	CAnimationLayer arrAnimationLayers[MAX_OVERLAYS] = {};
 	// cache of pose parameters since last animation update with server data
-	float arrPoseParameters[MAXSTUDIOPOSEPARAM] = { };
+	float arrPoseParameters[MAXSTUDIOPOSEPARAM] = {};
 	// bones built with adjusted server-side data, origins should be always stored in the local space
-	Matrix3x4a_t arrBonesToLocal[MAXSTUDIOBONES] = { };
+	Matrix3x4a_t arrBonesToLocal[MAXSTUDIOBONES] = {};
 	// state of game setup bones prohibition for this player
 	bool bDisableSetupBones = false;
 	// state of game animation update prohibition for this player
@@ -40,11 +40,11 @@ struct AnimationUpdateObject_t
 // separate animation state for local player animation update based on client-side data
 static CCSGOPlayerAnimState* pClientAnimationState = nullptr;
 // bones of local player built with adjusted client-side data, origins should be always stored in the local space
-static Matrix3x4a_t arrClientBonesToLocal[MAXSTUDIOBONES] = { };
+static Matrix3x4a_t arrClientBonesToLocal[MAXSTUDIOBONES] = {};
 // state of local player client-side bones origins space, used for debugging
 static bool bIsClientBonesInLocalSpace = false;
 // cache of all players animations update with adjusted server-side data
-static AnimationUpdateObject_t arrUpdatePlayers[MAX_PLAYERS] = { };
+static AnimationUpdateObject_t arrUpdatePlayers[MAX_PLAYERS] = {};
 // tick count of the last animation update
 static int nLastServerUpdateTick = 0;
 
@@ -138,7 +138,7 @@ static void UpdatePlayer(CCSPlayer* pPlayer, AnimationUpdateObject_t& updateObje
 	// get the active animation layers and pose parameters of the player
 	CUtlVector<CAnimationLayer>& vecAnimationLayers = pPlayer->GetAnimationOverlays();
 	const int nAnimationLayersCount = vecAnimationLayers.Count();
-	float (&arrPoseParameters)[MAXSTUDIOPOSEPARAM] = pPlayer->GetPoseParameterArray();
+	float(&arrPoseParameters)[MAXSTUDIOPOSEPARAM] = pPlayer->GetPoseParameterArray();
 
 	// check do we need to reset (on respawn)
 	if (const float flSpawnTimeIndex = pPlayer->GetLastSpawnTimeIndex(); flSpawnTimeIndex != updateObject.flSpawnTimeIndex)
@@ -226,7 +226,7 @@ static void UpdateLocal(CCSPlayer* pLocal, AnimationUpdateObject_t& updateObject
 	// get the active animation layers and pose parameters of the player
 	CUtlVector<CAnimationLayer>& vecAnimationLayers = pLocal->GetAnimationOverlays();
 	const int nAnimationLayersCount = vecAnimationLayers.Count();
-	float (&arrPoseParameters)[MAXSTUDIOPOSEPARAM] = pLocal->GetPoseParameterArray();
+	float(&arrPoseParameters)[MAXSTUDIOPOSEPARAM] = pLocal->GetPoseParameterArray();
 
 	// check do we need to reset (on respawn)
 	if (const float flSpawnTimeIndex = pLocal->GetLastSpawnTimeIndex(); flSpawnTimeIndex != updateObject.flSpawnTimeIndex)
@@ -264,7 +264,7 @@ static void UpdateLocal(CCSPlayer* pLocal, AnimationUpdateObject_t& updateObject
 	// perform update only once per tick as server does
 	if (nLastServerUpdateTick != I::Globals->nTickCount)
 	{
-		#pragma region animation_update_local_server
+#pragma region animation_update_local_server
 		// make sure it will guaranteed process update whenever we want
 		// can only happen on new game / inject a cheat while in game
 		if (pAnimationState->nLastUpdateFrame == I::Globals->nFrameCount)
@@ -278,14 +278,14 @@ static void UpdateLocal(CCSPlayer* pLocal, AnimationUpdateObject_t& updateObject
 		I::Globals->flCurrentTime = flServerTime;
 		I::Globals->flFrameTime = I::Globals->flIntervalPerTick;
 
-		// perform animation update every frame
-		#if 0
+// perform animation update every frame
+#if 0
 		/*
 		 * if you're not lazy you can also rebuild it and then you doesn't need to force any of this shit (IsClientSideAnimation, GetViewAngles)
 		 * note that you'll also never let the game to call 'C_CSPlayer::UpdateClientSideAnimation()' at least for the local player
 		 */
 		pAnimationState->Update(GetServerAngles());
-		#else
+#else
 		// force 'C_CSPlayer::UpdateClientSideAnimation()' to call 'CCSGOPlayerAnimState::Update()'
 		const bool bOldIsClientSideAnimation = pLocal->IsClientSideAnimation();
 		pLocal->IsClientSideAnimation() = true;
@@ -300,7 +300,7 @@ static void UpdateLocal(CCSPlayer* pLocal, AnimationUpdateObject_t& updateObject
 
 		// restore original values
 		pLocal->IsClientSideAnimation() = bOldIsClientSideAnimation;
-		#endif
+#endif
 
 		/*
 		 * predict next lower body yaw update time
@@ -337,9 +337,9 @@ static void UpdateLocal(CCSPlayer* pLocal, AnimationUpdateObject_t& updateObject
 
 		// restore forced angles back to not affect other functions
 		pLocalPlayerState->GetViewAngles() = angOldLocalView;
-		#pragma endregion
+#pragma endregion
 
-		#pragma region animation_update_local_client
+#pragma region animation_update_local_client
 		const int iSimulationTick = iServerTickCount - I::ClientState->nChokedCommands + 1;
 		const float flSimulationTime = TICKS_TO_TIME(iSimulationTick);
 
@@ -369,7 +369,7 @@ static void UpdateLocal(CCSPlayer* pLocal, AnimationUpdateObject_t& updateObject
 			// restore forced angles back to not affect other functions
 			pLocalPlayerState->GetViewAngles() = angOldLocalView;
 		}
-		#pragma endregion
+#pragma endregion
 	}
 
 	// force last data that client received from server to line up hitboxes

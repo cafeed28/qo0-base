@@ -52,10 +52,24 @@ public:
 	};
 
 	explicit CUtlRBTree(int nGrowSize = 0, int nInitialSize = 0, const LessCallbackFn_t& fnLessCallback = nullptr) :
-		fnLessCallback(fnLessCallback), memory(nGrowSize, nInitialSize), iRoot(InvalidIndex()), nElements(0), iFirstFree(InvalidIndex()), itLastAlloc(memory.InvalidIterator()), pElements(memory.Base()) { }
+		fnLessCallback(fnLessCallback),
+		memory(nGrowSize, nInitialSize),
+		iRoot(InvalidIndex()),
+		nElements(0),
+		iFirstFree(InvalidIndex()),
+		itLastAlloc(memory.InvalidIterator()),
+		pElements(memory.Base())
+	{ }
 
 	explicit CUtlRBTree(const LessCallbackFn_t& fnLessCallback) :
-		fnLessCallback(fnLessCallback), memory(0, 0), iRoot(InvalidIndex()), nElements(0), iFirstFree(InvalidIndex()), itLastAlloc(memory.InvalidIterator()), pElements(memory.Base()) { }
+		fnLessCallback(fnLessCallback),
+		memory(0, 0),
+		iRoot(InvalidIndex()),
+		nElements(0),
+		iFirstFree(InvalidIndex()),
+		itLastAlloc(memory.InvalidIterator()),
+		pElements(memory.Base())
+	{ }
 
 	~CUtlRBTree()
 	{
@@ -88,8 +102,7 @@ public:
 
 	[[nodiscard]] const UtlRBTreeLinks_t<I>& Links(I nIndex) const
 	{
-		constexpr UtlRBTreeLinks_t<I> linksSentinel =
-		{
+		constexpr UtlRBTreeLinks_t<I> linksSentinel = {
 			M::INVALID_INDEX, M::INVALID_INDEX, M::INVALID_INDEX, BLACK
 		};
 

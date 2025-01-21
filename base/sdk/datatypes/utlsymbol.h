@@ -10,13 +10,16 @@ class CUtlSymbol
 {
 public:
 	CUtlSymbol() :
-		nIndex(INVALID_UTL_SYMBOL) { }
+		nIndex(INVALID_UTL_SYMBOL)
+	{ }
 
 	CUtlSymbol(const UtlSymbolID_t nIndex) :
-		nIndex(nIndex) { }
+		nIndex(nIndex)
+	{ }
 
 	CUtlSymbol(const CUtlSymbol& other) :
-		nIndex(other.nIndex) { }
+		nIndex(other.nIndex)
+	{ }
 
 	CUtlSymbol& operator=(const CUtlSymbol& other)
 	{

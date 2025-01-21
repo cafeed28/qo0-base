@@ -20,10 +20,10 @@ namespace MD5
 	void Init(MD5Context_t* context);
 
 	/* update context to reflect the concatenation of another buffer full of bytes */
-	void Update(MD5Context_t* context, unsigned char const* buf, unsigned int len);
+	void Update(MD5Context_t* context, const unsigned char* buf, unsigned int len);
 
 	/*
-	 * final wrapup - pad to 64-byte boundary with the bit pattern 
+	 * final wrapup - pad to 64-byte boundary with the bit pattern
 	 * 1 0* (64-bit count of bits processed, msb-first)
 	 */
 	void Final(unsigned char digest[MD5_DIGEST_LENGTH], MD5Context_t* context);
@@ -49,17 +49,17 @@ struct MD5Value_t
 		}
 
 		return true;
-	};
+	}
 
 	inline bool operator==(const MD5Value_t& src) const
 	{
 		return MD5::Compare(*this, src);
-	};
+	}
 
 	inline bool operator!=(const MD5Value_t& src) const
 	{
 		return !MD5::Compare(*this, src);
-	};
+	}
 
 	unsigned char bits[MD5_DIGEST_LENGTH];
 };

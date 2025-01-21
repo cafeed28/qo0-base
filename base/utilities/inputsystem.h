@@ -27,11 +27,11 @@ namespace IPT
 
 	/* @section: values */
 	// current window
-	inline HWND	hWindow = nullptr;
+	inline HWND hWindow = nullptr;
 	// saved window messages handler
 	inline WNDPROC pOldWndProc = nullptr;
 	// last processed key states
-	inline KeyState_t arrKeyState[256] = { };
+	inline KeyState_t arrKeyState[256] = {};
 
 	// replace game window messages processor with our
 	bool Setup();

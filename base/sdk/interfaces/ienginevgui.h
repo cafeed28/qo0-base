@@ -21,9 +21,9 @@ enum EVGuiPanel
 
 enum EPaintMode
 {
-	PAINT_UIPANELS =		(1 << 0),
-	PAINT_INGAMEPANELS =	(1 << 1),
-	PAINT_CURSOR =			(1 << 2)
+	PAINT_UIPANELS = (1 << 0),
+	PAINT_INGAMEPANELS = (1 << 1),
+	PAINT_CURSOR = (1 << 2)
 };
 
 class IEngineVGui : ROP::VirtualCallable_t<ROP::EngineGadget_t>

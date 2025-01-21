@@ -14,7 +14,7 @@
 #pragma region sdk_panorama
 bool SDK::DecodeVFONT(CUtlBuffer& bufferFont)
 {
-	constexpr char szTag[ ] = "VFONT1";
+	constexpr char szTag[] = "VFONT1";
 
 	const int nTotalFontBytes = bufferFont.TellPut();
 	const int nTagIndex = nTotalFontBytes - static_cast<int>(sizeof(szTag));
@@ -104,7 +104,7 @@ void SDK::ClipTraceToPlayers(const Vector_t& vecAbsStart, const Vector_t& vecAbs
 	// @source: master/game/shared/util_shared.cpp#L757
 	// @ida UTIL_ClipTraceToPlayers(): client.dll -> ABS["E8 ? ? ? ? 0F 28 84 24 68 02 00 00" + 0x1]
 
-	Trace_t trace = { };
+	Trace_t trace = {};
 	float flSmallestFraction = pTrace->flFraction;
 
 	const Ray_t ray(vecAbsStart, vecAbsEnd);

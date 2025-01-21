@@ -13,12 +13,18 @@ struct Matrix3x4_t;
 struct QAngle_t
 {
 	constexpr QAngle_t(float x = 0.f, float y = 0.f, float z = 0.f) :
-		x(x), y(y), z(z) { }
+		x(x),
+		y(y),
+		z(z)
+	{ }
 
 	constexpr QAngle_t(const float* arrAngles) :
-		x(arrAngles[0]), y(arrAngles[1]), z(arrAngles[2]) { }
+		x(arrAngles[0]),
+		y(arrAngles[1]),
+		z(arrAngles[2])
+	{ }
 
-	#pragma region qangle_array_operators
+#pragma region qangle_array_operators
 	[[nodiscard]] float& operator[](const int nIndex)
 	{
 		return reinterpret_cast<float*>(this)[nIndex];
@@ -28,9 +34,9 @@ struct QAngle_t
 	{
 		return reinterpret_cast<const float*>(this)[nIndex];
 	}
-	#pragma endregion
+#pragma endregion
 
-	#pragma region qangle_relational_operators
+#pragma region qangle_relational_operators
 	bool operator==(const QAngle_t& angBase) const
 	{
 		return this->IsEqual(angBase);
@@ -40,67 +46,85 @@ struct QAngle_t
 	{
 		return !this->IsEqual(angBase);
 	}
-	#pragma endregion
+#pragma endregion
 
-	#pragma region qangle_assignment_operators
+#pragma region qangle_assignment_operators
 	constexpr QAngle_t& operator=(const QAngle_t& angBase)
 	{
-		this->x = angBase.x; this->y = angBase.y; this->z = angBase.z;
+		this->x = angBase.x;
+		this->y = angBase.y;
+		this->z = angBase.z;
 		return *this;
 	}
-	#pragma endregion
+#pragma endregion
 
-	#pragma region qangle_arithmetic_assignment_operators
+#pragma region qangle_arithmetic_assignment_operators
 	constexpr QAngle_t& operator+=(const QAngle_t& angBase)
 	{
-		this->x += angBase.x; this->y += angBase.y; this->z += angBase.z;
+		this->x += angBase.x;
+		this->y += angBase.y;
+		this->z += angBase.z;
 		return *this;
 	}
 
 	constexpr QAngle_t& operator-=(const QAngle_t& angBase)
 	{
-		this->x -= angBase.x; this->y -= angBase.y; this->z -= angBase.z;
+		this->x -= angBase.x;
+		this->y -= angBase.y;
+		this->z -= angBase.z;
 		return *this;
 	}
 
 	constexpr QAngle_t& operator*=(const QAngle_t& angBase)
 	{
-		this->x *= angBase.x; this->y *= angBase.y; this->z *= angBase.z;
+		this->x *= angBase.x;
+		this->y *= angBase.y;
+		this->z *= angBase.z;
 		return *this;
 	}
 
 	constexpr QAngle_t& operator/=(const QAngle_t& angBase)
 	{
-		this->x /= angBase.x; this->y /= angBase.y; this->z /= angBase.z;
+		this->x /= angBase.x;
+		this->y /= angBase.y;
+		this->z /= angBase.z;
 		return *this;
 	}
 
 	constexpr QAngle_t& operator+=(const float flAdd)
 	{
-		this->x += flAdd; this->y += flAdd; this->z += flAdd;
+		this->x += flAdd;
+		this->y += flAdd;
+		this->z += flAdd;
 		return *this;
 	}
 
 	constexpr QAngle_t& operator-=(const float flSubtract)
 	{
-		this->x -= flSubtract; this->y -= flSubtract; this->z -= flSubtract;
+		this->x -= flSubtract;
+		this->y -= flSubtract;
+		this->z -= flSubtract;
 		return *this;
 	}
 
 	constexpr QAngle_t& operator*=(const float flMultiply)
 	{
-		this->x *= flMultiply; this->y *= flMultiply; this->z *= flMultiply;
+		this->x *= flMultiply;
+		this->y *= flMultiply;
+		this->z *= flMultiply;
 		return *this;
 	}
 
 	constexpr QAngle_t& operator/=(const float flDivide)
 	{
-		this->x /= flDivide; this->y /= flDivide; this->z /= flDivide;
+		this->x /= flDivide;
+		this->y /= flDivide;
+		this->z /= flDivide;
 		return *this;
 	}
-	#pragma endregion
+#pragma endregion
 
-	#pragma region qangle_arithmetic_unary_operators
+#pragma region qangle_arithmetic_unary_operators
 	constexpr QAngle_t& operator-()
 	{
 		this->x = -this->x;
@@ -113,9 +137,9 @@ struct QAngle_t
 	{
 		return { -this->x, -this->y, -this->z };
 	}
-	#pragma endregion
+#pragma endregion
 
-	#pragma region qangle_arithmetic_ternary_operators
+#pragma region qangle_arithmetic_ternary_operators
 	constexpr QAngle_t operator+(const QAngle_t& angAdd) const
 	{
 		return { this->x + angAdd.x, this->y + angAdd.y, this->z + angAdd.z };
@@ -155,7 +179,7 @@ struct QAngle_t
 	{
 		return { this->x / flDivide, this->y / flDivide, this->z / flDivide };
 	}
-	#pragma endregion
+#pragma endregion
 
 	// @returns : true if each component of angle is finite, false otherwise
 	[[nodiscard]] bool IsValid() const
@@ -210,7 +234,7 @@ struct QAngle_t
 
 	/// @param[in] vecOrigin [optional] origin for converted matrix
 	/// @returns: matrix converted from angle
-	[[nodiscard]] Matrix3x4_t ToMatrix(const Vector_t& vecOrigin = { }) const;
+	[[nodiscard]] Matrix3x4_t ToMatrix(const Vector_t& vecOrigin = {}) const;
 
 public:
 	float x = 0.0f, y = 0.0f, z = 0.0f;

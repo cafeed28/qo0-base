@@ -6,9 +6,9 @@
 
 #pragma region basehandle_definitions
 // how many bits to use to encode an edict
-#define	MAX_EDICT_BITS 11
+#define MAX_EDICT_BITS 11
 // max number of edicts in a level
-#define	MAX_EDICTS (1 << MAX_EDICT_BITS) // @ida: client.dll -> ["3D ? ? ? ? 73 26" + 0x1]
+#define MAX_EDICTS (1 << MAX_EDICT_BITS) // @ida: client.dll -> ["3D ? ? ? ? 73 26" + 0x1]
 
 #define NUM_ENT_ENTRY_BITS (MAX_EDICT_BITS + 2)
 #define NUM_ENT_ENTRIES (1 << NUM_ENT_ENTRY_BITS)
@@ -25,10 +25,12 @@ class CBaseHandle
 {
 public:
 	CBaseHandle() noexcept :
-		nIndex(INVALID_EHANDLE_INDEX) { }
+		nIndex(INVALID_EHANDLE_INDEX)
+	{ }
 
 	CBaseHandle(const CBaseHandle& other) noexcept :
-		nIndex(other.nIndex) { }
+		nIndex(other.nIndex)
+	{ }
 
 	CBaseHandle(const int iEntry, const int iSerial) noexcept
 	{

@@ -159,7 +159,7 @@ public:
 		CallVFunc<void, 18U>(this, szKeyName, pValue);
 	}
 
-	[[nodiscard]] bool ForEventData(/*IGameEventVisitor2**/void* pEventVisitor) const
+	[[nodiscard]] bool ForEventData(/*IGameEventVisitor2**/ void* pEventVisitor) const
 	{
 		return CallVFunc<bool, 19U>(this, pEventVisitor);
 	}
@@ -181,7 +181,7 @@ public:
 	}
 
 public:
-	int	nDebugID; // 0x04
+	int nDebugID; // 0x04
 };
 static_assert(sizeof(IGameEventListener2) == 0x8);
 

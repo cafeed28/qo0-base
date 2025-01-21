@@ -12,8 +12,8 @@ using SerializedEntityHandle_t = std::intptr_t;
 #define MAX_AREA_STATE_BYTES 32
 #define MAX_AREA_PORTAL_STATE_BYTES 24
 
-#define	MAX_DEMOS 32
-#define	MAX_DEMONAME 32
+#define MAX_DEMOS 32
+#define MAX_DEMONAME 32
 #pragma endregion
 
 #pragma region clientstate_enumerations
@@ -46,7 +46,7 @@ public:
 	float arrClockOffsets[NUM_CLOCKDRIFT_SAMPLES]; // 0x00 // this holds how many ticks the client is ahead each time we get a server tick. we average these together to get our estimate of how far ahead we are
 	int iCurrentClockOffset; // 0x40
 	int nServerTick; // 0x44 // last-received tick from the server
-	int	nClientTick; // 0x48 // the client's own tick counter (specifically, for interpolation during rendering). the server may be on a slightly different tick and the client will drift towards it
+	int nClientTick; // 0x48 // the client's own tick counter (specifically, for interpolation during rendering). the server may be on a slightly different tick and the client will drift towards it
 };
 static_assert(sizeof(CClockDriftMgr) == 0x4C);
 

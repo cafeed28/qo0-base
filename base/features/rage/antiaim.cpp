@@ -49,8 +49,8 @@ void ANTIAIM::OnMove(CCSPlayer* pLocal, CUserCmd* pCmd, const bool* pbSendPacket
 			if (pLocal->CanAttack(flServerTime) &&
 				// check are we going to attack with knife/gun
 				(((pCmd->nButtons & IN_ATTACK) && static_cast<CWeaponCSBaseGun*>(pWeapon)->CanPrimaryAttack(pWeaponData->nWeaponType, flServerTime)) || ((pCmd->nButtons & IN_SECOND_ATTACK) && static_cast<CWeaponCSBaseGun*>(pWeapon)->CanSecondaryAttack(pWeaponData->nWeaponType, flServerTime)) ||
-				// check are we going to throw grenade (short and/or long distance)
-				(pWeaponData->nWeaponType == WEAPONTYPE_GRENADE && (!static_cast<CBaseCSGrenade*>(pWeapon)->IsPinPulled() || (pCmd->nButtons & (IN_ATTACK | IN_SECOND_ATTACK))) && static_cast<CBaseCSGrenade*>(pWeapon)->GetThrowTime() > 0.0f)))
+					// check are we going to throw grenade (short and/or long distance)
+					(pWeaponData->nWeaponType == WEAPONTYPE_GRENADE && (!static_cast<CBaseCSGrenade*>(pWeapon)->IsPinPulled() || (pCmd->nButtons & (IN_ATTACK | IN_SECOND_ATTACK))) && static_cast<CBaseCSGrenade*>(pWeapon)->GetThrowTime() > 0.0f)))
 				return;
 		}
 	}

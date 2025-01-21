@@ -213,7 +213,7 @@ public:
 	float flRecoveryTimeStandFinal; // 0x01C0 // "recovery time stand final"
 	int iRecoveryTransitionStartBullet; // 0x01C4 // "recovery transition start bullet"
 	int iRecoveryTransitionEndBullet; // 0x01C8 // "recovery transition end bullet"
-	bool bUnzoomAfterShot;// 0x01CC // "unzoom after shot"
+	bool bUnzoomAfterShot; // 0x01CC // "unzoom after shot"
 	bool bHideViewModelZoomed; // 0x01CD // "hide view model zoomed"
 	int iZoomLevels; // 0x01D0 // "zoom levels"
 	int iZoomFOV[2]; // 0x01D4 // "zoom fov 1", "zoom time 2"

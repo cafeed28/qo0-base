@@ -10,40 +10,40 @@
 #pragma region renderbeams_enumerations
 enum EBeamType : int
 {
-	TE_BEAMPOINTS =			0, // beam effect between two points
-	TE_SPRITE =				1, // additive sprite, plays 1 cycle
-	TE_BEAMDISK =			2, // disk that expands to max radius over lifetime
-	TE_BEAMCYLINDER =		3, // cylinder that expands to max radius over lifetime
-	TE_BEAMFOLLOW =			4, // create a line of decaying beam segments until entity stops moving
-	TE_BEAMRING =			5, // connect a beam ring to two entities
-	TE_BEAMSPLINE =			6,
-	TE_BEAMRINGPOINT =		7,
-	TE_BEAMLASER =			8, // fades according to viewpoint
-	TE_BEAMTESLA =			9,
-	MAX_BEAM_ENTITIES = 	10,
-	NOISE_DIVISIONS =		128
+	TE_BEAMPOINTS = 0, // beam effect between two points
+	TE_SPRITE = 1, // additive sprite, plays 1 cycle
+	TE_BEAMDISK = 2, // disk that expands to max radius over lifetime
+	TE_BEAMCYLINDER = 3, // cylinder that expands to max radius over lifetime
+	TE_BEAMFOLLOW = 4, // create a line of decaying beam segments until entity stops moving
+	TE_BEAMRING = 5, // connect a beam ring to two entities
+	TE_BEAMSPLINE = 6,
+	TE_BEAMRINGPOINT = 7,
+	TE_BEAMLASER = 8, // fades according to viewpoint
+	TE_BEAMTESLA = 9,
+	MAX_BEAM_ENTITIES = 10,
+	NOISE_DIVISIONS = 128
 };
 
 enum EBeamFlags : int
 {
-	FBEAM_NONE =			0,
-	FBEAM_STARTENTITY =		(1 << 0),
-	FBEAM_ENDENTITY =		(1 << 1),
-	FBEAM_FADEIN =			(1 << 2),
-	FBEAM_FADEOUT =			(1 << 3),
-	FBEAM_SINENOISE =		(1 << 4),
-	FBEAM_SOLID =			(1 << 5),
-	FBEAM_SHADEIN =			(1 << 6),
-	FBEAM_SHADEOUT =		(1 << 7),
-	FBEAM_ONLYNOISEONCE =	(1 << 8),  // only calculate our noise once
-	FBEAM_NOTILE =			(1 << 9),
-	FBEAM_USE_HITBOXES =	(1 << 10), // attachment indices represent hitbox indices instead when this is set
-	FBEAM_STARTVISIBLE =	(1 << 11), // has this client actually seen this beam's start entity yet?
-	FBEAM_ENDVISIBLE =		(1 << 12), // has this client actually seen this beam's end entity yet?
-	FBEAM_ISACTIVE =		(1 << 13),
-	FBEAM_FOREVER =			(1 << 14),
-	FBEAM_HALOBEAM =		(1 << 15), // when drawing a beam with a halo, don't ignore the segments and endwidth
-	FBEAM_REVERSED =		(1 << 16)
+	FBEAM_NONE = 0,
+	FBEAM_STARTENTITY = (1 << 0),
+	FBEAM_ENDENTITY = (1 << 1),
+	FBEAM_FADEIN = (1 << 2),
+	FBEAM_FADEOUT = (1 << 3),
+	FBEAM_SINENOISE = (1 << 4),
+	FBEAM_SOLID = (1 << 5),
+	FBEAM_SHADEIN = (1 << 6),
+	FBEAM_SHADEOUT = (1 << 7),
+	FBEAM_ONLYNOISEONCE = (1 << 8), // only calculate our noise once
+	FBEAM_NOTILE = (1 << 9),
+	FBEAM_USE_HITBOXES = (1 << 10), // attachment indices represent hitbox indices instead when this is set
+	FBEAM_STARTVISIBLE = (1 << 11), // has this client actually seen this beam's start entity yet?
+	FBEAM_ENDVISIBLE = (1 << 12), // has this client actually seen this beam's end entity yet?
+	FBEAM_ISACTIVE = (1 << 13),
+	FBEAM_FOREVER = (1 << 14),
+	FBEAM_HALOBEAM = (1 << 15), // when drawing a beam with a halo, don't ignore the segments and endwidth
+	FBEAM_REVERSED = (1 << 16)
 };
 #pragma endregion
 
@@ -66,8 +66,8 @@ static_assert(sizeof(BeamTrail_t) == 0x20);
 // @source: master/game/client/beamdraw.h
 struct Beam_t : CDefaultClientRenderable
 {
-	Vector_t vecMins = { }; // 0x000C
-	Vector_t vecMaxs = { }; // 0x0018
+	Vector_t vecMins = {}; // 0x000C
+	Vector_t vecMaxs = {}; // 0x0018
 	int* pQueryHandleHalo = nullptr; // 0x0024
 	float flHaloProxySize = 0.0f; // 0x0028
 	Beam_t* pNext = nullptr; // 0x002C
@@ -76,8 +76,8 @@ struct Beam_t : CDefaultClientRenderable
 
 	// control points for the beam
 	int nAttachments = 0; // 0x0038
-	Vector_t arrAttachments[MAX_BEAM_ENTITIES] = { }; // 0x003C
-	Vector_t vecDelta = { }; // 0x00B4
+	Vector_t arrAttachments[MAX_BEAM_ENTITIES] = {}; // 0x003C
+	Vector_t vecDelta = {}; // 0x00B4
 
 	// 0 .. 1 over lifetime of beam
 	float flTime = 0.0f; // 0x00C0
@@ -106,8 +106,8 @@ struct Beam_t : CDefaultClientRenderable
 	int nSegments = -1; // 0x00FC
 
 	// attachment entities for the beam
-	CBaseHandle arrAttachmentEntities[MAX_BEAM_ENTITIES] = { }; // 0x0100
-	int arrAttachmentIndicies[MAX_BEAM_ENTITIES] = { }; // 0x0128
+	CBaseHandle arrAttachmentEntities[MAX_BEAM_ENTITIES] = {}; // 0x0100
+	int arrAttachmentIndicies[MAX_BEAM_ENTITIES] = {}; // 0x0128
 
 	// model info
 	int nModelIndex; // 0x0150
@@ -140,8 +140,8 @@ struct BeamInfo_t
 	int iEndAttachment = -1; // 0x10
 
 	// points
-	Vector_t vecStart = { }; // 0x14
-	Vector_t vecEnd = { }; // 0x20
+	Vector_t vecStart = {}; // 0x14
+	Vector_t vecEnd = {}; // 0x20
 
 	int nModelIndex = -1; // 0x2C
 	const char* szModelName = nullptr; // 0x30
@@ -165,7 +165,7 @@ struct BeamInfo_t
 	int nFlags = FBEAM_NONE; // 0x78
 
 	// rings
-	Vector_t vecCenter = { }; // 0x78
+	Vector_t vecCenter = {}; // 0x78
 	float flStartRadius = 0.0f; // 0x88
 	float flEndRadius = 0.0f; // 0x8C
 };

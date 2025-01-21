@@ -15,29 +15,29 @@ class IPlayer : protected ROP::VirtualCallable_t<ROP::ClientGadget_t>
 public:
 	std::uint64_t GetXUID()
 	{
-	#ifdef Q_ALLOW_VIRTUAL_REBUILD
+#ifdef Q_ALLOW_VIRTUAL_REBUILD
 		return ullXUID;
-	#else
+#else
 		return CallVFunc<std::uint64_t, 0U>(this);
-	#endif
+#endif
 	}
 
 	int GetIndex()
 	{
-	#ifdef Q_ALLOW_VIRTUAL_REBUILD
+#ifdef Q_ALLOW_VIRTUAL_REBUILD
 		return iController;
-	#else
+#else
 		return CallVFunc<int, 1U>(this);
-	#endif
+#endif
 	}
 
 	const char* GetName()
 	{
-	#ifdef Q_ALLOW_VIRTUAL_REBUILD
+#ifdef Q_ALLOW_VIRTUAL_REBUILD
 		return szName;
-	#else
+#else
 		return CallVFunc<const char*, 2U>(this);
-	#endif
+#endif
 	}
 
 private:
@@ -55,7 +55,6 @@ static_assert(sizeof(IPlayer) == 0x98);
 class IPlayerLocal : public IPlayer
 {
 public:
-
 };
 
 // @source: master/public/matchmaking/iplayermanager.h

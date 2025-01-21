@@ -62,7 +62,7 @@ enum EVisualChams : VisualChams_t
 
 struct Variables_t
 {
-	#pragma region variables_rage
+#pragma region variables_rage
 	/* @section: aimbot */
 	C_ADD_VARIABLE(bool, bRage, false);
 
@@ -74,9 +74,9 @@ struct Variables_t
 	C_ADD_VARIABLE(int, iAntiAimYawRealOffset, 180);
 	C_ADD_VARIABLE(bool, bAntiAimYawFake, false);
 	C_ADD_VARIABLE(KeyBind_t, keyAntiAimYawFakeInverter, KeyBind_t("anti-aim inverter", VK_XBUTTON1));
-	#pragma endregion
+#pragma endregion
 
-	#pragma region variables_legit
+#pragma region variables_legit
 	/* @section: aimbot */
 	C_ADD_VARIABLE(bool, bLegit, false);
 
@@ -93,9 +93,9 @@ struct Variables_t
 	C_ADD_VARIABLE(bool, bTriggerStomach, true);
 	C_ADD_VARIABLE(bool, bTriggerArms, false);
 	C_ADD_VARIABLE(bool, bTriggerLegs, false);
-	#pragma endregion
+#pragma endregion
 
-	#pragma region variables_visuals
+#pragma region variables_visuals
 	C_ADD_VARIABLE(bool, bVisual, false);
 
 	/* @section: render */
@@ -220,9 +220,9 @@ struct Variables_t
 	C_ADD_VARIABLE(int, iVisualScreenHitMarkerLength, 10);
 	C_ADD_VARIABLE(Color_t, colVisualScreenHitMarker, Color_t(255, 255, 255, 255));
 	C_ADD_VARIABLE(Color_t, colVisualScreenHitMarkerDamage, Color_t(200, 55, 20, 255));
-	#pragma endregion
+#pragma endregion
 
-	#pragma region variables_misc
+#pragma region variables_misc
 	/* @section: movement */
 	C_ADD_VARIABLE(bool, bMiscBunnyHop, false);
 	C_ADD_VARIABLE(int, iMiscBunnyHopChance, 100);
@@ -241,12 +241,12 @@ struct Variables_t
 	C_ADD_VARIABLE(bool, bMiscRevealRanks, false);
 	C_ADD_VARIABLE(bool, bMiscUnlockInventory, false);
 	C_ADD_VARIABLE(bool, bMiscAntiSMAC, true);
-	#pragma endregion
+#pragma endregion
 
-	#pragma region variables_menu
+#pragma region variables_menu
 	C_ADD_VARIABLE(int, iMenuKey, VK_HOME);
 	C_ADD_VARIABLE(int, iPanicKey, VK_END);
-	#pragma endregion
+#pragma endregion
 };
 
-inline Variables_t Vars = { };
+inline Variables_t Vars = {};

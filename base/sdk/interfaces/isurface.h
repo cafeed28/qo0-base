@@ -39,10 +39,12 @@ enum EFontFlags
 struct Vertex_t
 {
 	Vertex_t(const Vector2D_t& vecPosition, const Vector2D_t& vecCoordinate = { 0, 0 }) :
-		vecPosition(vecPosition), vecCoordinate(vecCoordinate) { }
+		vecPosition(vecPosition),
+		vecCoordinate(vecCoordinate)
+	{ }
 
-	Vector2D_t vecPosition = { };
-	Vector2D_t vecCoordinate = { };
+	Vector2D_t vecPosition = {};
+	Vector2D_t vecCoordinate = {};
 };
 
 class ISurface : ROP::VirtualCallable_t<ROP::ClientGadget_t>

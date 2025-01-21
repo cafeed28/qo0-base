@@ -28,7 +28,7 @@ struct PropertyObject_t
 	std::uintptr_t uOffset = 0U;
 };
 
-static std::vector<PropertyObject_t> vecProperties = { };
+static std::vector<PropertyObject_t> vecProperties = {};
 static std::size_t nTablesCount = 0U;
 
 // recursively go through table and child tables properties and store their offsets
@@ -50,7 +50,7 @@ static void StoreTableProperties(const RecvTable_t* pRecvTable, const FNV1A_t uT
 
 		// concat variable name to our netvar format just by hash
 		const FNV1A_t uVariableHash = FNV1A::Hash(pCurrentProp->szVarName, uDelimiterHash);
-		
+
 		// check if the property is a child data table but it's not a base class
 		if (pCurrentProp->nRecvType == DPT_DATATABLE && uVariableHash != uBaseClassHash)
 		{
@@ -142,7 +142,8 @@ static void DumpTableProperties(HANDLE hFileOut, const RecvTable_t* pRecvTable, 
 
 	// sort the copied variables by their offset
 	// @todo: crt
-	std::sort(vecPropsSorted, vecPropsSorted + nSortedPropertiesCount, [ ](const auto& leftProperty, const auto& rightProperty) { return leftProperty.iOffset < rightProperty.iOffset; });
+	std::sort(vecPropsSorted, vecPropsSorted + nSortedPropertiesCount, [](const auto& leftProperty, const auto& rightProperty)
+		{ return leftProperty.iOffset < rightProperty.iOffset; });
 	//std::partial_sort_copy(pRecvTable->vecProps, pRecvTable->vecProps + pRecvTable->nPropCount, vecPropsSorted, vecPropsSorted + pRecvTable->nPropCount, [ ](const auto& leftProperty, const auto& rightProperty) { return leftProperty.iOffset < rightProperty.iOffset; });
 
 	// go through sorted properties, except base class and format them to file
@@ -209,7 +210,7 @@ bool NETVAR::Setup()
 	}
 
 	// sort grabbed variables to use faster binary search later
-	std::ranges::sort(vecProperties, std::ranges::less{ }, &PropertyObject_t::uHash);
+	std::ranges::sort(vecProperties, std::ranges::less{}, &PropertyObject_t::uHash);
 
 	return !vecProperties.empty();
 }
@@ -380,7 +381,7 @@ void NETVAR::GetPropertyType(const RecvProp_t* pRecvProp, char* szOutBuffer)
 
 RecvProp_t* NETVAR::GetProperty(const FNV1A_t uFieldHash)
 {
-	if (const auto it = std::ranges::lower_bound(vecProperties, uFieldHash, { }, &PropertyObject_t::uHash); it != vecProperties.end() && it->uHash == uFieldHash)
+	if (const auto it = std::ranges::lower_bound(vecProperties, uFieldHash, {}, &PropertyObject_t::uHash); it != vecProperties.end() && it->uHash == uFieldHash)
 		return it->pRecvProp;
 
 	Q_ASSERT(false); // netvar isn't found
@@ -389,7 +390,7 @@ RecvProp_t* NETVAR::GetProperty(const FNV1A_t uFieldHash)
 
 std::uintptr_t NETVAR::GetOffset(const FNV1A_t uFieldHash)
 {
-	if (const auto it = std::ranges::lower_bound(vecProperties, uFieldHash, std::ranges::less{ }, &PropertyObject_t::uHash); it != vecProperties.end() && it->uHash == uFieldHash)
+	if (const auto it = std::ranges::lower_bound(vecProperties, uFieldHash, std::ranges::less{}, &PropertyObject_t::uHash); it != vecProperties.end() && it->uHash == uFieldHash)
 		return it->uOffset;
 
 	Q_ASSERT(false); // netvar isn't found

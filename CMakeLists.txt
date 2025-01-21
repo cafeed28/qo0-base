@@ -7,7 +7,7 @@ set_target_properties("csgo" PROPERTIES
 	CXX_STANDARD 20
 	CXX_STANDARD_REQUIRED ON
 	CXX_EXTENSIONS OFF
-	
+
 	OUTPUT_NAME "base"
 	ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build/$<CONFIG>"
 	LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build/$<CONFIG>"
@@ -23,73 +23,87 @@ target_include_directories("csgo" PRIVATE "${CMAKE_SOURCE_DIR}/dependencies/free
 
 # source
 target_sources("csgo" PRIVATE
+
 	# dependencies
-		# imgui
-		"dependencies/imgui/imgui.cpp"
-		"dependencies/imgui/imgui_draw.cpp"
-		"dependencies/imgui/imgui_freetype.cpp"
-		"dependencies/imgui/imgui_widgets.cpp"
-        "dependencies/imgui/dx9/imgui_impl_dx9.cpp"
-        "dependencies/imgui/dx9/imgui_impl_dx9.h"
-        "dependencies/imgui/win32/imgui_impl_win32.cpp"
-        "dependencies/imgui/win32/imgui_impl_win32.h"
-		# minhook
-		"dependencies/minhook/buffer.c"
-		"dependencies/minhook/hook.c"
-		"dependencies/minhook/trampoline.c"
-		"dependencies/minhook/hde/hde32.c"
-		"dependencies/minhook/hde/hde64.c"
+
+	# imgui
+	"dependencies/imgui/imgui.cpp"
+	"dependencies/imgui/imgui_draw.cpp"
+	"dependencies/imgui/imgui_freetype.cpp"
+	"dependencies/imgui/imgui_widgets.cpp"
+	"dependencies/imgui/dx9/imgui_impl_dx9.cpp"
+	"dependencies/imgui/dx9/imgui_impl_dx9.h"
+	"dependencies/imgui/win32/imgui_impl_win32.cpp"
+	"dependencies/imgui/win32/imgui_impl_win32.h"
+
+	# minhook
+	"dependencies/minhook/buffer.c"
+	"dependencies/minhook/hook.c"
+	"dependencies/minhook/trampoline.c"
+	"dependencies/minhook/hde/hde32.c"
+	"dependencies/minhook/hde/hde64.c"
+
 	# base
 	"base/core.cpp"
 	"base/features.cpp"
 	"base/sdk.cpp"
-		# core
-		"base/core/config.cpp"
-		"base/core/convar.cpp"
-		"base/core/entitylistener.cpp"
-		"base/core/eventlistener.cpp"
-		"base/core/hooks.cpp"
-		"base/core/interfaces.cpp"
-		"base/core/menu.cpp"
-		"base/core/netvar.cpp"
-		"base/core/proxies.cpp"
-		# features
-			# legit
-			"base/features/legit/triggerbot.cpp"
-			# misc
-			"base/features/misc/movement.cpp"
-			# rage
-			"base/features/rage/antiaim.cpp"
-			# visual
-			"base/features/visual/chams.cpp"
-			"base/features/visual/glow.cpp"
-			"base/features/visual/overlay.cpp"
-			"base/features/visual/screen.cpp"
-			"base/features/visual/world.cpp"
-		"base/features/animationcorrection.cpp"
-		"base/features/autowall.cpp"
-		"base/features/lagcompensation.cpp"
-		"base/features/legit.cpp"
-		"base/features/misc.cpp"
-		"base/features/prediction.cpp"
-		"base/features/rage.cpp"
-		"base/features/visual.cpp"
-		# sdk
-			# datatypes
-			"base/sdk/datatypes/matrix.cpp"
-			"base/sdk/datatypes/qangle.cpp"
-			"base/sdk/datatypes/vector.cpp"
-			# hash
-			"base/sdk/hash/crc32.cpp"
-			"base/sdk/hash/md5.cpp"
-		"base/sdk/animation.cpp"
-		"base/sdk/entity.cpp"
-		"base/sdk/studio.cpp"
-		# utilities
-		"base/utilities/draw.cpp"
-		"base/utilities/inputsystem.cpp"
-		"base/utilities/log.cpp"
-		"base/utilities/memory.cpp"
+
+	# core
+	"base/core/config.cpp"
+	"base/core/convar.cpp"
+	"base/core/entitylistener.cpp"
+	"base/core/eventlistener.cpp"
+	"base/core/hooks.cpp"
+	"base/core/interfaces.cpp"
+	"base/core/menu.cpp"
+	"base/core/netvar.cpp"
+	"base/core/proxies.cpp"
+
+	# features
+
+	# legit
+	"base/features/legit/triggerbot.cpp"
+
+	# misc
+	"base/features/misc/movement.cpp"
+
+	# rage
+	"base/features/rage/antiaim.cpp"
+
+	# visual
+	"base/features/visual/chams.cpp"
+	"base/features/visual/glow.cpp"
+	"base/features/visual/overlay.cpp"
+	"base/features/visual/screen.cpp"
+	"base/features/visual/world.cpp"
+	"base/features/animationcorrection.cpp"
+	"base/features/autowall.cpp"
+	"base/features/lagcompensation.cpp"
+	"base/features/legit.cpp"
+	"base/features/misc.cpp"
+	"base/features/prediction.cpp"
+	"base/features/rage.cpp"
+	"base/features/visual.cpp"
+
+	# sdk
+
+	# datatypes
+	"base/sdk/datatypes/matrix.cpp"
+	"base/sdk/datatypes/qangle.cpp"
+	"base/sdk/datatypes/vector.cpp"
+
+	# hash
+	"base/sdk/hash/crc32.cpp"
+	"base/sdk/hash/md5.cpp"
+	"base/sdk/animation.cpp"
+	"base/sdk/entity.cpp"
+	"base/sdk/studio.cpp"
+
+	# utilities
+	"base/utilities/draw.cpp"
+	"base/utilities/inputsystem.cpp"
+	"base/utilities/log.cpp"
+	"base/utilities/memory.cpp"
 )
 
 # link

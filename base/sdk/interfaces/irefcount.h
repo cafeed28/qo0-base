@@ -39,7 +39,7 @@ public:
 			return iResult;
 
 		if (this->OnFinalRelease())
-			/*delete this;*/this->~CRefCounted();
+			/*delete this;*/ this->~CRefCounted();
 
 		return 0;
 	}
@@ -54,10 +54,12 @@ class CBaseAutoPtr
 {
 public:
 	CBaseAutoPtr() :
-		pObject(nullptr) { }
+		pObject(nullptr)
+	{ }
 
 	CBaseAutoPtr(T* pObject) :
-		pObject(pObject) { }
+		pObject(pObject)
+	{ }
 
 	operator const void*() const
 	{
@@ -84,7 +86,7 @@ public:
 		return pObject;
 	}
 
-	int	operator=(int i)
+	int operator=(int i)
 	{
 		pObject = nullptr;
 		return 0;
@@ -163,7 +165,8 @@ public:
 
 protected:
 	CBaseAutoPtr(const CBaseAutoPtr<T>& pSecondPtr) :
-		pObject(pSecondPtr.pObject) { }
+		pObject(pSecondPtr.pObject)
+	{ }
 
 	void operator=(const CBaseAutoPtr<T>& pSecondPtr)
 	{
@@ -177,14 +180,17 @@ template <class T>
 class CRefPtr : public CBaseAutoPtr<T>
 {
 	typedef CBaseAutoPtr<T> CBaseClass;
+
 public:
 	CRefPtr() { }
 
 	CRefPtr(T* pInit) :
-		CBaseClass(pInit) { }
+		CBaseClass(pInit)
+	{ }
 
 	CRefPtr(const CRefPtr<T>& pRefPtr) :
-		CBaseClass(pRefPtr) { }
+		CBaseClass(pRefPtr)
+	{ }
 
 	~CRefPtr()
 	{

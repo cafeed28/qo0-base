@@ -50,7 +50,7 @@ namespace T
 	// current selected sub-tab in visuals tab
 	inline int iEspTab = 0;
 	// user-defined configuration filename in miscellaneous tab
-	inline char szConfigFile[MAX_PATH] = { };
+	inline char szConfigFile[MAX_PATH] = {};
 	// current selected configuration in miscellaneous tab
 	inline std::size_t nSelectedConfig = ~1U;
 	// current selected color setting in miscellaneous tab

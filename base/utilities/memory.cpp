@@ -468,7 +468,7 @@ std::vector<std::uint8_t*> MEM::FindPatternAllOccurrencesEx(const std::uint8_t* 
 	const bool bIsMaskUsed = (szByteMask != nullptr);
 
 	// container for addresses of the all found occurrences
-	std::vector<std::uint8_t*> vecOccurrences = { };
+	std::vector<std::uint8_t*> vecOccurrences = {};
 
 	for (std::uint8_t* pCurrentByte = const_cast<std::uint8_t*>(pRegionStart); pCurrentByte < pRegionEnd; ++pCurrentByte)
 	{
@@ -624,9 +624,9 @@ std::size_t MEM::PatternToBytes(const char* szPattern, std::uint8_t* pOutByteBuf
 		if (*szPattern == '?')
 		{
 			++szPattern;
-		#ifdef Q_PARANOID
+#ifdef Q_PARANOID
 			Q_ASSERT(*szPattern == '\0' || *szPattern == ' ' || *szPattern == '?'); // we're expect that next character either terminating null, whitespace or part of double wildcard (note that it's required if your pattern written without whitespaces)
-		#endif
+#endif
 
 			// ignore that
 			*pCurrentByte++ = 0U;
@@ -639,9 +639,9 @@ std::size_t MEM::PatternToBytes(const char* szPattern, std::uint8_t* pOutByteBuf
 			std::uint8_t uByte = static_cast<std::uint8_t>(CRT::CharToHexInt(*szPattern) << 4);
 
 			++szPattern;
-		#ifdef Q_PARANOID
+#ifdef Q_PARANOID
 			Q_ASSERT(*szPattern != '\0' && *szPattern != '?' && *szPattern != ' '); // we're expect that byte always represented by two numbers in a row
-		#endif
+#endif
 
 			uByte |= static_cast<std::uint8_t>(CRT::CharToHexInt(*szPattern));
 

@@ -5,7 +5,7 @@
 class IBaseInterface
 {
 public:
-	virtual	~IBaseInterface() { }
+	virtual ~IBaseInterface() { }
 };
 static_assert(sizeof(IBaseInterface) == 0x4);
 

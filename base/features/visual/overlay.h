@@ -42,8 +42,8 @@ namespace F::VISUAL::OVERLAY
 		virtual void Render(const ImVec2& vecPosition) = 0;
 
 		EAlignSide nSide = SIDE_TOP;
-		ImVec2 vecOffset = { };
-		ImVec2 vecSize = { };
+		ImVec2 vecOffset = {};
+		ImVec2 vecSize = {};
 	};
 
 	class CBaseDirectionalComponent : public CBaseComponent
@@ -69,10 +69,10 @@ namespace F::VISUAL::OVERLAY
 	private:
 		float flProgressFactor = 0.0f;
 		float flThickness = 0.0f;
-		Color_t colPrimary = { };
-		Color_t colBackground = { };
+		Color_t colPrimary = {};
+		Color_t colBackground = {};
 		float flOutlineThickness = 0.0f;
-		Color_t colOutline = { };
+		Color_t colOutline = {};
 	};
 
 	class CTextComponent : public CBaseDirectionalComponent
@@ -87,9 +87,9 @@ namespace F::VISUAL::OVERLAY
 		const ImFont* pFont = nullptr;
 		float flFontSize = 0.0f;
 		char* szText = nullptr;
-		Color_t colPrimary = { };
+		Color_t colPrimary = {};
 		float flOutlineThickness = 0.0f;
-		Color_t colOutline = { };
+		Color_t colOutline = {};
 	};
 
 	/*
@@ -141,13 +141,13 @@ namespace F::VISUAL::OVERLAY
 
 	private:
 		// storage of all components
-		std::vector<CBaseComponent*> vecComponents = { };
+		std::vector<CBaseComponent*> vecComponents = {};
 		// additional spacing between components
 		float flComponentSpacing = 1.0f;
 		// summary padding of all align sides
-		float arrSidePaddings[SIDE_MAX] = { };
+		float arrSidePaddings[SIDE_MAX] = {};
 		// summary padding for all align directions of all align sides
-		float arrSideDirectionPaddings[SIDE_MAX][DIR_MAX] = { };
+		float arrSideDirectionPaddings[SIDE_MAX][DIR_MAX] = {};
 	};
 
 	/* @section: callbacks */

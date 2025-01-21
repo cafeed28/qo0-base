@@ -233,11 +233,11 @@ namespace C::TOML
 
 		toml::value root = toml::parse(wszFilePath);
 
-		char szKeyBuffer[CRT::IntegerToString_t<FNV1A_t, 16U>::MaxCount()] = { };
+		char szKeyBuffer[CRT::IntegerToString_t<FNV1A_t, 16U>::MaxCount()] = {};
 		const char* szVariableHash = CRT::IntegerToString(variable.uNameHash, szKeyBuffer, sizeof(szKeyBuffer), 16);
 
 		WriteBuffer(root[szVariableHash], variable);
-		
+
 		// write re-serialized configuration to file
 		const std::string strSerialized = toml::format(root);
 		const BOOL bWritten = ::WriteFile(hFileOut, strSerialized.data(), strSerialized.size(), nullptr, nullptr);
@@ -250,7 +250,7 @@ namespace C::TOML
 	{
 		toml::value root = toml::parse(wszFilePath);
 
-		char szHashBuffer[CRT::IntegerToString_t<FNV1A_t, 16U>::MaxCount()] = { };
+		char szHashBuffer[CRT::IntegerToString_t<FNV1A_t, 16U>::MaxCount()] = {};
 		const char* szVariableHash = CRT::IntegerToString(variable.uNameHash, szHashBuffer, sizeof(szHashBuffer), 16);
 
 		if (root.contains(szVariableHash))
@@ -281,7 +281,7 @@ namespace C::TOML
 		if (hFileOut == INVALID_HANDLE_VALUE)
 			return false;
 
-		char szHashBuffer[_MAX_ULTOSTR_BASE16_COUNT] = { };
+		char szHashBuffer[_MAX_ULTOSTR_BASE16_COUNT] = {};
 		const char* szVariableHash = CRT::IntegerToString(FNV1A::HashConst("version"), szHashBuffer, sizeof(szHashBuffer), 16);
 
 		toml::value root;
@@ -310,7 +310,7 @@ namespace C::TOML
 
 		// @todo: implement version adaptation mechanism like so: if file has variable but src doesn't - remove from file, if src has variable but file doesn't - add it to file + probably with menu notification and ask for this
 
-		char szHashBuffer[CRT::IntegerToString_t<FNV1A_t, 16U>::MaxCount()] = { };
+		char szHashBuffer[CRT::IntegerToString_t<FNV1A_t, 16U>::MaxCount()] = {};
 		const char* szVariableHash = CRT::IntegerToString(FNV1A::HashConst("version"), szHashBuffer, sizeof(szHashBuffer), 16);
 
 		// get cheat version at time when configuration has been saved

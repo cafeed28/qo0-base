@@ -22,7 +22,6 @@ public:
 
 class CPanoramaHudElement : public CHudElement
 {
-
 };
 
 class CBaseHudChat : public CHudElement
@@ -38,7 +37,6 @@ public:
 
 class CBaseHudWeaponSelection : public CHudElement
 {
-
 };
 
 class IHud

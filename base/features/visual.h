@@ -31,5 +31,5 @@ namespace F::VISUAL
 
 	/* @section: values */
 	// in-game camera origin
-	inline Vector_t vecCameraOrigin = { };
+	inline Vector_t vecCameraOrigin = {};
 }

@@ -176,7 +176,11 @@ class CBoneSetup
 {
 public:
 	CBoneSetup(const CStudioHdr* pStudioHdr, const int nBoneMask, const float* arrPoseParameters, void* pPoseDebugger = nullptr) :
-		pStudioHdr(pStudioHdr), nBoneMask(nBoneMask), pPoseParameters(arrPoseParameters), pPoseDebugger(pPoseDebugger) { }
+		pStudioHdr(pStudioHdr),
+		nBoneMask(nBoneMask),
+		pPoseParameters(arrPoseParameters),
+		pPoseDebugger(pPoseDebugger)
+	{ }
 
 	Q_CLASS_NO_ALLOC()
 
@@ -219,13 +223,13 @@ public:
 	{
 		static auto fnCalcBoneAdj = MEM::FindPattern(CLIENT_DLL, Q_XOR("55 8B EC 83 E4 F8 81 EC ? ? ? ? 8B C1 89"));
 
-	#ifdef Q_COMPILER_CLANG
+#ifdef Q_COMPILER_CLANG
 		std::uintptr_t uCalcBoneAdj = reinterpret_cast<std::uintptr_t>(fnCalcBoneAdj); // @todo: clang compiles direct (E8) call instead of indirect (FF 15) without this
 		const CStudioHdr* pSelfStudioHdr = pStudioHdr;
 		int nSelfBoneMask = nBoneMask;
 
 		__asm
-		{
+			{
 			mov eax, this
 			mov ecx, pSelfStudioHdr
 			mov edx, arrBonesPosition
@@ -234,10 +238,10 @@ public:
 			push arrBonesRotation
 			call uCalcBoneAdj
 			add esp, 0Ch
-		}
-	#else
+			}
+#else
 		__asm
-		{
+			{
 			mov eax, this
 			mov ecx, [eax + pStudioHdr]
 			mov edx, arrBonesPosition
@@ -246,8 +250,8 @@ public:
 			push arrBonesRotation
 			call fnCalcBoneAdj
 			add esp, 0Ch
-		}
-	#endif
+			}
+#endif
 	}
 
 public:
@@ -305,7 +309,7 @@ inline float Studio_SetPoseParameter(const CStudioHdr* pStudioHdr, const int iPa
 inline void Studio_BuildMatrices(const CStudioHdr* pStudioHdr, const QAngle_t& angView, const Vector_t& vecOrigin, const BoneVector_t* arrBonesPosition, const BoneQuaternion_t* arrBonesRotation, const float flScale, Matrix3x4a_t arrBonesToWorld[MAXSTUDIOBONES], const int nBoneMask, const CBoneBitList& arrBonesComputed)
 {
 	// [side change] since 'iBone' parameter is removed, simplified logic here, reduced checks count
-	int arrChain[MAXSTUDIOBONES] = { };
+	int arrChain[MAXSTUDIOBONES] = {};
 	int nChainLength = pStudioHdr->GetBoneCount();
 
 	// build list of what bones to use

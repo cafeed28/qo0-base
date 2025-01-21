@@ -102,22 +102,22 @@ enum EImageFormat
 	IMAGE_FORMAT_RGBA16161616F,
 	IMAGE_FORMAT_RGBA16161616,
 	IMAGE_FORMAT_UVLX8888,
-	IMAGE_FORMAT_R32F,			// single-channel 32-bit floating point
-	IMAGE_FORMAT_RGB323232F,	// note: D3D9 does not have this format
+	IMAGE_FORMAT_R32F, // single-channel 32-bit floating point
+	IMAGE_FORMAT_RGB323232F, // note: D3D9 does not have this format
 	IMAGE_FORMAT_RGBA32323232F,
 	IMAGE_FORMAT_RG1616F,
 	IMAGE_FORMAT_RG3232F,
 	IMAGE_FORMAT_RGBX8888,
 
-	IMAGE_FORMAT_NULL,			// dummy format which takes no video memory
+	IMAGE_FORMAT_NULL, // dummy format which takes no video memory
 
 	// compressed normal map formats
-	IMAGE_FORMAT_ATI2N,			// one-surface ATI2N / DXN format
-	IMAGE_FORMAT_ATI1N,			// two-surface ATI1N format
+	IMAGE_FORMAT_ATI2N, // one-surface ATI2N / DXN format
+	IMAGE_FORMAT_ATI1N, // two-surface ATI1N format
 
-	IMAGE_FORMAT_RGBA1010102,	// 10 bit-per component render targets
+	IMAGE_FORMAT_RGBA1010102, // 10 bit-per component render targets
 	IMAGE_FORMAT_BGRA1010102,
-	IMAGE_FORMAT_R16F,			// 16 bit FP format
+	IMAGE_FORMAT_R16F, // 16 bit FP format
 
 	// depth-stencil texture formats
 	IMAGE_FORMAT_D16,
@@ -128,8 +128,8 @@ enum EImageFormat
 	IMAGE_FORMAT_D24X8,
 	IMAGE_FORMAT_D24X4S4,
 	IMAGE_FORMAT_D24FS8,
-	IMAGE_FORMAT_D16_SHADOW,	// specific formats for shadow mapping
-	IMAGE_FORMAT_D24X8_SHADOW,	// specific formats for shadow mapping
+	IMAGE_FORMAT_D16_SHADOW, // specific formats for shadow mapping
+	IMAGE_FORMAT_D24X8_SHADOW, // specific formats for shadow mapping
 
 	// supporting these specific formats as non-tiled for procedural cpu access (360-specific)
 	IMAGE_FORMAT_LINEAR_BGRX8888,

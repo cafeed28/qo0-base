@@ -39,7 +39,6 @@ void MOVEMENT::OnPreMove(CCSPlayer* pLocal, CUserCmd* pCmd, const bool* pbSendPa
 
 void MOVEMENT::OnMove(CCSPlayer* pLocal, CUserCmd* pCmd, const bool* pbSendPacket)
 {
-
 }
 
 void MOVEMENT::OnPostMove(CCSPlayer* pLocal, CUserCmd* pCmd, const bool* pbSendPacket)

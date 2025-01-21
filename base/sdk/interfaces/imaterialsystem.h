@@ -53,38 +53,38 @@ enum ECreateRenderTargetFlags : unsigned int
 
 enum ETextureFlags : unsigned int
 {
-	TEXTUREFLAGS_POINTSAMPLE =			(1U << 0U),
-	TEXTUREFLAGS_TRILINEAR =			(1U << 1U),
-	TEXTUREFLAGS_CLAMPS =				(1U << 2U),
-	TEXTUREFLAGS_CLAMPT =				(1U << 3U),
-	TEXTUREFLAGS_ANISOTROPIC =			(1U << 4U),
-	TEXTUREFLAGS_HINT_DXT5 =			(1U << 5U),
-	TEXTUREFLAGS_SRGB =					(1U << 6U),
-	TEXTUREFLAGS_NORMAL =				(1U << 7U),
-	TEXTUREFLAGS_NOMIP =				(1U << 8U),
-	TEXTUREFLAGS_NOLOD =				(1U << 9U),
-	TEXTUREFLAGS_ALL_MIPS =				(1U << 10U),
-	TEXTUREFLAGS_PROCEDURAL =			(1U << 11U),
-	TEXTUREFLAGS_ONEBITALPHA =			(1U << 12U),
-	TEXTUREFLAGS_EIGHTBITALPHA =		(1U << 13U),
-	TEXTUREFLAGS_ENVMAP =				(1U << 14U),
-	TEXTUREFLAGS_RENDERTARGET =			(1U << 15U),
-	TEXTUREFLAGS_DEPTHRENDERTARGET =	(1U << 16U),
-	TEXTUREFLAGS_NODEBUGOVERRIDE =		(1U << 17U),
-	TEXTUREFLAGS_SINGLECOPY =			(1U << 18U),
-	TEXTUREFLAGS_UNUSED_00080000 =		(1U << 19U),
-	TEXTUREFLAGS_UNUSED_00100000 =		(1U << 20U),
-	TEXTUREFLAGS_UNUSED_00200000 =		(1U << 21U),
-	TEXTUREFLAGS_UNUSED_00400000 =		(1U << 22U),
-	TEXTUREFLAGS_NODEPTHBUFFER =		(1U << 23U),
-	TEXTUREFLAGS_UNUSED_01000000 =		(1U << 24U),
-	TEXTUREFLAGS_CLAMPU =				(1U << 25U),
-	TEXTUREFLAGS_VERTEXTEXTURE =		(1U << 26U),
-	TEXTUREFLAGS_SSBUMP =				(1U << 27U),
-	TEXTUREFLAGS_UNUSED_10000000 =		(1U << 28U),
-	TEXTUREFLAGS_BORDER =				(1U << 29U),
-	TEXTUREFLAGS_UNUSED_40000000 =		(1U << 30U),
-	TEXTUREFLAGS_UNUSED_80000000 =		(1U << 31U)
+	TEXTUREFLAGS_POINTSAMPLE = (1U << 0U),
+	TEXTUREFLAGS_TRILINEAR = (1U << 1U),
+	TEXTUREFLAGS_CLAMPS = (1U << 2U),
+	TEXTUREFLAGS_CLAMPT = (1U << 3U),
+	TEXTUREFLAGS_ANISOTROPIC = (1U << 4U),
+	TEXTUREFLAGS_HINT_DXT5 = (1U << 5U),
+	TEXTUREFLAGS_SRGB = (1U << 6U),
+	TEXTUREFLAGS_NORMAL = (1U << 7U),
+	TEXTUREFLAGS_NOMIP = (1U << 8U),
+	TEXTUREFLAGS_NOLOD = (1U << 9U),
+	TEXTUREFLAGS_ALL_MIPS = (1U << 10U),
+	TEXTUREFLAGS_PROCEDURAL = (1U << 11U),
+	TEXTUREFLAGS_ONEBITALPHA = (1U << 12U),
+	TEXTUREFLAGS_EIGHTBITALPHA = (1U << 13U),
+	TEXTUREFLAGS_ENVMAP = (1U << 14U),
+	TEXTUREFLAGS_RENDERTARGET = (1U << 15U),
+	TEXTUREFLAGS_DEPTHRENDERTARGET = (1U << 16U),
+	TEXTUREFLAGS_NODEBUGOVERRIDE = (1U << 17U),
+	TEXTUREFLAGS_SINGLECOPY = (1U << 18U),
+	TEXTUREFLAGS_UNUSED_00080000 = (1U << 19U),
+	TEXTUREFLAGS_UNUSED_00100000 = (1U << 20U),
+	TEXTUREFLAGS_UNUSED_00200000 = (1U << 21U),
+	TEXTUREFLAGS_UNUSED_00400000 = (1U << 22U),
+	TEXTUREFLAGS_NODEPTHBUFFER = (1U << 23U),
+	TEXTUREFLAGS_UNUSED_01000000 = (1U << 24U),
+	TEXTUREFLAGS_CLAMPU = (1U << 25U),
+	TEXTUREFLAGS_VERTEXTEXTURE = (1U << 26U),
+	TEXTUREFLAGS_SSBUMP = (1U << 27U),
+	TEXTUREFLAGS_UNUSED_10000000 = (1U << 28U),
+	TEXTUREFLAGS_BORDER = (1U << 29U),
+	TEXTUREFLAGS_UNUSED_40000000 = (1U << 30U),
+	TEXTUREFLAGS_UNUSED_80000000 = (1U << 31U)
 };
 
 enum EClearFlags : unsigned int
@@ -137,7 +137,7 @@ struct MaterialVideoMode_t
 	int iWidth; // 0x00
 	int iHeight; // 0x04
 	EImageFormat nFormat; // 0x08
-	int	iRefreshRate; // 0x0C
+	int iRefreshRate; // 0x0C
 };
 static_assert(sizeof(MaterialVideoMode_t) == 0x10);
 
@@ -194,10 +194,10 @@ static_assert(sizeof(MaterialSystemConfig_t) == 0x6C);
 // @source: master/public/materialsystem/icompositetexture.h
 class ICompositeTexture
 {
-	public:
+public:
 	virtual bool IsReady() const = 0;
 	virtual bool GenerationComplete() const = 0;
-	virtual void*/*IVTFTexture**/ GetResultVTF() = 0;
+	virtual void* /*IVTFTexture**/ GetResultVTF() = 0;
 	virtual const char* GetName() = 0;
 };
 
@@ -241,6 +241,7 @@ class IVisualsDataProcessor : public CRefCounted
 {
 protected:
 	virtual ~IVisualsDataProcessor() { }
+
 public:
 	virtual CKeyValues* GenerateCustomMaterialKeyValues() = 0;
 	virtual CKeyValues* GenerateCompositeMaterialKeyValues(int nMaterialParamId) = 0;
@@ -292,7 +293,7 @@ public:
 		return CallVFunc<IMaterial*, 89U>(this, hMaterial);
 	}
 
-	int	GetNumMaterials()
+	int GetNumMaterials()
 	{
 		return CallVFunc<int, 90U>(this);
 	}
@@ -378,16 +379,19 @@ static_assert(sizeof(IMaterialSystem) == 0x2C1C);
 class CMatRenderContextPtr : public CRefPtr<IMatRenderContext>
 {
 	typedef CRefPtr<IMatRenderContext> CBaseClass;
+
 public:
 	CMatRenderContextPtr() = default;
 
-	CMatRenderContextPtr(IMatRenderContext* pInit) : CBaseClass(pInit)
+	CMatRenderContextPtr(IMatRenderContext* pInit) :
+		CBaseClass(pInit)
 	{
 		if (CBaseClass::pObject != nullptr)
 			CBaseClass::pObject->BeginRender();
 	}
 
-	CMatRenderContextPtr(IMaterialSystem* pFrom) : CBaseClass(pFrom->GetRenderContext())
+	CMatRenderContextPtr(IMaterialSystem* pFrom) :
+		CBaseClass(pFrom->GetRenderContext())
 	{
 		if (CBaseClass::pObject != nullptr)
 			CBaseClass::pObject->BeginRender();

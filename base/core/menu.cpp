@@ -24,16 +24,14 @@
 // @todo: untouched, wait for new gui merge
 
 #pragma region menu_array_entries
-static constexpr const char* arrVisualsFlags[ ] =
-{
+static constexpr const char* arrVisualsFlags[] = {
 	"helmet",
 	"kevlar",
 	"defuse kit",
 	"zoom"
 };
 
-static constexpr const char* arrVisualsRemovals[ ] =
-{
+static constexpr const char* arrVisualsRemovals[] = {
 	"post-processing",
 	"punch",
 	"flash",
@@ -73,7 +71,7 @@ void MENU::MainWindow(IDirect3DDevice9* pDevice)
 
 	ImGuiStyle& style = ImGui::GetStyle();
 
-	#pragma region main_header
+#pragma region main_header
 	if (!I::Engine->IsTakingScreenshot() && !I::Engine->IsDrawingLoadingImage())
 	{
 		ImGui::PushStyleColor(ImGuiCol_MenuBarBg, ImVec4(0.f, 0.f, 0.f, 0.03f));
@@ -85,9 +83,9 @@ void MENU::MainWindow(IDirect3DDevice9* pDevice)
 			ImGui::PushFont(FONT::pExtra);
 			ImGui::Dummy(ImVec2(1, 1));
 
-		#ifdef _DEBUG
+#ifdef _DEBUG
 			ImGui::TextColored(ImVec4(1.0f, 0.5f, 0.0f, 1.0f), Q_XOR("debug"));
-		#endif
+#endif
 
 			if (CRT::StringString(GetCommandLineW(), Q_XOR(L"-insecure")) != nullptr)
 				ImGui::TextColored(ImVec4(1.0f, 1.0f, 0.0f, 1.0f), Q_XOR("insecure"));
@@ -105,9 +103,9 @@ void MENU::MainWindow(IDirect3DDevice9* pDevice)
 
 		ImGui::PopStyleColor(2);
 	}
-	#pragma endregion
+#pragma endregion
 
-	#pragma region main_window
+#pragma region main_window
 	io.MouseDrawCursor = bMainOpened;
 
 	if (bMainOpened)
@@ -131,8 +129,7 @@ void MENU::MainWindow(IDirect3DDevice9* pDevice)
 			ImGui::PopClipRect();
 
 			// add tabs
-			static const CTab arrTabs[ ] =
-			{
+			static const CTab arrTabs[] = {
 				CTab{ "rage", &T::RageBot },
 				CTab{ "legit", &T::LegitBot },
 				CTab{ "visuals", &T::Visuals },
@@ -144,7 +141,7 @@ void MENU::MainWindow(IDirect3DDevice9* pDevice)
 			ImGui::End();
 		}
 	}
-	#pragma endregion
+#pragma endregion
 }
 #pragma endregion
 
@@ -183,8 +180,7 @@ void T::RageBot()
 
 	ImGui::Columns(2, nullptr, false);
 	{
-		ImGui::BeginChild(
-		Q_XOR("ragebot.aimbot"), ImVec2{ }, true, ImGuiWindowFlags_MenuBar);
+		ImGui::BeginChild(Q_XOR("ragebot.aimbot"), ImVec2{}, true, ImGuiWindowFlags_MenuBar);
 		{
 			if (ImGui::BeginMenuBar())
 			{
@@ -205,7 +201,7 @@ void T::RageBot()
 	}
 	ImGui::NextColumn();
 	{
-		ImGui::BeginChild(Q_XOR("ragebot.antiaim"), ImVec2{ }, true, ImGuiWindowFlags_MenuBar);
+		ImGui::BeginChild(Q_XOR("ragebot.antiaim"), ImVec2{}, true, ImGuiWindowFlags_MenuBar);
 		{
 			if (ImGui::BeginMenuBar())
 			{
@@ -242,7 +238,7 @@ void T::LegitBot()
 
 	ImGui::Columns(2, nullptr, false);
 	{
-		ImGui::BeginChild(Q_XOR("legitbot.aimbot"), ImVec2{ }, true, ImGuiWindowFlags_MenuBar);
+		ImGui::BeginChild(Q_XOR("legitbot.aimbot"), ImVec2{}, true, ImGuiWindowFlags_MenuBar);
 		{
 			if (ImGui::BeginMenuBar())
 			{
@@ -263,7 +259,7 @@ void T::LegitBot()
 	}
 	ImGui::NextColumn();
 	{
-		ImGui::BeginChild(Q_XOR("legitbot.triggerbot"), ImVec2{ }, true, ImGuiWindowFlags_MenuBar);
+		ImGui::BeginChild(Q_XOR("legitbot.triggerbot"), ImVec2{}, true, ImGuiWindowFlags_MenuBar);
 		{
 			if (ImGui::BeginMenuBar())
 			{
@@ -306,7 +302,7 @@ void T::Visuals()
 
 	ImGui::Columns(2, nullptr, false);
 	{
-		ImGui::BeginChild(Q_XOR("visuals.esp"), ImVec2{ }, true, ImGuiWindowFlags_MenuBar);
+		ImGui::BeginChild(Q_XOR("visuals.esp"), ImVec2{}, true, ImGuiWindowFlags_MenuBar);
 		{
 			if (ImGui::BeginMenuBar())
 			{
@@ -357,100 +353,99 @@ void T::Visuals()
 				ImGui::EndMenuBar();
 			}
 
-			static const CTab arrEspTabs[ ] =
-			{
+			static const CTab arrEspTabs[] = {
 				CTab{ "overlay", []()
-			{
-				ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(ImGui::GetStyle().FramePadding.x, -1));
-				ImGui::Checkbox(Q_XOR("enable##main"), &C::Get<bool>(Vars.bVisualOverlay));
-
-				if (C::Get<bool>(Vars.bVisualOverlayEnemies) || C::Get<bool>(Vars.bVisualOverlayAllies))
-				{
-					ImGui::Separator();
-					ImGui::Combo(Q_XOR("player box"), &C::Get<int>(Vars.iVisualOverlayPlayerBox), Q_XOR("none\0full\0corners\0\0"));
-
-					ImGui::Checkbox(Q_XOR("players info"), &C::Get<bool>(Vars.bVisualOverlayPlayerInfo));
-					if (C::Get<bool>(Vars.bVisualOverlayPlayerInfo))
 					{
-						ImGui::Checkbox(Q_XOR("health##player"), &C::Get<bool>(Vars.bVisualOverlayPlayerHealth));
-						ImGui::Checkbox(Q_XOR("money##player"), &C::Get<bool>(Vars.bVisualOverlayPlayerMoney));
-						ImGui::Checkbox(Q_XOR("name##player"), &C::Get<bool>(Vars.bVisualOverlayPlayerName));
-						ImGui::Checkbox(Q_XOR("flash##player"), &C::Get<bool>(Vars.bVisualOverlayPlayerFlash));
-						ImGui::MultiCombo(Q_XOR("flags##player"), &C::Get<unsigned int>(Vars.nVisualOverlayPlayerFlags), arrVisualsFlags, ARRAYSIZE(arrVisualsFlags));
-						ImGui::Checkbox(Q_XOR("weapons##player"), &C::Get<bool>(Vars.bVisualOverlayPlayerWeapons));
-						ImGui::Checkbox(Q_XOR("ammo##player"), &C::Get<bool>(Vars.bVisualOverlayPlayerAmmo));
-						ImGui::Checkbox(Q_XOR("distance##player"), &C::Get<bool>(Vars.bVisualOverlayPlayerDistance));
-					}
-				}
+						ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(ImGui::GetStyle().FramePadding.x, -1));
+						ImGui::Checkbox(Q_XOR("enable##main"), &C::Get<bool>(Vars.bVisualOverlay));
 
-				if (C::Get<bool>(Vars.bVisualOverlayWeapons))
-				{
-					ImGui::Separator();
-					ImGui::Combo(Q_XOR("weapon box"), &C::Get<int>(Vars.iVisualOverlayWeaponBox), Q_XOR("none\0full\0corners\0\0"));
+						if (C::Get<bool>(Vars.bVisualOverlayEnemies) || C::Get<bool>(Vars.bVisualOverlayAllies))
+						{
+							ImGui::Separator();
+							ImGui::Combo(Q_XOR("player box"), &C::Get<int>(Vars.iVisualOverlayPlayerBox), Q_XOR("none\0full\0corners\0\0"));
 
-					ImGui::Checkbox(Q_XOR("weapons info"), &C::Get<bool>(Vars.bVisualOverlayWeaponInfo));
-					if (C::Get<bool>(Vars.bVisualOverlayWeaponInfo))
-					{
-						ImGui::Checkbox(Q_XOR("icon##weapon"), &C::Get<bool>(Vars.bVisualOverlayWeaponIcon));
-						ImGui::Checkbox(Q_XOR("ammo##weapon"), &C::Get<bool>(Vars.bVisualOverlayWeaponAmmo));
-						ImGui::Checkbox(Q_XOR("distance##weapon"), &C::Get<bool>(Vars.bVisualOverlayWeaponDistance));
-					}
-				}
+							ImGui::Checkbox(Q_XOR("players info"), &C::Get<bool>(Vars.bVisualOverlayPlayerInfo));
+							if (C::Get<bool>(Vars.bVisualOverlayPlayerInfo))
+							{
+								ImGui::Checkbox(Q_XOR("health##player"), &C::Get<bool>(Vars.bVisualOverlayPlayerHealth));
+								ImGui::Checkbox(Q_XOR("money##player"), &C::Get<bool>(Vars.bVisualOverlayPlayerMoney));
+								ImGui::Checkbox(Q_XOR("name##player"), &C::Get<bool>(Vars.bVisualOverlayPlayerName));
+								ImGui::Checkbox(Q_XOR("flash##player"), &C::Get<bool>(Vars.bVisualOverlayPlayerFlash));
+								ImGui::MultiCombo(Q_XOR("flags##player"), &C::Get<unsigned int>(Vars.nVisualOverlayPlayerFlags), arrVisualsFlags, ARRAYSIZE(arrVisualsFlags));
+								ImGui::Checkbox(Q_XOR("weapons##player"), &C::Get<bool>(Vars.bVisualOverlayPlayerWeapons));
+								ImGui::Checkbox(Q_XOR("ammo##player"), &C::Get<bool>(Vars.bVisualOverlayPlayerAmmo));
+								ImGui::Checkbox(Q_XOR("distance##player"), &C::Get<bool>(Vars.bVisualOverlayPlayerDistance));
+							}
+						}
 
-				ImGui::PopStyleVar();
-			}},
+						if (C::Get<bool>(Vars.bVisualOverlayWeapons))
+						{
+							ImGui::Separator();
+							ImGui::Combo(Q_XOR("weapon box"), &C::Get<int>(Vars.iVisualOverlayWeaponBox), Q_XOR("none\0full\0corners\0\0"));
+
+							ImGui::Checkbox(Q_XOR("weapons info"), &C::Get<bool>(Vars.bVisualOverlayWeaponInfo));
+							if (C::Get<bool>(Vars.bVisualOverlayWeaponInfo))
+							{
+								ImGui::Checkbox(Q_XOR("icon##weapon"), &C::Get<bool>(Vars.bVisualOverlayWeaponIcon));
+								ImGui::Checkbox(Q_XOR("ammo##weapon"), &C::Get<bool>(Vars.bVisualOverlayWeaponAmmo));
+								ImGui::Checkbox(Q_XOR("distance##weapon"), &C::Get<bool>(Vars.bVisualOverlayWeaponDistance));
+							}
+						}
+
+						ImGui::PopStyleVar();
+					} },
 				CTab{ "glow", []()
-			{
-				ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(ImGui::GetStyle().FramePadding.x, -1));
-				ImGui::Checkbox(Q_XOR("enable##glow"), &C::Get<bool>(Vars.bVisualGlow));
-				ImGui::Checkbox(Q_XOR("bloom"), &C::Get<bool>(Vars.bVisualGlowBloom));
+					{
+						ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(ImGui::GetStyle().FramePadding.x, -1));
+						ImGui::Checkbox(Q_XOR("enable##glow"), &C::Get<bool>(Vars.bVisualGlow));
+						ImGui::Checkbox(Q_XOR("bloom"), &C::Get<bool>(Vars.bVisualGlowBloom));
 
-				// @note: if u rebuild glow and wanna use styles do like that
-				//ImGui::Combo(Q_XOR("styles example##glow"), Q_XOR("outer\0rim\0edge\0edge pulse\0\0"));
+						// @note: if u rebuild glow and wanna use styles do like that
+						//ImGui::Combo(Q_XOR("styles example##glow"), Q_XOR("outer\0rim\0edge\0edge pulse\0\0"));
 
-				ImGui::PopStyleVar();
-			}},
+						ImGui::PopStyleVar();
+					} },
 				CTab{ "chams", []()
-			{
-				ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(ImGui::GetStyle().FramePadding.x, -1));
-				ImGui::Checkbox(Q_XOR("enable##chams"), &C::Get<bool>(Vars.bVisualChams));
+					{
+						ImGui::PushStyleVar(ImGuiStyleVar_FramePadding, ImVec2(ImGui::GetStyle().FramePadding.x, -1));
+						ImGui::Checkbox(Q_XOR("enable##chams"), &C::Get<bool>(Vars.bVisualChams));
 
-				if (C::Get<bool>(Vars.bVisualChamsEnemies))
-				{
-					ImGui::Combo(Q_XOR("enemies style##enemies"), &C::Get<int>(Vars.iVisualChamsEnemies), Q_XOR("none\0covered\0flat\0glow\0reflective\0scroll\0\0"));
-					ImGui::Checkbox(Q_XOR("xqz##enemies"), &C::Get<bool>(Vars.bVisualChamsEnemiesXQZ));
-					ImGui::Checkbox(Q_XOR("wireframe##enemies"), &C::Get<bool>(Vars.bVisualChamsEnemiesWireframe));
-					ImGui::Separator();
-				}
+						if (C::Get<bool>(Vars.bVisualChamsEnemies))
+						{
+							ImGui::Combo(Q_XOR("enemies style##enemies"), &C::Get<int>(Vars.iVisualChamsEnemies), Q_XOR("none\0covered\0flat\0glow\0reflective\0scroll\0\0"));
+							ImGui::Checkbox(Q_XOR("xqz##enemies"), &C::Get<bool>(Vars.bVisualChamsEnemiesXQZ));
+							ImGui::Checkbox(Q_XOR("wireframe##enemies"), &C::Get<bool>(Vars.bVisualChamsEnemiesWireframe));
+							ImGui::Separator();
+						}
 
-				if (C::Get<bool>(Vars.bVisualChamsAllies))
-				{
-					ImGui::Combo(Q_XOR("allies style##allies"), &C::Get<int>(Vars.iVisualChamsAllies), Q_XOR("none\0covered\0flat\0glow\0reflective\0scroll\0\0"));
-					ImGui::Checkbox(Q_XOR("xqz##allies"), &C::Get<bool>(Vars.bVisualChamsAlliesXQZ));
-					ImGui::Checkbox(Q_XOR("wireframe##allies"), &C::Get<bool>(Vars.bVisualChamsAlliesWireframe));
-					ImGui::Separator();
-				}
+						if (C::Get<bool>(Vars.bVisualChamsAllies))
+						{
+							ImGui::Combo(Q_XOR("allies style##allies"), &C::Get<int>(Vars.iVisualChamsAllies), Q_XOR("none\0covered\0flat\0glow\0reflective\0scroll\0\0"));
+							ImGui::Checkbox(Q_XOR("xqz##allies"), &C::Get<bool>(Vars.bVisualChamsAlliesXQZ));
+							ImGui::Checkbox(Q_XOR("wireframe##allies"), &C::Get<bool>(Vars.bVisualChamsAlliesWireframe));
+							ImGui::Separator();
+						}
 
-				if (C::Get<bool>(Vars.bVisualChamsLocal))
-				{
-					ImGui::Combo(Q_XOR("local style##local"), &C::Get<int>(Vars.iVisualChamsLocal), Q_XOR("none\0covered\0flat\0glow\0reflective\0scroll\0\0"));
-					ImGui::Checkbox(Q_XOR("xqz##local"), &C::Get<bool>(Vars.bVisualChamsLocalXQZ));
-					ImGui::Checkbox(Q_XOR("wireframe##local"), &C::Get<bool>(Vars.bVisualChamsLocalWireframe));
-					ImGui::Combo(Q_XOR("desync style##local"), &C::Get<int>(Vars.iVisualChamsLocalDesync), Q_XOR("none\0covered\0flat\0glow\0reflective\0scroll\0\0"));
-					ImGui::Checkbox(Q_XOR("desync xqz##local"), &C::Get<bool>(Vars.bVisualChamsLocalDesyncXQZ));
-					ImGui::Checkbox(Q_XOR("desync wireframe##local"), &C::Get<bool>(Vars.bVisualChamsLocalDesyncWireframe));
-					ImGui::Separator();
-				}
+						if (C::Get<bool>(Vars.bVisualChamsLocal))
+						{
+							ImGui::Combo(Q_XOR("local style##local"), &C::Get<int>(Vars.iVisualChamsLocal), Q_XOR("none\0covered\0flat\0glow\0reflective\0scroll\0\0"));
+							ImGui::Checkbox(Q_XOR("xqz##local"), &C::Get<bool>(Vars.bVisualChamsLocalXQZ));
+							ImGui::Checkbox(Q_XOR("wireframe##local"), &C::Get<bool>(Vars.bVisualChamsLocalWireframe));
+							ImGui::Combo(Q_XOR("desync style##local"), &C::Get<int>(Vars.iVisualChamsLocalDesync), Q_XOR("none\0covered\0flat\0glow\0reflective\0scroll\0\0"));
+							ImGui::Checkbox(Q_XOR("desync xqz##local"), &C::Get<bool>(Vars.bVisualChamsLocalDesyncXQZ));
+							ImGui::Checkbox(Q_XOR("desync wireframe##local"), &C::Get<bool>(Vars.bVisualChamsLocalDesyncWireframe));
+							ImGui::Separator();
+						}
 
-				if (C::Get<bool>(Vars.bVisualChamsViewModel))
-				{
-					ImGui::Combo(Q_XOR("viewmodel style##viewmodel"), &C::Get<int>(Vars.iVisualChamsViewModel), Q_XOR("none\0covered\0flat\0glow\0reflective\0scroll\0\0"));
-					ImGui::Checkbox(Q_XOR("xqz##viewmodel"), &C::Get<bool>(Vars.bVisualChamsViewModelXQZ));
-					ImGui::Checkbox(Q_XOR("wireframe##viewmodel"), &C::Get<bool>(Vars.bVisualChamsViewModelWireframe));
-				}
+						if (C::Get<bool>(Vars.bVisualChamsViewModel))
+						{
+							ImGui::Combo(Q_XOR("viewmodel style##viewmodel"), &C::Get<int>(Vars.iVisualChamsViewModel), Q_XOR("none\0covered\0flat\0glow\0reflective\0scroll\0\0"));
+							ImGui::Checkbox(Q_XOR("xqz##viewmodel"), &C::Get<bool>(Vars.bVisualChamsViewModelXQZ));
+							ImGui::Checkbox(Q_XOR("wireframe##viewmodel"), &C::Get<bool>(Vars.bVisualChamsViewModelWireframe));
+						}
 
-				ImGui::PopStyleVar();
-			}}
+						ImGui::PopStyleVar();
+					} }
 			};
 
 			Render(Q_XOR("visuals_esp"), arrEspTabs, 3U, &iEspTab, style.Colors[ImGuiCol_ScrollbarGrab]);
@@ -486,7 +481,7 @@ void T::Visuals()
 			ImGui::EndChild();
 		}
 
-		ImGui::BeginChild(Q_XOR("visuals.screen"), ImVec2{ }, true, ImGuiWindowFlags_MenuBar);
+		ImGui::BeginChild(Q_XOR("visuals.screen"), ImVec2{}, true, ImGuiWindowFlags_MenuBar);
 		{
 			if (ImGui::BeginMenuBar())
 			{
@@ -519,8 +514,7 @@ void T::Visuals()
 
 void T::Miscellaneous()
 {
-	static const std::pair<const char*, const std::size_t> arrColors[ ] =
-	{
+	static const std::pair<const char*, const std::size_t> arrColors[] = {
 		{ "[esp] box - enemies", Vars.colVisualOverlayBoxEnemies },
 		{ "[esp] box - enemies hidden", Vars.colVisualOverlayBoxEnemiesHidden },
 		{ "[esp] box - allies", Vars.colVisualOverlayBoxAllies },
@@ -581,7 +575,7 @@ void T::Miscellaneous()
 			ImGui::EndChild();
 		}
 
-		ImGui::BeginChild(Q_XOR("misc.exploits"), ImVec2{ }, true, ImGuiWindowFlags_MenuBar);
+		ImGui::BeginChild(Q_XOR("misc.exploits"), ImVec2{}, true, ImGuiWindowFlags_MenuBar);
 		{
 			if (ImGui::BeginMenuBar())
 			{
@@ -633,7 +627,7 @@ void T::Miscellaneous()
 						// @todo: imgui cant work with wstring, wait for change to other gui
 						const wchar_t* wszFileName = C::vecFileNames[i];
 
-						char szFileName[MAX_PATH] = { };
+						char szFileName[MAX_PATH] = {};
 						CRT::StringUnicodeToMultiByte(szFileName, Q_ARRAYSIZE(szFileName), wszFileName);
 
 						if (ImGui::Selectable(szFileName, (nSelectedConfig == i)))
@@ -655,7 +649,7 @@ void T::Miscellaneous()
 					if (const std::size_t nConfigFileLength = CRT::StringLength(szConfigFile); nConfigFileLength > 0U)
 					{
 						// @todo: imgui cant work with wstring, wait for change to other gui
-						wchar_t wszConfigFile[MAX_PATH] = { };
+						wchar_t wszConfigFile[MAX_PATH] = {};
 						CRT::StringMultiByteToUnicode(wszConfigFile, Q_ARRAYSIZE(wszConfigFile), szConfigFile, szConfigFile + nConfigFileLength);
 
 						if (C::CreateFile(wszConfigFile))
@@ -689,7 +683,7 @@ void T::Miscellaneous()
 			if (ImGui::BeginPopupModal(Q_XOR("confirmation##config.remove"), nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_AlwaysAutoResize))
 			{
 				// @todo: imgui cant work with wstring, wait for change to other gui
-				char szCurrentConfig[MAX_PATH] = { };
+				char szCurrentConfig[MAX_PATH] = {};
 				CRT::StringUnicodeToMultiByte(szCurrentConfig, Q_ARRAYSIZE(szCurrentConfig), C::vecFileNames[nSelectedConfig]);
 
 				ImGui::Text(Q_XOR("are you sure you want to remove \"%s\" configuration?"), szCurrentConfig);
@@ -717,7 +711,7 @@ void T::Miscellaneous()
 			ImGui::EndChild();
 		}
 
-		ImGui::BeginChild(Q_XOR("misc.colors"), ImVec2{ }, true, ImGuiWindowFlags_MenuBar);
+		ImGui::BeginChild(Q_XOR("misc.colors"), ImVec2{}, true, ImGuiWindowFlags_MenuBar);
 		{
 			if (ImGui::BeginMenuBar())
 			{
@@ -726,7 +720,7 @@ void T::Miscellaneous()
 			}
 
 			ImGui::PushItemWidth(-1);
-			static char szColorFilter[128] = { };
+			static char szColorFilter[128] = {};
 			ImGui::InputTextWithHint(Q_XOR("##colors.filter"), Q_XOR("search..."), szColorFilter, Q_ARRAYSIZE(szColorFilter));
 
 			if (ImGui::ListBoxHeader(Q_XOR("##colors.select"), ImVec2(-1.0f, ImGui::GetContentRegionAvail().y - style.ItemSpacing.y - ImGui::GetFrameHeight())))

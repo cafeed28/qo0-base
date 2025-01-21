@@ -21,10 +21,16 @@ class CUtlVector
 
 public:
 	explicit CUtlVector(const int nGrowSize = 0, const int nInitialCapacity = 0) :
-		memory(nGrowSize, nInitialCapacity), iSize(0), pElements(memory.Base()) { }
+		memory(nGrowSize, nInitialCapacity),
+		iSize(0),
+		pElements(memory.Base())
+	{ }
 
 	CUtlVector(T* pMemory, const int nInitialCapacity, const int nInitialCount = 0) :
-		memory(pMemory, nInitialCapacity), iSize(nInitialCount), pElements(memory.Base()) { }
+		memory(pMemory, nInitialCapacity),
+		iSize(nInitialCount),
+		pElements(memory.Base())
+	{ }
 
 	CUtlVector(const CUtlVector&) = delete;
 
@@ -322,7 +328,6 @@ static_assert(sizeof(CUtlVector<void*>) == 0x14);
 template <class T>
 class CUtlVectorAligned : public CUtlVector<T, CUtlMemoryAligned<T, alignof(T)>>
 {
-
 };
 
 //a array class with a fixed allocation scheme
@@ -330,10 +335,13 @@ template <class T, std::size_t MAX_SIZE>
 class CUtlVectorFixed : public CUtlVector<T, CUtlMemoryFixed<T, MAX_SIZE>>
 {
 	using CBaseClass = CUtlVector<T, CUtlMemoryFixed<T, MAX_SIZE>>;
+
 public:
 	explicit CUtlVectorFixed(int nGrowSize = 0, int nInitialCapacity = 0) :
-		CBaseClass(nGrowSize, nInitialCapacity) { }
+		CBaseClass(nGrowSize, nInitialCapacity)
+	{ }
 
 	CUtlVectorFixed(T* pMemory, int nElements) :
-		CBaseClass(pMemory, nElements) { }
+		CBaseClass(pMemory, nElements)
+	{ }
 };

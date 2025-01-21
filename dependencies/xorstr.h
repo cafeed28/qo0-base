@@ -71,7 +71,7 @@ namespace jm
 		// loads up to 8 characters of string into uint64 and xors it with the key
 		template <std::size_t N, class CharT>
 		XORSTR_FORCEINLINE constexpr std::uint64_t
-		load_xored_str8(std::uint64_t key, std::size_t idx, const CharT* str) noexcept
+			load_xored_str8(std::uint64_t key, std::size_t idx, const CharT* str) noexcept
 		{
 			using cast_type = typename std::make_unsigned<CharT>::type;
 			constexpr auto value_size = sizeof(CharT);
@@ -80,8 +80,8 @@ namespace jm
 			std::uint64_t value = key;
 			for (std::size_t i = 0; i < idx_offset && i + idx * idx_offset < N; ++i)
 				value ^=
-				(std::uint64_t{ static_cast<cast_type>(str[i + idx * idx_offset]) }
-				<< ((i % idx_offset) * 8 * value_size));
+					(std::uint64_t{ static_cast<cast_type>(str[i + idx * idx_offset]) }
+						<< ((i % idx_offset) * 8 * value_size));
 
 			return value;
 		}
@@ -138,10 +138,10 @@ namespace jm
 		{
 			// everything is inlined by hand because a certain compiler with a certain linker is _very_ slow
 #if defined(__clang__)
-			alignas(alignment) std::uint64_t arr[ ]{ ::jm::detail::load_from_reg(Keys)... };
+			alignas(alignment) std::uint64_t arr[]{ ::jm::detail::load_from_reg(Keys)... };
 			std::uint64_t* keys = (std::uint64_t*)::jm::detail::load_from_reg((std::uint64_t)arr);
 #else
-			alignas(alignment) std::uint64_t keys[ ]{ ::jm::detail::load_from_reg(Keys)... };
+			alignas(alignment) std::uint64_t keys[]{ ::jm::detail::load_from_reg(Keys)... };
 #endif
 
 #if defined(_M_ARM64) || defined(__aarch64__) || defined(_M_ARM) || defined(__arm__)
@@ -155,9 +155,9 @@ namespace jm
 
 			if constexpr (sizeof(_storage) % 32 != 0)
 				_mm_store_si128(
-				reinterpret_cast<__m128i*>(_storage + sizeof...(Keys) - 2),
-				_mm_xor_si128(_mm_load_si128(reinterpret_cast<const __m128i*>(_storage + sizeof...(Keys) - 2)),
-				_mm_load_si128(reinterpret_cast<const __m128i*>(keys + sizeof...(Keys) - 2))));
+					reinterpret_cast<__m128i*>(_storage + sizeof...(Keys) - 2),
+					_mm_xor_si128(_mm_load_si128(reinterpret_cast<const __m128i*>(_storage + sizeof...(Keys) - 2)),
+						_mm_load_si128(reinterpret_cast<const __m128i*>(keys + sizeof...(Keys) - 2))));
 #else
 			((Indices >= sizeof(_storage) / 16 ? static_cast<void>(0) : _mm_store_si128(reinterpret_cast<__m128i*>(_storage) + Indices, _mm_xor_si128(_mm_load_si128(reinterpret_cast<const __m128i*>(_storage) + Indices), _mm_load_si128(reinterpret_cast<const __m128i*>(keys) + Indices)))), ...);
 #endif
@@ -177,10 +177,10 @@ namespace jm
 		{
 			// crypt() is inlined by hand because a certain compiler with a certain linker is _very_ slow
 #if defined(__clang__)
-			alignas(alignment) std::uint64_t arr[ ]{ ::jm::detail::load_from_reg(Keys)... };
+			alignas(alignment) std::uint64_t arr[]{ ::jm::detail::load_from_reg(Keys)... };
 			std::uint64_t* keys = (std::uint64_t*)::jm::detail::load_from_reg((std::uint64_t)arr);
 #else
-			alignas(alignment) std::uint64_t keys[ ]{ ::jm::detail::load_from_reg(Keys)... };
+			alignas(alignment) std::uint64_t keys[]{ ::jm::detail::load_from_reg(Keys)... };
 #endif
 
 #if defined(_M_ARM64) || defined(__aarch64__) || defined(_M_ARM) || defined(__arm__)
@@ -194,9 +194,9 @@ namespace jm
 
 			if constexpr (sizeof(_storage) % 32 != 0)
 				_mm_store_si128(
-				reinterpret_cast<__m128i*>(_storage + sizeof...(Keys) - 2),
-				_mm_xor_si128(_mm_load_si128(reinterpret_cast<const __m128i*>(_storage + sizeof...(Keys) - 2)),
-				_mm_load_si128(reinterpret_cast<const __m128i*>(keys + sizeof...(Keys) - 2))));
+					reinterpret_cast<__m128i*>(_storage + sizeof...(Keys) - 2),
+					_mm_xor_si128(_mm_load_si128(reinterpret_cast<const __m128i*>(_storage + sizeof...(Keys) - 2)),
+						_mm_load_si128(reinterpret_cast<const __m128i*>(keys + sizeof...(Keys) - 2))));
 #else
 			((Indices >= sizeof(_storage) / 16 ? static_cast<void>(0) : _mm_store_si128(reinterpret_cast<__m128i*>(_storage) + Indices, _mm_xor_si128(_mm_load_si128(reinterpret_cast<const __m128i*>(_storage) + Indices), _mm_load_si128(reinterpret_cast<const __m128i*>(keys) + Indices)))), ...);
 #endif
@@ -207,10 +207,10 @@ namespace jm
 
 	template <class L, std::size_t Size, std::size_t... Indices>
 	xor_string(L l, std::integral_constant<std::size_t, Size>, std::index_sequence<Indices...>) -> xor_string<
-	std::remove_const_t<std::remove_reference_t<decltype(l()[0])>>,
-	Size,
-	std::integer_sequence<std::uint64_t, detail::key8<Indices>()...>,
-	std::index_sequence<Indices...>>;
+		std::remove_const_t<std::remove_reference_t<decltype(l()[0])>>,
+		Size,
+		std::integer_sequence<std::uint64_t, detail::key8<Indices>()...>,
+		std::index_sequence<Indices...>>;
 
 } // namespace jm
 

@@ -70,38 +70,38 @@ public:
 
 	[[nodiscard]] int GetNumberOfEntities(bool bIncludeNonNetworkable)
 	{
-	#ifdef Q_ALLOW_VIRTUAL_REBUILD
+#ifdef Q_ALLOW_VIRTUAL_REBUILD
 		return (bIncludeNonNetworkable ? nServerEntitiesCount + nClientNonNetworkableCount : nServerEntitiesCount);
-	#else
+#else
 		return CallVFunc<int, 5U>(this, bIncludeNonNetworkable);
-	#endif
+#endif
 	}
 
 	[[nodiscard]] int GetHighestEntityIndex()
 	{
-	#ifdef Q_ALLOW_VIRTUAL_REBUILD
+#ifdef Q_ALLOW_VIRTUAL_REBUILD
 		return nMaxUsedServerIndex;
-	#else
+#else
 		return CallVFunc<int, 6U>(this);
-	#endif
+#endif
 	}
 
 	[[nodiscard]] int GetMaxEntities()
 	{
-	#ifdef Q_ALLOW_VIRTUAL_REBUILD
+#ifdef Q_ALLOW_VIRTUAL_REBUILD
 		return nMaxServerEntitiesCount;
-	#else
+#else
 		return CallVFunc<int, 8U>(this);
-	#endif
+#endif
 	}
 
 	[[nodiscard]] EntityCacheInfo_t* GetClientNetworkableArray()
 	{
-	#ifdef Q_ALLOW_VIRTUAL_REBUILD
+#ifdef Q_ALLOW_VIRTUAL_REBUILD
 		return arrEntityCacheInfo;
-	#else
+#else
 		return CallVFunc<EntityCacheInfo_t*, 9U>(this);
-	#endif
+#endif
 	}
 
 	Q_INLINE void AddListenerEntity(IClientEntityListener* pListener)

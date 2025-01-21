@@ -99,14 +99,14 @@ public:
 
 		CKeyValues* pKeyValues = nullptr;
 		__asm
-		{
+			{
 			push pszEndOfParse
 			mov edx, szBuffer
 			mov ecx, szName
 			call fnFromString
 			mov pKeyValues, eax
 			add esp, 4
-		}
+			}
 
 		return pKeyValues;
 	}
@@ -144,7 +144,7 @@ public:
 #endif
 	}
 
-	#pragma region keyvalues_file_access
+#pragma region keyvalues_file_access
 	[[nodiscard]] bool LoadFromFile(IBaseFileSystem* pBaseFileSystem, const char* szResourceName, const char* szPathID = nullptr, GetSymbolProcFn_t pfnEvaluateSymbolProc = nullptr)
 	{
 		// @ida KeyValues::LoadFromFile: client.dll -> "55 8B EC 83 E4 F8 83 EC 14 53 56 8B 75 08 57 FF" @xref: "rb"
@@ -178,9 +178,9 @@ public:
 		pFullFileSystem->FreeOptimalReadBuffer(szBuffer);
 		return bReturn;
 	}
-	#pragma endregion
+#pragma endregion
 
-	#pragma region keyvalues_key_access
+#pragma region keyvalues_key_access
 	[[nodiscard]] Q_INLINE CKeyValues* CreateKey(const char* szKeyName)
 	{
 		CKeyValues* pLastChild = FindLastSubKey();
@@ -229,9 +229,9 @@ public:
 		static auto fnFindKey = reinterpret_cast<CKeyValues*(Q_THISCALL*)(CKeyValues*, const char*, bool)>(MEM::FindPattern(CLIENT_DLL, Q_XOR("55 8B EC 83 EC 1C 53 8B D9 85 DB")));
 		return fnFindKey(this, szKeyName, bCreate);
 	}
-	#pragma endregion
+#pragma endregion
 
-	#pragma region keyvalues_key_read
+#pragma region keyvalues_key_read
 	[[nodiscard]] const char* GetString(const char* szKeyName, const char* szDefaultValue)
 	{
 		static auto fnGetString = reinterpret_cast<const char*(Q_THISCALL*)(CKeyValues*, const char*, const char*)>(MEM::FindPattern(CLIENT_DLL, Q_XOR("55 8B EC 83 E4 C0 81 EC ? ? ? ? 53 8B 5D 08")));
@@ -292,9 +292,9 @@ public:
 		static auto fnGetColor = reinterpret_cast<Color_t(Q_THISCALL*)(CKeyValues*, const char*, const Color_t&)>(MEM::FindPattern(CLIENT_DLL, Q_XOR("55 8B EC 8B 45 10 83 EC 08 8B 00")));
 		return fnGetColor(this, szKeyName, colDefaultValue);
 	}
-	#pragma endregion
+#pragma endregion
 
-	#pragma region keyvalues_key_write
+#pragma region keyvalues_key_write
 	void SetString(const char* szKeyName, const char* szNewValue)
 	{
 		// @ida KeyValues::SetString(): client.dll -> "55 8B EC 6A 01 FF 75 08 E8 ? ? ? ? 85 C0 74 0A FF"
@@ -426,7 +426,7 @@ public:
 	{
 		SetInt(szKeyName, bValue);
 	}
-	#pragma endregion
+#pragma endregion
 
 	void RemoveEverything()
 	{

@@ -22,8 +22,8 @@ struct SendDatagramStack_t
 
 struct CalcViewStack_t
 {
-	QAngle_t angOldViewPunch = { };
-	QAngle_t angOldAimPunch = { };
+	QAngle_t angOldViewPunch = {};
+	QAngle_t angOldAimPunch = {};
 };
 
 /*

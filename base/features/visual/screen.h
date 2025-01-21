@@ -13,9 +13,12 @@ namespace F::VISUAL::SCREEN
 	struct HitMarkerObject_t
 	{
 		HitMarkerObject_t(const Vector_t& vecPosition, const int iDamage, const float flExpireTime) :
-			vecPosition(vecPosition), iDamage(iDamage), flExpireTime(flExpireTime) { }
+			vecPosition(vecPosition),
+			iDamage(iDamage),
+			flExpireTime(flExpireTime)
+		{ }
 
-		Vector_t vecPosition = { };
+		Vector_t vecPosition = {};
 		int iDamage = 0;
 		float flExpireTime = 0.0f;
 	};
@@ -34,5 +37,5 @@ namespace F::VISUAL::SCREEN
 
 	/* @section: values */
 	// storage of hitmarkers data
-	inline std::vector<HitMarkerObject_t> vecHitMarks = { };
+	inline std::vector<HitMarkerObject_t> vecHitMarks = {};
 }

@@ -8,8 +8,7 @@
 
 [[nodiscard]] Vector_t Vector_t::Transform(const Matrix3x4_t& matTransform) const
 {
-	return
-	{
+	return {
 		this->DotProduct(matTransform[0]) + matTransform[0][3],
 		this->DotProduct(matTransform[1]) + matTransform[1][3],
 		this->DotProduct(matTransform[2]) + matTransform[2][3]
@@ -42,10 +41,10 @@
 
 [[nodiscard]] Matrix3x4_t Vector_t::ToMatrix() const
 {
-	Vector_t vecRight = { }, vecUp = { };
+	Vector_t vecRight = {}, vecUp = {};
 	this->ToDirections(&vecRight, &vecUp);
 
-	Matrix3x4a_t matOutput = { };
+	Matrix3x4a_t matOutput = {};
 	matOutput.SetForward(*this);
 	matOutput.SetLeft(-vecRight);
 	matOutput.SetUp(vecUp);

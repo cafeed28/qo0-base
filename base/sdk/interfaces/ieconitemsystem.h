@@ -47,7 +47,7 @@ using AttributeValue_t = std::uint32_t;
 // @source: master/game/shared/cstrike15/cstrike15_item_constants.h
 
 // the total number of loadouts to track for each player
-#define LOADOUT_COUNT (2+2)
+#define LOADOUT_COUNT (2 + 2)
 
 #define CSGO_EXP_PER_LEVEL 5000
 #define CSGO_EXP_MAX_LEVEL 40
@@ -258,7 +258,7 @@ public:
 	std::uint32_t nWeight; // 0x08
 	bool bExplicitMatchesOnly; // 0x0C
 	bool bCanSupportSet; // 0xD
-	CUtlConstString	strHexColor; // 0x10
+	CUtlConstString strHexColor; // 0x10
 };
 static_assert(sizeof(CEconItemQualityDefinition) == 0x14);
 
@@ -418,7 +418,7 @@ public:
 	bool bWebSchemaOutputForced; // 0x11 // if true, this attribute's description is always output in web api calls regardless of the hidden flag
 	bool bStoredAsInteger; // 0x12 // whether or not the value is stored as an integer in the DB
 	bool bInstanceData; // 0x13 // if true, the attribute is counted as "instance" data for purposes of asset class in the Steam Economy. non-instance properties are considered things that can differentiate items at a fundamental level (ie., definition index, quality); instance properties are more things like additional customizations -- score for strange items, paint color, etc
-	int	nAssetClassAttrExportRule; // 0x14
+	int nAssetClassAttrExportRule; // 0x14
 	std::uint32_t nAssetClassBucket; // 0x18 // if this is set then attribute value is bucketed when exported for asset class
 	EAttributeEffectTypes nEffectType; // 0x1C // overall positive/negative effect. used to color the attribute
 	int iDescriptionFormat; // 0x20 // contains the description format & string for this attribute
@@ -858,7 +858,7 @@ class CCStrike15ItemSchema : public IEconItemSchema
 public:
 	std::byte pad7[0x24]; // 0x0748
 	CUtlVector<const char*> vecClassUsabilityStrings; // 0x076C
-	CUtlVector<const char*> vecLoadoutStrings;// 0x0780
+	CUtlVector<const char*> vecLoadoutStrings; // 0x0780
 	CUtlVector<const char*> vecLoadoutStringsSubPositions; // 0x0794
 	CUtlVector<const char*> vecLoadoutStringsForDisplay; // 0x07A8
 	std::byte pad8[0x14]; // 0x07BC

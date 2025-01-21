@@ -8,9 +8,9 @@
 
 struct SimulateBulletObject_t
 {
-	Vector_t vecPosition = { };
-	Vector_t vecDirection = { };
-	Trace_t enterTrace = { };
+	Vector_t vecPosition = {};
+	Vector_t vecDirection = {};
+	Trace_t enterTrace = {};
 	float flCurrentDamage = 0.0f;
 	int iPenetrateCount = 0;
 };

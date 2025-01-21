@@ -124,7 +124,7 @@ struct CustomDataOptimizedObject_t
 
 	std::uint16_t uEquipInstanceSlot1 : 6; // 0x00 // equip instance slot
 	std::uint16_t uEquipInstanceClass1 : 3; // 0x00 // equip instance class
-	std::uint16_t uEquipInstanceClass2Bit : 1;  // 0x01 // whether the item is equipped for complementary class
+	std::uint16_t uEquipInstanceClass2Bit : 1; // 0x01 // whether the item is equipped for complementary class
 	std::uint16_t nAttributeCount : 6; // 0x01 // length of following attributes
 };
 static_assert(sizeof(CustomDataOptimizedObject_t) == 0x2);
@@ -267,7 +267,7 @@ public:
 	}
 
 	/// @remarks: attribute iteration interface. this is not meant to be used for attribute lookup! this is meant for anything that requires iterating over the full attribute list
-	void IterateAttributes(/*IEconItemAttributeIterator**/void* pIterator) const
+	void IterateAttributes(/*IEconItemAttributeIterator**/ void* pIterator) const
 	{
 		CallVFunc<void, 24U>(this, pIterator);
 	}

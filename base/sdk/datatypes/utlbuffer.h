@@ -136,7 +136,7 @@ public:
 	}
 
 	// null terminate the buffer
-	// NOTE: Pass in nPut here even though it is just a copy of m_Put.  This is almost always called immediately 
+	// NOTE: Pass in nPut here even though it is just a copy of m_Put.  This is almost always called immediately
 	// after modifying m_Put and this lets it stay in a register and avoid LHS on PPC.
 	void AddNullTermination(const int iCurrentPut)
 	{

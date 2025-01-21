@@ -184,18 +184,18 @@ T* I::Capture(const CInterfaceRegister* pModuleRegister, const char* szInterface
 			CRT::StringCompareN(szInterfaceName, pRegister->szName, nInterfaceNameLength) == 0 &&
 			// and we've given full name with hardcoded digits
 			(CRT::StringLength(pRegister->szName) == nInterfaceNameLength ||
-			// or it contains digits after name
-			CRT::StringToInteger<int>(pRegister->szName + nInterfaceNameLength, nullptr, 10) > 0))
+				// or it contains digits after name
+				CRT::StringToInteger<int>(pRegister->szName + nInterfaceNameLength, nullptr, 10) > 0))
 		{
 			// capture our interface
 			void* pInterface = pRegister->fnCreate();
 
-		#ifdef _DEBUG
+#ifdef _DEBUG
 			// log interface address
 			L_PRINT(LOG_NONE) << Q_XOR("captured \"") << pRegister->szName << Q_XOR("\" interface at address: ") << L::AddFlags(LOG_MODE_INT_SHOWBASE | LOG_MODE_INT_FORMAT_HEX) << reinterpret_cast<std::uintptr_t>(pInterface);
-		#else
+#else
 			L_PRINT(LOG_NONE) << Q_XOR("captured \"") << pRegister->szName << Q_XOR("\" interface");
-		#endif
+#endif
 
 			return static_cast<T*>(pInterface);
 		}

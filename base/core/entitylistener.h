@@ -10,8 +10,8 @@ namespace ENTITY
 {
 	struct BreakableObject_t
 	{
-		char szModelPath[MAX_PATH] = { };
-		char szClassName[256] = { };
+		char szModelPath[MAX_PATH] = {};
+		char szClassName[256] = {};
 	};
 
 	void Setup();
@@ -28,5 +28,5 @@ namespace ENTITY
 	// player resource entity, should be always checked for null
 	inline CCSPlayerResource* pCSPlayerResource = nullptr;
 	// breakable entities of the map that client doesn't handle as breakable
-	inline std::vector<BreakableObject_t> vecBreakableEntities = { }; // @todo: stl
+	inline std::vector<BreakableObject_t> vecBreakableEntities = {}; // @todo: stl
 }

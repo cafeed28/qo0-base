@@ -172,7 +172,7 @@ Vector_t CBaseAnimating::GetBonePosition(const int nBoneIndex)
 	}
 
 	Q_ASSERT(false); // given invalid bone index or model header is corrupted
-	return { };
+	return {};
 }
 
 Vector_t CBaseAnimating::GetHitboxPosition(const int nHitboxIndex)
@@ -199,7 +199,7 @@ Vector_t CBaseAnimating::GetHitboxPosition(const int nHitboxIndex)
 	}
 
 	Q_ASSERT(false); // given invalid hitbox index or model header is corrupted
-	return { };
+	return {};
 }
 
 Vector_t CBaseAnimating::GetHitGroupPosition(const int iHitGroup)
@@ -238,7 +238,7 @@ Vector_t CBaseAnimating::GetHitGroupPosition(const int iHitGroup)
 	}
 
 	Q_ASSERT(false); // given invalid hit group or model header is corrupted
-	return { };
+	return {};
 }
 
 void CBaseAnimating::GetSkeleton(CStudioHdr* pStudioHdr, Vector_t* arrBonesPosition, QuaternionAligned_t* arrBonesRotation, int nBoneMask)
@@ -448,7 +448,7 @@ bool CBasePlayer::IsOtherVisible(const CBasePlayer* pOtherPlayer, const Vector_t
 	const Ray_t ray(vecStart, vecEnd);
 	CTraceFilterSimple filter(this);
 
-	Trace_t trace = { };
+	Trace_t trace = {};
 	I::EngineTrace->TraceRay(ray, MASK_SHOT, &filter, &trace);
 
 	// trace check

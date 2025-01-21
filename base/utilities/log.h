@@ -110,7 +110,8 @@ namespace L
 		{
 			template <std::size_t... I1, std::size_t... I2>
 			consteval explicit FileBlockStorage_t(const char* szFileName, const char* szLineNumber, std::index_sequence<I1...>, std::index_sequence<I2...>) :
-				szStorage{ '[', szFileName[I1]..., ':', szLineNumber[I2]..., ']', ' ', '\0' } { }
+				szStorage{ '[', szFileName[I1]..., ':', szLineNumber[I2]..., ']', ' ', '\0' }
+			{ }
 
 			[[nodiscard]] constexpr const char* Get() const
 			{
@@ -138,7 +139,7 @@ namespace L
 		template <std::size_t N1, std::size_t N2>
 		consteval auto MakeFileBlock(const char* szFileName, const char* szFileNumber) noexcept
 		{
-			return FileBlockStorage_t<N1 + N2>(szFileName, szFileNumber, std::make_index_sequence<N1>{ }, std::make_index_sequence<N2>{ });
+			return FileBlockStorage_t<N1 + N2>(szFileName, szFileNumber, std::make_index_sequence<N1>{}, std::make_index_sequence<N2>{});
 		}
 	}
 
@@ -190,7 +191,7 @@ namespace L
 		template <typename T> requires std::is_integral_v<T>
 		Stream_t& operator<<(const T value)
 		{
-		#if defined(Q_LOG_CONSOLE) || defined(Q_LOG_FILE)
+#if defined(Q_LOG_CONSOLE) || defined(Q_LOG_FILE)
 			int iBase = 10;
 			const char* szPrefix = nullptr;
 
@@ -226,14 +227,14 @@ namespace L
 
 			const std::size_t nIntegerLength = szIntegerBuffer + sizeof(szIntegerBuffer) - szInteger - 1;
 			WriteMessage(szInteger, nIntegerLength);
-		#endif
+#endif
 			return *this;
 		}
 
 		template <typename T> requires std::is_floating_point_v<T>
 		Stream_t& operator<<(const T value)
 		{
-		#if defined(Q_LOG_CONSOLE) || defined(Q_LOG_FILE)
+#if defined(Q_LOG_CONSOLE) || defined(Q_LOG_FILE)
 			static_assert((nModeFlags & (LOG_MODE_FLOAT_FORMAT_FIXED | LOG_MODE_FLOAT_FORMAT_SCIENTIFIC)) && std::is_same_v<T, float>); // expected 'double' or 'long double'
 			int iDesiredPrecision = ((nModeFlags & (LOG_MODE_FLOAT_FORMAT_FIXED | LOG_MODE_FLOAT_FORMAT_SCIENTIFIC)) ? -1 : (iPrecision > 0 ? iPrecision : FLT_DIG));
 
@@ -271,7 +272,7 @@ namespace L
 			const int nFloatLength = CRT::StringPrintN(szFloatBuffer, sizeof(szFloatBuffer), szFormatBuffer, iDesiredPrecision, value);
 
 			WriteMessage(szFloatBuffer, nFloatLength);
-		#endif
+#endif
 			return *this;
 		}
 

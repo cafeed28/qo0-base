@@ -136,7 +136,7 @@ namespace D
 
 	/* @section: values */
 	// rendering engine initialization state
-	inline bool	bInitialized = false;
+	inline bool bInitialized = false;
 	// active draw data container used to store
 	inline ImDrawList* pDrawListActive = nullptr;
 	// safe draw data container

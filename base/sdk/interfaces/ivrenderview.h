@@ -11,7 +11,7 @@ struct ViewPlane_t
 {
 	ViewPlane_t() = default;
 
-	Vector_t vecNormal = { };
+	Vector_t vecNormal = {};
 	float flDistance = 0.0f;
 };
 

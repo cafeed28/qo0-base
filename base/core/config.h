@@ -34,7 +34,10 @@ enum class EKeyBindMode : int
 struct KeyBind_t
 {
 	constexpr KeyBind_t(const char* szName, const unsigned int uKey = 0U, const EKeyBindMode nMode = EKeyBindMode::HOLD) :
-		szName(szName), uKey(uKey), nMode(nMode) { }
+		szName(szName),
+		uKey(uKey),
+		nMode(nMode)
+	{ }
 
 	bool bEnable = false;
 	const char* szName = nullptr;
@@ -54,7 +57,11 @@ namespace C
 		// @todo: not sure is it possible and how todo this with projections, so currently done with pointer-to-member thing, probably could be optimized
 		template <typename T, typename C>
 		constexpr UserDataMember_t(const FNV1A_t uNameHash, const FNV1A_t uTypeHash, const T C::* pMember) :
-			uNameHash(uNameHash), uTypeHash(uTypeHash), nDataSize(sizeof(std::remove_pointer_t<T>)), uBaseOffset(reinterpret_cast<std::size_t>(std::addressof(static_cast<C*>(nullptr)->*pMember))) { } // @test: 'Q_OFFSETOF' must expand to the same result but for some reason it doesn't
+			uNameHash(uNameHash),
+			uTypeHash(uTypeHash),
+			nDataSize(sizeof(std::remove_pointer_t<T>)),
+			uBaseOffset(reinterpret_cast<std::size_t>(std::addressof(static_cast<C*>(nullptr)->*pMember)))
+		{ } // @test: 'Q_OFFSETOF' must expand to the same result but for some reason it doesn't
 
 		// hash of custom variable name
 		FNV1A_t uNameHash = 0U;
@@ -72,7 +79,7 @@ namespace C
 		[[nodiscard]] std::size_t GetSerializationSize() const;
 
 		FNV1A_t uTypeHash = 0U;
-		std::vector<UserDataMember_t> vecMembers = { };
+		std::vector<UserDataMember_t> vecMembers = {};
 	};
 
 	// variable info and value storage holder
@@ -81,12 +88,14 @@ namespace C
 		// @test: it's required value to be either trivially copyable or allocated/copied by new/placement-new operators, otherwise it may cause UB
 		template <typename T> requires (!std::is_void_v<T> && std::is_trivially_copyable_v<T>)
 		VariableObject_t(const FNV1A_t uNameHash, const FNV1A_t uTypeHash, const T& valueDefault) :
-			uNameHash(uNameHash), uTypeHash(uTypeHash), nStorageSize(sizeof(T))
+			uNameHash(uNameHash),
+			uTypeHash(uTypeHash),
+			nStorageSize(sizeof(T))
 		{
-		#ifndef Q_NO_RTTI
+#ifndef Q_NO_RTTI
 			// store RTTI address if available
 			this->pTypeInfo = &typeid(std::remove_cvref_t<T>);
-		#endif
+#endif
 
 			// @todo: do not call setstorage, instead construct it by placement-new operator
 			// allocate storage on the heap if it doesnt't fit on the local one
@@ -97,11 +106,13 @@ namespace C
 		}
 
 		VariableObject_t(VariableObject_t&& other) noexcept :
-			uNameHash(other.uNameHash), uTypeHash(other.uTypeHash), nStorageSize(other.nStorageSize)
+			uNameHash(other.uNameHash),
+			uTypeHash(other.uTypeHash),
+			nStorageSize(other.nStorageSize)
 		{
-		#ifndef Q_NO_RTTI
+#ifndef Q_NO_RTTI
 			this->pTypeInfo = other.pTypeInfo;
-		#endif
+#endif
 
 			if (this->nStorageSize <= sizeof(this->storage.uLocal))
 				CRT::MemoryCopy(&this->storage.uLocal, &other.storage.uLocal, sizeof(this->storage.uLocal));
@@ -115,11 +126,13 @@ namespace C
 		}
 
 		VariableObject_t(const VariableObject_t& other) :
-			uNameHash(other.uNameHash), uTypeHash(other.uTypeHash), nStorageSize(other.nStorageSize)
+			uNameHash(other.uNameHash),
+			uTypeHash(other.uTypeHash),
+			nStorageSize(other.nStorageSize)
 		{
-		#ifndef Q_NO_RTTI
+#ifndef Q_NO_RTTI
 			this->pTypeInfo = other.pTypeInfo;
-		#endif
+#endif
 
 			if (this->nStorageSize <= sizeof(this->storage.uLocal))
 				CRT::MemoryCopy(&this->storage.uLocal, &other.storage.uLocal, sizeof(this->storage.uLocal));
@@ -147,9 +160,9 @@ namespace C
 			this->uTypeHash = other.uTypeHash;
 			this->nStorageSize = other.nStorageSize;
 
-		#ifndef Q_NO_RTTI
+#ifndef Q_NO_RTTI
 			this->pTypeInfo = other.pTypeInfo;
-		#endif
+#endif
 
 			if (this->nStorageSize <= sizeof(this->storage.uLocal))
 				CRT::MemoryCopy(&this->storage.uLocal, &other.storage.uLocal, sizeof(this->storage.uLocal));
@@ -174,9 +187,9 @@ namespace C
 			this->uTypeHash = other.uTypeHash;
 			this->nStorageSize = other.nStorageSize;
 
-		#ifndef Q_NO_RTTI
+#ifndef Q_NO_RTTI
 			this->pTypeInfo = other.pTypeInfo;
-		#endif
+#endif
 
 			if (this->nStorageSize <= sizeof(this->storage.uLocal))
 				CRT::MemoryCopy(&this->storage.uLocal, &other.storage.uLocal, sizeof(this->storage.uLocal));
@@ -194,13 +207,13 @@ namespace C
 		template <typename T, bool bTypeSafe = true> requires (std::is_object_v<T>)
 		[[nodiscard]] const T* GetStorage() const
 		{
-		#ifndef Q_NO_RTTI
+#ifndef Q_NO_RTTI
 			// sanity check of stored value type and asked value type
 			if constexpr (bTypeSafe)
 			{
 				if (const std::type_info& currentTypeInfo = typeid(std::remove_cvref_t<T>); this->pTypeInfo != nullptr && CRT::StringCompare(this->pTypeInfo->raw_name(), currentTypeInfo.raw_name()) != 0)
 				{
-					if (char szPresentTypeName[64] = { }, szAccessTypeName[64] = { };
+					if (char szPresentTypeName[64] = {}, szAccessTypeName[64] = {};
 						MEM::fnUnDecorateSymbolName(this->pTypeInfo->raw_name() + 1U, szPresentTypeName, Q_ARRAYSIZE(szPresentTypeName), UNDNAME_NO_ARGUMENTS) != 0UL &&
 						MEM::fnUnDecorateSymbolName(currentTypeInfo.raw_name() + 1U, szAccessTypeName, Q_ARRAYSIZE(szAccessTypeName), UNDNAME_NO_ARGUMENTS) != 0UL)
 					{
@@ -211,7 +224,7 @@ namespace C
 					return nullptr;
 				}
 			}
-		#endif
+#endif
 
 			// check is value stored in the local storage
 			if (this->nStorageSize <= sizeof(this->storage.uLocal))
@@ -237,10 +250,10 @@ namespace C
 		FNV1A_t uNameHash = 0x0;
 		// hash of value type
 		FNV1A_t uTypeHash = 0x0;
-	#ifndef Q_NO_RTTI
+#ifndef Q_NO_RTTI
 		// address of RTTI type data for value type
 		const std::type_info* pTypeInfo = nullptr;
-	#endif
+#endif
 		// value storage size in bytes
 		std::size_t nStorageSize = 0U;
 		// value storage
@@ -288,11 +301,11 @@ namespace C
 
 	/* @section: values */
 	// all user configuration filenames
-	inline std::vector<wchar_t*> vecFileNames = { };
+	inline std::vector<wchar_t*> vecFileNames = {};
 	// custom user-defined serialization data types
-	inline std::vector<UserDataType_t> vecUserTypes = { };
+	inline std::vector<UserDataType_t> vecUserTypes = {};
 	// configuration variables storage
-	inline std::vector<VariableObject_t> vecVariables = { };
+	inline std::vector<VariableObject_t> vecVariables = {};
 
 	/* @section: get */
 	/// @returns: index of variable with given name hash if it exist, 'C_INVALID_VARIABLE' otherwise

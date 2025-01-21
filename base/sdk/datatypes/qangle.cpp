@@ -44,8 +44,7 @@ Matrix3x4_t QAngle_t::ToMatrix(const Vector_t& vecOrigin) const
 	DirectX::XMScalarSinCos(&flYawSin, &flYawCos, M_DEG2RAD(this->y));
 	DirectX::XMScalarSinCos(&flRollSin, &flRollCos, M_DEG2RAD(this->z));
 
-	return
-	{
+	return {
 		(flPitchCos * flYawCos), (flRollSin * flPitchSin * flYawCos + flRollCos * -flYawSin), (flRollCos * flPitchSin * flYawCos + -flRollSin * -flYawSin), vecOrigin.x,
 		(flPitchCos * flYawSin), (flRollSin * flPitchSin * flYawSin + flRollCos * flYawCos), (flRollCos * flPitchSin * flYawSin + -flRollSin * flYawCos), vecOrigin.y,
 		(-flPitchSin), (flRollSin * flPitchCos), (flRollCos * flPitchCos), vecOrigin.z

@@ -31,8 +31,7 @@ bool CHAMS::Setup()
 	pCoveredVMT->SetString(Q_XOR("$ambientonly"), Q_XOR("1"));
 	pCoveredVMT->SetString(Q_XOR("$basetexture"), Q_XOR("vgui/white"));
 
-	arrCustomMaterials[VISUAL_CHAMS_COVERED - 1] =
-	{
+	arrCustomMaterials[VISUAL_CHAMS_COVERED - 1] = {
 		.pMaterial = CreateMaterial(Q_XOR("qo0_covered.vmt"), pCoveredVMT),
 		.bIsOwner = true
 	};
@@ -40,8 +39,7 @@ bool CHAMS::Setup()
 	CKeyValues* pFlatVMT = new CKeyValues(Q_XOR("UnlitGeneric"));
 	pFlatVMT->SetString(Q_XOR("$basetexture"), Q_XOR("vgui/white"));
 
-	arrCustomMaterials[VISUAL_CHAMS_FLAT - 1] =
-	{
+	arrCustomMaterials[VISUAL_CHAMS_FLAT - 1] = {
 		.pMaterial = CreateMaterial(Q_XOR("qo0_flat.vmt"), pFlatVMT),
 		.bIsOwner = true
 	};
@@ -52,8 +50,7 @@ bool CHAMS::Setup()
 	pGlowVMT->SetString(Q_XOR("$envmap"), Q_XOR("models/effects/cube_white"));
 	pGlowVMT->SetString(Q_XOR("$envmapfresnel"), Q_XOR("1.0"));
 
-	arrCustomMaterials[VISUAL_CHAMS_GLOW - 1] =
-	{
+	arrCustomMaterials[VISUAL_CHAMS_GLOW - 1] = {
 		.pMaterial = CreateMaterial(Q_XOR("qo0_glow.vmt"), pGlowVMT),
 		.bIsOwner = true
 	};
@@ -62,8 +59,7 @@ bool CHAMS::Setup()
 	pReflectiveVMT->SetString(Q_XOR("$basetexture"), Q_XOR("vgui/white"));
 	pReflectiveVMT->SetString(Q_XOR("$envmap"), Q_XOR("env_cubemap"));
 
-	arrCustomMaterials[VISUAL_CHAMS_REFLECTIVE - 1] =
-	{
+	arrCustomMaterials[VISUAL_CHAMS_REFLECTIVE - 1] = {
 		.pMaterial = CreateMaterial(Q_XOR("qo0_reflective.vmt"), pReflectiveVMT),
 		.bIsOwner = true
 	};
@@ -80,8 +76,7 @@ bool CHAMS::Setup()
 		}
 	}
 
-	arrCustomMaterials[VISUAL_CHAMS_SCROLL - 1] =
-	{
+	arrCustomMaterials[VISUAL_CHAMS_SCROLL - 1] = {
 		.pMaterial = CreateMaterial(Q_XOR("qo0_scroll.vmt"), pScrollVMT),
 		.bIsOwner = true
 	};
@@ -151,8 +146,7 @@ bool CHAMS::OnDrawModel(CCSPlayer* pLocal, DrawModelResults_t* pResults, const D
 		{
 			if (const VisualChams_t nType = (bIsLocal ? C::Get<int>(Vars.iVisualChamsLocal) : (bIsEnemy ? C::Get<int>(Vars.iVisualChamsEnemies) : C::Get<int>(Vars.iVisualChamsAllies))); nType != VISUAL_CHAMS_NONE)
 			{
-				const OverrideParameters_t playerParameters =
-				{
+				const OverrideParameters_t playerParameters = {
 					.nType = nType,
 					.bIgnoreZ = (bIsLocal ? C::Get<bool>(Vars.bVisualChamsLocalXQZ) : (bIsEnemy ? C::Get<bool>(Vars.bVisualChamsEnemiesXQZ) : C::Get<bool>(Vars.bVisualChamsAlliesXQZ))),
 					.bWireframe = (bIsLocal ? C::Get<bool>(Vars.bVisualChamsLocalWireframe) : (bIsEnemy ? C::Get<bool>(Vars.bVisualChamsEnemiesWireframe) : C::Get<bool>(Vars.bVisualChamsAlliesWireframe))),
@@ -166,8 +160,7 @@ bool CHAMS::OnDrawModel(CCSPlayer* pLocal, DrawModelResults_t* pResults, const D
 			// desync
 			if (const VisualChams_t nType = C::Get<int>(Vars.iVisualChamsLocalDesync); bIsLocal && nType != VISUAL_CHAMS_NONE)
 			{
-				const OverrideParameters_t desyncParameters =
-				{
+				const OverrideParameters_t desyncParameters = {
 					.nType = nType,
 					.bIgnoreZ = C::Get<bool>(Vars.bVisualChamsLocalDesyncXQZ),
 					.bWireframe = C::Get<bool>(Vars.bVisualChamsLocalDesyncWireframe),
@@ -197,8 +190,7 @@ bool CHAMS::OnDrawModel(CCSPlayer* pLocal, DrawModelResults_t* pResults, const D
 			{
 				if (const VisualChams_t nType = C::Get<int>(Vars.iVisualChamsViewModel); nType != VISUAL_CHAMS_NONE)
 				{
-					const OverrideParameters_t overrideParameters =
-					{
+					const OverrideParameters_t overrideParameters = {
 						.nType = nType,
 						.bIgnoreZ = C::Get<bool>(Vars.bVisualChamsViewModelXQZ),
 						.bWireframe = C::Get<bool>(Vars.bVisualChamsViewModelWireframe),

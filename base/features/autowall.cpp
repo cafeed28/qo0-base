@@ -13,7 +13,7 @@ float AUTOWALL::GetDamage(CCSPlayer* pAttacker, const Vector_t& vecPoint, Simula
 	const Vector_t vecPosition = pAttacker->GetWeaponShootPosition();
 
 	// setup initial data
-	SimulateBulletObject_t data = { };
+	SimulateBulletObject_t data = {};
 	data.vecPosition = vecPosition;
 	data.vecDirection = (vecPoint - vecPosition).Normalized();
 
@@ -246,7 +246,7 @@ bool AUTOWALL::HandleBulletPenetration(CCSPlayer* pLocal, const CCSWeaponData* p
 	if (pWeaponData->flPenetration <= 0.0f || data.iPenetrateCount <= 0)
 		return true;
 
-	Trace_t exitTrace = { };
+	Trace_t exitTrace = {};
 	if (!TraceToExit(data.enterTrace, exitTrace, data.enterTrace.vecEnd, data.vecDirection, pLocal) && !(I::EngineTrace->GetPointContents(data.enterTrace.vecEnd, MASK_SHOT_HULL, nullptr) & MASK_SHOT_HULL))
 		return true;
 

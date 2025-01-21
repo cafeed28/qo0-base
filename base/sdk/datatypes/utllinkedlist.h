@@ -31,10 +31,14 @@ public:
 		typedef typename List_t::IndexType_t IndexType_t;
 
 		ConstIterator_t() :
-			pList(nullptr), nIndex(List_t::InvalidIndex()) { }
+			pList(nullptr),
+			nIndex(List_t::InvalidIndex())
+		{ }
 
 		ConstIterator_t(const List_t& list, IndexType_t nIndex) :
-			pList(&list), nIndex(nIndex) { }
+			pList(&list),
+			nIndex(nIndex)
+		{ }
 
 		ConstIterator_t& operator++()
 		{
@@ -101,7 +105,8 @@ public:
 		Iterator_t() { }
 
 		Iterator_t(const List_t& list, IndexType_t nIndex) :
-			ConstIterator_t<List_t>(list, nIndex) { }
+			ConstIterator_t<List_t>(list, nIndex)
+		{ }
 
 		Iterator_t& operator++()
 		{
@@ -142,7 +147,15 @@ public:
 	};
 
 	CUtlLinkedList(int nGrowSize = 0, int nSize = 0) :
-		memory(nGrowSize, nSize), iHead(InvalidIndex()), iTail(InvalidIndex()), iFirstFree(InvalidIndex()), nElementCount(0), nAllocated(0), itLastAlloc(memory.InvalidIterator()), pElements(memory.Base()) { }
+		memory(nGrowSize, nSize),
+		iHead(InvalidIndex()),
+		iTail(InvalidIndex()),
+		iFirstFree(InvalidIndex()),
+		nElementCount(0),
+		nAllocated(0),
+		itLastAlloc(memory.InvalidIterator()),
+		pElements(memory.Base())
+	{ }
 
 	~CUtlLinkedList()
 	{
@@ -335,7 +348,8 @@ class CUtlFixedLinkedList : public CUtlLinkedList<T, std::intptr_t, true, std::i
 {
 public:
 	CUtlFixedLinkedList(int nGrowSize = 0, int nInitAllocationCount = 0) :
-		CUtlLinkedList<T, std::intptr_t, true, std::intptr_t, CUtlFixedMemory<UtlLinkedListElement_t<T, std::intptr_t>>>(nGrowSize, nInitAllocationCount) { }
+		CUtlLinkedList<T, std::intptr_t, true, std::intptr_t, CUtlFixedMemory<UtlLinkedListElement_t<T, std::intptr_t>>>(nGrowSize, nInitAllocationCount)
+	{ }
 
 	[[nodiscard]] bool IsValidIndex(std::intptr_t nIndex) const
 	{

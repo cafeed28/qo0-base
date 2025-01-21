@@ -21,23 +21,23 @@ class INetChannelInfo : protected ROP::VirtualCallable_t<ROP::EngineGadget_t>
 public:
 	enum : int
 	{
-		GENERIC = 0,	// must be first and is default group
-		LOCALPLAYER,	// bytes for local player entity update
-		OTHERPLAYERS,	// bytes for other players update
-		ENTITIES,		// all other entity bytes
-		SOUNDS,			// game sounds
-		EVENTS,			// event messages
-		TEMPENTS,		// temp entities
-		USERMESSAGES,	// user messages
-		ENTMESSAGES,	// entity messages
-		VOICE,			// voice data
-		STRINGTABLE,	// a stringtable update
-		MOVE,			// client move cmds
-		STRINGCMD,		// string command
-		SIGNON,			// various signondata
-		PAINTMAP,		// paintmap data
-		ENCRYPTED,		// encrypted data
-		TOTAL			// must be last and is not a real group
+		GENERIC = 0, // must be first and is default group
+		LOCALPLAYER, // bytes for local player entity update
+		OTHERPLAYERS, // bytes for other players update
+		ENTITIES, // all other entity bytes
+		SOUNDS, // game sounds
+		EVENTS, // event messages
+		TEMPENTS, // temp entities
+		USERMESSAGES, // user messages
+		ENTMESSAGES, // entity messages
+		VOICE, // voice data
+		STRINGTABLE, // a stringtable update
+		MOVE, // client move cmds
+		STRINGCMD, // string command
+		SIGNON, // various signondata
+		PAINTMAP, // paintmap data
+		ENCRYPTED, // encrypted data
+		TOTAL // must be last and is not a real group
 	};
 
 	// get channel name
@@ -217,7 +217,7 @@ public:
 		return CallVFunc<bool, 40U>(this, &message, bForceReliable, bVoice);
 	}
 
-	int	SendDatagram(bf_write* pDatagram)
+	int SendDatagram(bf_write* pDatagram)
 	{
 		return CallVFunc<int, 46U>(this, pDatagram);
 	}
@@ -339,7 +339,8 @@ public:
 };
 
 template <typename T>
-class CNetMessagePB : public INetMessage, public T { };
+class CNetMessagePB : public INetMessage, public T
+{ };
 
 // @source: master/public/inetmessage.h
 class INetMessageBinder

@@ -124,7 +124,10 @@ class CEntityMapData
 {
 public:
 	explicit CEntityMapData(char* szEntityBlock, const int nEntityBlockSize = -1) :
-		szEntityData(szEntityBlock), nEntityDataSize(nEntityBlockSize), szCurrentKey(szEntityBlock) { }
+		szEntityData(szEntityBlock),
+		nEntityDataSize(nEntityBlockSize),
+		szCurrentKey(szEntityBlock)
+	{ }
 
 	[[nodiscard]] const char* CurrentBufferPosition() const
 	{

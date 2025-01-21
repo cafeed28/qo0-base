@@ -25,7 +25,7 @@ ImVec2 OVERLAY::CBaseComponent::GetBasePosition(const ImVec4& box) const
 
 ImVec2 OVERLAY::CBaseDirectionalComponent::GetBasePosition(const ImVec4& box) const
 {
-	ImVec2 vecBasePosition = { };
+	ImVec2 vecBasePosition = {};
 
 	if (this->nSide == SIDE_TOP || this->nSide == SIDE_BOTTOM)
 	{
@@ -53,7 +53,12 @@ ImVec2 OVERLAY::CBaseDirectionalComponent::GetBasePosition(const ImVec4& box) co
 }
 
 OVERLAY::CBarComponent::CBarComponent(const EAlignSide nAlignSide, const ImVec4& vecBox, const float flProgressFactor, const float flThickness, const Color_t& colPrimary, const Color_t& colBackground, const float flOutlineThickness, const Color_t& colOutline) :
-	flProgressFactor(flProgressFactor), flThickness(flThickness), colPrimary(colPrimary), colBackground(colBackground), flOutlineThickness(flOutlineThickness), colOutline(colOutline)
+	flProgressFactor(flProgressFactor),
+	flThickness(flThickness),
+	colPrimary(colPrimary),
+	colBackground(colBackground),
+	flOutlineThickness(flOutlineThickness),
+	colOutline(colOutline)
 {
 	this->nSide = nAlignSide;
 
@@ -92,7 +97,11 @@ void OVERLAY::CBarComponent::Render(const ImVec2& vecPosition)
 }
 
 OVERLAY::CTextComponent::CTextComponent(const EAlignSide nAlignSide, const EAlignDirection nAlignDirection, const ImFont* pFont, const float flFontSize, const char* szText, const Color_t& colPrimary, const float flOutlineThickness, const Color_t& colOutline) :
-	pFont(pFont), flFontSize(flFontSize), colPrimary(colPrimary), flOutlineThickness(std::floorf(flOutlineThickness)), colOutline(colOutline)
+	pFont(pFont),
+	flFontSize(flFontSize),
+	colPrimary(colPrimary),
+	flOutlineThickness(std::floorf(flOutlineThickness)),
+	colOutline(colOutline)
 {
 	// allocate own buffer to safely store a copy of the string
 	this->szText = new char[CRT::StringLength(szText) + 1U];
@@ -161,8 +170,7 @@ void OVERLAY::Context_t::AddBoxComponent(const ImVec4& vecBox, const VisualOverl
 		const float flCornerWidth = ((vecBox[SIDE_RIGHT] - vecBox[SIDE_LEFT]) * flPartRatio);
 		const float flCornerHeight = ((vecBox[SIDE_BOTTOM] - vecBox[SIDE_TOP]) * flPartRatio);
 
-		const ImVec2 arrCornerPoints[4][3] =
-		{
+		const ImVec2 arrCornerPoints[4][3] = {
 			// top-left
 			{ ImVec2(vecBox[SIDE_LEFT], vecBox[SIDE_TOP] + flCornerHeight) + vecThicknessOffset, ImVec2(vecBox[SIDE_LEFT], vecBox[SIDE_TOP]) + vecThicknessOffset, ImVec2(vecBox[SIDE_LEFT] + flCornerWidth, vecBox[SIDE_TOP]) + vecThicknessOffset },
 
@@ -242,7 +250,7 @@ void OVERLAY::Context_t::AddComponent(CBaseComponent* pComponent)
 	if (pComponent->IsDirectional())
 	{
 		CBaseDirectionalComponent* pDirectionalComponent = static_cast<CBaseDirectionalComponent*>(pComponent);
-		float (&arrDirectionPaddings)[DIR_MAX] = this->arrSideDirectionPaddings[pDirectionalComponent->nSide];
+		float(&arrDirectionPaddings)[DIR_MAX] = this->arrSideDirectionPaddings[pDirectionalComponent->nSide];
 
 		// directional components don't change side paddings, but take them into account
 		pComponent->vecOffset[pDirectionalComponent->nSide & 1U] += ((pDirectionalComponent->nSide < 2U) ? -flSidePadding : flSidePadding);
@@ -296,10 +304,10 @@ void OVERLAY::Context_t::AddComponent(CBaseComponent* pComponent)
 
 ImVec2 OVERLAY::Context_t::GetTotalDirectionalSize(const EAlignSide nSide) const
 {
-	ImVec2 vecSideSize = { };
+	ImVec2 vecSideSize = {};
 
 	// @todo: we should peek max of bottom + side or top directions at horizontal sides
-	const float (&arrDirectionPaddings)[DIR_MAX] = this->arrSideDirectionPaddings[nSide];
+	const float(&arrDirectionPaddings)[DIR_MAX] = this->arrSideDirectionPaddings[nSide];
 	for (std::uint8_t nSubDirection = DIR_LEFT; nSubDirection < DIR_MAX; nSubDirection++)
 		vecSideSize[nSubDirection & 1U] += arrDirectionPaddings[nSubDirection];
 
@@ -308,7 +316,7 @@ ImVec2 OVERLAY::Context_t::GetTotalDirectionalSize(const EAlignSide nSide) const
 
 void OVERLAY::Context_t::Render(const ImVec4& vecBox) const
 {
-	bool bCenteredFirstSideDirectional[SIDE_MAX] = { };
+	bool bCenteredFirstSideDirectional[SIDE_MAX] = {};
 
 	for (CBaseComponent* const pComponent : this->vecComponents)
 	{
@@ -320,8 +328,8 @@ void OVERLAY::Context_t::Render(const ImVec4& vecBox) const
 			// check if the component is directional
 			if (CBaseDirectionalComponent* const pDirectionalComponent = static_cast<CBaseDirectionalComponent*>(pComponent); pDirectionalComponent->IsDirectional())
 			{
-				const float (&arrDirectionPaddings)[DIR_MAX] = this->arrSideDirectionPaddings[pComponent->nSide];
-				
+				const float(&arrDirectionPaddings)[DIR_MAX] = this->arrSideDirectionPaddings[pComponent->nSide];
+
 				// check if the component has horizontal direction
 				if (static_cast<std::uint8_t>(pDirectionalComponent->nDirection) != static_cast<std::uint8_t>(pDirectionalComponent->nSide))
 					// add centering offset to the component's offset
@@ -363,14 +371,18 @@ void OVERLAY::OnDraw(CCSPlayer* pLocal)
 	struct SortEntityObject_t
 	{
 		SortEntityObject_t(CBaseEntity* pEntity, const EClassIndex nClassIndex, const ESortEntityType nEntityType, const float flDistance) :
-			pEntity(pEntity), nClassIndex(nClassIndex), nEntityType(nEntityType), flDistance(flDistance) { }
+			pEntity(pEntity),
+			nClassIndex(nClassIndex),
+			nEntityType(nEntityType),
+			flDistance(flDistance)
+		{ }
 
 		CBaseEntity* pEntity = nullptr;
 		EClassIndex nClassIndex = static_cast<EClassIndex>(-1);
 		ESortEntityType nEntityType = static_cast<ESortEntityType>(-1);
 		float flDistance = 0.0f;
 	};
-	std::vector<SortEntityObject_t> vecSortedEntities = { };
+	std::vector<SortEntityObject_t> vecSortedEntities = {};
 
 	const int nHighestEntityIndex = I::ClientEntityList->GetHighestEntityIndex();
 	for (int i = 1; i < nHighestEntityIndex; i++)
@@ -407,7 +419,7 @@ void OVERLAY::OnDraw(CCSPlayer* pLocal)
 	}
 
 	// sort entities by distance to draw them from the farthest to the nearest
-	std::ranges::sort(vecSortedEntities.begin(), vecSortedEntities.end(), std::ranges::greater{ }, &SortEntityObject_t::flDistance);
+	std::ranges::sort(vecSortedEntities.begin(), vecSortedEntities.end(), std::ranges::greater{}, &SortEntityObject_t::flDistance);
 
 	for (const auto& [pEntity, nClassIndex, nEntityType, flDistance] : vecSortedEntities)
 	{
@@ -510,8 +522,7 @@ bool OVERLAY::GetEntityBoundingBox(CBaseEntity* pEntity, ImVec4* pvecBox)
 	 *	6 - blt
 	 *	7 - flt
 	 */
-	const Vector_t arrPoints[8] =
-	{
+	const Vector_t arrPoints[8] = {
 		{ vecMin.x, vecMin.y, vecMin.z },
 		{ vecMin.x, vecMax.y, vecMin.z },
 		{ vecMax.x, vecMax.y, vecMin.z },
@@ -531,7 +542,7 @@ bool OVERLAY::GetEntityBoundingBox(CBaseEntity* pEntity, ImVec4* pvecBox)
 	float flBottom = (std::numeric_limits<float>::lowest)();
 
 	// get screen points position
-	ImVec2 arrScreen[8] = { };
+	ImVec2 arrScreen[8] = {};
 	for (std::size_t i = 0U; i < 8U; i++)
 	{
 		if (!D::WorldToScreen(arrPoints[i].Transform(matTransformed), &arrScreen[i]))
@@ -567,15 +578,15 @@ void OVERLAY::Player(CCSPlayer* pLocal, CCSPlayer* pPlayer, const float flDistan
 	if (!bIsLocal && !bIsEnemy && !bIsAlly)
 		return;
 
-	PlayerInfo_t playerInfo = { };
+	PlayerInfo_t playerInfo = {};
 	if (!I::Engine->GetPlayerInfo(pPlayer->GetIndex(), &playerInfo))
 		return;
 
-	ImVec4 vecBox = { };
+	ImVec4 vecBox = {};
 	if (!GetEntityBoundingBox(pPlayer, &vecBox))
 		return;
 
-	Context_t context = { };
+	Context_t context = {};
 
 	if (C::Get<int>(Vars.iVisualOverlayPlayerBox) != VISUAL_OVERLAY_BOX_NONE)
 	{
@@ -596,7 +607,7 @@ void OVERLAY::Player(CCSPlayer* pLocal, CCSPlayer* pPlayer, const float flDistan
 	// @note: distance font scale
 	const float flFontSize = CRT::Clamp(90.f / (flDistance / 90.f), 10.f, 40.f);
 
-	#pragma region visuals_player_top
+#pragma region visuals_player_top
 	if (C::Get<bool>(Vars.bVisualOverlayPlayerFlash) && pPlayer->GetFlashDuration() > 0.2f)
 		context.AddComponent(new CBarComponent(SIDE_TOP, vecBox, pPlayer->GetFlashAlpha() / pPlayer->GetFlashMaxAlpha(), 1.0f, Color_t(220, 220, 220, 255), Color_t(40, 40, 40, 100), 1.0f, Color_t(0, 0, 0, 150)));
 
@@ -616,9 +627,9 @@ void OVERLAY::Player(CCSPlayer* pLocal, CCSPlayer* pPlayer, const float flDistan
 		if (playerInfo.bFakePlayer)
 			context.AddComponent(new CTextComponent(SIDE_TOP, DIR_LEFT, FONT::pVisual, flFontSize, Q_XOR("[BOT]"), Color_t(140, 140, 140), 1.0f, Color_t(0, 0, 0, 220)));
 	}
-	#pragma endregion
+#pragma endregion
 
-	#pragma region visuals_player_bottom
+#pragma region visuals_player_bottom
 	// get active weapon
 	if (CBaseCombatWeapon* pActiveWeapon = pPlayer->GetActiveWeapon(); pActiveWeapon != nullptr)
 	{
@@ -683,9 +694,9 @@ void OVERLAY::Player(CCSPlayer* pLocal, CCSPlayer* pPlayer, const float flDistan
 
 		context.AddComponent(new CTextComponent(SIDE_BOTTOM, DIR_BOTTOM, FONT::pVisual, flFontSize, szDistance, Color_t(255, 255, 255, 255), 1.0f, Color_t(0, 0, 0, 220)));
 	}
-	#pragma endregion
+#pragma endregion
 
-	#pragma region visuals_player_left
+#pragma region visuals_player_left
 	if (C::Get<bool>(Vars.bVisualOverlayPlayerHealth))
 	{
 		const float flProgressFactor = static_cast<float>(pPlayer->GetHealth()) / static_cast<float>(pPlayer->GetMaxHealth());
@@ -700,9 +711,9 @@ void OVERLAY::Player(CCSPlayer* pLocal, CCSPlayer* pPlayer, const float flDistan
 
 		context.AddComponent(new CTextComponent(SIDE_LEFT, DIR_BOTTOM, FONT::pVisual, flFontSize, szMoney, Color_t(140, 195, 75, 255), 1.0f, Color_t(0, 0, 0, 220)));
 	}
-	#pragma endregion
+#pragma endregion
 
-	#pragma region visuals_player_right
+#pragma region visuals_player_right
 	if ((C::Get<unsigned int>(Vars.nVisualOverlayPlayerFlags) & VISUAL_OVERLAY_PLAYER_FLAG_HELMET) && pPlayer->HasHelmet())
 		context.AddComponent(new CTextComponent(SIDE_RIGHT, DIR_BOTTOM, FONT::pIcons, flFontSize, Q_XOR("\xEE\x88\x8E"), Color_t(255, 255, 255, 255), 1.0f, Color_t(0, 0, 0, 220)));
 
@@ -714,7 +725,7 @@ void OVERLAY::Player(CCSPlayer* pLocal, CCSPlayer* pPlayer, const float flDistan
 
 	if ((C::Get<unsigned int>(Vars.nVisualOverlayPlayerFlags) & VISUAL_OVERLAY_PLAYER_FLAG_ZOOM) && pPlayer->IsScoped())
 		context.AddComponent(new CTextComponent(SIDE_RIGHT, DIR_BOTTOM, FONT::pIcons, flFontSize, Q_XOR("\xEE\x88\x92"), Color_t(255, 255, 255, 255), 1.0f, Color_t(0, 0, 0, 220)));
-	#pragma endregion
+#pragma endregion
 
 	context.Render(vecBox);
 }
@@ -724,11 +735,11 @@ void OVERLAY::Bomb(CC4* pBomb)
 	if (!C::Get<bool>(Vars.bVisualOverlayBomb))
 		return;
 
-	ImVec2 vecScreen = { };
+	ImVec2 vecScreen = {};
 	if (!D::WorldToScreen(pBomb->GetOrigin(), &vecScreen))
 		return;
 
-	Context_t context = { };
+	Context_t context = {};
 
 	// label
 	context.AddComponent(new CTextComponent(SIDE_TOP, DIR_TOP, FONT::pExtra, 14.f, Q_XOR("C4"), Color_t(255, 255, 255, 255)));
@@ -745,11 +756,11 @@ void OVERLAY::PlantedBomb(CPlantedC4* pBomb)
 	if (!C::Get<bool>(Vars.bVisualOverlayBomb))
 		return;
 
-	ImVec2 vecScreen = { };
+	ImVec2 vecScreen = {};
 	if (!D::WorldToScreen(pBomb->GetOrigin(), &vecScreen))
 		return;
 
-	Context_t context = { };
+	Context_t context = {};
 
 	// get defuser entity
 	const IClientEntity* pDefuser = I::ClientEntityList->Get(pBomb->GetDefuserHandle());
@@ -788,7 +799,7 @@ void OVERLAY::Grenade(CBaseEntity* pGrenade, const EClassIndex nIndex)
 	if (!C::Get<bool>(Vars.bVisualOverlayGrenades))
 		return;
 
-	ImVec2 vecScreen = { };
+	ImVec2 vecScreen = {};
 	if (!D::WorldToScreen(pGrenade->GetOrigin(), &vecScreen))
 		return;
 
@@ -847,7 +858,7 @@ void OVERLAY::Grenade(CBaseEntity* pGrenade, const EClassIndex nIndex)
 		return;
 	}
 
-	Context_t context = { };
+	Context_t context = {};
 
 	// label
 	context.AddComponent(new CTextComponent(SIDE_TOP, DIR_TOP, FONT::pExtra, 14.f, szName, Color_t(255, 255, 255, 255)));
@@ -865,14 +876,14 @@ void OVERLAY::DroppedWeapon(CBaseCombatWeapon* pWeapon, const float flDistance)
 	if (!C::Get<bool>(Vars.bVisualOverlayWeapons))
 		return;
 
-	ImVec4 vecBox = { };
+	ImVec4 vecBox = {};
 	if (!GetEntityBoundingBox(pWeapon, &vecBox))
 		return;
 
 	constexpr Color_t colInfo = Color_t(255, 255, 255, 200);
 	constexpr Color_t colOutline = Color_t(0, 0, 0, 150);
 
-	Context_t context = { };
+	Context_t context = {};
 
 	if (C::Get<int>(Vars.iVisualOverlayWeaponBox) != VISUAL_OVERLAY_BOX_NONE)
 		context.AddBoxComponent(vecBox, C::Get<int>(Vars.iVisualOverlayWeaponBox), 1.0f, C::Get<Color_t>(Vars.colVisualOverlayBoxWeapons), 1.0f, colOutline);

@@ -22,11 +22,11 @@ public:
 
 		if (const MH_STATUS status = MH_CreateHook(pBaseFn, pReplaceFn, &pOriginalFn); status != MH_OK)
 		{
-		#ifdef _DEBUG
+#ifdef _DEBUG
 			L_PRINT(LOG_ERROR) << Q_XOR("failed to create hook, status: \"") << MH_StatusToString(status) << Q_XOR("\" with base address: ") << L::AddFlags(LOG_MODE_INT_SHOWBASE | LOG_MODE_INT_FORMAT_HEX) << reinterpret_cast<std::uintptr_t>(pBaseFn);
-		#else
+#else
 			L_PRINT(LOG_ERROR) << Q_XOR("failed to create hook");
-		#endif
+#endif
 
 			Q_ASSERT(false);
 			return false;
@@ -52,11 +52,11 @@ public:
 
 		if (const MH_STATUS status = MH_EnableHook(pBaseFn); status != MH_OK)
 		{
-		#ifdef _DEBUG
+#ifdef _DEBUG
 			L_PRINT(LOG_ERROR) << Q_XOR("failed to enable hook, status: \"") << MH_StatusToString(status) << Q_XOR("\" with base address: ") << L::AddFlags(LOG_MODE_INT_SHOWBASE | LOG_MODE_INT_FORMAT_HEX) << reinterpret_cast<std::uintptr_t>(pBaseFn);
-		#else
+#else
 			L_PRINT(LOG_ERROR) << Q_XOR("failed to enable hook");
-		#endif
+#endif
 
 			Q_ASSERT(false);
 			return false;
@@ -77,11 +77,11 @@ public:
 
 		if (const MH_STATUS status = MH_RemoveHook(pBaseFn); status != MH_OK)
 		{
-		#ifdef _DEBUG
+#ifdef _DEBUG
 			L_PRINT(LOG_ERROR) << Q_XOR("failed to remove hook, status: \"") << MH_StatusToString(status) << Q_XOR("\" with base address: ") << L::AddFlags(LOG_MODE_INT_SHOWBASE | LOG_MODE_INT_FORMAT_HEX) << reinterpret_cast<std::uintptr_t>(pBaseFn);
-		#else
+#else
 			L_PRINT(LOG_ERROR) << Q_XOR("failed to remove hook");
-		#endif
+#endif
 
 			Q_ASSERT(false);
 			return false;
@@ -100,11 +100,11 @@ public:
 
 		if (const MH_STATUS status = MH_DisableHook(pBaseFn); status != MH_OK)
 		{
-		#ifdef _DEBUG
+#ifdef _DEBUG
 			L_PRINT(LOG_ERROR) << Q_XOR("failed to restore hook, status: \"") << MH_StatusToString(status) << Q_XOR("\" with base address: ") << L::AddFlags(LOG_MODE_INT_SHOWBASE | LOG_MODE_INT_FORMAT_HEX) << reinterpret_cast<std::uintptr_t>(pBaseFn);
-		#else
+#else
 			L_PRINT(LOG_ERROR) << Q_XOR("failed to restore hook");
-		#endif
+#endif
 
 			Q_ASSERT(false);
 			return false;
@@ -139,7 +139,8 @@ private:
 };
 
 template <typename T>
-class CHookObject { };
+class CHookObject
+{ };
 
 // @todo: move directly to hooks.h/hooks.cpp
 /*
@@ -156,11 +157,11 @@ public:
 	template <typename Gadget_t>
 	Q_INLINE T CallOriginal(Args_t... argList)
 	{
-	#ifdef Q_PARANOID_DISABLE_RETURN_SPOOF
+#ifdef Q_PARANOID_DISABLE_RETURN_SPOOF
 		return reinterpret_cast<T(Q_FASTCALL*)(Args_t...)>(this->GetOriginal())(argList...);
-	#else
+#else
 		ROP::MethodInvoker_t<T(Q_FASTCALL*)(Args_t...)> originalInvoker(this->GetOriginal());
 		return originalInvoker.template Invoke<Gadget_t>(argList...);
-	#endif
+#endif
 	}
 };

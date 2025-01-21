@@ -11,7 +11,6 @@ class CBitVec
 	};
 
 public:
-
 	[[nodiscard]] std::uint32_t operator[](std::size_t nIndex) const
 	{
 		Q_ASSERT(nIndex < N); // bit index is out of range
@@ -53,5 +52,5 @@ public:
 	}
 
 private:
-	std::uint32_t arrUInts[(N + (BITS_PER_INT - 1U)) / BITS_PER_INT] = { };
+	std::uint32_t arrUInts[(N + (BITS_PER_INT - 1U)) / BITS_PER_INT] = {};
 };

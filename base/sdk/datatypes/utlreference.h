@@ -17,11 +17,9 @@ struct CUtlIntrusiveList
 template <class T>
 struct CUtlIntrusiveDList : public CUtlIntrusiveList<T>
 {
-
 };
 
 template <class T>
 struct CUtlReferenceList : public CUtlIntrusiveDList<CUtlReference<T>>
 {
-
 };

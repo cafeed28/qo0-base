@@ -15,7 +15,7 @@
 bool IPT::Setup()
 {
 	// get directx swapchain data
-	D3DDEVICE_CREATION_PARAMETERS creationParameters = { };
+	D3DDEVICE_CREATION_PARAMETERS creationParameters = {};
 	if (FAILED(I::DirectDevice->GetCreationParameters(&creationParameters)))
 		return false;
 

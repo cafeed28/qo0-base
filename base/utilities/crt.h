@@ -81,14 +81,14 @@ namespace CRT
 	// every possible character to represent the number with the largest valid base
 	constexpr const char* _NUMBER_ALPHA = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 	// lookup table for fast integer to string conversion in range [00 .. 99]
-	constexpr char _TWO_DIGITS_LUT[ ] =
+	constexpr char _TWO_DIGITS_LUT[] =
 		"0001020304050607080910111213141516171819"
 		"2021222324252627282930313233343536373839"
 		"4041424344454647484950515253545556575859"
 		"6061626364656667686970717273747576777879"
 		"8081828384858687888990919293949596979899";
 	// lookup table for fast hex integer to string conversion in range [00 .. FF]
-	constexpr char _TWO_DIGITS_HEX_LUT[ ] =
+	constexpr char _TWO_DIGITS_HEX_LUT[] =
 		"000102030405060708090A0B0C0D0E0F101112131415161718191A1B1C1D1E1F"
 		"202122232425262728292A2B2C2D2E2F303132333435363738393A3B3C3D3E3F"
 		"404142434445464748494A4B4C4D4E4F505152535455565758595A5B5C5D5E5F"
@@ -115,11 +115,11 @@ namespace CRT
 		}
 	};
 
-	/*
+/*
 	 * @section: utility
 	 * - functions that provide general-purpose functionality
 	 */
-	#pragma region stl_utility
+#pragma region stl_utility
 	// indicate that an object may be "moved from", i.e. allowing the efficient transfer of resources to another object, alternative of 'std::move'
 	template <class T>
 	[[nodiscard]] Q_INLINE constexpr std::remove_reference_t<T>&& Move(T&& argument) noexcept
@@ -145,20 +145,20 @@ namespace CRT
 	/// swap value of @a'left' to @a'right' and @a'right' to @a'left', alternative of 'std::swap'
 	template <typename T>
 	requires (std::is_move_constructible_v<T> && std::is_move_assignable_v<T>)
-	Q_INLINE constexpr void Swap(T& left, T& right) noexcept(std::is_nothrow_move_constructible_v<T>&& std::is_nothrow_move_assignable_v<T>)
+	Q_INLINE constexpr void Swap(T& left, T& right) noexcept(std::is_nothrow_move_constructible_v<T> && std::is_nothrow_move_assignable_v<T>)
 	{
 		T temporary = Move(left);
 		left = Move(right);
 		right = Move(temporary);
 	}
 
-	#pragma endregion
+#pragma endregion
 
-	/*
+/*
 	 * @section: algorithm
 	 * - functions for a variety of purposes (e.g. searching, sorting, counting, manipulating) that operate on ranges of elements
 	 */
-	#pragma region stl_algorithm
+#pragma region stl_algorithm
 	/// alternative of 'std::min'
 	/// @returns : minimal value of the given comparable values
 	template <typename T>
@@ -180,12 +180,13 @@ namespace CRT
 	template <typename T>
 	[[nodiscard]] Q_INLINE constexpr const T& Clamp(const T& value, const T& minimal, const T& maximal) noexcept
 	{
-		return (value < minimal) ? minimal : (value > maximal) ? maximal : value;
+		return (value < minimal) ? minimal : (value > maximal) ? maximal :
+																 value;
 	}
-	#pragma endregion
+#pragma endregion
 
-	/* @section: memory */
-	#pragma region crt_memory
+/* @section: memory */
+#pragma region crt_memory
 	/// compare bytes in two buffers, alternative of 'memcmp()'
 	/// @remarks: compares the first count bytes of @a'pFirstBuffer' and @a'pRightBuffer' and return a value that indicates their relationship, performs unsigned character comparison
 	/// @returns: <0 - if @a'pFirstBuffer' less than @a'pRightBuffer', 0 - if @a'pFirstBuffer' identical to @a'pRightBuffer', >0 - if @a'pFirstBuffer' greater than @a'pRightBuffer'
@@ -256,7 +257,7 @@ namespace CRT
 	/// @returns: pointer to the @a'pDestination'
 	Q_INLINE void* MemorySet(void* pDestination, const std::uint8_t uByte, std::size_t nCount)
 	{
-	#ifdef Q_COMPILER_MSC
+#ifdef Q_COMPILER_MSC
 		// @test: clang always tries to detect 'memset' like instructions and replace them with CRT's function call
 		if (const std::size_t nCountAlign = (nCount & 3U); nCountAlign == 0U)
 		{
@@ -273,12 +274,12 @@ namespace CRT
 			auto pDestinationByte = static_cast<unsigned char*>(pDestination);
 			__stosb(pDestinationByte, uByte, nCount);
 		}
-	#else
+#else
 		auto pDestinationByte = static_cast<std::uint8_t*>(pDestination);
 
 		while (nCount--)
 			*pDestinationByte++ = uByte;
-	#endif
+#endif
 
 		return pDestination;
 	}
@@ -288,7 +289,7 @@ namespace CRT
 	/// @returns: pointer to the @a'pDestination'
 	Q_INLINE void* MemoryCopy(void* pDestination, const void* pSource, std::size_t nCount)
 	{
-	#ifdef Q_COMPILER_MSC
+#ifdef Q_COMPILER_MSC
 		// @test: clang always tries to detect 'memcpy' like instructions and replace them with CRT's function call
 		if (const std::size_t nCountAlign = (nCount & 3U); nCountAlign == 0U)
 		{
@@ -308,13 +309,13 @@ namespace CRT
 			auto pSourceByte = static_cast<const unsigned char*>(pSource);
 			__movsb(pDestinationByte, pSourceByte, nCount);
 		}
-	#else
+#else
 		auto pDestinationByte = static_cast<std::uint8_t*>(pDestination);
 		auto pSourceByte = static_cast<const std::uint8_t*>(pSource);
 
 		while (nCount--)
 			*pDestinationByte++ = *pSourceByte++;
-	#endif
+#endif
 
 		return pDestination;
 	}
@@ -330,13 +331,13 @@ namespace CRT
 		// perform copy when source greater than destination
 		if (pDestinationByte < pSourceByte)
 		{
-		#ifdef Q_COMPILER_MSC
+#ifdef Q_COMPILER_MSC
 			// @todo: also check for available align for given nCount
 			__movsb(pDestinationByte, pSourceByte, nCount);
-		#else
+#else
 			while (nCount--)
 				*pDestinationByte++ = *pSourceByte++;
-		#endif
+#endif
 		}
 		// inverse copy otherwise
 		else
@@ -350,13 +351,13 @@ namespace CRT
 
 		return pDestination;
 	}
-	#pragma endregion
+#pragma endregion
 
-	/*
+/*
 	 * @section: character
 	 * - valid only for default C locale
 	 */
-	#pragma region crt_characters
+#pragma region crt_characters
 	/// alternative of 'iscntrl()', @todo: 'iswcntrl()'
 	/// @returns: true if given character is a control character, false otherwise
 	[[nodiscard]] constexpr bool IsControl(const std::uint8_t uChar)
@@ -440,10 +441,10 @@ namespace CRT
 	{
 		return (uChar >= 'a' && uChar <= 'z');
 	}
-	#pragma endregion
+#pragma endregion
 
-	/* @section: character conversion */
-	#pragma region crt_character_conversion
+/* @section: character conversion */
+#pragma region crt_character_conversion
 	/// convert single digit character to integer
 	/// @returns: converted value if character is digit, 0 otherwise
 	[[nodiscard]] constexpr std::int32_t CharToInt(const std::uint8_t uChar)
@@ -470,14 +471,14 @@ namespace CRT
 	{
 		return static_cast<char>(IsUpper(uChar) ? (uChar | ('a' ^ 'A')) : uChar);
 	}
-	#pragma endregion
+#pragma endregion
 
-	/*
+/*
 	 * @section: string
 	 * - @note: return value of some functions correspond to the POSIX standard but not C standard, it was necessary to reduce time complexity of them
 	 * - valid only for default C locale
 	 */
-	#pragma region crt_string
+#pragma region crt_string
 	/// get the length of a string, alternative of 'strlen()', 'wcslen()'
 	/// @returns: number of characters in the string, not including the terminating null character
 	template <typename C> requires (std::is_same_v<C, char> || std::is_same_v<C, wchar_t>)
@@ -702,9 +703,9 @@ namespace CRT
 		*tszDestination = C('\0');
 		return tszDestination;
 	}
-	#pragma endregion
+#pragma endregion
 
-	#pragma region crt_string_format
+#pragma region crt_string_format
 	/// write formatted data to a string, alternative of 'sprintf'
 	/// @returns: the number of characters written to the formatted data string, not including the terminating null character. a return value of -1 indicates that an encoding error has occurred
 	inline Q_CRT_FORMAT_STRING_ATTRIBUTE(printf, 2, 3) int StringPrint(char* szBuffer, const char* const szFormat, ...)
@@ -773,16 +774,16 @@ namespace CRT
 
 		return iReturn;
 	}
-	#pragma endregion
+#pragma endregion
 
-	/*
+/*
 	 * @section: string conversion
 	 * - these functions can write past the end of a buffer that is too small.
 	 *   to prevent buffer overruns, ensure that buffer is large enough to hold the converted data and the trailing null-character.
 	 *   misuse of these functions can cause serious security issues in your code
 	 * - valid only for default C locale
 	 */
-	#pragma region crt_string_conversion
+#pragma region crt_string_conversion
 	/// convert every char in the string to uppercase
 	/// @returns: pointer to the @a'szDestination'
 	constexpr char* StringToUpper(char* szDestination)
@@ -1395,7 +1396,7 @@ namespace CRT
 		bool bIsNumber = false;
 		std::uint64_t ullResult = 0ULL;
 
-		for (bool bIsDigit = false, bIsAlpha = false; ((bIsDigit = IsDigit(*szSourceCurrent))) || ((bIsAlpha = IsAlpha(*szSourceCurrent))); ) // @note: looks slightly unsafe but have possibility to fast path, double parenthesis to suppress warnings
+		for (bool bIsDigit = false, bIsAlpha = false; ((bIsDigit = IsDigit(*szSourceCurrent))) || ((bIsAlpha = IsAlpha(*szSourceCurrent)));) // @note: looks slightly unsafe but have possibility to fast path, double parenthesis to suppress warnings
 		{
 			int iCurrentDigit = 0;
 
@@ -1453,13 +1454,13 @@ namespace CRT
 		static auto fnatof = reinterpret_cast<double(Q_CDECL*)(const char*)>(MEM::FindPattern(CLIENT_DLL, Q_XOR("8B FF 55 8B EC 6A 00 FF 75 08 E8 ? ? ? ? 59 59 5D C3 A1")));
 		return static_cast<T>(fnatof(szSourceBegin));
 	}
-	#pragma endregion
+#pragma endregion
 
-	/*
+/*
 	 * @section: string encode/decode
 	 * - valid only for default C locale
 	 */
-	#pragma region crt_string_encode_decode
+#pragma region crt_string_encode_decode
 	/// convert UTF-X multibyte string to a corresponding UTF-32 character, process single character input, alternative of 'mbtowc()'
 	/// @credits: github.com/skeeto/branchless-utf8
 	/// @remarks: handles decoding error by skipping forward
@@ -1468,24 +1469,23 @@ namespace CRT
 	std::ptrdiff_t CharMultiByteToUTF32(const C* tszBegin, const C* tszEnd, std::uint32_t* puOutChar)
 	{
 		// index from the high 5 bits of the first byte in a sequence to the length of the sequence. imperative that 0 == invalid
-		constexpr std::uint8_t arrSequenceLength[32] =
-		{
-			1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,	// [ 0 .. 15] [00000 .. 01111]
-			0, 0, 0, 0, 0, 0, 0, 0,							// [16 .. 23] [10000 .. 10111] - 10XXX is only legal as prefixes for continuation bytes
-			2, 2, 2, 2,										// [24 .. 27] [11000 .. 11011]
-			3, 3,											// [28 .. 29] [11100 .. 11101]
-			4, 0											// [30 .. 31] [11110 .. 11111]
+		constexpr std::uint8_t arrSequenceLength[32] = {
+			1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, // [ 0 .. 15] [00000 .. 01111]
+			0, 0, 0, 0, 0, 0, 0, 0, // [16 .. 23] [10000 .. 10111] - 10XXX is only legal as prefixes for continuation bytes
+			2, 2, 2, 2, // [24 .. 27] [11000 .. 11011]
+			3, 3, // [28 .. 29] [11100 .. 11101]
+			4, 0 // [30 .. 31] [11110 .. 11111]
 		};
 
-		constexpr std::uint8_t arrMask[ ] = { 0x00, 0x7F, 0x1F, 0x0F, 0x07 };
-		constexpr std::uint32_t arrStartCodePoint[ ] = { 0x400000, 0, 0x80, 0x800, 0x10000 };
-		constexpr std::uint8_t arrCharShift[ ] = { 0, 18, 12, 6, 0 };
-		constexpr std::uint8_t arrErrorShift[ ] = { 0, 6, 4, 2, 0 };
+		constexpr std::uint8_t arrMask[] = { 0x00, 0x7F, 0x1F, 0x0F, 0x07 };
+		constexpr std::uint32_t arrStartCodePoint[] = { 0x400000, 0, 0x80, 0x800, 0x10000 };
+		constexpr std::uint8_t arrCharShift[] = { 0, 18, 12, 6, 0 };
+		constexpr std::uint8_t arrErrorShift[] = { 0, 6, 4, 2, 0 };
 
 		const std::uint8_t nNextLength = arrSequenceLength[*reinterpret_cast<const std::uint8_t*>(tszBegin) >> 3U];
 		std::ptrdiff_t nLength = nNextLength + !nNextLength;
 
-		unsigned char uString[4] = { };
+		unsigned char uString[4] = {};
 		const std::ptrdiff_t nSourceLength = tszEnd - tszBegin;
 
 		// copy at most 'nLength' bytes, stop copying at 0 or past end iterator. branch predictor does a good job here, so it is fast even with excessive branching
@@ -1671,5 +1671,5 @@ namespace CRT
 		StringUnicodeToMultiByte(strMultiByteOut.data(), nLength, wstrUnicode.data(), wstrUnicode.data() + wstrUnicode.size());
 		return strMultiByteOut;
 	}
-	#pragma endregion
+#pragma endregion
 }

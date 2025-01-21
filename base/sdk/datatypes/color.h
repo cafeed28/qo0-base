@@ -31,23 +31,43 @@ struct Color_t
 
 	// 8-bit color constructor (in: [0 .. 255])
 	constexpr Color_t(const std::uint8_t r, const std::uint8_t g, const std::uint8_t b, const std::uint8_t a = 255) :
-		r(r), g(g), b(b), a(a) { }
+		r(r),
+		g(g),
+		b(b),
+		a(a)
+	{ }
 
 	// 8-bit color constructor (in: [0 .. 255])
 	constexpr Color_t(const int r, const int g, const int b, const int a = 255) :
-		r(static_cast<std::uint8_t>(r)), g(static_cast<std::uint8_t>(g)), b(static_cast<std::uint8_t>(b)), a(static_cast<std::uint8_t>(a)) { }
+		r(static_cast<std::uint8_t>(r)),
+		g(static_cast<std::uint8_t>(g)),
+		b(static_cast<std::uint8_t>(b)),
+		a(static_cast<std::uint8_t>(a))
+	{ }
 
 	// 8-bit array color constructor (in: [0.0 .. 1.0])
 	explicit constexpr Color_t(const std::uint8_t arrColor[4]) :
-		r(arrColor[COLOR_R]), g(arrColor[COLOR_G]), b(arrColor[COLOR_B]), a(arrColor[COLOR_A]) { }
+		r(arrColor[COLOR_R]),
+		g(arrColor[COLOR_G]),
+		b(arrColor[COLOR_B]),
+		a(arrColor[COLOR_A])
+	{ }
 
 	// 32-bit packed color constructor (in: 0x00000000 - 0xFFFFFFFF)
 	explicit constexpr Color_t(const ImU32 uPackedColor) :
-		r(static_cast<std::uint8_t>((uPackedColor >> IM_COL32_R_SHIFT) & 0xFF)), g(static_cast<std::uint8_t>((uPackedColor >> IM_COL32_G_SHIFT) & 0xFF)), b(static_cast<std::uint8_t>((uPackedColor >> IM_COL32_B_SHIFT) & 0xFF)), a(static_cast<std::uint8_t>((uPackedColor >> IM_COL32_A_SHIFT) & 0xFF)) { }
+		r(static_cast<std::uint8_t>((uPackedColor >> IM_COL32_R_SHIFT) & 0xFF)),
+		g(static_cast<std::uint8_t>((uPackedColor >> IM_COL32_G_SHIFT) & 0xFF)),
+		b(static_cast<std::uint8_t>((uPackedColor >> IM_COL32_B_SHIFT) & 0xFF)),
+		a(static_cast<std::uint8_t>((uPackedColor >> IM_COL32_A_SHIFT) & 0xFF))
+	{ }
 
 	// 32-bit color constructor (in: [0.0 .. 1.0])
 	constexpr Color_t(const float r, const float g, const float b, const float a = 1.0f) :
-		r(static_cast<std::uint8_t>(r * 255.f)), g(static_cast<std::uint8_t>(g * 255.f)), b(static_cast<std::uint8_t>(b * 255.f)), a(static_cast<std::uint8_t>(a * 255.f)) { }
+		r(static_cast<std::uint8_t>(r * 255.f)),
+		g(static_cast<std::uint8_t>(g * 255.f)),
+		b(static_cast<std::uint8_t>(b * 255.f)),
+		a(static_cast<std::uint8_t>(a * 255.f))
+	{ }
 
 	/// @returns: 32-bit packed integer representation of color
 	[[nodiscard]] constexpr ImU32 GetU32(const float flAlphaMultiplier = 1.0f) const
@@ -150,7 +170,7 @@ struct Color_t
 	/// @param[out] arrHSB output array of HSB/HSV color converted from RGB color
 	void ToHSB(float (&arrHSB)[3]) const
 	{
-		float arrBase[3] = { };
+		float arrBase[3] = {};
 		Base(arrBase);
 
 		float flKernel = 0.0f;
@@ -187,22 +207,34 @@ struct Color_t
 		switch (iRoundHuePrime)
 		{
 		case 0:
-			flRed = flBrightness; flGreen = t; flBlue = p;
+			flRed = flBrightness;
+			flGreen = t;
+			flBlue = p;
 			break;
 		case 1:
-			flRed = q; flGreen = flBrightness; flBlue = p;
+			flRed = q;
+			flGreen = flBrightness;
+			flBlue = p;
 			break;
 		case 2:
-			flRed = p; flGreen = flBrightness; flBlue = t;
+			flRed = p;
+			flGreen = flBrightness;
+			flBlue = t;
 			break;
 		case 3:
-			flRed = p; flGreen = q; flBlue = flBrightness;
+			flRed = p;
+			flGreen = q;
+			flBlue = flBrightness;
 			break;
 		case 4:
-			flRed = t; flGreen = p; flBlue = flBrightness;
+			flRed = t;
+			flGreen = p;
+			flBlue = flBrightness;
 			break;
 		default:
-			flRed = flBrightness; flGreen = p; flBlue = q;
+			flRed = flBrightness;
+			flGreen = p;
+			flBlue = q;
 			break;
 		}
 

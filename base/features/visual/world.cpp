@@ -120,8 +120,8 @@ void WORLD::PunchRemoval(CCSPlayer* pPlayer, const bool bState, QAngle_t* pangOl
 		*pangOldViewPunch = pLocalData->GetViewPunch();
 		*pangOldAimPunch = pLocalData->GetAimPunch();
 
-		pLocalData->GetViewPunch() = { };
-		pLocalData->GetAimPunch() = { };
+		pLocalData->GetViewPunch() = {};
+		pLocalData->GetAimPunch() = {};
 	}
 	else
 	{
@@ -136,7 +136,7 @@ void WORLD::FlashRemoval(const bool bState)
 	for (const char* szFlashBangMaterial :
 		{
 			Q_XOR("effects/flashbang_white"),
-			Q_XOR("effects/flashbang")
+			Q_XOR("effects/flashbang"),
 		})
 	{
 		if (IMaterial* pMaterial = I::MaterialSystem->FindMaterial(szFlashBangMaterial, TEXTURE_GROUP_CLIENT_EFFECTS); pMaterial != nullptr && !pMaterial->IsErrorMaterial())
@@ -167,7 +167,7 @@ void WORLD::ThirdPerson(CCSPlayer* pLocal)
 
 	if (C::Get<bool>(Vars.bVisualWorld) && IPT::GetBindState(C::Get<KeyBind_t>(Vars.keyVisualWorldThirdPerson)) && pLocal->IsAlive())
 	{
-		QAngle_t angThirdpersonView = { };
+		QAngle_t angThirdpersonView = {};
 		I::Engine->GetViewAngles(angThirdpersonView);
 		angThirdpersonView.z = C::Get<float>(Vars.flVisualWorldThirdPersonOffset);
 
@@ -175,7 +175,7 @@ void WORLD::ThirdPerson(CCSPlayer* pLocal)
 		angInverseView.x = -angInverseView.x;
 		angInverseView.y += 180.f;
 
-		Vector_t vecDirection = { };
+		Vector_t vecDirection = {};
 		angInverseView.ToDirections(&vecDirection);
 
 		constexpr Vector_t vecCameraHullMin = { -14.0f, -14.0f, -14.0f };
@@ -186,7 +186,7 @@ void WORLD::ThirdPerson(CCSPlayer* pLocal)
 		const Ray_t ray(vecStart, vecEnd, vecCameraHullMin, vecCameraHullMax);
 
 		CTraceFilterSimple filter(pLocal);
-		Trace_t trace = { };
+		Trace_t trace = {};
 		I::EngineTrace->TraceRay(ray, MASK_SOLID, &filter, &trace);
 
 		// clip distance

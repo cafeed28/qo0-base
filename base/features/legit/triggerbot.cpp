@@ -46,17 +46,17 @@ void TRIGGER::OnMove(CCSPlayer* pLocal, CUserCmd* pCmd)
 	// get view and take punch into account
 	const QAngle_t angView = pCmd->angViewPoint + pLocal->GetLocalData()->GetAimPunch() * CONVAR::weapon_recoil_scale->GetFloat();
 
-	Vector_t vecForward = { };
+	Vector_t vecForward = {};
 	angView.ToDirections(&vecForward);
 	vecForward *= pWeaponData->flRange;
 
 	const Vector_t vecStart = pLocal->GetWeaponShootPosition();
 	const Vector_t vecEnd = vecStart + vecForward;
 
-	Trace_t trace = { };
+	Trace_t trace = {};
 	if (C::Get<bool>(Vars.bTriggerAutoWall))
 	{
-		SimulateBulletObject_t data = { };
+		SimulateBulletObject_t data = {};
 
 		// check for minimal damage
 		if (AUTOWALL::GetDamage(pLocal, vecEnd, &data) < static_cast<float>(C::Get<int>(Vars.iTriggerMinimalDamage)))
@@ -88,7 +88,7 @@ void TRIGGER::OnMove(CCSPlayer* pLocal, CUserCmd* pCmd)
 		return;
 
 	// hitgroup filters check
-		// head
+	// head
 	if ((C::Get<bool>(Vars.bTriggerHead) && trace.iHitGroup == HITGROUP_HEAD) ||
 		// chest
 		(C::Get<bool>(Vars.bTriggerChest) && trace.iHitGroup == HITGROUP_CHEST) ||

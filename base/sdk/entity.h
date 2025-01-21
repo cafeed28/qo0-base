@@ -422,7 +422,7 @@ public:
 
 	[[nodiscard]] Q_INLINE Vector_t GetEyePosition()
 	{
-		Vector_t vecPosition = { };
+		Vector_t vecPosition = {};
 		CallVFunc<void, 169U>(this, &vecPosition);
 		return vecPosition;
 	}

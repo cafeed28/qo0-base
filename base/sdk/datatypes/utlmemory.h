@@ -24,7 +24,8 @@ public:
 	{
 	public:
 		Iterator_t(const N nIndex) :
-			nIndex(nIndex) { }
+			nIndex(nIndex)
+		{ }
 
 		bool operator==(const Iterator_t it) const
 		{
@@ -40,7 +41,9 @@ public:
 	};
 
 	CUtlMemory(const int nInitialGrowSize, const int nAllocationCount) :
-		pMemory(nullptr), nAllocationCount(nAllocationCount), nGrowSize(nInitialGrowSize)
+		pMemory(nullptr),
+		nAllocationCount(nAllocationCount),
+		nGrowSize(nInitialGrowSize)
 	{
 		Q_ASSERT(nInitialGrowSize >= 0);
 
@@ -49,10 +52,16 @@ public:
 	}
 
 	CUtlMemory(T* pMemory, const int nElements) :
-		pMemory(pMemory), nAllocationCount(nElements), nGrowSize(EXTERNAL_BUFFER_MARKER) { }
+		pMemory(pMemory),
+		nAllocationCount(nElements),
+		nGrowSize(EXTERNAL_BUFFER_MARKER)
+	{ }
 
 	CUtlMemory(const T* pMemory, const int nElements) :
-		pMemory(pMemory), nAllocationCount(nElements), nGrowSize(EXTERNAL_CONST_BUFFER_MARKER) { }
+		pMemory(pMemory),
+		nAllocationCount(nElements),
+		nGrowSize(EXTERNAL_CONST_BUFFER_MARKER)
+	{ }
 
 	~CUtlMemory()
 	{
@@ -62,7 +71,9 @@ public:
 	CUtlMemory(const CUtlMemory&) = delete;
 
 	CUtlMemory(CUtlMemory&& moveFrom) noexcept :
-		pMemory(moveFrom.pMemory), nAllocationCount(moveFrom.nAllocationCount), nGrowSize(moveFrom.nGrowSize)
+		pMemory(moveFrom.pMemory),
+		nAllocationCount(moveFrom.nAllocationCount),
+		nGrowSize(moveFrom.nGrowSize)
 	{
 		moveFrom.pMemory = nullptr;
 		moveFrom.nAllocationCount = 0;
@@ -385,7 +396,10 @@ public:
 
 	// specify the invalid ('null') index that we'll only return on failure
 	static constexpr int INVALID_INDEX = -1;
-	[[nodiscard]] static constexpr int InvalidIndex() { return INVALID_INDEX; }
+	[[nodiscard]] static constexpr int InvalidIndex()
+	{
+		return INVALID_INDEX;
+	}
 
 	[[nodiscard]] T* Base()
 	{
@@ -427,21 +441,40 @@ public:
 		return Base()[nIndex];
 	}
 
-	[[nodiscard]] int AllocationCount() const { return SIZE; }
-	[[nodiscard]] int Count() const { return SIZE; }
+	[[nodiscard]] int AllocationCount() const
+	{
+		return SIZE;
+	}
+	[[nodiscard]] int Count() const
+	{
+		return SIZE;
+	}
 
-	void Grow(int nCount = 1) { Q_ASSERT(false); }
-	void EnsureCapacity(const int nCapacity) { Q_ASSERT(nCapacity <= SIZE); }
+	void Grow(int nCount = 1)
+	{
+		Q_ASSERT(false);
+	}
+	void EnsureCapacity(const int nCapacity)
+	{
+		Q_ASSERT(nCapacity <= SIZE);
+	}
 
 	void Purge() { }
-	void Purge(const int nElements) { Q_ASSERT(false); }
-	[[nodiscard]] bool IsExternallyAllocated() const { return false; }
+	void Purge(const int nElements)
+	{
+		Q_ASSERT(false);
+	}
+	[[nodiscard]] bool IsExternallyAllocated() const
+	{
+		return false;
+	}
 
 	class Iterator_t
 	{
 	public:
 		Iterator_t(const int nIndex) :
-			nIndex(nIndex) { }
+			nIndex(nIndex)
+		{ }
 
 		bool operator==(const Iterator_t it) const
 		{

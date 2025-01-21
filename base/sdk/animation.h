@@ -200,7 +200,7 @@ public:
 	float flDuckAdditional; // 0x00A8 // for when we duck a bit after hitting ground from a jump
 	float flRecrouchWeight; // 0x00AC
 	Vector_t vecOrigin; // 0x00B0
-	Vector_t vecOriginLast;// 0x00BC
+	Vector_t vecOriginLast; // 0x00BC
 	Vector_t vecVelocity; // 0x00C8
 	Vector_t vecVelocityNormalized; // 0x00D4
 	Vector_t vecVelocityNormalizedNonZero; // 0x00E0

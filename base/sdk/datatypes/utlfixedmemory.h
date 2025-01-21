@@ -24,7 +24,9 @@ public:
 	{
 	public:
 		Iterator_t(BlockHeader_t* pBlockHeader, const std::intptr_t nIndex) :
-			pBlockHeader(pBlockHeader), nIndex(nIndex) { }
+			pBlockHeader(pBlockHeader),
+			nIndex(nIndex)
+		{ }
 
 		bool operator==(const Iterator_t it) const
 		{
@@ -41,7 +43,9 @@ public:
 	};
 
 	CUtlFixedMemory(const int nGrowSize = 0, const int nInitAllocationCount = 0) :
-		pBlocks(nullptr), nAllocationCount(0), nGrowSize(nGrowSize)
+		pBlocks(nullptr),
+		nAllocationCount(0),
+		nGrowSize(nGrowSize)
 	{
 		Purge();
 		Grow(nInitAllocationCount);
@@ -197,7 +201,7 @@ public:
 		if (pBlocks == nullptr)
 			return;
 
-		for (BlockHeader_t* pBlockHeader = pBlocks; pBlockHeader != nullptr; )
+		for (BlockHeader_t* pBlockHeader = pBlocks; pBlockHeader != nullptr;)
 		{
 			BlockHeader_t* pFree = pBlockHeader;
 			pBlockHeader = pBlockHeader->pNext;

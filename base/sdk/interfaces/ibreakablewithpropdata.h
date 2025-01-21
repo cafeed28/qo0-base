@@ -4,32 +4,32 @@
 #pragma region breakablewithpropdata_enumerations
 enum EPropertyDataInteractions : int
 {
-	PROPINTER_PHYSGUN_WORLD_STICK = 0,	// "onworldimpact"		"stick"
-	PROPINTER_PHYSGUN_FIRST_BREAK,		// "onfirstimpact"		"break"
-	PROPINTER_PHYSGUN_FIRST_PAINT,		// "onfirstimpact"		"paintsplat"
-	PROPINTER_PHYSGUN_FIRST_IMPALE,		// "onfirstimpact"		"impale"
-	PROPINTER_PHYSGUN_LAUNCH_SPIN_NONE,	// "onlaunch"			"spin_none"
-	PROPINTER_PHYSGUN_LAUNCH_SPIN_Z,	// "onlaunch"			"spin_zaxis"
-	PROPINTER_PHYSGUN_BREAK_EXPLODE,	// "onbreak"			"explode_fire"
-	PROPINTER_PHYSGUN_BREAK_EXPLODE_ICE,// "onbreak"			"explode_ice"
-	PROPINTER_PHYSGUN_DAMAGE_NONE,		// "damage"				"none"
-	PROPINTER_FIRE_FLAMMABLE,			// "flammable"			"yes"
-	PROPINTER_FIRE_EXPLOSIVE_RESIST,	// "explosive_resist"	"yes"
-	PROPINTER_FIRE_IGNITE_HALFHEALTH,	// "ignite"				"halfhealth"
-	PROPINTER_PHYSGUN_CREATE_FLARE,		// "onpickup"			"create_flare"
-	PROPINTER_PHYSGUN_ALLOW_OVERHEAD,	// "allow_overhead"		"yes"
-	PROPINTER_WORLD_BLOODSPLAT,			// "onworldimpact"		"bloodsplat"
-	PROPINTER_PHYSGUN_NOTIFY_CHILDREN,	// "onfirstimpact" - cause attached flechettes to explode
-	PROPINTER_MELEE_IMMUNE,				// "melee_immune"		"yes"
-	PROPINTER_NUM_INTERACTIONS			// if we get more than 32 of these, we'll need a different system
+	PROPINTER_PHYSGUN_WORLD_STICK = 0, // "onworldimpact"		"stick"
+	PROPINTER_PHYSGUN_FIRST_BREAK, // "onfirstimpact"		"break"
+	PROPINTER_PHYSGUN_FIRST_PAINT, // "onfirstimpact"		"paintsplat"
+	PROPINTER_PHYSGUN_FIRST_IMPALE, // "onfirstimpact"		"impale"
+	PROPINTER_PHYSGUN_LAUNCH_SPIN_NONE, // "onlaunch"			"spin_none"
+	PROPINTER_PHYSGUN_LAUNCH_SPIN_Z, // "onlaunch"			"spin_zaxis"
+	PROPINTER_PHYSGUN_BREAK_EXPLODE, // "onbreak"			"explode_fire"
+	PROPINTER_PHYSGUN_BREAK_EXPLODE_ICE, // "onbreak"			"explode_ice"
+	PROPINTER_PHYSGUN_DAMAGE_NONE, // "damage"				"none"
+	PROPINTER_FIRE_FLAMMABLE, // "flammable"			"yes"
+	PROPINTER_FIRE_EXPLOSIVE_RESIST, // "explosive_resist"	"yes"
+	PROPINTER_FIRE_IGNITE_HALFHEALTH, // "ignite"				"halfhealth"
+	PROPINTER_PHYSGUN_CREATE_FLARE, // "onpickup"			"create_flare"
+	PROPINTER_PHYSGUN_ALLOW_OVERHEAD, // "allow_overhead"		"yes"
+	PROPINTER_WORLD_BLOODSPLAT, // "onworldimpact"		"bloodsplat"
+	PROPINTER_PHYSGUN_NOTIFY_CHILDREN, // "onfirstimpact" - cause attached flechettes to explode
+	PROPINTER_MELEE_IMMUNE, // "melee_immune"		"yes"
+	PROPINTER_NUM_INTERACTIONS // if we get more than 32 of these, we'll need a different system
 };
 
 enum EMultiplayerPhysicsMode : int
 {
-	PHYSICS_MULTIPLAYER_AUTODETECT = 0,	// use multiplayer physics mode as defined in model prop data
-	PHYSICS_MULTIPLAYER_SOLID,			// solid, pushes player away
-	PHYSICS_MULTIPLAYER_NON_SOLID,		// nonsolid, but pushed by player
-	PHYSICS_MULTIPLAYER_CLIENTSIDE		// clientside only, nonsolid
+	PHYSICS_MULTIPLAYER_AUTODETECT = 0, // use multiplayer physics mode as defined in model prop data
+	PHYSICS_MULTIPLAYER_SOLID, // solid, pushes player away
+	PHYSICS_MULTIPLAYER_NON_SOLID, // nonsolid, but pushed by player
+	PHYSICS_MULTIPLAYER_CLIENTSIDE // clientside only, nonsolid
 };
 
 enum EMultiplayerBreak : int

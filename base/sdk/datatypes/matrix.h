@@ -23,9 +23,18 @@ struct Matrix3x4_t
 		const float m10, const float m11, const float m12, const float m13,
 		const float m20, const float m21, const float m22, const float m23)
 	{
-		arrData[0][0] = m00; arrData[0][1] = m01; arrData[0][2] = m02; arrData[0][3] = m03;
-		arrData[1][0] = m10; arrData[1][1] = m11; arrData[1][2] = m12; arrData[1][3] = m13;
-		arrData[2][0] = m20; arrData[2][1] = m21; arrData[2][2] = m22; arrData[2][3] = m23;
+		arrData[0][0] = m00;
+		arrData[0][1] = m01;
+		arrData[0][2] = m02;
+		arrData[0][3] = m03;
+		arrData[1][0] = m10;
+		arrData[1][1] = m11;
+		arrData[1][2] = m12;
+		arrData[1][3] = m13;
+		arrData[2][0] = m20;
+		arrData[2][1] = m21;
+		arrData[2][2] = m22;
+		arrData[2][3] = m23;
 	}
 
 	constexpr Matrix3x4_t(const Vector_t& vecForward, const Vector_t& vecLeft, const Vector_t& vecUp, const Vector_t& vecOrigin)
@@ -107,8 +116,7 @@ struct Matrix3x4_t
 	/// @returns: matrix with concatenated transformations
 	[[nodiscard]] constexpr Matrix3x4_t ConcatTransforms(const Matrix3x4_t& matOther) const
 	{
-		return
-		{
+		return {
 			arrData[0][0] * matOther.arrData[0][0] + arrData[0][1] * matOther.arrData[1][0] + arrData[0][2] * matOther.arrData[2][0],
 			arrData[0][0] * matOther.arrData[0][1] + arrData[0][1] * matOther.arrData[1][1] + arrData[0][2] * matOther.arrData[2][1],
 			arrData[0][0] * matOther.arrData[0][2] + arrData[0][1] * matOther.arrData[1][2] + arrData[0][2] * matOther.arrData[2][2],
@@ -129,7 +137,7 @@ struct Matrix3x4_t
 	/// @returns: angles converted from this matrix
 	[[nodiscard]] QAngle_t ToAngles() const;
 
-	float arrData[3][4] = { };
+	float arrData[3][4] = {};
 };
 #pragma pack(pop)
 
@@ -143,9 +151,18 @@ public:
 		const float m10, const float m11, const float m12, const float m13,
 		const float m20, const float m21, const float m22, const float m23)
 	{
-		arrData[0][0] = m00; arrData[0][1] = m01; arrData[0][2] = m02; arrData[0][3] = m03;
-		arrData[1][0] = m10; arrData[1][1] = m11; arrData[1][2] = m12; arrData[1][3] = m13;
-		arrData[2][0] = m20; arrData[2][1] = m21; arrData[2][2] = m22; arrData[2][3] = m23;
+		arrData[0][0] = m00;
+		arrData[0][1] = m01;
+		arrData[0][2] = m02;
+		arrData[0][3] = m03;
+		arrData[1][0] = m10;
+		arrData[1][1] = m11;
+		arrData[1][2] = m12;
+		arrData[1][3] = m13;
+		arrData[2][0] = m20;
+		arrData[2][1] = m21;
+		arrData[2][2] = m22;
+		arrData[2][3] = m23;
 	}
 
 	constexpr Matrix3x4a_t(const Matrix3x4_t& matSource)
@@ -155,9 +172,18 @@ public:
 
 	constexpr Matrix3x4a_t& operator=(const Matrix3x4_t& matSource)
 	{
-		arrData[0][0] = matSource.arrData[0][0]; arrData[0][1] = matSource.arrData[0][1]; arrData[0][2] = matSource.arrData[0][2]; arrData[0][3] = matSource.arrData[0][3];
-		arrData[1][0] = matSource.arrData[1][0]; arrData[1][1] = matSource.arrData[1][1]; arrData[1][2] = matSource.arrData[1][2]; arrData[1][3] = matSource.arrData[1][3];
-		arrData[2][0] = matSource.arrData[2][0]; arrData[2][1] = matSource.arrData[2][1]; arrData[2][2] = matSource.arrData[2][2]; arrData[2][3] = matSource.arrData[2][3];
+		arrData[0][0] = matSource.arrData[0][0];
+		arrData[0][1] = matSource.arrData[0][1];
+		arrData[0][2] = matSource.arrData[0][2];
+		arrData[0][3] = matSource.arrData[0][3];
+		arrData[1][0] = matSource.arrData[1][0];
+		arrData[1][1] = matSource.arrData[1][1];
+		arrData[1][2] = matSource.arrData[1][2];
+		arrData[1][3] = matSource.arrData[1][3];
+		arrData[2][0] = matSource.arrData[2][0];
+		arrData[2][1] = matSource.arrData[2][1];
+		arrData[2][2] = matSource.arrData[2][2];
+		arrData[2][3] = matSource.arrData[2][3];
 		return *this;
 	}
 
@@ -205,18 +231,42 @@ struct ViewMatrix_t
 		const float m20, const float m21, const float m22, const float m23,
 		const float m30, const float m31, const float m32, const float m33)
 	{
-		arrData[0][0] = m00; arrData[0][1] = m01; arrData[0][2] = m02; arrData[0][3] = m03;
-		arrData[1][0] = m10; arrData[1][1] = m11; arrData[1][2] = m12; arrData[1][3] = m13;
-		arrData[2][0] = m20; arrData[2][1] = m21; arrData[2][2] = m22; arrData[2][3] = m23;
-		arrData[3][0] = m30; arrData[3][1] = m31; arrData[3][2] = m32; arrData[3][3] = m33;
+		arrData[0][0] = m00;
+		arrData[0][1] = m01;
+		arrData[0][2] = m02;
+		arrData[0][3] = m03;
+		arrData[1][0] = m10;
+		arrData[1][1] = m11;
+		arrData[1][2] = m12;
+		arrData[1][3] = m13;
+		arrData[2][0] = m20;
+		arrData[2][1] = m21;
+		arrData[2][2] = m22;
+		arrData[2][3] = m23;
+		arrData[3][0] = m30;
+		arrData[3][1] = m31;
+		arrData[3][2] = m32;
+		arrData[3][3] = m33;
 	}
 
-	constexpr ViewMatrix_t(const Matrix3x4_t& matFrom, const Vector4D_t& vecAdditionalRow = { })
+	constexpr ViewMatrix_t(const Matrix3x4_t& matFrom, const Vector4D_t& vecAdditionalRow = {})
 	{
-		arrData[0][0] = matFrom.arrData[0][0]; arrData[0][1] = matFrom.arrData[0][1]; arrData[0][2] = matFrom.arrData[0][2]; arrData[0][3] = matFrom.arrData[0][3];
-		arrData[1][0] = matFrom.arrData[1][0]; arrData[1][1] = matFrom.arrData[1][1]; arrData[1][2] = matFrom.arrData[1][2]; arrData[1][3] = matFrom.arrData[1][3];
-		arrData[2][0] = matFrom.arrData[2][0]; arrData[2][1] = matFrom.arrData[2][1]; arrData[2][2] = matFrom.arrData[2][2]; arrData[2][3] = matFrom.arrData[2][3];
-		arrData[3][0] = vecAdditionalRow.x; arrData[3][1] = vecAdditionalRow.y; arrData[3][2] = vecAdditionalRow.z; arrData[3][3] = vecAdditionalRow.w;
+		arrData[0][0] = matFrom.arrData[0][0];
+		arrData[0][1] = matFrom.arrData[0][1];
+		arrData[0][2] = matFrom.arrData[0][2];
+		arrData[0][3] = matFrom.arrData[0][3];
+		arrData[1][0] = matFrom.arrData[1][0];
+		arrData[1][1] = matFrom.arrData[1][1];
+		arrData[1][2] = matFrom.arrData[1][2];
+		arrData[1][3] = matFrom.arrData[1][3];
+		arrData[2][0] = matFrom.arrData[2][0];
+		arrData[2][1] = matFrom.arrData[2][1];
+		arrData[2][2] = matFrom.arrData[2][2];
+		arrData[2][3] = matFrom.arrData[2][3];
+		arrData[3][0] = vecAdditionalRow.x;
+		arrData[3][1] = vecAdditionalRow.y;
+		arrData[3][2] = vecAdditionalRow.z;
+		arrData[3][3] = vecAdditionalRow.w;
 	}
 
 	[[nodiscard]] float* operator[](const int nIndex)
@@ -284,8 +334,7 @@ struct ViewMatrix_t
 	/// @returns: matrix with concatenated transformations
 	[[nodiscard]] constexpr ViewMatrix_t ConcatTransforms(const ViewMatrix_t& matOther) const
 	{
-		return
-		{
+		return {
 			arrData[0][0] * matOther.arrData[0][0] + arrData[0][1] * matOther.arrData[1][0] + arrData[0][2] * matOther.arrData[2][0] + arrData[0][3] * matOther.arrData[3][0],
 			arrData[0][0] * matOther.arrData[0][1] + arrData[0][1] * matOther.arrData[1][1] + arrData[0][2] * matOther.arrData[2][1] + arrData[0][3] * matOther.arrData[3][1],
 			arrData[0][0] * matOther.arrData[0][2] + arrData[0][1] * matOther.arrData[1][2] + arrData[0][2] * matOther.arrData[2][2] + arrData[0][3] * matOther.arrData[3][2],
@@ -308,6 +357,6 @@ struct ViewMatrix_t
 		};
 	}
 
-	float arrData[4][4] = { };
+	float arrData[4][4] = {};
 };
 #pragma pack(pop)

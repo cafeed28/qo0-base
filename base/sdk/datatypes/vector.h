@@ -13,7 +13,9 @@ struct Matrix3x4_t;
 struct Vector2D_t
 {
 	constexpr Vector2D_t(const float x = 0.0f, const float y = 0.0f) :
-		x(x), y(y) { }
+		x(x),
+		y(y)
+	{ }
 
 	[[nodiscard]] bool IsZero() const
 	{
@@ -27,15 +29,23 @@ struct Vector2D_t
 struct Vector_t
 {
 	constexpr Vector_t(const float x = 0.0f, const float y = 0.0f, const float z = 0.0f) :
-		x(x), y(y), z(z) { }
+		x(x),
+		y(y),
+		z(z)
+	{ }
 
 	constexpr Vector_t(const float* arrVector) :
-		x(arrVector[0]), y(arrVector[1]), z(arrVector[2]) { }
+		x(arrVector[0]),
+		y(arrVector[1]),
+		z(arrVector[2])
+	{ }
 
 	constexpr Vector_t(const Vector2D_t& vecBase2D) :
-		x(vecBase2D.x), y(vecBase2D.y) { }
+		x(vecBase2D.x),
+		y(vecBase2D.y)
+	{ }
 
-	#pragma region vector_array_operators
+#pragma region vector_array_operators
 	[[nodiscard]] float& operator[](const int nIndex)
 	{
 		return reinterpret_cast<float*>(this)[nIndex];
@@ -45,9 +55,9 @@ struct Vector_t
 	{
 		return reinterpret_cast<const float*>(this)[nIndex];
 	}
-	#pragma endregion
+#pragma endregion
 
-	#pragma region vector_relational_operators
+#pragma region vector_relational_operators
 	bool operator==(const Vector_t& vecBase) const
 	{
 		return this->IsEqual(vecBase);
@@ -57,73 +67,93 @@ struct Vector_t
 	{
 		return !this->IsEqual(vecBase);
 	}
-	#pragma endregion
+#pragma endregion
 
-	#pragma region vector_assignment_operators
+#pragma region vector_assignment_operators
 	constexpr Vector_t& operator=(const Vector_t& vecBase)
 	{
-		this->x = vecBase.x; this->y = vecBase.y; this->z = vecBase.z;
+		this->x = vecBase.x;
+		this->y = vecBase.y;
+		this->z = vecBase.z;
 		return *this;
 	}
 
 	constexpr Vector_t& operator=(const Vector2D_t& vecBase2D)
 	{
-		this->x = vecBase2D.x; this->y = vecBase2D.y; this->z = 0.0f;
+		this->x = vecBase2D.x;
+		this->y = vecBase2D.y;
+		this->z = 0.0f;
 		return *this;
 	}
-	#pragma endregion
+#pragma endregion
 
-	#pragma region vector_arithmetic_assignment_operators
+#pragma region vector_arithmetic_assignment_operators
 	constexpr Vector_t& operator+=(const Vector_t& vecBase)
 	{
-		this->x += vecBase.x; this->y += vecBase.y; this->z += vecBase.z;
+		this->x += vecBase.x;
+		this->y += vecBase.y;
+		this->z += vecBase.z;
 		return *this;
 	}
 
 	constexpr Vector_t& operator-=(const Vector_t& vecBase)
 	{
-		this->x -= vecBase.x; this->y -= vecBase.y; this->z -= vecBase.z;
+		this->x -= vecBase.x;
+		this->y -= vecBase.y;
+		this->z -= vecBase.z;
 		return *this;
 	}
 
 	constexpr Vector_t& operator*=(const Vector_t& vecBase)
 	{
-		this->x *= vecBase.x; this->y *= vecBase.y; this->z *= vecBase.z;
+		this->x *= vecBase.x;
+		this->y *= vecBase.y;
+		this->z *= vecBase.z;
 		return *this;
 	}
 
 	constexpr Vector_t& operator/=(const Vector_t& vecBase)
 	{
-		this->x /= vecBase.x; this->y /= vecBase.y; this->z /= vecBase.z;
+		this->x /= vecBase.x;
+		this->y /= vecBase.y;
+		this->z /= vecBase.z;
 		return *this;
 	}
 
 	constexpr Vector_t& operator+=(const float flAdd)
 	{
-		this->x += flAdd; this->y += flAdd; this->z += flAdd;
+		this->x += flAdd;
+		this->y += flAdd;
+		this->z += flAdd;
 		return *this;
 	}
 
 	constexpr Vector_t& operator-=(const float flSubtract)
 	{
-		this->x -= flSubtract; this->y -= flSubtract; this->z -= flSubtract;
+		this->x -= flSubtract;
+		this->y -= flSubtract;
+		this->z -= flSubtract;
 		return *this;
 	}
 
 	constexpr Vector_t& operator*=(const float flMultiply)
 	{
-		this->x *= flMultiply; this->y *= flMultiply; this->z *= flMultiply;
+		this->x *= flMultiply;
+		this->y *= flMultiply;
+		this->z *= flMultiply;
 		return *this;
 	}
 
 	constexpr Vector_t& operator/=(const float flDivide)
 	{
-		this->x /= flDivide; this->y /= flDivide; this->z /= flDivide;
+		this->x /= flDivide;
+		this->y /= flDivide;
+		this->z /= flDivide;
 		return *this;
 	}
-	#pragma endregion
+#pragma endregion
 
-	#pragma region vector_arithmetic_unary_operators
+#pragma region vector_arithmetic_unary_operators
 	constexpr Vector_t& operator-()
 	{
 		this->x = -this->x;
@@ -136,9 +166,9 @@ struct Vector_t
 	{
 		return { -this->x, -this->y, -this->z };
 	}
-	#pragma endregion
+#pragma endregion
 
-	#pragma region vector_arithmetic_ternary_operators
+#pragma region vector_arithmetic_ternary_operators
 	Vector_t operator+(const Vector_t& vecAdd) const
 	{
 		return { this->x + vecAdd.x, this->y + vecAdd.y, this->z + vecAdd.z };
@@ -178,7 +208,7 @@ struct Vector_t
 	{
 		return { this->x / flDivide, this->y / flDivide, this->z / flDivide };
 	}
-	#pragma endregion
+#pragma endregion
 
 	/// @returns: true if each component of the vector is finite, false otherwise
 	[[nodiscard]] bool IsValid() const
@@ -329,7 +359,11 @@ struct Vector_t
 struct Vector4D_t
 {
 	constexpr Vector4D_t(const float x = 0.0f, const float y = 0.0f, const float z = 0.0f, const float w = 0.0f) :
-		x(x), y(y), z(z), w(w) { }
+		x(x),
+		y(y),
+		z(z),
+		w(w)
+	{ }
 
 	float x = 0.0f, y = 0.0f, z = 0.0f, w = 0.0f;
 };
@@ -340,12 +374,18 @@ struct alignas(16) VectorAligned_t : Vector_t
 
 	explicit VectorAligned_t(const Vector_t& vecBase)
 	{
-		this->x = vecBase.x; this->y = vecBase.y; this->z = vecBase.z; this->w = 0.0f;
+		this->x = vecBase.x;
+		this->y = vecBase.y;
+		this->z = vecBase.z;
+		this->w = 0.0f;
 	}
 
 	constexpr VectorAligned_t& operator=(const Vector_t& vecBase)
 	{
-		this->x = vecBase.x; this->y = vecBase.y; this->z = vecBase.z; this->w = 0.0f;
+		this->x = vecBase.x;
+		this->y = vecBase.y;
+		this->z = vecBase.z;
+		this->w = 0.0f;
 		return *this;
 	}
 

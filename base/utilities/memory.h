@@ -8,7 +8,7 @@
 
 #pragma region memory_definitions
 #pragma warning(push)
-#pragma warning(disable: 6255) // '_alloca' indicates failure by raising a stack overflow exception. consider using '_malloca' instead
+#pragma warning(disable : 6255) // '_alloca' indicates failure by raising a stack overflow exception. consider using '_malloca' instead
 #define MEM_STACKALLOC(SIZE) _alloca(SIZE)
 #pragma warning(pop)
 #define MEM_STACKFREE(MEMORY) static_cast<void>(0)
@@ -163,23 +163,25 @@ namespace ROP
 	 * @test: do we really need specific gadget for each other call? generally it seems implementation correct, but so ridiculous since valve check gonna eat any module gadget from the list of allowed ones | same applies to 'CHookObject::CallOriginal'
 	 */
 	template <typename T>
-	struct MethodInvoker_t { };
+	struct MethodInvoker_t
+	{ };
 
 	template <typename T, typename... Args_t>
 	struct MethodInvoker_t<T(Q_CDECL*)(Args_t...)>
 	{
 		MethodInvoker_t(void* pFunctionAddress) :
-			uFunctionAddress(reinterpret_cast<std::uintptr_t>(pFunctionAddress)) { }
+			uFunctionAddress(reinterpret_cast<std::uintptr_t>(pFunctionAddress))
+		{ }
 
 		template <typename Gadget_t>
 		T Invoke(Args_t... argList)
 		{
-		#ifdef Q_PARANOID_DISABLE_RETURN_SPOOF
+#ifdef Q_PARANOID_DISABLE_RETURN_SPOOF
 			return reinterpret_cast<T(Q_CDECL*)(decltype(argList)...)>(this->uFunctionAddress)(argList...);
-		#else
+#else
 			DETAIL::SpoofContext_t context;
 			return DETAIL::InvokeCdecl<T>(this->uFunctionAddress, &context, Gadget_t::uReturnGadget, argList...);
-		#endif
+#endif
 		}
 
 	private:
@@ -190,17 +192,18 @@ namespace ROP
 	struct MethodInvoker_t<T(Q_STDCALL*)(Args_t...)>
 	{
 		MethodInvoker_t(void* pFunctionAddress) :
-			uFunctionAddress(reinterpret_cast<std::uintptr_t>(pFunctionAddress)) { }
+			uFunctionAddress(reinterpret_cast<std::uintptr_t>(pFunctionAddress))
+		{ }
 
 		template <typename Gadget_t>
 		T Invoke(Args_t... argList)
 		{
-		#ifdef Q_PARANOID_DISABLE_RETURN_SPOOF
+#ifdef Q_PARANOID_DISABLE_RETURN_SPOOF
 			return reinterpret_cast<T(Q_STDCALL*)(decltype(argList)...)>(this->uFunctionAddress)(argList...);
-		#else
+#else
 			DETAIL::SpoofContext_t context;
 			return DETAIL::InvokeFastCall<T>(0U, 0U, this->uFunctionAddress, &context, Gadget_t::uReturnGadget, argList...);
-		#endif
+#endif
 		}
 
 	private:
@@ -211,17 +214,18 @@ namespace ROP
 	struct MethodInvoker_t<T(Q_THISCALL*)(CBaseClass*, Args_t...)>
 	{
 		MethodInvoker_t(void* pFunctionAddress) :
-			uFunctionAddress(reinterpret_cast<std::uintptr_t>(pFunctionAddress)) { }
+			uFunctionAddress(reinterpret_cast<std::uintptr_t>(pFunctionAddress))
+		{ }
 
 		template <typename Gadget_t>
 		T Invoke(const CBaseClass* thisptr, Args_t... argList)
 		{
-		#ifdef Q_PARANOID_DISABLE_RETURN_SPOOF
+#ifdef Q_PARANOID_DISABLE_RETURN_SPOOF
 			return reinterpret_cast<T(Q_THISCALL*)(const void*, decltype(argList)...)>(this->uFunctionAddress)(thisptr, argList...);
-		#else
+#else
 			DETAIL::SpoofContext_t context;
 			return DETAIL::InvokeFastCall<T>(reinterpret_cast<std::uintptr_t>(thisptr), 0U, this->uFunctionAddress, &context, Gadget_t::uReturnGadget, argList...);
-		#endif
+#endif
 		}
 
 	private:
@@ -232,23 +236,23 @@ namespace ROP
 	struct MethodInvoker_t<T(Q_FASTCALL*)(ECX_t*, EDX_t*, Args_t...)>
 	{
 		MethodInvoker_t(void* pFunctionAddress) :
-			uFunctionAddress(reinterpret_cast<std::uintptr_t>(pFunctionAddress)) { }
+			uFunctionAddress(reinterpret_cast<std::uintptr_t>(pFunctionAddress))
+		{ }
 
 		template <typename Gadget_t>
 		T Invoke(const ECX_t* ecx, const EDX_t* edx, Args_t... argList)
 		{
-		#ifdef Q_PARANOID_DISABLE_RETURN_SPOOF
+#ifdef Q_PARANOID_DISABLE_RETURN_SPOOF
 			return reinterpret_cast<T(Q_FASTCALL*)(const void*, int, decltype(argList)...)>(this->uFunctionAddress)(ecx, edx, argList...);
-		#else
+#else
 			DETAIL::SpoofContext_t context;
 			return DETAIL::InvokeFastCall<T>(reinterpret_cast<std::uintptr_t>(ecx), reinterpret_cast<std::uintptr_t>(edx), this->uFunctionAddress, &context, Gadget_t::uReturnGadget, argList...);
-		#endif
+#endif
 		}
 
 	private:
 		std::uintptr_t uFunctionAddress = 0U;
 	};
-
 
 	// @todo: generally i think it would be better to change callvfunc to macro, and inherit only gadgets, but this way have its pros and cons, e.g. it should result to better inlining but needs to declare spoof context locally on expansion
 	/*
@@ -264,13 +268,13 @@ namespace ROP
 		template <typename T, std::size_t nIndex, class CBaseClass, typename... Args_t>
 		static Q_INLINE T CallVFunc(CBaseClass* thisptr, Args_t... argList)
 		{
-		#ifdef Q_PARANOID_DISABLE_RETURN_SPOOF
+#ifdef Q_PARANOID_DISABLE_RETURN_SPOOF
 			using VirtualFn_t = T(__thiscall*)(const void*, decltype(argList)...);
 			return (*reinterpret_cast<VirtualFn_t* const*>(reinterpret_cast<std::uintptr_t>(thisptr)))[nIndex](thisptr, argList...);
-		#else
+#else
 			DETAIL::SpoofContext_t context;
 			return DETAIL::InvokeFastCall<T>(reinterpret_cast<std::uintptr_t>(thisptr), 0U, (*reinterpret_cast<std::uintptr_t* const*>(reinterpret_cast<std::uintptr_t>(thisptr)))[nIndex], &context, Gadget_t::uReturnGadget, argList...);
-		#endif
+#endif
 		}
 	};
 }

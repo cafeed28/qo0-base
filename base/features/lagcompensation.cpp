@@ -30,13 +30,13 @@ struct SequenceObject_t
 };
 
 // cache of possible sequences that we can spike
-static std::deque<SequenceObject_t> vecSequenceCache = { };
+static std::deque<SequenceObject_t> vecSequenceCache = {};
 // count of incoming sequences that we can spike
 static int nLastIncomingSequence = 0;
 // predicted tick count when server will lock our view angles
 static int nLockViewAnglesTick = 0;
 // locked view angles during hold aim cycle
-static QAngle_t angLockViewPoint = { };
+static QAngle_t angLockViewPoint = {};
 
 #pragma region lagcompensation_callbacks
 void LAGCOMP::OnPreMove(CCSPlayer* pLocal, CUserCmd* pCmd, bool* pbSendPacket)
@@ -109,7 +109,7 @@ void LAGCOMP::UpdateHoldAimCycle()
 void LAGCOMP::ClearHoldAimCycle()
 {
 	nLockViewAnglesTick = 0;
-	angLockViewPoint = { };
+	angLockViewPoint = {};
 }
 
 bool LAGCOMP::IsHoldAimCycle()

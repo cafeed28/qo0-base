@@ -108,7 +108,7 @@ void SCREEN::HitMarker(const Color_t& colLines, const Color_t& colDamage)
 	const float flMaxLinesAlpha = colLines.Base<COLOR_A>();
 
 	// draw marker cross
-	for (constexpr float arrSideDirections[4][2] = { { -1.0f, -1.0f }, { 1.0f, 1.0f }, { -1.0f, 1.0f }, { 1.0f, -1.0f } }; const float (&arrDirection)[2] : arrSideDirections)
+	for (constexpr float arrSideDirections[4][2] = { { -1.0f, -1.0f }, { 1.0f, 1.0f }, { -1.0f, 1.0f }, { 1.0f, -1.0f } }; const float(&arrDirection)[2] : arrSideDirections)
 		D::AddDrawListLine(nullptr, ImVec2(vecScreenSize.x * 0.5f + C::Get<int>(Vars.iVisualScreenHitMarkerGap) * arrDirection[0], vecScreenSize.y * 0.5f + C::Get<int>(Vars.iVisualScreenHitMarkerGap) * arrDirection[1]), ImVec2(vecScreenSize.x * 0.5f + C::Get<int>(Vars.iVisualScreenHitMarkerLength) * arrDirection[0], vecScreenSize.y * 0.5f + C::Get<int>(Vars.iVisualScreenHitMarkerLength) * arrDirection[1]), colLines.Set<COLOR_A>(static_cast<std::uint8_t>(CRT::Min(flMaxLinesAlpha, flLastDelta / C::Get<float>(Vars.flVisualScreenHitMarkerTime)) * 255.f)));
 
 	if (C::Get<bool>(Vars.bVisualScreenHitMarkerDamage))
@@ -127,7 +127,7 @@ void SCREEN::HitMarker(const Color_t& colLines, const Color_t& colDamage)
 				continue;
 			}
 
-			if (ImVec2 vecScreen = { }; D::WorldToScreen(hitMarker.vecPosition, &vecScreen))
+			if (ImVec2 vecScreen = {}; D::WorldToScreen(hitMarker.vecPosition, &vecScreen))
 			{
 				// max distance for floating damage
 				constexpr float flDistance = 40.f;

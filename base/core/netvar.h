@@ -9,18 +9,18 @@
 
 #pragma region netvar_definitions
 // add function to get variable by straight offset
-#define N_ADD_OFFSET(TYPE, NAME, OFFSET)																	\
-[[nodiscard]] Q_INLINE std::add_lvalue_reference_t<TYPE> NAME()												\
-{																											\
-	return *reinterpret_cast<std::add_pointer_t<TYPE>>(reinterpret_cast<std::uint8_t*>(this) + (OFFSET));	\
-}
+#define N_ADD_OFFSET(TYPE, NAME, OFFSET)                                                                      \
+	[[nodiscard]] Q_INLINE std::add_lvalue_reference_t<TYPE> NAME()                                           \
+	{                                                                                                         \
+		return *reinterpret_cast<std::add_pointer_t<TYPE>>(reinterpret_cast<std::uint8_t*>(this) + (OFFSET)); \
+	}
 
 // add function to get variable pointer by straight offset
-#define N_ADD_POFFSET(TYPE, NAME, OFFSET)																	\
-[[nodiscard]] Q_INLINE std::add_pointer_t<TYPE> NAME()														\
-{																											\
-	return reinterpret_cast<std::add_pointer_t<TYPE>>(reinterpret_cast<std::uint8_t*>(this) + (OFFSET));	\
-}
+#define N_ADD_POFFSET(TYPE, NAME, OFFSET)                                                                    \
+	[[nodiscard]] Q_INLINE std::add_pointer_t<TYPE> NAME()                                                   \
+	{                                                                                                        \
+		return reinterpret_cast<std::add_pointer_t<TYPE>>(reinterpret_cast<std::uint8_t*>(this) + (OFFSET)); \
+	}
 
 // add function to get networkable variable with additional offset
 #define N_ADD_VARIABLE_OFFSET(TYPE, NAME, VARIABLE, ADDITIONAL) N_ADD_OFFSET(TYPE, NAME, NETVAR::GetOffset(FNV1A::HashConst(VARIABLE)) + (ADDITIONAL))
@@ -35,20 +35,20 @@
 #define N_ADD_PVARIABLE(TYPE, NAME, VARIABLE) N_ADD_PVARIABLE_OFFSET(TYPE, NAME, VARIABLE, 0U)
 
 // add function to get datamap field variable
-#define N_ADD_DATAFIELD(TYPE, NAME, DATAMAP, DATAFIELD)														\
-[[nodiscard]] std::add_lvalue_reference_t<TYPE> NAME()														\
-{																											\
-	static std::uintptr_t uOffset = NETVAR::FindInDataMap(DATAMAP, FNV1A::HashConst(DATAFIELD));			\
-	return *reinterpret_cast<std::add_pointer_t<TYPE>>(reinterpret_cast<std::uint8_t*>(this) + uOffset);	\
-}
+#define N_ADD_DATAFIELD(TYPE, NAME, DATAMAP, DATAFIELD)                                                      \
+	[[nodiscard]] std::add_lvalue_reference_t<TYPE> NAME()                                                   \
+	{                                                                                                        \
+		static std::uintptr_t uOffset = NETVAR::FindInDataMap(DATAMAP, FNV1A::HashConst(DATAFIELD));         \
+		return *reinterpret_cast<std::add_pointer_t<TYPE>>(reinterpret_cast<std::uint8_t*>(this) + uOffset); \
+	}
 
 // add function to get datamap field variable pointer
-#define N_ADD_PDATAFIELD(TYPE, NAME, DATAMAP, DATAFIELD)													\
-[[nodiscard]] std::add_pointer_t<TYPE> NAME()																\
-{																											\
-	static std::uintptr_t uOffset = NETVAR::FindInDataMap(DATAMAP, FNV1A::HashConst(DATAFIELD));			\
-	return reinterpret_cast<std::add_pointer_t<TYPE>>(reinterpret_cast<std::uint8_t*>(this) + uOffset);		\
-}
+#define N_ADD_PDATAFIELD(TYPE, NAME, DATAMAP, DATAFIELD)                                                    \
+	[[nodiscard]] std::add_pointer_t<TYPE> NAME()                                                           \
+	{                                                                                                       \
+		static std::uintptr_t uOffset = NETVAR::FindInDataMap(DATAMAP, FNV1A::HashConst(DATAFIELD));        \
+		return reinterpret_cast<std::add_pointer_t<TYPE>>(reinterpret_cast<std::uint8_t*>(this) + uOffset); \
+	}
 #pragma endregion
 
 class CRecvPropHook

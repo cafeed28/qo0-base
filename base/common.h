@@ -42,7 +42,7 @@ static_assert(false, "could not determine the target architecture, consider defi
 
 #ifdef Q_COMPILER_MSC
 // treat "discarding return value of function with 'nodiscard' attribute" warning as error
-#pragma warning(error: 4834)
+#pragma warning(error : 4834)
 #endif
 
 #ifdef Q_COMPILER_CLANG
@@ -168,25 +168,25 @@ static_assert(false, "it is expected you to define one of the available configur
  * explicitly delete the following constructors, to prevent attempts on using them:
  * constructor, move-constructor, copy-constructor
  */
-#define Q_CLASS_NO_CONSTRUCTOR(CLASS)	\
-CLASS() = delete;						\
-CLASS(CLASS&&) = delete;				\
-CLASS(const CLASS&) = delete;
+#define Q_CLASS_NO_CONSTRUCTOR(CLASS) \
+	CLASS() = delete;                 \
+	CLASS(CLASS&&) = delete;          \
+	CLASS(const CLASS&) = delete;
 
 /*
  * explicitly delete the following assignment operators, to prevent attempts on using them:
  * move-assignment, copy-assignment
  */
-#define Q_CLASS_NO_ASSIGNMENT(CLASS)	\
-CLASS& operator=(CLASS&&) = delete;		\
-CLASS& operator=(const CLASS&) = delete;
+#define Q_CLASS_NO_ASSIGNMENT(CLASS)    \
+	CLASS& operator=(CLASS&&) = delete; \
+	CLASS& operator=(const CLASS&) = delete;
 
 // explicitly delete any class initializer to prevent attempts on using them
-#define Q_CLASS_NO_INITIALIZER(CLASS)	\
-Q_CLASS_NO_CONSTRUCTOR(CLASS)			\
-Q_CLASS_NO_ASSIGNMENT(CLASS)
+#define Q_CLASS_NO_INITIALIZER(CLASS) \
+	Q_CLASS_NO_CONSTRUCTOR(CLASS)     \
+	Q_CLASS_NO_ASSIGNMENT(CLASS)
 
 // explicitly delete class heap allocator and deallocator, to prevent attempts on using class at heap memory
-#define Q_CLASS_NO_ALLOC()								\
-void* operator new(const std::size_t nSize) = delete;	\
-void operator delete(void* pMemory) = delete;
+#define Q_CLASS_NO_ALLOC()                                \
+	void* operator new(const std::size_t nSize) = delete; \
+	void operator delete(void* pMemory) = delete;

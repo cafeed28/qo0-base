@@ -20,8 +20,8 @@ namespace F::VISUAL::CHAMS
 		VisualChams_t nType = VISUAL_CHAMS_NONE;
 		bool bIgnoreZ = false;
 		bool bWireframe = false;
-		Color_t colVisible = { };
-		Color_t colHidden = { };
+		Color_t colVisible = {};
+		Color_t colHidden = {};
 	};
 
 	struct CustomMaterialObject_t
@@ -54,5 +54,5 @@ namespace F::VISUAL::CHAMS
 
 	/* @section: values */
 	// storage of custom materials
-	inline CustomMaterialObject_t arrCustomMaterials[VISUAL_CHAMS_MAX - 1] = { };
+	inline CustomMaterialObject_t arrCustomMaterials[VISUAL_CHAMS_MAX - 1] = {};
 }

@@ -5,7 +5,9 @@ class CUtlBinaryBlock
 {
 public:
 	CUtlBinaryBlock(const int nInitialGrowSize = 0, const int nInitialSize = 0) :
-		memory(nInitialGrowSize, nInitialSize), nLength(0) { }
+		memory(nInitialGrowSize, nInitialSize),
+		nLength(0)
+	{ }
 
 	CUtlMemory<unsigned char> memory;
 	int nLength;
@@ -38,7 +40,8 @@ class CUtlConstStringBase
 {
 public:
 	CUtlConstStringBase() :
-		pString(nullptr) { }
+		pString(nullptr)
+	{ }
 
 	[[nodiscard]] const T* Get() const
 	{

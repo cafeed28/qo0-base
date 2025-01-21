@@ -10,11 +10,11 @@
 #pragma region enginetrace_enumerations
 enum EDispSurfFlags : int
 {
-	DISPSURF_FLAG_SURFACE =		(1 << 0),
-	DISPSURF_FLAG_WALKABLE =	(1 << 1),
-	DISPSURF_FLAG_BUILDABLE =	(1 << 2),
-	DISPSURF_FLAG_SURFPROP1 =	(1 << 3),
-	DISPSURF_FLAG_SURFPROP2 =	(1 << 4)
+	DISPSURF_FLAG_SURFACE = (1 << 0),
+	DISPSURF_FLAG_WALKABLE = (1 << 1),
+	DISPSURF_FLAG_BUILDABLE = (1 << 2),
+	DISPSURF_FLAG_SURFPROP1 = (1 << 3),
+	DISPSURF_FLAG_SURFPROP2 = (1 << 4)
 };
 
 enum ETraceType : int
@@ -29,27 +29,27 @@ enum ETraceType : int
 enum ECollisionGroup : int
 {
 	COLLISION_GROUP_NONE = 0,
-	COLLISION_GROUP_DEBRIS,						// collides with nothing but world and static stuff
-	COLLISION_GROUP_DEBRIS_TRIGGER,				// same as debris, but hits triggers
-	COLLISION_GROUP_INTERACTIVE_DEBRIS,			// collides with everything except other interactive debris or debris
-	COLLISION_GROUP_INTERACTIVE,				// collides with everything except interactive debris or debris
+	COLLISION_GROUP_DEBRIS, // collides with nothing but world and static stuff
+	COLLISION_GROUP_DEBRIS_TRIGGER, // same as debris, but hits triggers
+	COLLISION_GROUP_INTERACTIVE_DEBRIS, // collides with everything except other interactive debris or debris
+	COLLISION_GROUP_INTERACTIVE, // collides with everything except interactive debris or debris
 	COLLISION_GROUP_PLAYER,
 	COLLISION_GROUP_BREAKABLE_GLASS,
 	COLLISION_GROUP_VEHICLE,
-	COLLISION_GROUP_PLAYER_MOVEMENT,			// for HL2, same as Collision_Group_Player, for / TF2, this filters out other players and CBaseObjects
-	COLLISION_GROUP_NPC,						// generic NPC group
-	COLLISION_GROUP_IN_VEHICLE,					// for any entity inside a vehicle
-	COLLISION_GROUP_WEAPON,						// for any weapons that need collision detection
-	COLLISION_GROUP_VEHICLE_CLIP,				// vehicle clip brush to restrict vehicle movement
-	COLLISION_GROUP_PROJECTILE,					// projectiles!
-	COLLISION_GROUP_DOOR_BLOCKER,				// blocks entities not permitted to get near moving doors
-	COLLISION_GROUP_PASSABLE_DOOR,				// doors that the player shouldn't collide with
-	COLLISION_GROUP_DISSOLVING,					// things that are dissolving are in this group
-	COLLISION_GROUP_PUSHAWAY,					// nonsolid on client and server, pushaway in player code
-	COLLISION_GROUP_NPC_ACTOR,					// used so NPCs in scripts ignore the player.
-	COLLISION_GROUP_NPC_SCRIPTED,				// used for NPCs in scripts that should not collide with each other
+	COLLISION_GROUP_PLAYER_MOVEMENT, // for HL2, same as Collision_Group_Player, for / TF2, this filters out other players and CBaseObjects
+	COLLISION_GROUP_NPC, // generic NPC group
+	COLLISION_GROUP_IN_VEHICLE, // for any entity inside a vehicle
+	COLLISION_GROUP_WEAPON, // for any weapons that need collision detection
+	COLLISION_GROUP_VEHICLE_CLIP, // vehicle clip brush to restrict vehicle movement
+	COLLISION_GROUP_PROJECTILE, // projectiles!
+	COLLISION_GROUP_DOOR_BLOCKER, // blocks entities not permitted to get near moving doors
+	COLLISION_GROUP_PASSABLE_DOOR, // doors that the player shouldn't collide with
+	COLLISION_GROUP_DISSOLVING, // things that are dissolving are in this group
+	COLLISION_GROUP_PUSHAWAY, // nonsolid on client and server, pushaway in player code
+	COLLISION_GROUP_NPC_ACTOR, // used so NPCs in scripts ignore the player.
+	COLLISION_GROUP_NPC_SCRIPTED, // used for NPCs in scripts that should not collide with each other
 	COLLISION_GROUP_PZ_CLIP,
-	COLLISION_GROUP_DEBRIS_BLOCK_PROJECTILE,	// only collides with bullets
+	COLLISION_GROUP_DEBRIS_BLOCK_PROJECTILE, // only collides with bullets
 	COLLISION_GROUP_LAST_SHARED
 };
 #pragma endregion
@@ -72,7 +72,7 @@ struct CPlane_t
 {
 	CPlane_t() = default;
 
-	Vector_t vecNormal = { }; // 0x00
+	Vector_t vecNormal = {}; // 0x00
 	float flDistance = 0.0f; // 0x0C
 	std::uint8_t nType = 0U; // 0x10
 	std::uint8_t uSignBits = 0U; // 0x11
@@ -94,9 +94,9 @@ class CBaseTrace
 public:
 	CBaseTrace() = default;
 
-	Vector_t vecStart = { }; // 0x00 // start position
-	Vector_t vecEnd = { }; // 0x0C // final position
-	CPlane_t plane = { }; // 0x18 // surface normal at impact
+	Vector_t vecStart = {}; // 0x00 // start position
+	Vector_t vecEnd = {}; // 0x0C // final position
+	CPlane_t plane = {}; // 0x18 // surface normal at impact
 	float flFraction = 0.0f; // 0x2C // time completed, 1.0 = didn't hit anything
 	int iContents = 0; // 0x30 // contents on other side of surface hit
 	std::uint16_t uDispFlags = 0U; // 0x34 // displacement flags for marking surfaces with data
@@ -111,7 +111,7 @@ public:
 	CGameTrace() = default;
 
 	float flTimeFractionLeftSolid = 0.0f; // 0x00
-	CSurface_t surface = { }; // 0x04
+	CSurface_t surface = {}; // 0x04
 	int iHitGroup = 0; // 0x0C
 	short shPhysicsBoneHit = 0; // 0x10
 	std::uint16_t nWorldSurfaceIndex = 0U; // 0x12
@@ -157,7 +157,14 @@ using Trace_t = CGameTrace;
 struct Ray_t
 {
 	Ray_t(const Vector_t& vecStart, const Vector_t& vecEnd) :
-		vecStart(vecStart), vecDelta(vecEnd - vecStart), vecStartOffset(), vecExtents(), matWorldAxisTransform(nullptr), bIsRay(true), bIsSwept(vecDelta.LengthSqr() != 0.f) { }
+		vecStart(vecStart),
+		vecDelta(vecEnd - vecStart),
+		vecStartOffset(),
+		vecExtents(),
+		matWorldAxisTransform(nullptr),
+		bIsRay(true),
+		bIsSwept(vecDelta.LengthSqr() != 0.f)
+	{ }
 
 	Ray_t(const Vector_t& vecStart, const Vector_t& vecEnd, const Vector_t& vecMins, const Vector_t& vecMaxs)
 	{
@@ -246,7 +253,9 @@ class CTraceFilterSimple : public CTraceFilter
 {
 public:
 	CTraceFilterSimple(const IHandleEntity* pSkipEntity, int nCollisionGroup = COLLISION_GROUP_NONE, ShouldHitCallbackFn_t pShouldHitCallback = nullptr) :
-		pSkipEntity(pSkipEntity), nCollisionGroup(nCollisionGroup), pShouldHitCallback(pShouldHitCallback)
+		pSkipEntity(pSkipEntity),
+		nCollisionGroup(nCollisionGroup),
+		pShouldHitCallback(pShouldHitCallback)
 	{
 		// @ida CTraceFilterSimple::_VTable: client.dll -> ["C7 45 ? ? ? ? ? F3 0F 59 D8 F3" + 0x3] @xref: 'sv_clip_penetration_traces_to_players'
 	}
@@ -277,7 +286,8 @@ class CTraceFilterSkipTwoEntities : public CTraceFilterSimple
 {
 public:
 	CTraceFilterSkipTwoEntities(const IHandleEntity* pSkipEntity = nullptr, const IHandleEntity* pSkipEntity2 = nullptr, int nCollisionGroup = COLLISION_GROUP_NONE) :
-		CTraceFilterSimple(pSkipEntity, nCollisionGroup), pSkipEntity2(pSkipEntity2)
+		CTraceFilterSimple(pSkipEntity, nCollisionGroup),
+		pSkipEntity2(pSkipEntity2)
 	{
 		// @ida CTraceFilterSkipTwoEntities::_VTable: client.dll -> ["C7 45 ? ? ? ? ? F3 0F 59 D8 F3" + 0x3] @xref: 'sv_clip_penetration_traces_to_players'
 	}

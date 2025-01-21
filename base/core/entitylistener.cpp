@@ -71,7 +71,6 @@ public:
 		default:
 			break;
 		}
-
 	}
 } entityListener;
 

@@ -12,10 +12,12 @@ public:
 	using IndexType_t = I;
 
 	CUtlMap(int nGrowSize = 0, int nInitialSize = 0, const LessCallbackFn_t& fnLessCallback = nullptr) :
-		tree(nGrowSize, nInitialSize, CKeyLess(fnLessCallback)) { }
+		tree(nGrowSize, nInitialSize, CKeyLess(fnLessCallback))
+	{ }
 
 	CUtlMap(LessCallbackFn_t fnLessCallback) :
-		tree(CKeyLess(fnLessCallback)) { }
+		tree(CKeyLess(fnLessCallback))
+	{ }
 
 	[[nodiscard]] ElementType_t& operator[](IndexType_t nIndex)
 	{
@@ -115,7 +117,8 @@ public:
 	{
 	public:
 		CKeyLess(const LessCallbackFn_t& fnLessCallback) :
-			fnLessCallback(fnLessCallback) { }
+			fnLessCallback(fnLessCallback)
+		{ }
 
 		bool operator!() const
 		{

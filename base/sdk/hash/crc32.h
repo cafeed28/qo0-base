@@ -10,7 +10,7 @@ namespace CRC32
 {
 	void Init(CRC32_t* pulCRC);
 	void Final(CRC32_t* pulCRC);
-	CRC32_t	GetTableEntry(const unsigned int nSlot);
+	CRC32_t GetTableEntry(const unsigned int nSlot);
 	void ProcessBuffer(CRC32_t* pulCRC, const void* pBuffer, int nBufferSize);
 
 	Q_INLINE CRC32_t ProcessSingleBuffer(const void* pBuffer, const int nBufferSize)

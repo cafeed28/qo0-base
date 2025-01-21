@@ -8,8 +8,7 @@
 // @source: master/public/tier1/bitbuf.h
 // master/tier1/newbitbuf.cpp
 
-constexpr std::uint32_t arrBitMaskTable[33] =
-{
+constexpr std::uint32_t arrBitMaskTable[33] = {
 	0U,
 	(1U << 1U) - 1U, (1U << 2U) - 1U, (1U << 3U) - 1U, (1U << 4U) - 1U,
 	(1U << 5U) - 1U, (1U << 6U) - 1U, (1U << 7U) - 1U, (1U << 8U) - 1U,
@@ -152,12 +151,12 @@ public:
 
 	Q_INLINE void WriteUBitLong(const std::uint32_t nData, const int nBits, const bool bCheckRange = true)
 	{
-	#ifdef _DEBUG
+#ifdef _DEBUG
 		if (bCheckRange && nBits < 32)
 			Q_ASSERT(nData <= static_cast<std::uint32_t>(1 << nBits));
 
 		Q_ASSERT(nBits >= 0 && nBits <= 32);
-	#endif
+#endif
 
 		if (nBits <= nOutBitsAvail)
 		{

@@ -142,7 +142,15 @@ enum EShaderStencilFunc : int
 struct ShaderStencilState_t
 {
 	ShaderStencilState_t() :
-		bEnable(false), iFailOperation(SHADER_STENCILOP_KEEP), iZFailOperation(SHADER_STENCILOP_KEEP), iPassOperation(SHADER_STENCILOP_KEEP), iCompareFunction(SHADER_STENCILFUNC_ALWAYS), nReferenceValue(0), uTestMask(0xFFFFFFFF), uWriteMask(0xFFFFFFFF) { }
+		bEnable(false),
+		iFailOperation(SHADER_STENCILOP_KEEP),
+		iZFailOperation(SHADER_STENCILOP_KEEP),
+		iPassOperation(SHADER_STENCILOP_KEEP),
+		iCompareFunction(SHADER_STENCILFUNC_ALWAYS),
+		nReferenceValue(0),
+		uTestMask(0xFFFFFFFF),
+		uWriteMask(0xFFFFFFFF)
+	{ }
 
 	bool bEnable; // 0x00
 	EShaderStencilOp iFailOperation; // 0x04

@@ -19,7 +19,9 @@ class CThreadFastMutex
 {
 public:
 	CThreadFastMutex() :
-		nOwnerID(0U), iDepth(0) { }
+		nOwnerID(0U),
+		iDepth(0)
+	{ }
 
 	void Lock(const unsigned int uSpinSleepTime = 0U) volatile
 	{

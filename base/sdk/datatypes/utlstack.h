@@ -116,6 +116,6 @@ private:
 	}
 
 	M memory;
-	int	nSize;
+	int nSize;
 	T* pElements;
 };

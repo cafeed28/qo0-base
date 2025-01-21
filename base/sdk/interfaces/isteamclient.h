@@ -8,15 +8,15 @@ using HSteamAPICall = std::int64_t;
 enum EAccountType : int
 {
 	EAccountTypeInvalid = 0,
-	EAccountTypeIndividual = 1,		// single user account
-	EAccountTypeMultiseat = 2,		// multiseat (e.g. cybercafe) account
-	EAccountTypeGameServer = 3,		// game server account
-	EAccountTypeAnonGameServer = 4,	// anonymous game server account
-	EAccountTypePending = 5,		// pending
-	EAccountTypeContentServer = 6,	// content server
+	EAccountTypeIndividual = 1, // single user account
+	EAccountTypeMultiseat = 2, // multiseat (e.g. cybercafe) account
+	EAccountTypeGameServer = 3, // game server account
+	EAccountTypeAnonGameServer = 4, // anonymous game server account
+	EAccountTypePending = 5, // pending
+	EAccountTypeContentServer = 6, // content server
 	EAccountTypeClan = 7,
 	EAccountTypeChat = 8,
-	EAccountTypeConsoleUser = 9,	// Fake SteamID for local PSN account on PS3 or Live account on 360, etc.
+	EAccountTypeConsoleUser = 9, // Fake SteamID for local PSN account on PS3 or Live account on 360, etc.
 	EAccountTypeAnonUser = 10,
 	EAccountTypeMax
 };
