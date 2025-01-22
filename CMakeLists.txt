@@ -12,7 +12,6 @@ set_target_properties("csgo" PROPERTIES
 # include
 target_include_directories("csgo" PUBLIC "${CMAKE_SOURCE_DIR}/base")
 target_include_directories("csgo" PUBLIC "${CMAKE_SOURCE_DIR}/resources")
-target_include_directories("csgo" PUBLIC "${CMAKE_SOURCE_DIR}/dependencies/imgui")
 target_include_directories("csgo" PUBLIC "${CMAKE_SOURCE_DIR}/dependencies/minhook")
 
 # dependencies
@@ -94,7 +93,7 @@ target_sources("csgo" PRIVATE
 )
 
 # link
-target_link_libraries("csgo" "d3d9.lib" freetype)
+target_link_libraries("csgo" "d3d9.lib" imgui)
 
 # configuration specific
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
