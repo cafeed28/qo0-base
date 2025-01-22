@@ -15,7 +15,7 @@
 #include "../utilities/memory.h"
 
 // used: formatter implementation
-#include "../../extensions/binary.h"
+#include "utilities/binary.h"
 
 // default configurations working path
 static wchar_t wszConfigurationsPath[MAX_PATH];

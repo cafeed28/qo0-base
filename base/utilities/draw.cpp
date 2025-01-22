@@ -25,8 +25,8 @@
 #include "../../dependencies/imgui/dx9/imgui_impl_dx9.h"
 
 // used: [res] fonts
-#include "../../resources/smallest_pixel.h"
-#include "../../resources/qo0icons.h"
+#include "resources/smallest_pixel.h"
+#include "resources/qo0icons.h"
 
 #pragma region imgui_extended
 /*
