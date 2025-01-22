@@ -78,7 +78,7 @@ void OVERLAY::CBarComponent::Render(const ImVec2& vecPosition)
 	// background
 	D::pDrawListActive->AddRectFilled(vecMin, vecMax, this->colBackground.GetU32());
 	// outline
-	D::pDrawListActive->AddRect(vecMin, vecMax, this->colOutline.GetU32(), 0.0f, ImDrawCornerFlags_All, this->flOutlineThickness);
+	D::pDrawListActive->AddRect(vecMin, vecMax, this->colOutline.GetU32(), 0.0f, ImDrawFlags_RoundCornersAll, this->flOutlineThickness);
 
 	// account outline offset
 	vecMin += vecThicknessOffset;
@@ -154,11 +154,11 @@ void OVERLAY::Context_t::AddBoxComponent(const ImVec4& vecBox, const VisualOverl
 		const ImVec2 vecBoxMax = { vecBox[SIDE_RIGHT], vecBox[SIDE_BOTTOM] };
 
 		// inner outline
-		D::pDrawListActive->AddRect(vecBoxMin + vecThicknessOffset * 2.0f, vecBoxMax - vecThicknessOffset * 2.0f, colOutline.GetU32(), 0.0f, ImDrawCornerFlags_All, flOutlineThickness);
+		D::pDrawListActive->AddRect(vecBoxMin + vecThicknessOffset * 2.0f, vecBoxMax - vecThicknessOffset * 2.0f, colOutline.GetU32(), 0.0f, ImDrawFlags_RoundCornersAll, flOutlineThickness);
 		// primary box
-		D::pDrawListActive->AddRect(vecBoxMin + vecThicknessOffset, vecBoxMax - vecThicknessOffset, colPrimary.GetU32(), 0.0f, ImDrawCornerFlags_All, flThickness);
+		D::pDrawListActive->AddRect(vecBoxMin + vecThicknessOffset, vecBoxMax - vecThicknessOffset, colPrimary.GetU32(), 0.0f, ImDrawFlags_RoundCornersAll, flThickness);
 		// outer outline
-		D::pDrawListActive->AddRect(vecBoxMin, vecBoxMax, colOutline.GetU32(), 0.0f, ImDrawCornerFlags_All, flOutlineThickness);
+		D::pDrawListActive->AddRect(vecBoxMin, vecBoxMax, colOutline.GetU32(), 0.0f, ImDrawFlags_RoundCornersAll, flOutlineThickness);
 
 		break;
 	}
@@ -212,7 +212,7 @@ void OVERLAY::Context_t::AddBoxComponent(const ImVec4& vecBox, const VisualOverl
 		flSidePadding += this->flComponentSpacing;
 }
 
-ImVec4 OVERLAY::Context_t::AddFrameComponent(const ImVec2& vecScreen, const EAlignSide nSide, const Color_t& colBackground, const float flRounding, const ImDrawCornerFlags nRoundingCorners)
+ImVec4 OVERLAY::Context_t::AddFrameComponent(const ImVec2& vecScreen, const EAlignSide nSide, const Color_t& colBackground, const float flRounding, const ImDrawFlags nDrawFlags)
 {
 	// calculate frame size by previously added components on active side
 	const ImVec2 vecFrameSize = this->GetTotalDirectionalSize(nSide);
@@ -220,7 +220,7 @@ ImVec4 OVERLAY::Context_t::AddFrameComponent(const ImVec2& vecScreen, const EAli
 	ImVec2 vecFrameMin = { vecScreen.x - vecFrameSize.x * 0.5f, vecScreen.y - vecFrameSize.y };
 	ImVec2 vecFrameMax = { vecScreen.x + vecFrameSize.x * 0.5f, vecScreen.y };
 
-	D::pDrawListActive->AddRectFilled(vecFrameMin - this->flComponentSpacing, vecFrameMax + this->flComponentSpacing, colBackground.GetU32(), flRounding, nRoundingCorners);
+	D::pDrawListActive->AddRectFilled(vecFrameMin - this->flComponentSpacing, vecFrameMax + this->flComponentSpacing, colBackground.GetU32(), flRounding, nDrawFlags);
 
 	// accumulate spacing for next side/directional components
 	for (float& flSidePadding : this->arrSidePaddings)
@@ -746,7 +746,7 @@ void OVERLAY::Bomb(CC4* pBomb)
 	// icon
 	context.AddComponent(new CTextComponent(SIDE_TOP, DIR_LEFT, FONT::pIcons, 14.f, reinterpret_cast<const char*>(D::GetWeaponIcon(WEAPON_C4)), Color_t(255, 255, 255, 255)));
 	// frame
-	const ImVec4 vecFrameBox = context.AddFrameComponent(vecScreen, SIDE_TOP, Color_t(40, 40, 40, 200), 5.0f, ImDrawCornerFlags_All);
+	const ImVec4 vecFrameBox = context.AddFrameComponent(vecScreen, SIDE_TOP, Color_t(40, 40, 40, 200), 5.0f, ImDrawFlags_RoundCornersAll);
 
 	context.Render({ vecFrameBox.x, vecFrameBox.w, vecFrameBox.z, vecFrameBox.w });
 }
@@ -770,7 +770,7 @@ void OVERLAY::PlantedBomb(CPlantedC4* pBomb)
 	// icon
 	context.AddComponent(new CTextComponent(SIDE_TOP, DIR_LEFT, FONT::pIcons, 14.f, reinterpret_cast<const char*>(D::GetWeaponIcon(WEAPON_C4)), pDefuser != nullptr ? Color_t(80, 180, 200, 200) : Color_t(255, 255, 255, 255)));
 	// frame
-	const ImVec4 vecFrameBox = context.AddFrameComponent(vecScreen, SIDE_TOP, Color_t(40, 40, 40, 200), 5.0f, pBomb->IsBombActive() ? ImDrawCornerFlags_Top : ImDrawCornerFlags_All);
+	const ImVec4 vecFrameBox = context.AddFrameComponent(vecScreen, SIDE_TOP, Color_t(40, 40, 40, 200), 5.0f, pBomb->IsBombActive() ? ImDrawFlags_RoundCornersTop : ImDrawFlags_RoundCornersAll);
 
 	if (pBomb->IsBombActive())
 	{
@@ -863,7 +863,7 @@ void OVERLAY::Grenade(CBaseEntity* pGrenade, const EClassIndex nIndex)
 	// label
 	context.AddComponent(new CTextComponent(SIDE_TOP, DIR_TOP, FONT::pExtra, 14.f, szName, Color_t(255, 255, 255, 255)));
 	// frame
-	const ImVec4 vecFrameBox = context.AddFrameComponent(vecScreen, SIDE_TOP, Color_t(20, 20, 20, 150), 5.0f, flExpireFactor > 0.0f ? ImDrawCornerFlags_Top : ImDrawCornerFlags_All);
+	const ImVec4 vecFrameBox = context.AddFrameComponent(vecScreen, SIDE_TOP, Color_t(20, 20, 20, 150), 5.0f, flExpireFactor > 0.0f ? ImDrawFlags_RoundCornersTop : ImDrawFlags_RoundCornersAll);
 
 	if (flExpireFactor > 0.0f)
 		context.AddComponent(new CBarComponent(SIDE_TOP, vecFrameBox, flExpireFactor, 1.0f, colGrenade, Color_t(40, 40, 40, 100), 1.0f, Color_t(0, 0, 0, 100)));

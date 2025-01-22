@@ -125,7 +125,7 @@ namespace F::VISUAL::OVERLAY
 		/// add the frame component to overlay
 		/// @remarks: current implementation expects this to be added after components that should be inside it, it's an immediate rendering component
 		/// @returns: size constraints of the added frame
-		ImVec4 AddFrameComponent(const ImVec2& vecScreen, const EAlignSide nSide, const Color_t& colBackground, const float flRounding, const ImDrawCornerFlags nRoundingCorners);
+		ImVec4 AddFrameComponent(const ImVec2& vecScreen, const EAlignSide nSide, const Color_t& colBackground, const float flRounding, const ImDrawFlags nDrawFlags);
 
 		/* @section: common components */
 		/// add new component to overlay

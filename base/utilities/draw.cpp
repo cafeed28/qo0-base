@@ -807,7 +807,7 @@ bool D::WorldToScreen(const Vector_t& vecOrigin, ImVec2* pvecScreen)
 #pragma endregion
 
 #pragma region draw_bindings
-void D::AddDrawListRect(ImDrawList* pDrawList, const ImVec2& vecMin, const ImVec2& vecMax, const Color_t& colRect, const unsigned int uFlags, const Color_t& colOutline, const float flRounding, const ImDrawCornerFlags roundingCorners, float flThickness, const float flOutlineThickness)
+void D::AddDrawListRect(ImDrawList* pDrawList, const ImVec2& vecMin, const ImVec2& vecMax, const Color_t& colRect, const unsigned int uFlags, const Color_t& colOutline, const float flRounding, const ImDrawFlags nDrawFlags, float flThickness, const float flOutlineThickness)
 {
 	if (pDrawList == nullptr)
 		pDrawList = pDrawListActive;
@@ -816,10 +816,10 @@ void D::AddDrawListRect(ImDrawList* pDrawList, const ImVec2& vecMin, const ImVec
 	const ImU32 colOutlinePacked = colOutline.GetU32();
 
 	if (uFlags & DRAW_RECT_FILLED)
-		pDrawList->AddRectFilled(vecMin, vecMax, colRectPacked, flRounding, roundingCorners);
+		pDrawList->AddRectFilled(vecMin, vecMax, colRectPacked, flRounding, nDrawFlags);
 	else
 	{
-		pDrawList->AddRect(vecMin, vecMax, colRectPacked, flRounding, roundingCorners, flThickness);
+		pDrawList->AddRect(vecMin, vecMax, colRectPacked, flRounding, nDrawFlags, flThickness);
 		flThickness *= 0.5f;
 	}
 
@@ -827,10 +827,10 @@ void D::AddDrawListRect(ImDrawList* pDrawList, const ImVec2& vecMin, const ImVec
 	const ImVec2 vecThicknessOffset = { flThickness + flHalfOutlineThickness, flThickness + flHalfOutlineThickness };
 
 	if (uFlags & DRAW_RECT_BORDER)
-		pDrawList->AddRect(vecMin + vecThicknessOffset, vecMax - vecThicknessOffset, colOutlinePacked, flRounding, roundingCorners, flOutlineThickness);
+		pDrawList->AddRect(vecMin + vecThicknessOffset, vecMax - vecThicknessOffset, colOutlinePacked, flRounding, nDrawFlags, flOutlineThickness);
 
 	if (uFlags & DRAW_RECT_OUTLINE)
-		pDrawList->AddRect(vecMin - vecThicknessOffset, vecMax + vecThicknessOffset, colOutlinePacked, flRounding, roundingCorners, flOutlineThickness);
+		pDrawList->AddRect(vecMin - vecThicknessOffset, vecMax + vecThicknessOffset, colOutlinePacked, flRounding, nDrawFlags, flOutlineThickness);
 }
 
 void D::AddDrawListRectMultiColor(ImDrawList* pDrawList, const ImVec2& vecMin, const ImVec2& vecMax, const Color_t& colUpperLeft, const Color_t& colUpperRight, const Color_t& colBottomRight, const Color_t& colBottomLeft)
