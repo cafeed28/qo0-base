@@ -1,10 +1,6 @@
 #pragma once
 // used: [stl] vector
 #include <vector>
-// used: [stl] type_info
-#include <typeinfo>
-// used: [win] undname_no_arguments
-#include <dbghelp.h>
 
 #include "common.h"
 #include "sdk/datatypes/color.h"
@@ -33,7 +29,7 @@ enum class EKeyBindMode : int
 
 struct KeyBind_t
 {
-	constexpr KeyBind_t(const char* szName, const unsigned int uKey = 0U, const EKeyBindMode nMode = EKeyBindMode::HOLD) :
+	constexpr KeyBind_t(const char* szName, const ImGuiKey uKey = ImGuiKey_None, const EKeyBindMode nMode = EKeyBindMode::HOLD) :
 		szName(szName),
 		uKey(uKey),
 		nMode(nMode)
@@ -41,7 +37,7 @@ struct KeyBind_t
 
 	bool bEnable = false;
 	const char* szName = nullptr;
-	unsigned int uKey = 0U;
+	ImGuiKey uKey = ImGuiKey_None;
 	EKeyBindMode nMode = EKeyBindMode::HOLD;
 };
 

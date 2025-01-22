@@ -73,7 +73,7 @@ struct Variables_t
 	C_ADD_VARIABLE(bool, bAntiAimYawReal, false);
 	C_ADD_VARIABLE(int, iAntiAimYawRealOffset, 180);
 	C_ADD_VARIABLE(bool, bAntiAimYawFake, false);
-	C_ADD_VARIABLE(KeyBind_t, keyAntiAimYawFakeInverter, KeyBind_t("anti-aim inverter", VK_XBUTTON1));
+	C_ADD_VARIABLE(KeyBind_t, keyAntiAimYawFakeInverter, KeyBind_t("anti-aim inverter", ImGuiKey_MouseX1));
 #pragma endregion
 
 #pragma region variables_legit
@@ -205,7 +205,7 @@ struct Variables_t
 	C_ADD_VARIABLE(bool, bVisualWorld, false);
 	C_ADD_VARIABLE(bool, bVisualWorldNightMode, false);
 	C_ADD_VARIABLE(unsigned int, nVisualWorldRemovals, VISUAL_WORLD_REMOVAL_FLAG_NONE);
-	C_ADD_VARIABLE(KeyBind_t, keyVisualWorldThirdPerson, KeyBind_t("thirdperson", 0U, EKeyBindMode::TOGGLE));
+	C_ADD_VARIABLE(KeyBind_t, keyVisualWorldThirdPerson, KeyBind_t("thirdperson", ImGuiKey_None, EKeyBindMode::TOGGLE));
 	C_ADD_VARIABLE(float, flVisualWorldThirdPersonOffset, 150.f);
 
 	/* @section: screen */

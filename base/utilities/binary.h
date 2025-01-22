@@ -1,4 +1,5 @@
 #pragma once
+#include "core/config.h"
 
 namespace C::BIN
 {
@@ -22,6 +23,7 @@ namespace C::BIN
 		case FNV1A::HashConst("unsigned int"):
 		case FNV1A::HashConst("float"):
 		case FNV1A::HashConst("Color_t"):
+		case FNV1A::HashConst("ImGuiKey"):
 		case FNV1A::HashConst("char[]"):
 		{
 			CRT::MemoryCopy(pBufferCurrent, variable.GetStorage<const uint8_t, false>(), variable.nStorageSize);
@@ -109,6 +111,7 @@ namespace C::BIN
 		case FNV1A::HashConst("unsigned int"):
 		case FNV1A::HashConst("float"):
 		case FNV1A::HashConst("Color_t"):
+		case FNV1A::HashConst("ImGuiKey"):
 		{
 			variable.SetStorage(pBufferCurrent);
 			pBufferCurrent += variable.nStorageSize;
