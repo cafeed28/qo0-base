@@ -24,8 +24,10 @@
 #pragma clang diagnostic ignored "-Wunused-private-field"
 #endif
 
-#if defined(Q_COMPILER_MSC) || defined(Q_COMPILER_CLANG)
+#if defined(Q_COMPILER_MSC)
 #define Q_NAKED __declspec(naked)
+#elif defined(Q_COMPILER_CLANG)
+#define Q_NAKED [[gnu::naked]]
 #endif
 
 // @todo: platform dependent / but currently we shouldn't give fuck on it
