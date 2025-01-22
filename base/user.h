@@ -119,3 +119,5 @@
 // define to overwrite default assertion handler
 //#include <cassert>
 //#define Q_ASSERT(EXPRESSION) assert(EXPRESSION)
+
+#define IMGUI_USER_CONFIG "qo0_imconfig.h"
