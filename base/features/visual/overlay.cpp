@@ -96,7 +96,7 @@ void OVERLAY::CBarComponent::Render(const ImVec2& vecPosition)
 	D::pDrawListActive->AddRectFilled(vecMin, vecMax, this->colPrimary.GetU32());
 }
 
-OVERLAY::CTextComponent::CTextComponent(const EAlignSide nAlignSide, const EAlignDirection nAlignDirection, const ImFont* pFont, const float flFontSize, const char* szText, const Color_t& colPrimary, const float flOutlineThickness, const Color_t& colOutline) :
+OVERLAY::CTextComponent::CTextComponent(const EAlignSide nAlignSide, const EAlignDirection nAlignDirection, ImFont* pFont, const float flFontSize, const char* szText, const Color_t& colPrimary, const float flOutlineThickness, const Color_t& colOutline) :
 	pFont(pFont),
 	flFontSize(flFontSize),
 	colPrimary(colPrimary),

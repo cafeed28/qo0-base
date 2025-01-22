@@ -925,7 +925,7 @@ void D::AddDrawListPolygon(ImDrawList* pDrawList, const ImVec2* vecPoints, const
 		pDrawList->AddPolyline(vecPoints, nPointsCount, colOutline.GetU32(), bClosed, flThickness + 1.0f);
 }
 
-void D::AddDrawListText(ImDrawList* pDrawList, const ImFont* pFont, const float flFontSize, const ImVec2& vecPosition, const char* szText, const Color_t& colText, const unsigned int uFlags, const Color_t& colOutline, const float flThickness)
+void D::AddDrawListText(ImDrawList* pDrawList, ImFont* pFont, const float flFontSize, const ImVec2& vecPosition, const char* szText, const Color_t& colText, const unsigned int uFlags, const Color_t& colOutline, const float flThickness)
 {
 	if (pDrawList == nullptr)
 		pDrawList = pDrawListActive;

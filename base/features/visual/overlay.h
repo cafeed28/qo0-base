@@ -78,13 +78,13 @@ namespace F::VISUAL::OVERLAY
 	class CTextComponent : public CBaseDirectionalComponent
 	{
 	public:
-		CTextComponent(const EAlignSide nAlignSide, const EAlignDirection nAlignDirection, const ImFont* pFont, const float flFontSize, const char* szText, const Color_t& colPrimary, const float flOutlineThickness = 0.0f, const Color_t& colOutline = Color_t(0, 0, 0, 100));
+		CTextComponent(const EAlignSide nAlignSide, const EAlignDirection nAlignDirection, ImFont* pFont, const float flFontSize, const char* szText, const Color_t& colPrimary, const float flOutlineThickness = 0.0f, const Color_t& colOutline = Color_t(0, 0, 0, 100));
 		~CTextComponent();
 
 		void Render(const ImVec2& vecPosition) override;
 
 	private:
-		const ImFont* pFont = nullptr;
+		ImFont* pFont = nullptr;
 		float flFontSize = 0.0f;
 		char* szText = nullptr;
 		Color_t colPrimary = {};
