@@ -4,7 +4,7 @@
 #include "qangle.h"
 
 // used: m_rad2deg
-#include "../../utilities/math.h"
+#include "utilities/math.h"
 
 [[nodiscard]] Vector_t Vector_t::Transform(const Matrix3x4_t& matTransform) const
 {

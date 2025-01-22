@@ -5,35 +5,35 @@
 // used: render windows
 #include "menu.h"
 // used: input system
-#include "../utilities/inputsystem.h"
+#include "utilities/inputsystem.h"
 // used: l_print
-#include "../utilities/log.h"
+#include "utilities/log.h"
 // used: initialize state
-#include "../utilities/draw.h"
+#include "utilities/draw.h"
 // used: setlocalplayerready
-#include "../sdk.h"
+#include "sdk.h"
 // used: cbonebitlist, cikcontext, studio_buildmatrices
-#include "../sdk/bonesetup.h"
+#include "sdk/bonesetup.h"
 // used: cbonemergecache
-#include "../sdk/bonemergecache.h"
+#include "sdk/bonemergecache.h"
 
 // used: interface handles
 #include "interfaces.h"
 // used: interface declarations
-#include "../sdk/interfaces/iprediction.h"
-#include "../sdk/interfaces/iinput.h"
-#include "../sdk/interfaces/icliententitylist.h"
-#include "../sdk/interfaces/iclientleafsystem.h"
-#include "../sdk/interfaces/iviewrender.h"
-#include "../sdk/interfaces/isteamgamecoordinator.h"
-#include "../sdk/interfaces/imdlcache.h"
+#include "sdk/interfaces/iprediction.h"
+#include "sdk/interfaces/iinput.h"
+#include "sdk/interfaces/icliententitylist.h"
+#include "sdk/interfaces/iclientleafsystem.h"
+#include "sdk/interfaces/iviewrender.h"
+#include "sdk/interfaces/isteamgamecoordinator.h"
+#include "sdk/interfaces/imdlcache.h"
 
 // used: features handler
-#include "../features.h"
+#include "features.h"
 // used: features declarations
-#include "../features/animationcorrection.h"
-#include "../features/lagcompensation.h"
-#include "../features/visual.h"
+#include "features/animationcorrection.h"
+#include "features/lagcompensation.h"
+#include "features/visual.h"
 
 bool H::Setup()
 {

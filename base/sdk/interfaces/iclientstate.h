@@ -1,6 +1,6 @@
 #pragma once
-#include "../datatypes/qangle.h"
-#include "../datatypes/utllinkedlist.h"
+#include "sdk/datatypes/qangle.h"
+#include "sdk/datatypes/utllinkedlist.h"
 
 // used: cenginerecipientfilter
 #include "irecipientfilter.h"

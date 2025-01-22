@@ -4,11 +4,11 @@
 // used: [stl] bit_cast
 #include <bit>
 
-#include "../../common.h"
+#include "common.h"
 // used: swap
-#include "../../utilities/crt.h"
+#include "utilities/crt.h"
 // used: [ext] imu32
-#include "../../../dependencies/imgui/imgui.h"
+#include "imgui.h"
 
 enum
 {

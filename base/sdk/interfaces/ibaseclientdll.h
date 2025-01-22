@@ -1,8 +1,8 @@
 #pragma once
 // used: callvfunc
-#include "../../utilities/memory.h"
+#include "utilities/memory.h"
 // used: eclassindex
-#include "../const.h"
+#include "sdk/const.h"
 
 // @source: master/public/cdll_int.h
 

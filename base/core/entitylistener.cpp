@@ -1,16 +1,16 @@
 #include "entitylistener.h"
 
 // used: onplayercreate
-#include "../features.h"
+#include "features.h"
 // used: mapentity_skiptonextentity, mapentity_parsetoken, centitymapdata
-#include "../sdk/entitymapdata.h"
+#include "sdk/entitymapdata.h"
 
 // used: interface handles
-#include "../core/interfaces.h"
+#include "core/interfaces.h"
 // used: interface declarations
-#include "../sdk/interfaces/icliententitylist.h"
-#include "../sdk/interfaces/ibaseclientdll.h"
-#include "../sdk/interfaces/iengineclient.h"
+#include "sdk/interfaces/icliententitylist.h"
+#include "sdk/interfaces/ibaseclientdll.h"
+#include "sdk/interfaces/iengineclient.h"
 
 class CEntityListener final : public IClientEntityListener
 {

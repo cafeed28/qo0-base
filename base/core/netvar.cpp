@@ -10,14 +10,14 @@
 #include <ctime>
 
 // used: getworkingpath
-#include "../core.h"
+#include "core.h"
 // used: stringcopy, stringcat
-#include "../utilities/crt.h"
+#include "utilities/crt.h"
 
 // used: interface handles
 #include "interfaces.h"
 // used: interface declarations
-#include "../sdk/interfaces/ibaseclientdll.h"
+#include "sdk/interfaces/ibaseclientdll.h"
 
 // @todo: much possible store/dump improvements, get rid of stl
 

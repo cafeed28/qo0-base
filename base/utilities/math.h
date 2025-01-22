@@ -1,5 +1,5 @@
 #pragma once
-#include "../common.h"
+#include "common.h"
 
 // convert angle in degrees to radians
 #define M_DEG2RAD(DEGREES) ((DEGREES) * (M::_PI / 180.f))

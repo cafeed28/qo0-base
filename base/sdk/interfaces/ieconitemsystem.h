@@ -1,12 +1,12 @@
 #pragma once
-#include "../datatypes/utlvector.h"
-#include "../datatypes/utlmap.h"
-#include "../datatypes/utlstring.h"
-#include "../datatypes/bitvec.h"
-#include "../datatypes/color.h"
+#include "sdk/datatypes/utlvector.h"
+#include "sdk/datatypes/utlmap.h"
+#include "sdk/datatypes/utlstring.h"
+#include "sdk/datatypes/bitvec.h"
+#include "sdk/datatypes/color.h"
 
 // used: callvfunc
-#include "../../utilities/memory.h"
+#include "utilities/memory.h"
 
 // @source: master/game/shared/econ/econ_item_system.h
 // master/game/shared/econ/econ_item_schema.h

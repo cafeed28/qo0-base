@@ -3,7 +3,7 @@
 #include <d3d9.h>
 
 // used: cinterfaceregister
-#include "../sdk/interfaces/ibaseinterface.h"
+#include "sdk/interfaces/ibaseinterface.h"
 
 // forward declarations
 class IBaseClientDll;

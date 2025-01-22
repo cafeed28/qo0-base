@@ -1,10 +1,10 @@
 #pragma once
-#include "../datatypes/keyvalues.h"
+#include "sdk/datatypes/keyvalues.h"
 
 // used: max_player_name_length
-#include "../const.h"
+#include "sdk/const.h"
 // used: callvfunc
-#include "../../utilities/memory.h"
+#include "utilities/memory.h"
 
 // @source: master/public/matchmaking/iplayer.h
 // master/matchmaking/player.cpp

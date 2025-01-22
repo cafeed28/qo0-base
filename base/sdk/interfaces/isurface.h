@@ -1,9 +1,9 @@
 #pragma once
-#include "../datatypes/color.h"
-#include "../datatypes/vector.h"
+#include "sdk/datatypes/color.h"
+#include "sdk/datatypes/vector.h"
 
 // used: callvfunc
-#include "../../utilities/memory.h"
+#include "utilities/memory.h"
 
 // @source: master/public/vgui/ISurface.h
 

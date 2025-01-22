@@ -6,7 +6,7 @@
 #include "matrix.h"
 
 // used: m_deg2rad
-#include "../../utilities/math.h"
+#include "utilities/math.h"
 
 void QAngle_t::ToDirections(Vector_t* pvecForward, Vector_t* pvecRight, Vector_t* pvecUp) const
 {

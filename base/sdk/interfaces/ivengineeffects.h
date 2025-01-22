@@ -1,10 +1,10 @@
 #pragma once
-#include "../datatypes/color.h"
-#include "../datatypes/vector.h"
-#include "../datatypes/qangle.h"
+#include "sdk/datatypes/color.h"
+#include "sdk/datatypes/vector.h"
+#include "sdk/datatypes/qangle.h"
 
 // used: callvfunc
-#include "../../utilities/memory.h"
+#include "utilities/memory.h"
 
 #define MAX_DLIGHTS 32
 

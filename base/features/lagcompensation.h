@@ -1,8 +1,8 @@
 #pragma once
-#include "../common.h"
+#include "common.h"
 // used: ccsplayer
-#include "../sdk/entity.h"
-#include "../sdk/interfaces/inetchannel.h"
+#include "sdk/entity.h"
+#include "sdk/interfaces/inetchannel.h"
 
 // forward declarations
 class IGameEvent;

@@ -1,5 +1,5 @@
 #pragma once
-#include "../datatypes/keyvalues.h"
+#include "sdk/datatypes/keyvalues.h"
 
 // @source: master/public/engine/ivmodelinfo.h
 

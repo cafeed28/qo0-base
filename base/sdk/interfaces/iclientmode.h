@@ -1,6 +1,6 @@
 #pragma once
-#include "../datatypes/vector.h"
-#include "../datatypes/qangle.h"
+#include "sdk/datatypes/vector.h"
+#include "sdk/datatypes/qangle.h"
 
 // used: hcursor
 #include "isurface.h"

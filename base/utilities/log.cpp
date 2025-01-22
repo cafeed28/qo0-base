@@ -7,7 +7,7 @@
 // used: ispowewoftwo
 #include "math.h"
 // used: getworkingpath
-#include "../core.h"
+#include "core.h"
 
 // console write stream
 static HANDLE hConsoleStream = nullptr;

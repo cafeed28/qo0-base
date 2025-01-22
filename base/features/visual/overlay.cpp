@@ -4,16 +4,16 @@
 #include <algorithm>
 
 // used: render functions
-#include "../../utilities/draw.h"
+#include "utilities/draw.h"
 // used: camera origin
-#include "../visual.h"
+#include "features/visual.h"
 
 // used: interface handles
-#include "../../core/interfaces.h"
+#include "core/interfaces.h"
 // used: interface declarations
-#include "../../sdk/interfaces/ibaseclientdll.h"
-#include "../../sdk/interfaces/icliententitylist.h"
-#include "../../sdk/interfaces/iglobalvars.h"
+#include "sdk/interfaces/ibaseclientdll.h"
+#include "sdk/interfaces/icliententitylist.h"
+#include "sdk/interfaces/iglobalvars.h"
 
 using namespace F::VISUAL;
 

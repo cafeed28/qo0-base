@@ -5,9 +5,9 @@
 #endif
 #include <windows.h>
 
-#include "../common.h"
+#include "common.h"
 // used: keybind_t
-#include "../core/config.h"
+#include "core/config.h"
 
 /*
  * INPUT SYSTEM

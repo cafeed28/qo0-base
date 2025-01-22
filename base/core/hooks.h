@@ -1,13 +1,13 @@
 #pragma once
-#include "../common.h"
+#include "common.h"
 
-#include "../sdk/datatypes/qangle.h"
-#include "../sdk/datatypes/matrix.h"
+#include "sdk/datatypes/qangle.h"
+#include "sdk/datatypes/matrix.h"
 
 // used: cbitwrite
-#include "../sdk/bitbuf.h"
+#include "sdk/bitbuf.h"
 // used: cdetourhook
-#include "../utilities/detourhook.h"
+#include "utilities/detourhook.h"
 // used: interface baseclasses
 #include "interfaces.h"
 

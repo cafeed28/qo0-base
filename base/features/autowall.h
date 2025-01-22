@@ -1,10 +1,10 @@
 #pragma once
 // used: ccsweapondata
-#include "../sdk/interfaces/iweaponsystem.h"
+#include "sdk/interfaces/iweaponsystem.h"
 // used: surfacedata_t
-#include "../sdk/interfaces/iphysicssurfaceprops.h"
+#include "sdk/interfaces/iphysicssurfaceprops.h"
 // used: ccsplayer, cbasecombatweapon
-#include "../sdk/entity.h"
+#include "sdk/entity.h"
 
 struct SimulateBulletObject_t
 {

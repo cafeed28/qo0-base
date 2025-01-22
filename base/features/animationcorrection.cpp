@@ -1,21 +1,21 @@
 #include "animationcorrection.h"
 
 // used: memorycopy
-#include "../utilities/crt.h"
+#include "utilities/crt.h"
 // used: getclientangles, getserverangles
-#include "../features.h"
+#include "features.h"
 
 // used: interface handles
-#include "../core/interfaces.h"
+#include "core/interfaces.h"
 // used: interface declarations
-#include "../sdk/interfaces/iengineclient.h"
-#include "../sdk/interfaces/iglobalvars.h"
-#include "../sdk/interfaces/iclientstate.h"
-#include "../sdk/interfaces/icliententitylist.h"
-#include "../sdk/interfaces/ivdebugoverlay.h"
+#include "sdk/interfaces/iengineclient.h"
+#include "sdk/interfaces/iglobalvars.h"
+#include "sdk/interfaces/iclientstate.h"
+#include "sdk/interfaces/icliententitylist.h"
+#include "sdk/interfaces/ivdebugoverlay.h"
 
-#include "../utilities/inputsystem.h"
-#include "../core/variables.h"
+#include "utilities/inputsystem.h"
+#include "core/variables.h"
 
 using namespace F;
 

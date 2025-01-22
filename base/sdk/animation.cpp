@@ -4,9 +4,9 @@
 #include "entity.h"
 
 // used: interface handles
-#include "../core/interfaces.h"
+#include "core/interfaces.h"
 // used: interface declarations
-#include "../sdk/interfaces/iengineclient.h"
+#include "sdk/interfaces/iengineclient.h"
 
 CCSGOPlayerAnimState::CCSGOPlayerAnimState(CCSPlayer* pCSPlayer)
 {

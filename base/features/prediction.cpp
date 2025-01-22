@@ -1,15 +1,15 @@
 #include "prediction.h"
 
 // used: cbaseplayer
-#include "../sdk/entity.h"
+#include "sdk/entity.h"
 
 // used: interface handles
-#include "../core/interfaces.h"
+#include "core/interfaces.h"
 // used: interface declarations
-#include "../sdk/interfaces/iglobalvars.h"
-#include "../sdk/interfaces/iclientstate.h"
-#include "../sdk/interfaces/iprediction.h"
-#include "../sdk/interfaces/imovehelper.h"
+#include "sdk/interfaces/iglobalvars.h"
+#include "sdk/interfaces/iclientstate.h"
+#include "sdk/interfaces/iprediction.h"
+#include "sdk/interfaces/imovehelper.h"
 
 using namespace F;
 

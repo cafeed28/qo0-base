@@ -1,6 +1,6 @@
 #pragma once
 // used: ccsgamerulesproxy, ccsplayerresource
-#include "../sdk/entity.h"
+#include "sdk/entity.h"
 
 /*
  * ENTITY LISTENER

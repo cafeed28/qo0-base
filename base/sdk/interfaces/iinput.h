@@ -1,5 +1,5 @@
 #pragma once
-#include "../datatypes/usercmd.h"
+#include "sdk/datatypes/usercmd.h"
 
 #define MULTIPLAYER_BACKUP 150
 

@@ -1,15 +1,15 @@
 #include "chams.h"
 
 // used: drawmodel hook manager
-#include "../../core/hooks.h"
+#include "core/hooks.h"
 // used: fake bone matrices
-#include "../animationcorrection.h"
+#include "features/animationcorrection.h"
 
 // used: interface handles
-#include "../../core/interfaces.h"
+#include "core/interfaces.h"
 // used: interface declarations
-#include "../../sdk/interfaces/icliententitylist.h"
-#include "../../sdk/interfaces/ivmodelrender.h"
+#include "sdk/interfaces/icliententitylist.h"
+#include "sdk/interfaces/ivmodelrender.h"
 
 using namespace F::VISUAL;
 

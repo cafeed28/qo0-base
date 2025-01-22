@@ -1,6 +1,6 @@
 #pragma once
 // used: callvfunc
-#include "../../utilities/memory.h"
+#include "utilities/memory.h"
 
 #define INVALID_KEY_SYMBOL (-1)
 using HKeySymbol = int;

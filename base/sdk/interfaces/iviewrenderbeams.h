@@ -1,9 +1,9 @@
 #pragma once
-#include "../datatypes/vector.h"
-#include "../datatypes/basehandle.h"
+#include "sdk/datatypes/vector.h"
+#include "sdk/datatypes/basehandle.h"
 
 // used: cdefaultclientrenderable
-#include "../entity.h"
+#include "sdk/entity.h"
 
 // @source: master/game/client/iviewrender_beams.h
 

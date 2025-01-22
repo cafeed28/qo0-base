@@ -1,8 +1,8 @@
 #pragma once
-#include "../datatypes/vector.h"
+#include "sdk/datatypes/vector.h"
 
 // used: virtualcallable_t
-#include "../../utilities/memory.h"
+#include "utilities/memory.h"
 
 #pragma region weaponsystem_enumerations
 // @ida CCSWeaponData::WeaponIdFromString(): client.dll -> ABS["E8 ? ? ? ? 8B 75 F8 3B 35 ? ? ? ?" + 0x1]

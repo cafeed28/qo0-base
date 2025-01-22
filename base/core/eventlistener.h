@@ -1,6 +1,6 @@
 #pragma once
 // used: igameeventlistener2
-#include "../sdk/interfaces/igameeventmanager.h"
+#include "sdk/interfaces/igameeventmanager.h"
 
 /*
  * EVENT LISTENER

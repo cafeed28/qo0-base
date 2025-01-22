@@ -1,10 +1,10 @@
 #include "proxies.h"
 
 // used: ccsplayer, cbasecombatweapon
-#include "../sdk/entity.h"
+#include "sdk/entity.h"
 
 // used: interface definitions
-#include "../sdk/interfaces/iweaponsystem.h"
+#include "sdk/interfaces/iweaponsystem.h"
 
 bool P::Setup()
 {

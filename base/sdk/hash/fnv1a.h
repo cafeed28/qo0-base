@@ -3,7 +3,7 @@
 #include <cstdint>
 
 // used: stringcompare
-#include "../../utilities/crt.h"
+#include "utilities/crt.h"
 
 using FNV1A_t = uint32_t;
 

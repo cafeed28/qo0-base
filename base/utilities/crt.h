@@ -4,7 +4,7 @@
 // used: [crt] va_list, va_start, va_end
 #include <stdarg.h>
 
-#include "../common.h"
+#include "common.h"
 // used: findpattern, getabsoluteaddress @todo: temporarily
 #include "memory.h"
 

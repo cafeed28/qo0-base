@@ -1,17 +1,17 @@
 #include "antiaim.h"
 
 // used: cheat variables
-#include "../../core/variables.h"
+#include "core/variables.h"
 // used: getbindstate
-#include "../../utilities/inputsystem.h"
+#include "utilities/inputsystem.h"
 // used: visual view angles
-#include "../../features.h"
+#include "features.h"
 
 // used: interface handles
-#include "../../core/interfaces.h"
+#include "core/interfaces.h"
 // used: interface declarations
-#include "../../sdk/interfaces/iglobalvars.h"
-#include "../../sdk/interfaces/iweaponsystem.h"
+#include "sdk/interfaces/iglobalvars.h"
+#include "sdk/interfaces/iweaponsystem.h"
 
 using namespace F::RAGE;
 

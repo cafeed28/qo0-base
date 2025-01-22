@@ -1,7 +1,7 @@
 #include "studio.h"
 
 // used: interface handles
-#include "../core/interfaces.h"
+#include "core/interfaces.h"
 // used: interface declarations
 #include "interfaces/imdlcache.h"
 

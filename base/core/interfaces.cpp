@@ -1,17 +1,17 @@
 #include "interfaces.h"
 
 // used: l_print
-#include "../utilities/log.h"
+#include "utilities/log.h"
 // used: stringcomparen, stringtointeger
-#include "../utilities/crt.h"
+#include "utilities/crt.h"
 // used: getexportaddress
-#include "../utilities/memory.h"
+#include "utilities/memory.h"
 // used: steamapicontext_t
-#include "../sdk/interfaces/isteamclient.h"
+#include "sdk/interfaces/isteamclient.h"
 // used: getsteamapicontext
-#include "../sdk/interfaces/iengineclient.h"
+#include "sdk/interfaces/iengineclient.h"
 // used: keyvaluessystemfn
-#include "../sdk/interfaces/ikeyvaluessystem.h"
+#include "sdk/interfaces/ikeyvaluessystem.h"
 
 static CInterfaceRegister* GetRegisterList(const wchar_t* wszModuleName)
 {

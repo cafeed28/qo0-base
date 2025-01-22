@@ -2,7 +2,7 @@
 // used: ibaseinterface
 #include "ibaseinterface.h"
 // used: callvfunc
-#include "../../utilities/memory.h"
+#include "utilities/memory.h"
 
 // @source: master/public/vgui/IPanel.h
 

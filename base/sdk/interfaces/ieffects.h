@@ -1,9 +1,9 @@
 #pragma once
-#include "../datatypes/qangle.h"
-#include "../datatypes/vector.h"
+#include "sdk/datatypes/qangle.h"
+#include "sdk/datatypes/vector.h"
 
 // used: callvfunc
-#include "../../utilities/memory.h"
+#include "utilities/memory.h"
 
 // @source: master/game/shared/IEffects.h
 

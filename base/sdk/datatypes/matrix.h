@@ -4,7 +4,7 @@
 // used: [stl] bit_cast
 #include <bit>
 
-#include "../../common.h"
+#include "common.h"
 
 #include "vector.h"
 

@@ -1,5 +1,5 @@
 #pragma once
-#include "../../common.h"
+#include "common.h"
 
 // all interfaces derive from this
 class IBaseInterface

@@ -1,6 +1,6 @@
 #pragma once
 // used: callvfunc
-#include "../../utilities/memory.h"
+#include "utilities/memory.h"
 
 #pragma pack(push, 4)
 // @source: master/public/server_class.h

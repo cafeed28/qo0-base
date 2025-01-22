@@ -1,16 +1,16 @@
 #include "inputsystem.h"
 
 // used: menu open/panic keys
-#include "../core/variables.h"
+#include "core/variables.h"
 // used: menu open state
-#include "../core/menu.h"
+#include "core/menu.h"
 // used: wndproc hook
-#include "../core/hooks.h"
+#include "core/hooks.h"
 
 // used: interface handles
-#include "../core/interfaces.h"
+#include "core/interfaces.h"
 // used: interface declarations
-#include "../sdk/interfaces/iinputsystem.h"
+#include "sdk/interfaces/iinputsystem.h"
 
 bool IPT::Setup()
 {

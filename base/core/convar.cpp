@@ -4,9 +4,9 @@
 #include <ctime>
 
 // used: getworkingpath
-#include "../core.h"
+#include "core.h"
 // used: l_print
-#include "../utilities/log.h"
+#include "utilities/log.h"
 
 // used: interface handles
 #include "interfaces.h"

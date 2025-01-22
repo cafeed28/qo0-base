@@ -4,7 +4,7 @@
 // used: [stl] type_info
 #include <typeinfo>
 
-#include "../common.h"
+#include "common.h"
 
 #pragma region memory_definitions
 #pragma warning(push)

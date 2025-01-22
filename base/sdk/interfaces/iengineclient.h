@@ -1,10 +1,10 @@
 #pragma once
-#include "../datatypes/matrix.h"
-#include "../datatypes/qangle.h"
-#include "../hash/crc32.h"
+#include "sdk/datatypes/matrix.h"
+#include "sdk/datatypes/qangle.h"
+#include "sdk/hash/crc32.h"
 
 // used: callvfunc
-#include "../../utilities/memory.h"
+#include "utilities/memory.h"
 
 // @source: master/public/cdll_int.h
 

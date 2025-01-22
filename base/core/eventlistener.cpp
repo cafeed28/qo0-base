@@ -1,14 +1,14 @@
 #include "eventlistener.h"
 
 // used: l_print
-#include "../utilities/log.h"
+#include "utilities/log.h"
 // used: onevent
-#include "../features.h"
+#include "features.h"
 
 // used: interface handles
 #include "interfaces.h"
 // used: interface declarations
-#include "../sdk/interfaces/igameeventmanager.h"
+#include "sdk/interfaces/igameeventmanager.h"
 
 class CEventListener final : public IGameEventListener2
 {

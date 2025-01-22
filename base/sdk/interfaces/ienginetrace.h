@@ -1,9 +1,9 @@
 #pragma once
-#include "../datatypes/matrix.h"
-#include "../datatypes/utlvector.h"
+#include "sdk/datatypes/matrix.h"
+#include "sdk/datatypes/utlvector.h"
 
 // used: mask, content, surf flags
-#include "../bspflags.h"
+#include "sdk/bspflags.h"
 
 // @credits: master/public/engine/IEngineTrace.h
 

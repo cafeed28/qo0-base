@@ -6,14 +6,14 @@
 // used: [win] undname_no_arguments
 #include <dbghelp.h>
 
-#include "../common.h"
-#include "../sdk/datatypes/color.h"
-#include "../sdk/hash/fnv1a.h"
+#include "common.h"
+#include "sdk/datatypes/color.h"
+#include "sdk/hash/fnv1a.h"
 
 // used: l_print
-#include "../utilities/log.h"
+#include "utilities/log.h"
 // used: heapalloc, heapfree
-#include "../utilities/memory.h"
+#include "utilities/memory.h"
 
 #pragma region config_definitions
 #define C_ADD_VARIABLE(TYPE, NAME, DEFAULT) const size_t NAME = C::AddVariable<TYPE>(FNV1A::HashConst(#NAME), FNV1A::HashConst(#TYPE), DEFAULT);

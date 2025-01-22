@@ -2,15 +2,15 @@
 #include "color.h"
 
 // used: stringlength, memorycopy
-#include "../../utilities/crt.h"
+#include "utilities/crt.h"
 
 // @test: using interfaces in the header | not critical but could blow up someday with thousands of errors or affect to compilation time etc
 // used: interface handles
-#include "../../core/interfaces.h"
+#include "core/interfaces.h"
 // used: interface declarations
-#include "../interfaces/imemalloc.h"
-#include "../interfaces/ikeyvaluessystem.h"
-#include "../interfaces/ifilesystem.h"
+#include "sdk/interfaces/imemalloc.h"
+#include "sdk/interfaces/ikeyvaluessystem.h"
+#include "sdk/interfaces/ifilesystem.h"
 
 // @source: master/public/tier1/keyvalues.h
 // master/tier1/keyvalues.cpp

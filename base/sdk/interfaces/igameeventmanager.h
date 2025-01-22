@@ -1,15 +1,15 @@
 #pragma once
-#include "../datatypes/keyvalues.h"
-#include "../datatypes/utlsymbol.h"
-#include "../datatypes/utlvector.h"
-#include "../datatypes/utldict.h"
+#include "sdk/datatypes/keyvalues.h"
+#include "sdk/datatypes/utlsymbol.h"
+#include "sdk/datatypes/utlvector.h"
+#include "sdk/datatypes/utldict.h"
 
 // used: cthreadfastmutex
-#include "../thread.h"
+#include "sdk/thread.h"
 // used: ibaseinterface
 #include "ibaseinterface.h"
 // used: stringcomparei
-#include "../../utilities/crt.h"
+#include "utilities/crt.h"
 
 // @source: master/public/igameevents.h
 // master/engine/GameEventManager.cpp

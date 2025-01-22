@@ -1,10 +1,10 @@
 #pragma once
-#include "../datatypes/vector.h"
-#include "../datatypes/utlvector.h"
-#include "../datatypes/utlsymbol.h"
+#include "sdk/datatypes/vector.h"
+#include "sdk/datatypes/utlvector.h"
+#include "sdk/datatypes/utlsymbol.h"
 
 // used: callvfunc
-#include "../../utilities/memory.h"
+#include "utilities/memory.h"
 
 // @source: master/public/engine/IEngineSound.h
 

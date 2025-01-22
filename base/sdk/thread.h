@@ -5,7 +5,7 @@
 #include <intrin0.h>
 
 // used: getexportaddress
-#include "../utilities/memory.h"
+#include "utilities/memory.h"
 
 // @source: master/public/tier0/threadtools.h
 // master/tier0/threadtools.cpp

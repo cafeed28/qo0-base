@@ -1,7 +1,7 @@
 #pragma once
-#include "../datatypes/matrix.h"
-#include "../datatypes/keyvalues.h"
-#include "../datatypes/utlsymbol.h"
+#include "sdk/datatypes/matrix.h"
+#include "sdk/datatypes/keyvalues.h"
+#include "sdk/datatypes/utlsymbol.h"
 
 using VertexFormat_t = uint64_t;
 

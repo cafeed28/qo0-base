@@ -1,25 +1,25 @@
 // used: [ext] imgui
-#include "../../dependencies/imgui/imgui.h"
+#include "imgui.h"
 
 #include "menu.h"
 
 // used: config variables
-#include "../core/variables.h"
+#include "core/variables.h"
 // used: stringstring
-#include "../utilities/crt.h"
+#include "utilities/crt.h"
 // used: setup, fonts
-#include "../utilities/draw.h"
+#include "utilities/draw.h"
 // used: last send packet state
-#include "../features.h"
+#include "features.h"
 
 // used: interface handles
-#include "../core/interfaces.h"
+#include "core/interfaces.h"
 // used: interface declarations
-#include "../sdk/interfaces/iengineclient.h"
+#include "sdk/interfaces/iengineclient.h"
 
 // used: [ext] imgui
-#include "../../dependencies/imgui/dx9/imgui_impl_dx9.h"
-#include "../../dependencies/imgui/win32/imgui_impl_win32.h"
+#include "backends/imgui_impl_dx9.h"
+#include "backends/imgui_impl_win32.h"
 
 // @todo: untouched, wait for new gui merge
 

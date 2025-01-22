@@ -6,13 +6,13 @@
 
 #include "config.h"
 // used: getworkingpath
-#include "../core.h"
+#include "core.h"
 // used: l_print
-#include "../utilities/log.h"
+#include "utilities/log.h"
 // used: integertostring
-#include "../utilities/crt.h"
+#include "utilities/crt.h"
 // used: heapalloc, heapfree
-#include "../utilities/memory.h"
+#include "utilities/memory.h"
 
 // used: formatter implementation
 #include "utilities/binary.h"

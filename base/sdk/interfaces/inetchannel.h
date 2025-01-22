@@ -1,6 +1,6 @@
 #pragma once
 // used: bf_read, bf_write
-#include "../bitbuf.h"
+#include "sdk/bitbuf.h"
 
 enum : int
 {

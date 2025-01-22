@@ -1,18 +1,18 @@
 #include "triggerbot.h"
 
 // used: getbindstate
-#include "../../utilities/inputsystem.h"
+#include "utilities/inputsystem.h"
 // used: cheat variables
-#include "../../core/variables.h"
+#include "core/variables.h"
 // used: weapon_recoil_scale
-#include "../../core/convar.h"
+#include "core/convar.h"
 // used: getdamage
-#include "../autowall.h"
+#include "features/autowall.h"
 
 // used: interface handles
-#include "../../core/interfaces.h"
+#include "core/interfaces.h"
 // used: interface definitions
-#include "../../sdk/interfaces/iglobalvars.h"
+#include "sdk/interfaces/iglobalvars.h"
 
 using namespace F::LEGIT;
 

@@ -1,7 +1,7 @@
 #pragma once
 
 // used: callvfunc
-#include "../../utilities/memory.h"
+#include "utilities/memory.h"
 
 struct Color_t;
 struct QAngle_t;

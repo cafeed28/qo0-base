@@ -1,7 +1,7 @@
 #include "md5.h"
 
 // used: memorycopy, memoryset, memorycompare
-#include "../../utilities/crt.h"
+#include "utilities/crt.h"
 
 // The four core functions - F1 is optimized somewhat
 // #define F1(x, y, z) (x & y | ~x & z)

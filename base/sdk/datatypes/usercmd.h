@@ -1,7 +1,7 @@
 #pragma once
 #include "vector.h"
 #include "qangle.h"
-#include "../hash/crc32.h"
+#include "sdk/hash/crc32.h"
 
 // @source: master/game/shared/usercmd.h
 

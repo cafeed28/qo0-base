@@ -1,14 +1,14 @@
 #include "misc.h"
 
 // used: cheat variables
-#include "../core/variables.h"
+#include "core/variables.h"
 
 // used: interface handles
-#include "../core/interfaces.h"
+#include "core/interfaces.h"
 // used: interface declarations
-#include "../sdk/interfaces/ibaseclientdll.h"
-#include "../sdk/interfaces/iglobalvars.h"
-#include "../sdk/interfaces/iweaponsystem.h"
+#include "sdk/interfaces/ibaseclientdll.h"
+#include "sdk/interfaces/iglobalvars.h"
+#include "sdk/interfaces/iweaponsystem.h"
 
 // used: sub-features
 #include "misc/movement.h"

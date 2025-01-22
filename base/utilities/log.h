@@ -5,7 +5,7 @@
 #endif
 #include <windows.h>
 
-#include "../common.h"
+#include "common.h"
 
 // using: stringcopy, stringcat, timetostring
 #include "crt.h"

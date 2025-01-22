@@ -1,11 +1,11 @@
 #pragma once
-#include "../datatypes/utlvector.h"
-#include "../datatypes/utllinkedlist.h"
-#include "../datatypes/utlmap.h"
-#include "../datatypes/basehandle.h"
+#include "sdk/datatypes/utlvector.h"
+#include "sdk/datatypes/utllinkedlist.h"
+#include "sdk/datatypes/utlmap.h"
+#include "sdk/datatypes/basehandle.h"
 
 // used: callvfunc
-#include "../../utilities/memory.h"
+#include "utilities/memory.h"
 
 // forward declarations
 class IHandleEntity;

@@ -1,5 +1,5 @@
 #pragma once
-#include "../datatypes/vector.h"
+#include "sdk/datatypes/vector.h"
 
 // used: irefcouted
 #include "irefcount.h"
@@ -8,7 +8,7 @@
 // used: material
 #include "imaterial.h"
 // used: callvfunc
-#include "../../utilities/memory.h"
+#include "utilities/memory.h"
 
 enum EMaterialMatrixMode : int
 {

@@ -5,7 +5,7 @@
 #include "vector.h"
 
 // used: clamp
-#include "../../utilities/crt.h"
+#include "utilities/crt.h"
 
 // forward declarations
 struct Matrix3x4_t;

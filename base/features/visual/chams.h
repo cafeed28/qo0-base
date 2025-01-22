@@ -1,13 +1,13 @@
 #pragma once
 // used: visualchams_t
-#include "../../core/variables.h"
+#include "core/variables.h"
 
 // used: ccsplayer
-#include "../../sdk/entity.h"
+#include "sdk/entity.h"
 // used: imaterial
-#include "../../sdk/interfaces/imaterialsystem.h"
+#include "sdk/interfaces/imaterialsystem.h"
 // used: drawmodelresults_t, drawmodelinfo_t
-#include "../../sdk/interfaces/istudiorender.h"
+#include "sdk/interfaces/istudiorender.h"
 
 /*
  * CHAMS

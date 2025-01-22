@@ -1,12 +1,12 @@
 #pragma once
 // used: cbaseentity, cbasecombatweapon, envtonemapcontroller
-#include "../sdk/entity.h"
+#include "sdk/entity.h"
 // used: eclientframestage
-#include "../sdk/interfaces/iengineclient.h"
+#include "sdk/interfaces/iengineclient.h"
 // used: igameevent
-#include "../sdk/interfaces/igameeventmanager.h"
+#include "sdk/interfaces/igameeventmanager.h"
 // used: drawmodelresults_t, drawmodelinfo_t
-#include "../sdk/interfaces/istudiorender.h"
+#include "sdk/interfaces/istudiorender.h"
 
 /*
  * VISUAL

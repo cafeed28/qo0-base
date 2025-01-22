@@ -1,9 +1,9 @@
 #pragma once
 // used: cheat variables
-#include "../../core/variables.h"
+#include "core/variables.h"
 
 // used: ccsplayer
-#include "../../sdk/entity.h"
+#include "sdk/entity.h"
 
 /*
  * OVERLAY

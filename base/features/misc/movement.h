@@ -1,8 +1,8 @@
 #pragma once
-#include "../../sdk/datatypes/usercmd.h"
+#include "sdk/datatypes/usercmd.h"
 
 // used: ccsplayer
-#include "../../sdk/entity.h"
+#include "sdk/entity.h"
 
 namespace F::MISC::MOVEMENT
 {

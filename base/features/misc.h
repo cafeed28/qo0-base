@@ -1,10 +1,10 @@
 #pragma once
-#include "../common.h"
+#include "common.h"
 
-#include "../sdk/datatypes/usercmd.h"
+#include "sdk/datatypes/usercmd.h"
 
 // used: ccsplayer
-#include "../sdk/entity.h"
+#include "sdk/entity.h"
 
 /*
  * MISCELLANEOUS

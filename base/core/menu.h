@@ -4,7 +4,7 @@
 // used: [d3d] idirect3ddevice9
 #include <d3d9.h>
 
-#include "../common.h"
+#include "common.h"
 
 class CTab
 {

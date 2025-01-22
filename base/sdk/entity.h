@@ -1,13 +1,13 @@
 #pragma once
-#include "../common.h"
+#include "common.h"
 
 #include "datatypes/basehandle.h"
 #include "datatypes/usercmd.h"
 
 // used: n_add_offset, n_add_poffset, n_add_variable, n_add_pvariable, n_add_datafield, n_add_pdatafield
-#include "../core/netvar.h"
+#include "core/netvar.h"
 // used: m_lerp
-#include "../utilities/math.h"
+#include "utilities/math.h"
 // used: ccsgoplayeranimstate
 #include "animation.h"
 // used: ehitgroup, elifestate
