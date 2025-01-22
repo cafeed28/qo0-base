@@ -14,32 +14,7 @@
 // used: user defined behaviour
 #include "user.h"
 
-#pragma region common_architecture_specific
-#if defined(i386) || defined(__i386__) || defined(__i486__) || defined(__i586__) || defined(__i686__) || defined(__i386) || defined(_M_IX86) || defined(_X86_) || defined(__THW_INTEL__) || defined(__I86__) || defined(__INTEL__)
-#define Q_ARCH_X86
-#elif defined(__LP64__) || (defined(__x86_64__) && !defined(__ILP32__)) || defined(_M_X64) || defined(__ia64) || defined(_M_IA64) || defined(__aarch64__) || defined(__powerpc64__)
-#define Q_ARCH_X64
-#else
-static_assert(false, "could not determine the target architecture, consider define it manually!");
-#endif
-
-// @todo: available intrinsics set / merge from hxgui
-#pragma endregion
-
 #pragma region common_compiler_specific
-#ifdef _MSC_VER
-#define Q_COMPILER_MSC
-#endif
-#ifdef __clang__ // @note: clang-cl have defined both 'Q_COMPILER_CLANG' and 'Q_COMPILER_MSC'
-#define Q_COMPILER_CLANG
-#endif
-
-#ifdef __has_builtin
-#define Q_HAS_BUILTIN(BUILTIN) __has_builtin(BUILTIN)
-#else
-#define Q_HAS_BUILTIN(BUILTIN) 0
-#endif
-
 #ifdef Q_COMPILER_MSC
 // treat "discarding return value of function with 'nodiscard' attribute" warning as error
 #pragma warning(error : 4834)
@@ -77,11 +52,7 @@ static_assert(false, "could not determine the target architecture, consider defi
 #define Q_ARRAYSIZE(ARRAY) (sizeof(ARRAY) / sizeof(ARRAY[0]))
 
 // calculate the offset of a struct member variable, in bytes
-#if defined(_CRT_USE_BUILTIN_OFFSETOF) || Q_HAS_BUILTIN(__builtin_offsetof)
 #define Q_OFFSETOF(STRUCT, MEMBER) __builtin_offsetof(STRUCT, MEMBER)
-#else
-#define Q_OFFSETOF(STRUCT, MEMBER) reinterpret_cast<size_t>(std::addressof(static_cast<STRUCT*>(nullptr)->MEMBER))
-#endif
 
 #ifndef Q_NO_RTTI
 #if defined(Q_COMPILER_MSC) && !defined(_CPPRTTI)

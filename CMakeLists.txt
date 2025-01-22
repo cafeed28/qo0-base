@@ -7,11 +7,6 @@ set_target_properties("csgo" PROPERTIES
 	CXX_STANDARD 20
 	CXX_STANDARD_REQUIRED ON
 	CXX_EXTENSIONS OFF
-
-	OUTPUT_NAME "base"
-	ARCHIVE_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build/$<CONFIG>"
-	LIBRARY_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build/$<CONFIG>"
-	RUNTIME_OUTPUT_DIRECTORY "${CMAKE_SOURCE_DIR}/build/$<CONFIG>"
 )
 
 # include
@@ -109,19 +104,50 @@ target_sources("csgo" PRIVATE
 # link
 target_link_directories("csgo" PRIVATE "${CMAKE_SOURCE_DIR}/dependencies/freetype/win32")
 target_link_libraries("csgo" "d3d9.lib")
-target_link_options("csgo" PRIVATE
-	$<$<CXX_COMPILER_ID:MSVC>:/MANIFEST:NO>
-)
-
-# compile
-set_target_properties("csgo" PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<CONFIG:Debug>:Debug>")
-target_compile_options("csgo" PRIVATE
-	$<$<CXX_COMPILER_ID:MSVC>:/MP /GR$<$<CONFIG:Release>:-> /permissive->
-	$<$<OR:$<AND:$<NOT:$<CXX_COMPILER_ID:MSVC>>,$<CXX_COMPILER_ID:Clang>>,$<CXX_COMPILER_ID:GNU>>:$<$<CONFIG:Release>:-fno-rtti>>
-)
 
 # configuration specific
-target_compile_definitions("csgo" PRIVATE
-	$<$<CONFIG:Debug>:_DEBUG>
-	$<$<CONFIG:Release>:NDEBUG>
-)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+	target_compile_definitions("csgo" PRIVATE
+		_DEBUG
+	)
+	set_target_properties("csgo" PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreadedDebug")
+elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
+	target_compile_definitions("csgo" PRIVATE
+		NDEBUG
+	)
+	set_target_properties("csgo" PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded")
+endif()
+
+# compiler specific
+if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
+	target_compile_definitions("csgo" PRIVATE
+		Q_COMPILER_CLANG
+	)
+
+	target_compile_options("csgo" PRIVATE
+		-fno-rtti
+	)
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
+	target_compile_definitions("csgo" PRIVATE
+		Q_COMPILER_MSC
+	)
+
+	target_compile_options("csgo" PRIVATE
+		/MP /GR- /permissive-
+	)
+
+	target_link_options("csgo" PRIVATE
+		/MANIFEST:NO
+	)
+endif()
+
+# architecture specific
+if(CMAKE_SIZEOF_VOID_P EQUAL 8)
+	target_compile_definitions("csgo" PRIVATE
+		Q_ARCH_X64
+	)
+else()
+	target_compile_definitions("csgo" PRIVATE
+		Q_ARCH_X86
+	)
+endif()
