@@ -19,15 +19,6 @@
 #include "../sdk/interfaces/iengineclient.h"
 #include "../sdk/interfaces/iinputsystem.h"
 
-#ifdef Q_FREETYPE_FROM_GAME
-// @note: to make it link properly at runtime, the library should be compiled for the dll with same name as used in the game
-#pragma comment(lib, "freetype_dynamic.lib")
-#elif defined(_DEBUG)
-#pragma comment(lib, "freetype_static_debug.lib")
-#else
-#pragma comment(lib, "freetype_static.lib")
-#endif
-
 // used: [ext] imgui
 #include "../../dependencies/imgui/imgui_freetype.h"
 #include "../../dependencies/imgui/win32/imgui_impl_win32.h"

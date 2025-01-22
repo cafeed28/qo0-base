@@ -14,7 +14,9 @@ target_include_directories("csgo" PUBLIC "${CMAKE_SOURCE_DIR}/base")
 target_include_directories("csgo" PUBLIC "${CMAKE_SOURCE_DIR}/resources")
 target_include_directories("csgo" PUBLIC "${CMAKE_SOURCE_DIR}/dependencies/imgui")
 target_include_directories("csgo" PUBLIC "${CMAKE_SOURCE_DIR}/dependencies/minhook")
-target_include_directories("csgo" PRIVATE "${CMAKE_SOURCE_DIR}/dependencies/freetype/include")
+
+# dependencies
+add_subdirectory(dependencies)
 
 # source
 target_sources("csgo" PRIVATE
@@ -102,8 +104,7 @@ target_sources("csgo" PRIVATE
 )
 
 # link
-target_link_directories("csgo" PRIVATE "${CMAKE_SOURCE_DIR}/dependencies/freetype/win32")
-target_link_libraries("csgo" "d3d9.lib")
+target_link_libraries("csgo" "d3d9.lib" freetype)
 
 # configuration specific
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
