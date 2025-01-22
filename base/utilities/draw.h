@@ -82,7 +82,7 @@ namespace ImGui
 {
 	/* @section: main */
 	void HelpMarker(const char* szDescription);
-	bool HotKey(const char* szLabel, unsigned int* pValue);
+	bool HotKey(const char* szLabel, ImGuiKey* pValue);
 	bool HotKey(const char* szLabel, KeyBind_t* pKeyBind, const bool bAllowSwitch = true);
 	bool MultiCombo(const char* szLabel, unsigned int* pFlags, const char* const* arrItems, int nItemsCount);
 
@@ -98,7 +98,7 @@ namespace ImGui
 namespace D
 {
 	// initialize rendering engine, create fonts, set styles etc
-	bool Setup(IDirect3DDevice9* pDevice, unsigned int uFontFlags = 0x0);
+	bool Setup(IDirect3DDevice9* pDevice);
 	// shutdown rendering engine
 	void Destroy();
 

@@ -29,51 +29,6 @@
 #include "resources/qo0icons.h"
 
 #pragma region imgui_extended
-/*
- * - what is changed in imgui framework files (currently used imgui version is v1.75):
- *   changed things can be found with "modified by qo0" commentary
- *
- * 1. changed type of imgui dx stateblock creation to fix in-game artefacts and create additional shader to compensate it
- * 2. removed unused GetStyleColorName function
- * 3. changed sliderscale grab length to range from frame start pos to current value pos
- * 4. modified combo, slider, inputtext bounding boxes and text position
- *    also pushed frame padding to decrease frame size on menu
- *    ocornut should add global scaling later and this will be obsolete (i've seen that in somewhat issue)
- * 5. added triangle direction switch when popup is open for combo and change arrow size scale
- * 6. added and used ImGuiCol_ControlBg, ImGuiCol_ControlBgHovered, ImGuiCol_ControlBgActive color entries for next control's widgets: Checkbox, BeginCombo, SliderScalar, InputTextEx
- *	  added and used ImGuiCol_Triangle color entry for combo etc triangle and make changes in RenderArrow function
- * 7. changed cursor color to (140, 40, 225, 100)
- * 8. now used freetype font rasterizier instead stb truetype to make small fonts clear and readable (https://github.com/ocornut/imgui/tree/master/misc/freetype)
- * 9. removed default imgui font (proggyclean) and 'GetDefaultCompressedFontDataTTFBase85()' function because we dont need it, using windows "tahoma.ttf" instead
- */
-
-static constexpr const char* arrKeyNames[] = {
-	"",
-	"mouse 1", "mouse 2", "cancel", "mouse 3", "mouse 4", "mouse 5", "",
-	"backspace", "tab", "", "", "clear", "enter", "", "",
-	"shift", "control", "alt", "pause", "caps", "", "", "", "", "", "",
-	"escape", "", "", "", "", "space", "page up", "page down",
-	"end", "home", "left", "up", "right", "down", "", "", "",
-	"print", "insert", "delete", "",
-	"0", "1", "2", "3", "4", "5", "6", "7", "8", "9",
-	"", "", "", "", "", "", "",
-	"a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k",
-	"l", "m", "n", "o", "p", "q", "r", "s", "t", "u",
-	"v", "w", "x", "y", "z", "lwin", "rwin", "", "", "",
-	"num0", "num1", "num2", "num3", "num4", "num5",
-	"num6", "num7", "num8", "num9",
-	"*", "+", "", "-", ".", "/",
-	"f1", "f2", "f3", "f4", "f5", "f6", "f7", "f8",
-	"f9", "f10", "f11", "f12", "f13", "f14", "f15", "f16",
-	"f17", "f18", "f19", "f20", "f21", "f22", "f23", "f24",
-	"", "", "", "", "", "", "", "",
-	"num lock", "scroll lock",
-	"", "", "", "", "", "", "",
-	"", "", "", "", "", "", "",
-	"lshift", "rshift", "lctrl",
-	"rctrl", "lmenu", "rmenu"
-};
-
 void ImGui::HelpMarker(const char* szDescription)
 {
 	TextDisabled(Q_XOR("(?)"));
@@ -87,7 +42,7 @@ void ImGui::HelpMarker(const char* szDescription)
 	}
 }
 
-bool ImGui::HotKey(const char* szLabel, unsigned int* pValue)
+bool ImGui::HotKey(const char* szLabel, ImGuiKey* pValue)
 {
 	ImGuiContext& g = *GImGui;
 	ImGuiWindow* pWindow = g.CurrentWindow;
@@ -106,79 +61,49 @@ bool ImGui::HotKey(const char* szLabel, unsigned int* pValue)
 	const ImRect rectTotal(rectFrame.Min, rectFrame.Max);
 
 	ItemSize(rectTotal, style.FramePadding.y);
-	if (!ItemAdd(rectTotal, nIndex, &rectFrame))
+	if (!ItemAdd(rectTotal, nIndex, &rectFrame, ImGuiItemFlags_Inputable))
 		return false;
 
-	const bool bHovered = ItemHoverable(rectFrame, nIndex);
+	const bool bHovered = ItemHoverable(rectFrame, nIndex, g.LastItemData.ItemFlags);
 	if (bHovered)
 	{
 		SetHoveredID(nIndex);
 		g.MouseCursor = ImGuiMouseCursor_TextInput;
 	}
 
-	const bool bFocusRequested = FocusableItemRegister(pWindow, nIndex);
+	const bool bFocusRequested = (g.NavActivateId == nIndex && (g.NavActivateFlags & ImGuiActivateFlags_PreferInput));
 	const bool bClicked = bHovered && io.MouseClicked[0];
 	const bool bDoubleClicked = bHovered && io.MouseDoubleClicked[0];
 	if (bFocusRequested || bClicked || bDoubleClicked)
 	{
 		if (g.ActiveId != nIndex)
 		{
-			CRT::MemorySet(io.MouseDown, 0, sizeof(io.MouseDown));
-			CRT::MemorySet(io.KeysDown, 0, sizeof(io.KeysDown));
-			*pValue = 0U;
+			io.ClearInputMouse();
+			io.ClearInputKeys();
+			*pValue = ImGuiKey_None;
 		}
 
 		SetActiveID(nIndex, pWindow);
 		FocusWindow(pWindow);
+		return false;
 	}
 
 	bool bValueChanged = false;
-	if (unsigned int nKey = *pValue; g.ActiveId == nIndex)
+	if (ImGuiKey nKey = *pValue; g.ActiveId == nIndex)
 	{
-		for (int n = 0; n < IM_ARRAYSIZE(io.MouseDown); n++)
+		for (ImGuiKey n = ImGuiKey_NamedKey_BEGIN; n < ImGuiKey_NamedKey_END; n = ImGuiKey(n + 1))
 		{
-			if (IsMouseDown(n))
+			if (IsKeyPressed(n))
 			{
-				switch (n)
-				{
-				case 0:
-					nKey = VK_LBUTTON;
-					break;
-				case 1:
-					nKey = VK_RBUTTON;
-					break;
-				case 2:
-					nKey = VK_MBUTTON;
-					break;
-				case 3:
-					nKey = VK_XBUTTON1;
-					break;
-				case 4:
-					nKey = VK_XBUTTON2;
-					break;
-				}
-
+				nKey = n;
 				bValueChanged = true;
 				ClearActiveID();
 			}
 		}
 
-		if (!bValueChanged)
+		if (IsKeyPressed(ImGuiKey_Escape))
 		{
-			for (int n = VK_BACK; n <= VK_RMENU; n++)
-			{
-				if (IsKeyDown(n))
-				{
-					nKey = n;
-					bValueChanged = true;
-					ClearActiveID();
-				}
-			}
-		}
-
-		if (IsKeyPressed(io.KeyMap[ImGuiKey_Escape]))
-		{
-			*pValue = 0U;
+			*pValue = ImGuiKey_None;
 			ClearActiveID();
 		}
 		else
@@ -188,7 +113,7 @@ bool ImGui::HotKey(const char* szLabel, unsigned int* pValue)
 	char szBuffer[64] = {};
 	char* szBufferEnd = CRT::StringCopy(szBuffer, "[ ");
 	if (*pValue != 0 && g.ActiveId != nIndex)
-		szBufferEnd = CRT::StringCat(szBufferEnd, arrKeyNames[*pValue]);
+		szBufferEnd = CRT::StringCat(szBufferEnd, ImGui::GetKeyName(*pValue));
 	else if (g.ActiveId == nIndex)
 		szBufferEnd = CRT::StringCat(szBufferEnd, Q_XOR("press"));
 	else
@@ -286,7 +211,7 @@ bool ImGui::MultiCombo(const char* szLabel, unsigned int* pFlags, const char* co
 		for (int i = 0; i < nItemsCount; i++)
 		{
 			const int nCurrentFlag = (1 << i);
-			if (Selectable(arrItems[i], (*pFlags & nCurrentFlag), ImGuiSelectableFlags_DontClosePopups))
+			if (Selectable(arrItems[i], (*pFlags & nCurrentFlag), ImGuiSelectableFlags_NoAutoClosePopups))
 			{
 				// flip bitflag
 				*pFlags ^= nCurrentFlag;
@@ -333,7 +258,7 @@ static void __cdecl ImGuiFreeWrapper(void* pMemory, [[maybe_unused]] void* pUser
 	MEM::HeapFree(pMemory);
 }
 
-bool D::Setup(IDirect3DDevice9* pDevice, unsigned int uFontFlags)
+bool D::Setup(IDirect3DDevice9* pDevice)
 {
 	// check is it were already initialized
 	if (bInitialized)
@@ -353,7 +278,6 @@ bool D::Setup(IDirect3DDevice9* pDevice, unsigned int uFontFlags)
 	// create draw data containers
 	pDrawListActive = IM_NEW(ImDrawList)(ImGui::GetDrawListSharedData());
 	pDrawListSafe = IM_NEW(ImDrawList)(ImGui::GetDrawListSharedData());
-	pDrawListRender = IM_NEW(ImDrawList)(ImGui::GetDrawListSharedData());
 
 // setup styles
 #pragma region draw_setup_style
@@ -419,10 +343,6 @@ bool D::Setup(IDirect3DDevice9* pDevice, unsigned int uFontFlags)
 	style.Colors[ImGuiCol_FrameBgHovered] = ImVec4(0.22f, 0.00f, 0.40f, 1.00f); // accent 1
 	style.Colors[ImGuiCol_FrameBgActive] = ImVec4(0.55f, 0.15f, 0.90f, 1.00f); // accent 0
 
-	style.Colors[ImGuiCol_ControlBg] = ImVec4(0.11f, 0.14f, 0.20f, 1.00f); // primtv 3
-	style.Colors[ImGuiCol_ControlBgHovered] = ImVec4(0.30f, 0.30f, 0.30f, 1.00f); // primtv 5
-	style.Colors[ImGuiCol_ControlBgActive] = ImVec4(0.75f, 0.75f, 0.75f, 0.10f); // primtv 2
-
 	style.Colors[ImGuiCol_TitleBg] = ImVec4(0.55f, 0.15f, 0.90f, 0.20f); // accent 0
 	style.Colors[ImGuiCol_TitleBgActive] = ImVec4(0.22f, 0.00f, 0.40f, 0.50f); // accent 1
 	style.Colors[ImGuiCol_TitleBgCollapsed] = ImVec4(0.22f, 0.00f, 0.40f, 0.20f); // accent 1
@@ -457,9 +377,9 @@ bool D::Setup(IDirect3DDevice9* pDevice, unsigned int uFontFlags)
 
 	style.Colors[ImGuiCol_Tab] = ImVec4(0.08f, 0.08f, 0.12f, 0.80f); // primtv 1
 	style.Colors[ImGuiCol_TabHovered] = ImVec4(0.30f, 0.30f, 0.30f, 0.80f); // primtv 5
-	style.Colors[ImGuiCol_TabActive] = ImVec4(0.55f, 0.15f, 0.90f, 0.70f); // accent 0
-	style.Colors[ImGuiCol_TabUnfocused] = ImVec4(0.30f, 0.30f, 0.30f, 0.70f); // primtv 5
-	style.Colors[ImGuiCol_TabUnfocusedActive] = ImVec4(0.55f, 0.15f, 0.90f, 0.60f); // accent 0
+	style.Colors[ImGuiCol_TabSelected] = ImVec4(0.55f, 0.15f, 0.90f, 0.70f); // accent 0
+	style.Colors[ImGuiCol_TabDimmed] = ImVec4(0.30f, 0.30f, 0.30f, 0.70f); // primtv 5
+	style.Colors[ImGuiCol_TabDimmedSelected] = ImVec4(0.55f, 0.15f, 0.90f, 0.60f); // accent 0
 
 	style.Colors[ImGuiCol_PlotLines] = ImVec4(0.55f, 0.15f, 0.90f, 1.00f); // accent 0
 	style.Colors[ImGuiCol_PlotLinesHovered] = ImVec4(0.55f, 0.15f, 0.90f, 0.50f); // accent 0
@@ -467,7 +387,6 @@ bool D::Setup(IDirect3DDevice9* pDevice, unsigned int uFontFlags)
 	style.Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(0.55f, 0.15f, 0.90f, 0.50f); // accent 0
 
 	style.Colors[ImGuiCol_DragDropTarget] = ImVec4(0.30f, 0.20f, 0.40f, 0.80f); // accent 3
-	style.Colors[ImGuiCol_Triangle] = ImVec4(0.55f, 0.15f, 0.90f, 1.00f); // accent 0
 
 	style.Colors[ImGuiCol_ModalWindowDimBg] = ImVec4(0.00f, 0.00f, 0.00f, 0.25f); // primtv 4
 #pragma endregion
@@ -476,18 +395,18 @@ bool D::Setup(IDirect3DDevice9* pDevice, unsigned int uFontFlags)
 	ImGuiIO& io = ImGui::GetIO();
 
 	ImFontConfig imVerdanaConfig;
-	imVerdanaConfig.RasterizerFlags = ImGuiFreeType::LightHinting;
+	imVerdanaConfig.FontBuilderFlags = ImGuiFreeTypeBuilderFlags_LightHinting;
 	FONT::pMenu = io.Fonts->AddFontFromFileTTF(Q_XOR("C:\\Windows\\Fonts\\Verdana.ttf"), 12.f, &imVerdanaConfig, io.Fonts->GetGlyphRangesCyrillic());
 
-	imVerdanaConfig.RasterizerFlags = ImGuiFreeType::Bold;
+	imVerdanaConfig.FontBuilderFlags = ImGuiFreeTypeBuilderFlags_Bold;
 	FONT::pExtra = io.Fonts->AddFontFromFileTTF(Q_XOR("C:\\Windows\\Fonts\\Verdana.ttf"), 14.f, &imVerdanaConfig, io.Fonts->GetGlyphRangesCyrillic());
 
 	ImFontConfig imSmallestPixelConfig;
-	imSmallestPixelConfig.RasterizerFlags = ImGuiFreeType::LightHinting;
+	imSmallestPixelConfig.FontBuilderFlags = ImGuiFreeTypeBuilderFlags_LightHinting;
 	FONT::pVisual = io.Fonts->AddFontFromMemoryCompressedTTF(smallest_pixel_compressed_data, smallest_pixel_compressed_size, 40.f, &imSmallestPixelConfig, io.Fonts->GetGlyphRangesCyrillic());
 
 	ImFontConfig imIconsConfig;
-	imIconsConfig.RasterizerFlags = ImGuiFreeType::LightHinting;
+	imIconsConfig.FontBuilderFlags = ImGuiFreeTypeBuilderFlags_LightHinting;
 	constexpr ImWchar wIconRanges[] = {
 		0xE000, 0xF8FF, // Private Use Area
 		0
@@ -495,7 +414,7 @@ bool D::Setup(IDirect3DDevice9* pDevice, unsigned int uFontFlags)
 
 	FONT::pIcons = io.Fonts->AddFontFromMemoryCompressedTTF(qo0icons_compressed_data, qo0icons_compressed_size, 40.f, &imIconsConfig, wIconRanges);
 
-	bInitialized = ImGuiFreeType::BuildFontAtlas(io.Fonts, uFontFlags);
+	bInitialized = io.Fonts->Build();
 	return bInitialized;
 }
 
@@ -542,6 +461,7 @@ void D::OnPostReset(IDirect3DDevice9* pDevice)
 	ImGui_ImplDX9_CreateDeviceObjects();
 }
 
+extern IMGUI_IMPL_API LRESULT ImGui_ImplWin32_WndProcHandler(HWND hWnd, UINT msg, WPARAM wParam, LPARAM lParam);
 bool D::OnWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
 	// check is drawing initialized
@@ -564,7 +484,7 @@ void D::RenderDrawData(ImDrawData* pDrawData)
 {
 	if (::TryAcquireSRWLockExclusive(&drawLock))
 	{
-		*pDrawListRender = *pDrawListSafe;
+		pDrawListRender = pDrawListSafe;
 		::ReleaseSRWLockExclusive(&drawLock);
 	}
 
@@ -579,22 +499,12 @@ void D::RenderDrawData(ImDrawData* pDrawData)
 			return;
 	}
 
-	ImGuiContext* pContext = ImGui::GetCurrentContext();
-	ImVector<ImDrawList*>* vecDrawLists = &pContext->DrawDataBuilder.Layers[0];
-	vecDrawLists->push_front(pDrawListRender); // this one being most background
-
-	pDrawData->CmdLists = vecDrawLists->Data;
-	pDrawData->CmdListsCount = vecDrawLists->Size;
-	pDrawData->TotalVtxCount += pDrawListRender->VtxBuffer.Size;
-	pDrawData->TotalIdxCount += pDrawListRender->IdxBuffer.Size;
-
-	pContext->IO.MetricsRenderVertices = pDrawData->TotalVtxCount;
-	pContext->IO.MetricsRenderIndices = pDrawData->TotalIdxCount;
+	pDrawData->AddDrawList(pDrawListRender);
 }
 
 void D::ResetDrawData()
 {
-	pDrawListActive->Clear();
+	pDrawListActive->_ResetForNewFrame();
 	pDrawListActive->PushTextureID(ImGui::GetIO().Fonts->TexID);
 	pDrawListActive->PushClipRectFullScreen();
 }
@@ -609,7 +519,7 @@ void D::SwapDrawData()
 	if (!(pDrawListActive->Flags & ImDrawListFlags_AllowVtxOffset))
 		IM_ASSERT(static_cast<int>(pDrawListActive->_VtxCurrentIdx) == pDrawListActive->VtxBuffer.Size);
 
-	*pDrawListSafe = *pDrawListActive;
+	pDrawListSafe = pDrawListActive;
 
 	::ReleaseSRWLockExclusive(&drawLock);
 }
