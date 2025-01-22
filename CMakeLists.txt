@@ -23,16 +23,6 @@ target_sources("csgo" PRIVATE
 
 	# dependencies
 
-	# imgui
-	"dependencies/imgui/imgui.cpp"
-	"dependencies/imgui/imgui_draw.cpp"
-	"dependencies/imgui/imgui_freetype.cpp"
-	"dependencies/imgui/imgui_widgets.cpp"
-	"dependencies/imgui/dx9/imgui_impl_dx9.cpp"
-	"dependencies/imgui/dx9/imgui_impl_dx9.h"
-	"dependencies/imgui/win32/imgui_impl_win32.cpp"
-	"dependencies/imgui/win32/imgui_impl_win32.h"
-
 	# minhook
 	"dependencies/minhook/buffer.c"
 	"dependencies/minhook/hook.c"
