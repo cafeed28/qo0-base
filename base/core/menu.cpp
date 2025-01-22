@@ -94,7 +94,7 @@ void MENU::MainWindow(IDirect3DDevice9* pDevice)
 				ImGui::TextColored(F::bLastSendPacket ? ImVec4(0.0f, 1.0f, 0.0f, 1.0f) : ImVec4(1.0f, 0.0f, 0.0f, 1.0f), Q_XOR("send packets"));
 
 			static ImVec2 vecNameSize = ImGui::CalcTextSize(Q_XOR("qo0 base | " __DATE__));
-			ImGui::SameLine(ImGui::GetWindowContentRegionWidth() - vecNameSize.x);
+			ImGui::SameLine(ImGui::GetContentRegionAvail().x - vecNameSize.x);
 			ImGui::TextColored(ImVec4(1.0f, 1.0f, 1.0f, 1.0f), Q_XOR("qo0 base | " __DATE__));
 
 			ImGui::PopFont();
@@ -136,7 +136,7 @@ void MENU::MainWindow(IDirect3DDevice9* pDevice)
 				CTab{ "miscellaneous", &T::Miscellaneous }
 			};
 
-			T::Render(Q_XOR("main_tabs"), arrTabs, 4U, &iMainTab, style.Colors[ImGuiCol_TabActive]);
+			T::Render(Q_XOR("main_tabs"), arrTabs, 4U, &iMainTab, style.Colors[ImGuiCol_TabSelected]);
 
 			ImGui::End();
 		}
@@ -149,7 +149,7 @@ void MENU::MainWindow(IDirect3DDevice9* pDevice)
 void T::Render(const char* szTabBar, const CTab* arrTabs, const size_t nTabsCount, int* nCurrentTab, const ImVec4& colActive, ImGuiTabBarFlags flags)
 {
 	// set active tab color
-	ImGui::PushStyleColor(ImGuiCol_TabActive, colActive);
+	ImGui::PushStyleColor(ImGuiCol_TabSelected, colActive);
 	if (ImGui::BeginTabBar(szTabBar, flags))
 	{
 		for (size_t i = 0U; i < nTabsCount; i++)
@@ -620,7 +620,8 @@ void T::Miscellaneous()
 					}
 				}
 
-				if (ImGui::ListBoxHeader(Q_XOR("##config.list"), C::vecFileNames.size(), 5))
+				float flListBoxHeight = ImGui::GetTextLineHeightWithSpacing() * 5.25f + ImGui::GetStyle().FramePadding.y * 2.0f;
+				if (ImGui::BeginListBox(Q_XOR("##config.list"), ImVec2(0.0f, flListBoxHeight)))
 				{
 					for (size_t i = 0U; i < C::vecFileNames.size(); i++)
 					{
@@ -634,7 +635,7 @@ void T::Miscellaneous()
 							nSelectedConfig = i;
 					}
 
-					ImGui::ListBoxFooter();
+					ImGui::EndListBox();
 				}
 
 				ImGui::PopItemWidth();
@@ -723,7 +724,7 @@ void T::Miscellaneous()
 			static char szColorFilter[128] = {};
 			ImGui::InputTextWithHint(Q_XOR("##colors.filter"), Q_XOR("search..."), szColorFilter, Q_ARRAYSIZE(szColorFilter));
 
-			if (ImGui::ListBoxHeader(Q_XOR("##colors.select"), ImVec2(-1.0f, ImGui::GetContentRegionAvail().y - style.ItemSpacing.y - ImGui::GetFrameHeight())))
+			if (ImGui::BeginListBox(Q_XOR("##colors.select"), ImVec2(-1.0f, ImGui::GetContentRegionAvail().y - style.ItemSpacing.y - ImGui::GetFrameHeight())))
 			{
 				for (size_t i = 0U; i < Q_ARRAYSIZE(arrColors); i++)
 				{
@@ -736,7 +737,7 @@ void T::Miscellaneous()
 						nSelectedColor = i;
 				}
 
-				ImGui::ListBoxFooter();
+				ImGui::EndListBox();
 			}
 
 			ImGui::ColorEdit4(Q_XOR("##colors.picker"), &C::Get<Color_t>(arrColors[nSelectedColor].second), ImGuiColorEditFlags_AlphaBar | ImGuiColorEditFlags_AlphaPreviewHalf);
