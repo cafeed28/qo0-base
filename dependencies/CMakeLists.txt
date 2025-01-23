@@ -10,5 +10,6 @@ list(APPEND IMGUI_SOURCES
 	"imgui/misc/freetype/imgui_freetype.cpp"
 )
 add_library(imgui STATIC ${IMGUI_SOURCES})
+target_compile_definitions(imgui PUBLIC IMGUI_USER_CONFIG=\"${CMAKE_CURRENT_SOURCE_DIR}/qo0_imconfig.h\")
 target_link_libraries(imgui PRIVATE freetype)
 target_include_directories(imgui PUBLIC "imgui")
