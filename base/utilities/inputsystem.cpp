@@ -93,15 +93,23 @@ bool IPT::OnWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		return false;
 	}
 
-	// prevent process when e.g. binding something in-menu
-	if (MENU::bMainOpened && wParam != C::Get<KeyBind_t>(Vars.iMenuKey).uKey && wParam != C::Get<KeyBind_t>(Vars.iPanicKey).uKey)
+	if (uKey == ImGuiKey_None)
 		return false;
 
+	Q_ASSERT(uKey >= ImGuiKey_NamedKey_BEGIN && uKey <= ImGuiKey_NamedKey_END);
+
+	// prevent process when e.g. binding something in-menu
+	if (MENU::bMainOpened && uKey != C::Get<KeyBind_t>(Vars.iMenuKey).uKey && uKey != C::Get<KeyBind_t>(Vars.iPanicKey).uKey)
+		return false;
+
+	int nIndex = uKey - ImGuiKey_NamedKey_BEGIN;
+	Q_ASSERT(nIndex >= 0 && nIndex < ImGuiKey_NamedKey_COUNT);
+
 	// save key states
-	if (state == KEY_STATE_UP && arrKeyState[uKey] == KEY_STATE_DOWN) // if swap states it will be pressed state
-		arrKeyState[uKey] = KEY_STATE_RELEASED;
+	if (arrKeyState[nIndex] == KEY_STATE_UP && state == KEY_STATE_DOWN)
+		arrKeyState[nIndex] = KEY_STATE_PRESSED;
 	else
-		arrKeyState[uKey] = state;
+		arrKeyState[nIndex] = state;
 
 	return true;
 }
@@ -117,7 +125,7 @@ bool IPT::GetBindState(KeyBind_t& keyBind)
 		keyBind.bEnable = IsKeyDown(keyBind.uKey);
 		break;
 	case EKeyBindMode::TOGGLE:
-		if (IsKeyReleased(keyBind.uKey))
+		if (IsKeyPressed(keyBind.uKey))
 			keyBind.bEnable = !keyBind.bEnable;
 		break;
 	}

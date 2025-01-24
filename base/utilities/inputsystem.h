@@ -20,7 +20,7 @@ namespace IPT
 		KEY_STATE_NONE,
 		KEY_STATE_DOWN,
 		KEY_STATE_UP,
-		KEY_STATE_RELEASED
+		KEY_STATE_PRESSED
 	};
 
 	/* @section: values */
@@ -29,7 +29,7 @@ namespace IPT
 	// saved window messages handler
 	inline WNDPROC pOldWndProc = nullptr;
 	// last processed key states
-	inline KeyState_t arrKeyState[256] = {};
+	inline KeyState_t arrKeyState[ImGuiKey_NamedKey_COUNT] = {};
 
 	// replace game window messages processor with our
 	bool Setup();
@@ -44,16 +44,22 @@ namespace IPT
 	/// @returns: true if keybind is active, false otherwise
 	bool GetBindState(KeyBind_t& keyBind);
 	/// @returns: true if key is being held, false otherwise
-	inline bool IsKeyDown(const uint32_t uButtonCode)
+	inline bool IsKeyDown(const ImGuiKey uKey)
 	{
-		return arrKeyState[uButtonCode] == KEY_STATE_DOWN;
+		int nIndex = uKey - ImGuiKey_NamedKey_BEGIN;
+		Q_ASSERT(nIndex >= 0 && nIndex < ImGuiKey_NamedKey_COUNT);
+
+		return arrKeyState[nIndex] == KEY_STATE_DOWN;
 	}
-	/// @returns: true if key has been just released, false otherwise
-	inline bool IsKeyReleased(const uint32_t uButtonCode)
+	/// @returns: true if key has been just pressed, false otherwise
+	inline bool IsKeyPressed(const ImGuiKey uKey)
 	{
-		if (arrKeyState[uButtonCode] == KEY_STATE_RELEASED)
+		int nIndex = uKey - ImGuiKey_NamedKey_BEGIN;
+		Q_ASSERT(nIndex >= 0 && nIndex < ImGuiKey_NamedKey_COUNT);
+
+		if (arrKeyState[nIndex] == KEY_STATE_PRESSED)
 		{
-			arrKeyState[uButtonCode] = KEY_STATE_UP;
+			arrKeyState[nIndex] = KEY_STATE_DOWN;
 			return true;
 		}
 

@@ -98,13 +98,11 @@ void MENU::MainWindow(IDirect3DDevice9* pDevice)
 #pragma endregion
 
 #pragma region main_window
-	io.MouseDrawCursor = bMainOpened;
-
 	if (bMainOpened)
 	{
 		ImGui::SetNextWindowPos(ImVec2(vecScreenSize.x * 0.5f, vecScreenSize.y * 0.5f), ImGuiCond_Once, ImVec2(0.5f, 0.5f));
 		ImGui::SetNextWindowSize(ImVec2(500, 327), ImGuiCond_Always);
-		ImGui::Begin(Q_XOR("qo0 base"), &bMainOpened, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoCollapse);
+		ImGui::Begin(Q_XOR("qo0 base"), nullptr, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoScrollbar | ImGuiWindowFlags_NoScrollWithMouse | ImGuiWindowFlags_NoCollapse);
 		{
 			const ImVec2 vecPosition = ImGui::GetCursorScreenPos();
 			const float flWindowWidth = ImGui::GetWindowWidth();

@@ -459,8 +459,7 @@ bool D::OnWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 		return false;
 
 	// switch cheat window state if pressed specified key
-	if (IPT::GetBindState(C::Get<KeyBind_t>(Vars.iMenuKey)))
-		MENU::bMainOpened = !MENU::bMainOpened;
+	MENU::bMainOpened = IPT::GetBindState(C::Get<KeyBind_t>(Vars.iMenuKey));
 
 	// disable game input when menu is opened
 	I::InputSystem->EnableInput(!MENU::bMainOpened);
