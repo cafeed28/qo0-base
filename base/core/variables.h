@@ -242,8 +242,8 @@ struct Variables_t
 #pragma endregion
 
 #pragma region variables_menu
-	C_ADD_VARIABLE(int, iMenuKey, VK_HOME);
-	C_ADD_VARIABLE(int, iPanicKey, VK_END);
+	C_ADD_VARIABLE(KeyBind_t, iMenuKey, KeyBind_t("menu key", ImGuiKey_Home, EKeyBindMode::TOGGLE));
+	C_ADD_VARIABLE(KeyBind_t, iPanicKey, KeyBind_t("panic key", ImGuiKey_None, EKeyBindMode::TOGGLE));
 #pragma endregion
 };
 

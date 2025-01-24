@@ -39,14 +39,11 @@ void IPT::Destroy()
 	I::InputSystem->EnableInput(true);
 }
 
+extern ImGuiKey ImGui_ImplWin32_KeyEventToImGuiKey(WPARAM wParam, LPARAM lParam);
 bool IPT::OnWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 {
-	// prevent process when e.g. binding something in-menu
-	if (MENU::bMainOpened && wParam != C::Get<int>(Vars.iMenuKey) && wParam != C::Get<int>(Vars.iPanicKey))
-		return false;
-
 	// current active key
-	int nKey = 0;
+	ImGuiKey uKey = ImGuiKey_None;
 	// current active key state
 	KeyState_t state = KEY_STATE_NONE;
 
@@ -56,7 +53,7 @@ bool IPT::OnWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	case WM_SYSKEYDOWN:
 		if (wParam < 256U)
 		{
-			nKey = wParam;
+			uKey = ImGui_ImplWin32_KeyEventToImGuiKey(wParam, lParam);
 			state = KEY_STATE_DOWN;
 		}
 		break;
@@ -64,50 +61,54 @@ bool IPT::OnWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 	case WM_SYSKEYUP:
 		if (wParam < 256U)
 		{
-			nKey = wParam;
+			uKey = ImGui_ImplWin32_KeyEventToImGuiKey(wParam, lParam);
 			state = KEY_STATE_UP;
 		}
 		break;
 	case WM_LBUTTONDOWN:
 	case WM_LBUTTONUP:
 	case WM_LBUTTONDBLCLK:
-		nKey = VK_LBUTTON;
+		uKey = ImGuiKey_MouseLeft;
 		state = uMsg == WM_LBUTTONUP ? KEY_STATE_UP : KEY_STATE_DOWN;
 		break;
 	case WM_RBUTTONDOWN:
 	case WM_RBUTTONUP:
 	case WM_RBUTTONDBLCLK:
-		nKey = VK_RBUTTON;
+		uKey = ImGuiKey_MouseRight;
 		state = uMsg == WM_RBUTTONUP ? KEY_STATE_UP : KEY_STATE_DOWN;
 		break;
 	case WM_MBUTTONDOWN:
 	case WM_MBUTTONUP:
 	case WM_MBUTTONDBLCLK:
-		nKey = VK_MBUTTON;
+		uKey = ImGuiKey_MouseMiddle;
 		state = uMsg == WM_MBUTTONUP ? KEY_STATE_UP : KEY_STATE_DOWN;
 		break;
 	case WM_XBUTTONDOWN:
 	case WM_XBUTTONUP:
 	case WM_XBUTTONDBLCLK:
-		nKey = (GET_XBUTTON_WPARAM(wParam) == XBUTTON1 ? VK_XBUTTON1 : VK_XBUTTON2);
+		uKey = (GET_XBUTTON_WPARAM(wParam) == XBUTTON1 ? ImGuiKey_MouseX1 : ImGuiKey_MouseX2);
 		state = uMsg == WM_XBUTTONUP ? KEY_STATE_UP : KEY_STATE_DOWN;
 		break;
 	default:
 		return false;
 	}
 
+	// prevent process when e.g. binding something in-menu
+	if (MENU::bMainOpened && wParam != C::Get<KeyBind_t>(Vars.iMenuKey).uKey && wParam != C::Get<KeyBind_t>(Vars.iPanicKey).uKey)
+		return false;
+
 	// save key states
-	if (state == KEY_STATE_UP && arrKeyState[nKey] == KEY_STATE_DOWN) // if swap states it will be pressed state
-		arrKeyState[nKey] = KEY_STATE_RELEASED;
+	if (state == KEY_STATE_UP && arrKeyState[uKey] == KEY_STATE_DOWN) // if swap states it will be pressed state
+		arrKeyState[uKey] = KEY_STATE_RELEASED;
 	else
-		arrKeyState[nKey] = state;
+		arrKeyState[uKey] = state;
 
 	return true;
 }
 
 bool IPT::GetBindState(KeyBind_t& keyBind)
 {
-	if (keyBind.uKey == 0U)
+	if (keyBind.uKey == ImGuiKey_None)
 		return false;
 
 	switch (keyBind.nMode)

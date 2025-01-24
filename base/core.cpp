@@ -197,7 +197,7 @@ static void Destroy()
 DWORD WINAPI PanicThread(LPVOID lpParameter)
 {
 	// don't let proceed unload until user press specified key
-	while (!IPT::IsKeyReleased(C::Get<int>(Vars.iPanicKey)))
+	while (!IPT::GetBindState(C::Get<KeyBind_t>(Vars.iPanicKey)))
 		::Sleep(500UL);
 
 	// call detach code and exit this thread
