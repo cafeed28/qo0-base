@@ -174,10 +174,7 @@ void T::RageBot()
 		{
 			if (ImGui::BeginMenuBar())
 			{
-				if (ImGui::BeginMenu(Q_XOR("aimbot##master"), C::Get<bool>(Vars.bRage)))
-					ImGui::EndMenu();
-				if (ImGui::IsItemClicked())
-					C::Get<bool>(Vars.bRage) ^= true;
+				ImGui::Checkbox(Q_XOR("aimbot##master"), &C::Get<bool>(Vars.bRage));
 
 				ImGui::EndMenuBar();
 			}
@@ -195,10 +192,7 @@ void T::RageBot()
 		{
 			if (ImGui::BeginMenuBar())
 			{
-				if (ImGui::BeginMenu(Q_XOR("anti-aim##master"), C::Get<bool>(Vars.bAntiAim)))
-					ImGui::EndMenu();
-				if (ImGui::IsItemClicked())
-					C::Get<bool>(Vars.bAntiAim) ^= true;
+				ImGui::Checkbox(Q_XOR("anti-aim##master"), &C::Get<bool>(Vars.bAntiAim));
 
 				ImGui::EndMenuBar();
 			}
@@ -232,10 +226,7 @@ void T::LegitBot()
 		{
 			if (ImGui::BeginMenuBar())
 			{
-				if (ImGui::BeginMenu(Q_XOR("aimbot##master"), C::Get<bool>(Vars.bLegit)))
-					ImGui::EndMenu();
-				if (ImGui::IsItemClicked())
-					C::Get<bool>(Vars.bLegit) ^= true;
+				ImGui::Checkbox(Q_XOR("aimbot##master"), &C::Get<bool>(Vars.bLegit));
 
 				ImGui::EndMenuBar();
 			}
@@ -253,10 +244,7 @@ void T::LegitBot()
 		{
 			if (ImGui::BeginMenuBar())
 			{
-				if (ImGui::BeginMenu(Q_XOR("triggerbot##master"), C::Get<bool>(Vars.bTrigger)))
-					ImGui::EndMenu();
-				if (ImGui::IsItemClicked())
-					C::Get<bool>(Vars.bTrigger) ^= true;
+				ImGui::Checkbox(Q_XOR("triggerbot##master"), &C::Get<bool>(Vars.bTrigger));
 
 				if (ImGui::BeginMenu(Q_XOR("filters")))
 				{
@@ -296,10 +284,7 @@ void T::Visuals()
 		{
 			if (ImGui::BeginMenuBar())
 			{
-				if (ImGui::BeginMenu(Q_XOR("visual##master"), C::Get<bool>(Vars.bVisual)))
-					ImGui::EndMenu();
-				if (ImGui::IsItemClicked())
-					C::Get<bool>(Vars.bVisual) ^= true;
+				ImGui::Checkbox(Q_XOR("visual##master"), &C::Get<bool>(Vars.bVisual));
 
 				if (ImGui::BeginMenu(Q_XOR("filters")))
 				{
@@ -450,10 +435,7 @@ void T::Visuals()
 		{
 			if (ImGui::BeginMenuBar())
 			{
-				if (ImGui::BeginMenu(Q_XOR("world##master"), C::Get<bool>(Vars.bVisualWorld)))
-					ImGui::EndMenu();
-				if (ImGui::IsItemClicked())
-					C::Get<bool>(Vars.bVisualWorld) ^= true;
+				ImGui::Checkbox(Q_XOR("world##master"), &C::Get<bool>(Vars.bVisualWorld));
 
 				ImGui::EndMenuBar();
 			}
@@ -475,10 +457,7 @@ void T::Visuals()
 		{
 			if (ImGui::BeginMenuBar())
 			{
-				if (ImGui::BeginMenu(Q_XOR("screen##master"), C::Get<bool>(Vars.bVisualScreen)))
-					ImGui::EndMenu();
-				if (ImGui::IsItemClicked())
-					C::Get<bool>(Vars.bVisualScreen) ^= true;
+				ImGui::Checkbox(Q_XOR("screen##master"), &C::Get<bool>(Vars.bVisualScreen));
 
 				ImGui::EndMenuBar();
 			}
