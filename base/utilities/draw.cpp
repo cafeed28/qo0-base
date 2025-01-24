@@ -70,7 +70,6 @@ bool ImGui::HotKey(const char* szLabel, ImGuiKey* pValue)
 		{
 			io.ClearInputMouse();
 			io.ClearInputKeys();
-			*pValue = ImGuiKey_None;
 		}
 
 		SetActiveID(nIndex, pWindow);
