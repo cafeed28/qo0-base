@@ -116,18 +116,18 @@ bool IPT::OnWndProc(HWND hWnd, UINT uMsg, WPARAM wParam, LPARAM lParam)
 
 bool IPT::GetBindState(KeyBind_t& keyBind)
 {
-	if (keyBind.uKey == ImGuiKey_None)
-		return false;
-
-	switch (keyBind.nMode)
+	if (keyBind.uKey != ImGuiKey_None)
 	{
-	case EKeyBindMode::HOLD:
-		keyBind.bEnable = IsKeyDown(keyBind.uKey);
-		break;
-	case EKeyBindMode::TOGGLE:
-		if (IsKeyPressed(keyBind.uKey))
-			keyBind.bEnable = !keyBind.bEnable;
-		break;
+		switch (keyBind.nMode)
+		{
+		case EKeyBindMode::HOLD:
+			keyBind.bEnable = IsKeyDown(keyBind.uKey);
+			break;
+		case EKeyBindMode::TOGGLE:
+			if (IsKeyPressed(keyBind.uKey))
+				keyBind.bEnable = !keyBind.bEnable;
+			break;
+		}
 	}
 
 	return keyBind.bEnable;
