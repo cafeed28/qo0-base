@@ -39,7 +39,7 @@ bool CORE::GetWorkingPath(wchar_t* wszDestination)
 	// get path to user documents
 	if (SUCCEEDED(::SHGetKnownFolderPath(FOLDERID_Documents, KF_FLAG_CREATE, nullptr, &wszPathToDocuments)))
 	{
-		CRT::StringCat(CRT::StringCopy(wszDestination, wszPathToDocuments), Q_XOR(L"\\.qo0\\"));
+		CRT::StringCat(CRT::StringCopy(wszDestination, wszPathToDocuments), Q_XOR(L"\\" Q_WORKING_DIRECTORY "\\"));
 		bSuccess = true;
 
 		// create directory if it doesn't exist

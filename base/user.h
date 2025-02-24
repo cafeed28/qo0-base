@@ -101,6 +101,8 @@
 // define to overwrite configuration file's extension, by default matched to selected formatter
 #define Q_CONFIGURATION_FILE_EXTENSION L".cfg"
 
+#define Q_WORKING_DIRECTORY L".qo0"
+
 // define to force disable behavior based on "Run-Time Type Information", even if available
 //#define Q_NO_RTTI
 
