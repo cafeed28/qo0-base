@@ -95,17 +95,21 @@ target_sources(qo0 PRIVATE
 # link
 target_link_libraries(qo0 "d3d9.lib" imgui)
 
+# compile
+target_compile_definitions(qo0 PRIVATE
+	WIN32_LEAN_AND_MEAN
+	NOMINMAX
+)
+
 # configuration specific
 if(CMAKE_BUILD_TYPE STREQUAL "Debug")
 	target_compile_definitions(qo0 PRIVATE
 		_DEBUG
 	)
-	set_target_properties(qo0 PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreadedDebug")
 elseif(CMAKE_BUILD_TYPE STREQUAL "Release")
 	target_compile_definitions(qo0 PRIVATE
 		NDEBUG
 	)
-	set_target_properties(qo0 PROPERTIES MSVC_RUNTIME_LIBRARY "MultiThreaded")
 endif()
 
 # compiler specific
@@ -115,7 +119,7 @@ if(CMAKE_CXX_COMPILER_ID STREQUAL "Clang")
 	)
 
 	target_compile_options(qo0 PRIVATE
-		-fno-rtti
+		-fno-rtti -fno-eliminate-unused-debug-symbols -fno-eliminate-unused-debug-types -Wno-unused-command-line-argument
 	)
 elseif(CMAKE_CXX_COMPILER_ID STREQUAL "MSVC")
 	target_compile_definitions(qo0 PRIVATE
