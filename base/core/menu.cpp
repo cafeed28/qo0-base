@@ -677,6 +677,9 @@ void T::Miscellaneous()
 				ImGui::EndPopup();
 			}
 
+			ImGui::HotKey(Q_XOR("menu key"), &C::Get<KeyBind_t>(Vars.iMenuKey));
+			ImGui::HotKey(Q_XOR("panic key"), &C::Get<KeyBind_t>(Vars.iPanicKey));
+
 			flConfigChildSize = ImGui::GetCursorPosY() + style.ItemSpacing.y;
 			ImGui::EndChild();
 		}
