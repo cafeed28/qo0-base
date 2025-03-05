@@ -1,13 +1,9 @@
 #include "animationcorrection.h"
 
-// used: memorycopy
 #include "utilities/crt.h"
-// used: getclientangles, getserverangles
 #include "features.h"
 
-// used: interface handles
 #include "core/interfaces.h"
-// used: interface declarations
 #include "sdk/interfaces/iengineclient.h"
 #include "sdk/interfaces/iglobalvars.h"
 #include "sdk/interfaces/iclientstate.h"

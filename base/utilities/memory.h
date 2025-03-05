@@ -1,7 +1,5 @@
 #pragma once
-// used: [stl] vector
 #include <vector>
-// used: [stl] type_info
 #include <typeinfo>
 
 #include "common.h"

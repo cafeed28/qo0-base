@@ -3,7 +3,6 @@
 #include "sdk/datatypes/vector.h"
 #include "sdk/datatypes/qangle.h"
 
-// used: callvfunc
 #include "utilities/memory.h"
 
 #define MAX_DLIGHTS 32

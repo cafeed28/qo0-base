@@ -1,7 +1,6 @@
 #pragma once
 #include "sdk/datatypes/utlvector.h"
 
-// used: iappsystem
 #include "iclientmode.h"
 
 // @source: master/public/tier1/iconvar.h

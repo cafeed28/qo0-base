@@ -1,8 +1,6 @@
 #pragma once
-// used: [win] virtual key codes @todo: temp until new gui
 #include <windows.h>
 
-// used: c_add_variable
 #include "config.h"
 
 #pragma region variables_multi_entries

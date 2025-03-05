@@ -1,13 +1,9 @@
 #include "glow.h"
 
-// used: cheat variables
 #include "core/variables.h"
-// used: stringstring
 #include "utilities/crt.h"
 
-// used: interface handles
 #include "core/interfaces.h"
-// used: interface declarations
 #include "sdk/interfaces/ibaseclientdll.h"
 #include "sdk/interfaces/iglowmanager.h"
 

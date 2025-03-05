@@ -1,5 +1,4 @@
 #pragma once
-// used: callvfunc
 #include "utilities/memory.h"
 
 #define INVALID_KEY_SYMBOL (-1)

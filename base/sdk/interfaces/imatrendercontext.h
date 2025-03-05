@@ -1,13 +1,9 @@
 #pragma once
 #include "sdk/datatypes/vector.h"
 
-// used: irefcouted
 #include "irefcount.h"
-// used: texture
 #include "itexture.h"
-// used: material
 #include "imaterial.h"
-// used: callvfunc
 #include "utilities/memory.h"
 
 enum EMaterialMatrixMode : int

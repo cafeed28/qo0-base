@@ -1,19 +1,12 @@
 #include "entity.h"
 
-// used: stringcompare
 #include "utilities/crt.h"
-// used: game_mode, game_type, inferno_flame_lifetime, mp_teammates_are_enemies, sv_coaching_enabled
 #include "core/convar.h"
-// used: vecbreakableentities
 #include "core/entitylistener.h"
-// used: linegoesthroughsmoke
 #include "sdk.h"
-// used: cbonemergecache
 #include "bonemergecache.h"
 
-// used: interface handles
 #include "core/interfaces.h"
-// used: interface definitions
 #include "interfaces/iglobalvars.h"
 #include "interfaces/ibaseclientdll.h"
 #include "interfaces/icliententitylist.h"

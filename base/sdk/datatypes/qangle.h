@@ -1,10 +1,8 @@
 #pragma once
-// used: [crt] isfinite, fmodf, remainderf
 #include <cmath>
 
 #include "vector.h"
 
-// used: clamp
 #include "utilities/crt.h"
 
 // forward declarations

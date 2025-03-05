@@ -1,8 +1,6 @@
 #pragma once
-// used: [stl] endian
 #include <bit>
 
-// used: min
 #include "utilities/crt.h"
 
 // @source: master/public/tier1/bitbuf.h

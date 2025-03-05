@@ -1,5 +1,4 @@
 #pragma once
-// used: iappsystem
 #include "iclientmode.h"
 
 // @source: master/public/inputsystem/ButtonCode.h

@@ -1,30 +1,20 @@
 #include "draw.h"
 
-// used: cheat variables
 #include "core/variables.h"
-// used: open state
 #include "core/menu.h"
-// used: eitemdefinitionindex
 #include "sdk/entity.h"
-// used: current window
 #include "inputsystem.h"
-// used: m_deg2rad
 #include "math.h"
-// used: memoryset
 #include "crt.h"
 
-// used: interface handles
 #include "core/interfaces.h"
-// used: interface declarations
 #include "sdk/interfaces/iengineclient.h"
 #include "sdk/interfaces/iinputsystem.h"
 
-// used: [ext] imgui
 #include "misc/freetype/imgui_freetype.h"
 #include "backends/imgui_impl_dx9.h"
 #include "backends/imgui_impl_win32.h"
 
-// used: [res] fonts
 #include "resources/smallest_pixel.h"
 #include "resources/qo0icons.h"
 

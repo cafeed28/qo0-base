@@ -1,7 +1,5 @@
 #pragma once
-// used: ccsplayer
 #include "sdk/entity.h"
-// used: igameevent
 #include "sdk/interfaces/igameeventmanager.h"
 
 /*

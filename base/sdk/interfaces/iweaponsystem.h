@@ -1,7 +1,6 @@
 #pragma once
 #include "sdk/datatypes/vector.h"
 
-// used: virtualcallable_t
 #include "utilities/memory.h"
 
 #pragma region weaponsystem_enumerations

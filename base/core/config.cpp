@@ -1,20 +1,14 @@
-// used: [win] winapi
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif
 #include <windows.h>
 
 #include "config.h"
-// used: getworkingpath
 #include "core.h"
-// used: l_print
 #include "utilities/log.h"
-// used: integertostring
 #include "utilities/crt.h"
-// used: heapalloc, heapfree
 #include "utilities/memory.h"
 
-// used: formatter implementation
 #include "utilities/binary.h"
 
 // default configurations working path

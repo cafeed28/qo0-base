@@ -1,13 +1,9 @@
 #include "chams.h"
 
-// used: drawmodel hook manager
 #include "core/hooks.h"
-// used: fake bone matrices
 #include "features/animationcorrection.h"
 
-// used: interface handles
 #include "core/interfaces.h"
-// used: interface declarations
 #include "sdk/interfaces/icliententitylist.h"
 #include "sdk/interfaces/ivmodelrender.h"
 

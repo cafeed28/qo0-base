@@ -1,20 +1,13 @@
 #include "lagcompensation.h"
 
-// used: [stl] deque
 #include <deque>
 
-// used: csgamerules entity
 #include "core/entitylistener.h"
-// used: cheats variables
 #include "core/variables.h"
-// used: sv_maxunlag
 #include "core/convar.h"
-// used: getserverangles
 #include "features.h"
 
-// used: interface handles
 #include "core/interfaces.h"
-// used: interface declarations
 #include "sdk/interfaces/iglobalvars.h"
 #include "sdk/interfaces/iclientstate.h"
 #include "sdk/interfaces/iengineclient.h"

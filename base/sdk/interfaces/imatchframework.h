@@ -1,9 +1,7 @@
 #pragma once
 #include "sdk/datatypes/keyvalues.h"
 
-// used: max_player_name_length
 #include "sdk/const.h"
-// used: callvfunc
 #include "utilities/memory.h"
 
 // @source: master/public/matchmaking/iplayer.h

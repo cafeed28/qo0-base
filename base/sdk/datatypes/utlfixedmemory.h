@@ -2,9 +2,7 @@
 #include "common.h"
 
 // @test: using interfaces in the header | not critical but could blow up someday with thousands of errors or affect to compilation time etc
-// used: interface handles
 #include "core/interfaces.h"
-// used: interface declarations
 #include "sdk/interfaces/imemalloc.h"
 
 // @source: master/public/tier1/utlfixedmemory.h

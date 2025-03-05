@@ -2,9 +2,7 @@
 
 #include "sdk/datatypes/utlbuffer.h"
 
-// used: interface handles
 #include "core/interfaces.h"
-// used: interface declarations
 #include "sdk/interfaces/iglobalvars.h"
 #include "sdk/interfaces/icliententitylist.h"
 #include "sdk/interfaces/ibaseclientdll.h"

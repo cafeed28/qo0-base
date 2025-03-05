@@ -24,7 +24,6 @@
 #define Q_XOR(STRING) STRING
 #else
 #define JM_XORSTR_DISABLE_AVX_INTRINSICS
-// used: string encryption
 #include "utilities/xorstr.h"
 #define Q_XOR(STRING) xorstr_(STRING)
 #endif

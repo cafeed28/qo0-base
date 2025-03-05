@@ -1,16 +1,11 @@
 #include "overlay.h"
 
-// used: [stl] sort
 #include <algorithm>
 
-// used: render functions
 #include "utilities/draw.h"
-// used: camera origin
 #include "features/visual.h"
 
-// used: interface handles
 #include "core/interfaces.h"
-// used: interface declarations
 #include "sdk/interfaces/ibaseclientdll.h"
 #include "sdk/interfaces/icliententitylist.h"
 #include "sdk/interfaces/iglobalvars.h"

@@ -1,8 +1,6 @@
 #include "studio.h"
 
-// used: interface handles
 #include "core/interfaces.h"
-// used: interface declarations
 #include "interfaces/imdlcache.h"
 
 const studiohdr_t* virtualgroup_t::GetStudioHdr() const

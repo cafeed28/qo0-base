@@ -1,7 +1,6 @@
 #pragma once
 #include "common.h"
 
-// used: iclientnetworkable
 #include "sdk/entity.h"
 
 /*

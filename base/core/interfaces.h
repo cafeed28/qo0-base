@@ -1,8 +1,6 @@
 #pragma once
-// used: [d3d] idirect3ddevice9
 #include <d3d9.h>
 
-// used: cinterfaceregister
 #include "sdk/interfaces/ibaseinterface.h"
 
 // forward declarations

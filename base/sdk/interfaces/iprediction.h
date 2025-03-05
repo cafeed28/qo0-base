@@ -1,7 +1,5 @@
 #pragma once
-// used: iglobalvarsbase
 #include "iglobalvars.h"
-// used: cmovedata
 #include "igamemovement.h"
 
 // forward declarations

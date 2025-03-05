@@ -4,27 +4,16 @@
 #include "datatypes/basehandle.h"
 #include "datatypes/usercmd.h"
 
-// used: n_add_offset, n_add_poffset, n_add_variable, n_add_pvariable, n_add_datafield, n_add_pdatafield
 #include "core/netvar.h"
-// used: m_lerp
 #include "utilities/math.h"
-// used: ccsgoplayeranimstate
 #include "animation.h"
-// used: ehitgroup, elifestate
 #include "const.h"
-// used: bf_read_t
 #include "bitbuf.h"
-// used: studiohdr_t, maxstudioposeparam
 #include "studio.h"
-// used: bonevector_t, bonequaternionaligned_t
 #include "bonesetup.h"
-// used: max_item_custom_name_database_size
 #include "econitem.h"
-// used: ray_t, trace_t
 #include "interfaces/ienginetrace.h"
-// used: model_t, mdlhandle_t
 #include "interfaces/ivmodelinfo.h"
-// used: ccustommaterialowner, ivisualsdataprocessor
 #include "interfaces/imaterialsystem.h"
 
 #pragma region entity_enumerations

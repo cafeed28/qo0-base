@@ -1,5 +1,4 @@
 #pragma once
-// used: bf_read, bf_write
 #include "sdk/bitbuf.h"
 
 enum : int

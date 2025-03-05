@@ -1,13 +1,9 @@
 #include "memory.h"
 
-// used: __readfsdword
 #include <intrin.h>
 
-// used: l_print
 #include "log.h"
-// used: chartohexint
 #include "crt.h"
-// used: [win] extra api
 #include "win.h"
 
 uintptr_t ROP::EngineGadget_t::uReturnGadget = 0xDEADC0DE;

@@ -1,8 +1,6 @@
 #include "autowall.h"
 
-// used: mp_teammates_are_enemies, mp_damage_headshot_only, mp_damage_scale_ct_head, mp_damage_scale_ct_body, mp_damage_scale_t_head, mp_damage_scale_t_body, sv_clip_penetration_traces_to_players, ff_damage_reduction_bullets, ff_damage_bullet_penetration
 #include "core/convar.h"
-// used: cliptracetoplayers
 #include "sdk.h"
 
 using namespace F;

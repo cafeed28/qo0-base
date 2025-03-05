@@ -1,12 +1,8 @@
-// used: [crt] time_t, time, localtime_s
 #include <ctime>
 
 #include "log.h"
-// using: mem_stackalloc, mem_stackfree
 #include "memory.h"
-// used: ispowewoftwo
 #include "math.h"
-// used: getworkingpath
 #include "core.h"
 
 // console write stream

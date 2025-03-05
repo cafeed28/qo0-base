@@ -1,11 +1,8 @@
 #include "animation.h"
 
-// used: ccsplayer, cweaponcsbase
 #include "entity.h"
 
-// used: interface handles
 #include "core/interfaces.h"
-// used: interface declarations
 #include "sdk/interfaces/iengineclient.h"
 
 CCSGOPlayerAnimState::CCSGOPlayerAnimState(CCSPlayer* pCSPlayer)

@@ -4,11 +4,8 @@
 #include "sdk/datatypes/utlvector.h"
 #include "sdk/datatypes/utldict.h"
 
-// used: cthreadfastmutex
 #include "sdk/thread.h"
-// used: ibaseinterface
 #include "ibaseinterface.h"
-// used: stringcomparei
 #include "utilities/crt.h"
 
 // @source: master/public/igameevents.h

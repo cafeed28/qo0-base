@@ -4,7 +4,6 @@
 #include "sdk/datatypes/utlmap.h"
 #include "sdk/datatypes/basehandle.h"
 
-// used: callvfunc
 #include "utilities/memory.h"
 
 // forward declarations

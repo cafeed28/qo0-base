@@ -1,11 +1,9 @@
 #include "qangle.h"
 
-// used: [d3d] xmscalarsincos
 #include <directxmath.h>
 
 #include "matrix.h"
 
-// used: m_deg2rad
 #include "utilities/math.h"
 
 void QAngle_t::ToDirections(Vector_t* pvecForward, Vector_t* pvecRight, Vector_t* pvecUp) const

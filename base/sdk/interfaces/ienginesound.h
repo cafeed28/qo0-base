@@ -3,7 +3,6 @@
 #include "sdk/datatypes/utlvector.h"
 #include "sdk/datatypes/utlsymbol.h"
 
-// used: callvfunc
 #include "utilities/memory.h"
 
 // @source: master/public/engine/IEngineSound.h

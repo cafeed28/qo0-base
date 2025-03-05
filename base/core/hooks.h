@@ -4,11 +4,8 @@
 #include "sdk/datatypes/qangle.h"
 #include "sdk/datatypes/matrix.h"
 
-// used: cbitwrite
 #include "sdk/bitbuf.h"
-// used: cdetourhook
 #include "utilities/detourhook.h"
-// used: interface baseclasses
 #include "interfaces.h"
 
 // forward declarations

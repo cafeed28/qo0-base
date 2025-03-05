@@ -1,5 +1,4 @@
 #pragma once
-// used: [win] _interlockedincrement, _interlockeddecrement
 #include <intrin0.h>
 // @todo: instead include / compiler dependent
 /*

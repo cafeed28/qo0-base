@@ -3,7 +3,6 @@
 
 #include "sdk/datatypes/usercmd.h"
 
-// used: ccsplayer
 #include "sdk/entity.h"
 
 /*

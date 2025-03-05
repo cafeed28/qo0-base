@@ -1,11 +1,8 @@
 #include "prediction.h"
 
-// used: cbaseplayer
 #include "sdk/entity.h"
 
-// used: interface handles
 #include "core/interfaces.h"
-// used: interface declarations
 #include "sdk/interfaces/iglobalvars.h"
 #include "sdk/interfaces/iclientstate.h"
 #include "sdk/interfaces/iprediction.h"

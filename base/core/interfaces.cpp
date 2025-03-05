@@ -1,16 +1,10 @@
 #include "interfaces.h"
 
-// used: l_print
 #include "utilities/log.h"
-// used: stringcomparen, stringtointeger
 #include "utilities/crt.h"
-// used: getexportaddress
 #include "utilities/memory.h"
-// used: steamapicontext_t
 #include "sdk/interfaces/isteamclient.h"
-// used: getsteamapicontext
 #include "sdk/interfaces/iengineclient.h"
-// used: keyvaluessystemfn
 #include "sdk/interfaces/ikeyvaluessystem.h"
 
 static CInterfaceRegister* GetRegisterList(const wchar_t* wszModuleName)

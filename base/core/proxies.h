@@ -1,7 +1,6 @@
 #pragma once
 #include "common.h"
 
-// used: recvprop hook setup/destroy, recvproxydata
 #include "netvar.h"
 
 /*

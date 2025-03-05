@@ -1,9 +1,5 @@
 #pragma once
-// used: [ext] minhook
-// @credits: https://github.com/TsudaKageyu/minhook
 #include "../../dependencies/minhook/minhook.h"
-
-// used: l_print
 #include "log.h"
 
 template <typename T>

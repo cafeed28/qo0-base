@@ -3,7 +3,6 @@
 
 #include "sdk/datatypes/usercmd.h"
 
-// used: cbaseplayer
 #include "sdk/entity.h"
 
 /*

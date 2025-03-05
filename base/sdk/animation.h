@@ -5,7 +5,6 @@
 #include "datatypes/utlvector.h"
 #include "datatypes/utlsymbol.h"
 
-// used: findpattern
 #include "utilities/memory.h"
 
 #define MAX_OVERLAYS 13 // @ida: client.dll -> U8["83 C6 04 83 F8 ? 7C D4" + 0x5]

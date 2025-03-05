@@ -11,7 +11,6 @@
 //                                  //
 //    internal cs:go cheat base     //
 
-// used: user defined behaviour
 #include "user.h"
 
 #pragma region common_compiler_specific

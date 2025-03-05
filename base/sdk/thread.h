@@ -1,10 +1,7 @@
 #pragma once
-// used: [win] getcurrentthreadid
 #include <processthreadsapi.h>
-// used: _mm_pause
 #include <intrin0.h>
 
-// used: getexportaddress
 #include "utilities/memory.h"
 
 // @source: master/public/tier0/threadtools.h

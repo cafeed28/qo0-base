@@ -1,5 +1,4 @@
 #pragma once
-// used: callvfunc
 #include "utilities/memory.h"
 
 #pragma pack(push, 4)

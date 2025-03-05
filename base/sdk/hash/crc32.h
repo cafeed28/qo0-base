@@ -1,5 +1,4 @@
 #pragma once
-// used: [stl] uint32_t
 #include <cstdint>
 
 #include "common.h"

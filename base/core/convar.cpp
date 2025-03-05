@@ -1,14 +1,10 @@
 #include "convar.h"
 
-// used: [crt] time_t, time, localtime_s
 #include <ctime>
 
-// used: getworkingpath
 #include "core.h"
-// used: l_print
 #include "utilities/log.h"
 
-// used: interface handles
 #include "interfaces.h"
 
 bool CONVAR::Setup()

@@ -1,9 +1,6 @@
 #pragma once
-// used: ccsgoplayeranimstate
 #include "sdk/animation.h"
-// used: maxstudiobones
 #include "sdk/studio.h"
-// used: eclientframestage
 #include "sdk/interfaces/iengineclient.h"
 
 /*

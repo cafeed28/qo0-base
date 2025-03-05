@@ -1,8 +1,6 @@
 #pragma once
-// used: [stl] uint32_t
 #include <cstdint>
 
-// used: stringcompare
 #include "utilities/crt.h"
 
 using FNV1A_t = uint32_t;

@@ -2,7 +2,6 @@
 #include "sdk/datatypes/vector.h"
 #include "sdk/datatypes/basehandle.h"
 
-// used: cdefaultclientrenderable
 #include "sdk/entity.h"
 
 // @source: master/game/client/iviewrender_beams.h

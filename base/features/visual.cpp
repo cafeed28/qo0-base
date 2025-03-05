@@ -1,11 +1,8 @@
 #include "visual.h"
 
-// used: cheat variables
 #include "core/variables.h"
-// used: render functions
 #include "utilities/draw.h"
 
-// used: sub-features
 #include "visual/overlay.h"
 #include "visual/glow.h"
 #include "visual/chams.h"

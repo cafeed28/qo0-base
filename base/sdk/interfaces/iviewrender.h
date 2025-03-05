@@ -1,5 +1,4 @@
 #pragma once
-// used: viewplane_t
 #include "ivrenderview.h"
 
 // @source: master/game/client/iviewrender.h

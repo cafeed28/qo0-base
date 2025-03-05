@@ -1,5 +1,4 @@
 #pragma once
-// used: MaterialHandle_t
 #include "imaterialsystem.h"
 
 #pragma region physicssurfaceprops_definitions

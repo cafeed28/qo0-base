@@ -2,7 +2,6 @@
 #include "sdk/datatypes/qangle.h"
 #include "sdk/datatypes/vector.h"
 
-// used: callvfunc
 #include "utilities/memory.h"
 
 // @source: master/game/shared/IEffects.h

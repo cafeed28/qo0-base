@@ -2,7 +2,6 @@
 #include "sdk/datatypes/qangle.h"
 #include "sdk/datatypes/utllinkedlist.h"
 
-// used: cenginerecipientfilter
 #include "irecipientfilter.h"
 
 using SerializedEntityHandle_t = intptr_t;

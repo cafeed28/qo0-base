@@ -1,5 +1,4 @@
 #pragma once
-// used: [d3d]
 #include <d3d9.h>
 
 #include "common.h"
@@ -7,10 +6,8 @@
 #include "sdk/datatypes/color.h"
 #include "sdk/datatypes/vector.h"
 
-// used: itemdefinitionindex_t
 #include "sdk/interfaces/iweaponsystem.h"
 
-// used: [ext] imgui
 #include "imgui.h"
 #include "imgui_internal.h"
 

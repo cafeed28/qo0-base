@@ -5,7 +5,6 @@
 #include "sdk/datatypes/bitvec.h"
 #include "sdk/datatypes/color.h"
 
-// used: callvfunc
 #include "utilities/memory.h"
 
 // @source: master/game/shared/econ/econ_item_system.h

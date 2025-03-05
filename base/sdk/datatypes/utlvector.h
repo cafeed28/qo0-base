@@ -1,7 +1,6 @@
 #pragma once
 #include "utlmemory.h"
 
-// used: memorymove
 #include "utilities/crt.h"
 
 // @source: master/public/tier1/utlvector.h

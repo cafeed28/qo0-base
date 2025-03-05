@@ -1,7 +1,6 @@
 #pragma once
 #include "sdk/datatypes/utlvector.h"
 
-// used: imatrendercontext, stencilstate, material, texture
 #include "imatrendercontext.h"
 
 // @source: master/public/materialsystem/imaterialsystem.h

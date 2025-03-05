@@ -1,17 +1,11 @@
 #include "movement.h"
 
-// used: cheat variables
 #include "core/variables.h"
-// used: sv_autobunnyhopping, cl_sidespeed convars
 #include "core/convar.h"
-// used: getbindstate
 #include "utilities/inputsystem.h"
-// used: old player flags
 #include "features/prediction.h"
 
-// used: interface handles
 #include "core/interfaces.h"
-// used: interface declarations
 #include "sdk/interfaces/imovehelper.h"
 
 // flags of the local player before prediction began

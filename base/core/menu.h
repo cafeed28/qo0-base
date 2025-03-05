@@ -1,7 +1,5 @@
 #pragma once
-// used: [stl] size_t
 #include <cstddef>
-// used: [d3d] idirect3ddevice9
 #include <d3d9.h>
 
 #include "common.h"

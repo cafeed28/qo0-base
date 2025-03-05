@@ -1,13 +1,10 @@
 #pragma once
-// used: [win] winapi
 #ifndef WIN32_LEAN_AND_MEAN
 #define WIN32_LEAN_AND_MEAN
 #endif
+
 #include <windows.h>
-
 #include "common.h"
-
-// using: stringcopy, stringcat, timetostring
 #include "crt.h"
 
 // @todo: poorly designed in case we don't need logging at all, xor continues wasteful compilation without any references | add smth like dummystream_t and unreference macro params?

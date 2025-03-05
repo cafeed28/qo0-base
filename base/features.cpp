@@ -1,17 +1,11 @@
 #include "features.h"
 
-// used: print
 #include "utilities/log.h"
-// used: cheat variables
 #include "core/variables.h"
-// used: sensitivity, m_pitch, m_yaw
 #include "core/convar.h"
-// used: gamerulesproxy
 #include "core/entitylistener.h"
 
-// used: interface handles
 #include "core/interfaces.h"
-// used: interface declarations
 #include "sdk/interfaces/iinput.h"
 
 // features

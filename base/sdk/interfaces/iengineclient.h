@@ -3,7 +3,6 @@
 #include "sdk/datatypes/qangle.h"
 #include "sdk/hash/crc32.h"
 
-// used: callvfunc
 #include "utilities/memory.h"
 
 // @source: master/public/cdll_int.h

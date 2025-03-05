@@ -5,7 +5,6 @@
 #include "datatypes/utlvector.h"
 #include "datatypes/quaternion.h"
 
-// used: cthreadfastmutex
 #include "thread.h"
 
 using RadianEuler_t = float[3];

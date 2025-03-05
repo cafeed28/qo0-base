@@ -1,15 +1,10 @@
 #include "world.h"
 
-// used: cheat variables
 #include "core/variables.h"
-// used: getbindstate
 #include "utilities/inputsystem.h"
-// used: render functions
 #include "utilities/draw.h"
 
-// used: interface handles
 #include "core/interfaces.h"
-// used: interface declarations
 #include "sdk/interfaces/ibaseclientdll.h"
 #include "sdk/interfaces/icliententitylist.h"
 #include "sdk/interfaces/iengineclient.h"

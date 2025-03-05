@@ -1,7 +1,5 @@
 #pragma once
-// used: [stl] numeric_limits
 #include <limits>
-// used: [crt] isfinite, fmodf, sqrtf
 #include <cmath>
 
 // forward declarations

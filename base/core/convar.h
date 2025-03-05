@@ -1,7 +1,5 @@
 #pragma once
-// used: hash
 #include "sdk/hash/fnv1a.h"
-// used: cconvar
 #include "sdk/interfaces/iconvar.h"
 
 /*

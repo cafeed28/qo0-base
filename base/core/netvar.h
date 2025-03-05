@@ -2,9 +2,7 @@
 #include "common.h"
 #include "sdk/hash/fnv1a.h"
 
-// used: recvtable_t, recvprop_t
 #include "sdk/datatypes/datatable.h"
-// used: datamap_t
 #include "sdk/datatypes/datamap.h"
 
 #pragma region netvar_definitions

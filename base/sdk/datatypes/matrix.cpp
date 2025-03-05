@@ -2,7 +2,6 @@
 
 #include "qangle.h"
 
-// used: m_rad2deg
 #include "utilities/math.h"
 
 [[nodiscard]] QAngle_t Matrix3x4_t::ToAngles() const

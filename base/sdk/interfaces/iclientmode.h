@@ -2,7 +2,6 @@
 #include "sdk/datatypes/vector.h"
 #include "sdk/datatypes/qangle.h"
 
-// used: hcursor
 #include "isurface.h"
 
 // forward declarations

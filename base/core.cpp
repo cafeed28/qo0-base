@@ -1,34 +1,20 @@
 #include "core.h"
 
-// used: [win] shgetknownfolderpath
 #include <shlobj_core.h>
 
 #include "common.h"
-// used: log setup/destroy
 #include "utilities/log.h"
-// used: inputsystem setup/destroy
 #include "utilities/inputsystem.h"
-// used: render setup/destroy
 #include "utilities/draw.h"
-// used: cheat variables
 #include "core/variables.h"
-// used: configurations setup
 #include "core/config.h"
-// used: convars setup
 #include "core/convar.h"
-// used: netvar manager setup
 #include "core/netvar.h"
-// used: interfaces setup/destroy
 #include "core/interfaces.h"
-// used: hooks setup/destroy
 #include "core/hooks.h"
-// used: proxies setup/destroy
 #include "core/proxies.h"
-// used: eventlistener setup/destroy
 #include "core/eventlistener.h"
-// used: entitylistener setup/destroy
 #include "core/entitylistener.h"
-// used: features setup
 #include "features.h"
 
 bool CORE::GetWorkingPath(wchar_t* wszDestination)

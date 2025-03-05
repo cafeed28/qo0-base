@@ -1,14 +1,11 @@
 #pragma once
-// used: [stl] vector
 #include <vector>
 
 #include "common.h"
 #include "sdk/datatypes/color.h"
 #include "sdk/hash/fnv1a.h"
 
-// used: l_print
 #include "utilities/log.h"
-// used: heapalloc, heapfree
 #include "utilities/memory.h"
 
 #pragma region config_definitions

@@ -2,7 +2,6 @@
 #include "sdk/datatypes/matrix.h"
 #include "sdk/datatypes/utlvector.h"
 
-// used: mask, content, surf flags
 #include "sdk/bspflags.h"
 
 // @credits: master/public/engine/IEngineTrace.h

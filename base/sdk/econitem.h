@@ -1,6 +1,5 @@
 #pragma once
 // @test: using interfaces in the header | not critical but could blow up someday with thousands of errors or affect to compilation time etc
-// used: gameitemdefinition_t
 #include "interfaces/ieconitemsystem.h"
 
 // @source: master/game/shared/econ/localization_provider.h

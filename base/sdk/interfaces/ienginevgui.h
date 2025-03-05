@@ -1,5 +1,4 @@
 #pragma once
-// used: callvfunc
 #include "utilities/memory.h"
 
 // @source: master/public/ienginevgui.h

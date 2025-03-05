@@ -1,25 +1,15 @@
 #include "hooks.h"
 
-// used: cheat variables
 #include "variables.h"
-// used: render windows
 #include "menu.h"
-// used: input system
 #include "utilities/inputsystem.h"
-// used: l_print
 #include "utilities/log.h"
-// used: initialize state
 #include "utilities/draw.h"
-// used: setlocalplayerready
 #include "sdk.h"
-// used: cbonebitlist, cikcontext, studio_buildmatrices
 #include "sdk/bonesetup.h"
-// used: cbonemergecache
 #include "sdk/bonemergecache.h"
 
-// used: interface handles
 #include "interfaces.h"
-// used: interface declarations
 #include "sdk/interfaces/iprediction.h"
 #include "sdk/interfaces/iinput.h"
 #include "sdk/interfaces/icliententitylist.h"
@@ -28,9 +18,7 @@
 #include "sdk/interfaces/isteamgamecoordinator.h"
 #include "sdk/interfaces/imdlcache.h"
 
-// used: features handler
 #include "features.h"
-// used: features declarations
 #include "features/animationcorrection.h"
 #include "features/lagcompensation.h"
 #include "features/visual.h"

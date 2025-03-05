@@ -1,5 +1,4 @@
 #pragma once
-// used: ccsplayer
 #include "sdk/entity.h"
 
 /*

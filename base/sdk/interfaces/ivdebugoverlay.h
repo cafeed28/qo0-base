@@ -1,6 +1,5 @@
 #pragma once
 
-// used: callvfunc
 #include "utilities/memory.h"
 
 struct Color_t;

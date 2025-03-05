@@ -1,5 +1,4 @@
 #pragma once
-// used: cbaseanimating
 #include "entity.h"
 
 // @source:
