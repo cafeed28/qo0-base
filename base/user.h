@@ -49,16 +49,8 @@
 #define SERVER_DLL Q_XOR(L"server.dll")
 #define SERVERBROWSER_DLL Q_XOR(L"serverbrowser.dll")
 #define FILESYSTEM_STDIO_DLL Q_XOR(L"filesystem_stdio.dll")
-#define LIBFREETYPE6_DLL Q_XOR(L"libfreetype-6.dll")
 #define DBGHELP_DLL Q_XOR(L"dbghelp.dll")
 #pragma endregion
-
-/*
- * define to use game's freetype dynamic library instead of our static library
- * @todo: it definitely have rasterization difference for some reason when it shouldn't, probably we must reset freetype properties somehow | or it's compiled with compile-time options
- * - note that the game is using freetype version 2.10.4, which may differ from the version of the current static library, see "dependencies/readme.md"
- */
-#define Q_FREETYPE_FROM_GAME
 
 // define to enable logging output to console
 #ifdef _DEBUG
