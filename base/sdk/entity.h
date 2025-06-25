@@ -1071,7 +1071,7 @@ public:
 	N_ADD_VARIABLE(uint32_t, GetItemIDLow, "DT_ScriptCreatedItem::m_iItemIDLow");
 	N_ADD_VARIABLE(uint32_t, GetAccountID, "DT_ScriptCreatedItem::m_iAccountID");
 	N_ADD_VARIABLE(int, GetEntityQuality, "DT_ScriptCreatedItem::m_iEntityQuality");
-	N_ADD_VARIABLE(int, IsInitialized, "DT_ScriptCreatedItem::m_bInitialized");
+	N_ADD_VARIABLE(bool, IsInitialized, "DT_ScriptCreatedItem::m_bInitialized");
 	N_ADD_VARIABLE_OFFSET(CUtlVector<IVisualsDataProcessor*>, GetVisualsDataProcessors, "DT_ScriptCreatedItem::m_bInitialized", 0x1C); // @ida C_EconItemView::m_ppVisualsDataProcessors: client.dll -> ["81 C7 ? ? ? ? 8B 4F 0C 8B 57 04 89 4C" + 0x2] @xref: "Original material not found! Name: %s"
 	N_ADD_VARIABLE(char[MAX_ITEM_CUSTOM_NAME_DATABASE_SIZE], GetCustomName, "DT_ScriptCreatedItem::m_szCustomName");
 };
